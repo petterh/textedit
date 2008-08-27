@@ -1,0 +1,29 @@
+REGEDIT4
+
+[HKEY_CLASSES_ROOT\.log]
+@="logfile"
+
+[HKEY_CLASSES_ROOT\logfile]
+@="Log File"
+
+[HKEY_CLASSES_ROOT\logfile\DefaultIcon]
+@="%SystemRoot%\\system32\\shell32.dll,-152"
+
+[HKEY_CLASSES_ROOT\logfile\shell]
+
+[HKEY_CLASSES_ROOT\logfile\shell\open]
+@=""
+
+[HKEY_CLASSES_ROOT\logfile\shell\open\command]
+@="C:\\Data\\Projects\\Book\\Debug\\Book.exe \"%1\""
+
+[HKEY_CLASSES_ROOT\logfile\shell\print]
+
+[HKEY_CLASSES_ROOT\logfile\shell\print\command]
+@="C:\\Data\\Projects\\Book\\Debug\\Book.exe /p \"%1\""
+
+[HKEY_CLASSES_ROOT\logfile\shell\printto]
+
+[HKEY_CLASSES_ROOT\logfile\shell\printto\command]
+@="C:\\Data\\Projects\\Book\\Debug\\Book.exe /pt \"%1\" \"%2\" \"%3\" \"%4\""
+
