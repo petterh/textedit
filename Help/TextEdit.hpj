@@ -1,0 +1,28 @@
+; This file is maintained by HCW. Do not modify this file directly.
+
+[OPTIONS]
+COMPRESS=12 Hall Zeck
+NOTES=0
+LCID=0x409 0x0 0x0 ; English (United States)
+REPORT=No
+CONTENTS=IDH_WHAT_IS_TEXTEDIT
+TITLE=TextEdit Help
+CNT=TextEdit.cnt
+COPYRIGHT=TextEdit Help 2.0
+CITATION=©1999-2004 Petter Hesselberg
+TMPDIR=C:\temp
+HLP=TextEdit.hlp
+
+[FILES]
+TextEdit.rtf
+
+[MAP]
+#include ..\resource.h
+#include map.hh
+
+[WINDOWS]
+main="TextEdit Help",,27904,(r14876671),(r12632256),f3
+proc="TextEdit Help",(653,102,360,600),21252,(r14876671),(r12632256),f3
+
+[CONFIG]
+BrowseButtons()
