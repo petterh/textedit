@@ -160,9 +160,8 @@ PRIVATE bool pathRelativeToCurrent(
    LPTSTR pszRelativePath, LPCTSTR pszPath ) 
 {
    PATHNAME szCurrPath = { 0 };
-   verify( 0 != _tgetdcwd( 0, szCurrPath, sizeof szCurrPath ) );
-   return 0 != PathRelativePathTo( pszRelativePath, szCurrPath, 
-      FILE_ATTRIBUTE_DIRECTORY, pszPath, 0 );
+   verify( 0 != _tgetdcwd( 0, szCurrPath, dim( szCurrPath ) ) );
+   return 0 != PathRelativePathTo( pszRelativePath, szCurrPath, FILE_ATTRIBUTE_DIRECTORY, pszPath, 0 );
 }
 
 
@@ -177,8 +176,7 @@ String MRU::getFileTitle( int iCmdID ) const {
    } else if ( startsWith( szRelativePath, _T( ".\\" ) ) ) {
       // Remove current directory from path
       const int nLength = _tcslen( szRelativePath + 2 );
-      memmove( szRelativePath, szRelativePath + 2, 
-         sizeof( TCHAR ) * ( nLength + 1 ) );
+      memmove( szRelativePath, szRelativePath + 2,  sizeof( TCHAR ) * ( nLength + 1 ) );
    } else if ( startsWith( szRelativePath, _T( "..\\" ) ) ) {
       // If path is above current dir, display complete path
       _tcscpy( szRelativePath, strFile.c_str() );
