@@ -11,21 +11,19 @@
 #include "geometry.h"
 #include "utils.h"
 
-
+// TODO: Unit test new safe string API
 HFONT Document::createPrintFont( HDC hdc ) {
    
    LOGFONT logFont = { 0 };
    if ( getFixedFont() ) {
-      _tcscpy( logFont.lfFaceName, getFixedFace().c_str() );
-      logFont.lfHeight = devPointsFromPrinterPoints( 
-         getFixedHeight(), hdc );
+      _tcscpy_s( logFont.lfFaceName, getFixedFace().c_str() );
+      logFont.lfHeight = devPointsFromPrinterPoints( getFixedHeight(), hdc );
       logFont.lfWeight = getFixedWeight();
       logFont.lfItalic = getFixedItalic();
       logFont.lfCharSet = getFixedCharSet();
    } else {
-      _tcscpy( logFont.lfFaceName, getProportionalFace().c_str() );
-      logFont.lfHeight = devPointsFromPrinterPoints( 
-         getProportionalHeight(), hdc );
+      _tcscpy_s( logFont.lfFaceName, getProportionalFace().c_str() );
+      logFont.lfHeight = devPointsFromPrinterPoints( getProportionalHeight(), hdc );
       logFont.lfWeight = getProportionalWeight();
       logFont.lfItalic = getProportionalItalic();
       logFont.lfCharSet = getProportionalCharSet();
