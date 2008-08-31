@@ -149,17 +149,18 @@ void subclassOpenDlgCommon( HWND hwndChildDlg, UINT id ) {
    }
 }
 
-
-PRIVATE LPCTSTR getFilterList( bool save ) {
+// TODO: Unit test new safe string API
+PRIVATE LPCTSTR getFilterList( const bool save ) {
    
    static TCHAR szFilters[ 2 ][ 900 ] = { 0 };
    if ( 0 != szFilters[ save ][ 0 ] ) {
       return szFilters[ save ]; //** FUNCTION EXIT POINT
    }
 
-   LPTSTR pszPtr = szFilters[ save ];
+   LPTSTR filterStart = szFilters[ save ];
+   LPTSTR pszPtr = filterStart;
    String strFilters = loadString( save ? IDS_FILEFILTERS2 : IDS_FILEFILTERS );
-      
+
    for ( ;; ) {
       int iBreak = strFilters.find( _T( '|' ) );
       if ( iBreak <= 0 ) {
@@ -187,11 +188,9 @@ PRIVATE LPCTSTR getFilterList( bool save ) {
       }
 
       // We're home safe; append the filter:
-      wsprintf( pszPtr, _T( "%s (%s)" ), 
-         strDescription.c_str(),
-         strExtensions.c_str() );
+      wsprintf( pszPtr, _T( "%s (%s)" ), strDescription.c_str(), strExtensions.c_str() );
       pszPtr += _tcsclen( pszPtr ) + 1;
-      _tcscpy( pszPtr, strExtensions.c_str() );
+      _tcscpy_s( pszPtr, filterStart + dim(filterStart) - pszPtr, strExtensions.c_str() );
       pszPtr += _tcsclen( pszPtr ) + 1;
    }
 
@@ -201,7 +200,7 @@ PRIVATE LPCTSTR getFilterList( bool save ) {
    return szFilters[ save ];
 }
 
-
+// TODO: Unit test new safe string API
 PRIVATE bool getOpenOrSaveFileName( 
    HWND hwndParent, UINT uiTitleString, LPOFNHOOKPROC fnHook,
    LPTSTR pszFileName, UINT cb,
@@ -216,7 +215,8 @@ PRIVATE bool getOpenOrSaveFileName(
       const String strFmt = loadString( IDS_CUSTOM );
       wsprintf( pszPtr, strFmt.c_str(), strCustomFilter.c_str() );
       pszPtr += _tcsclen( pszPtr ) + 1;
-      _tcscpy( pszPtr, strCustomFilter.c_str() );
+	  const int availableLength = szCustomFilter + dim( szCustomFilter ) - pszPtr;
+      _tcscpy_s( pszPtr, availableLength, strCustomFilter.c_str() );
    }
 
    // TODO: Really ought to figure this out based on current file.
