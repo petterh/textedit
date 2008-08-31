@@ -816,7 +816,8 @@ bool Document::deleteFile( HWND hwnd ) {
    // doubly null-terminated. This is the reason for using the 
    // szFileName buffer rather than getPath().c_str.
    TCHAR szFileName[ MAX_PATH + 2 ] = { 0 };
-   _tcscpy_s( szFileName, getPath().c_str() );
+   size_t charsToCopy = std::min( dim( szFileName ),  1 + getPath().length() );
+   _tcscpy_s( szFileName, charsToCopy, getPath().c_str() );
    SHFILEOPSTRUCT shFileOpStruct = {
       hwnd, FO_DELETE, szFileName, _T( "\0" ), fileOpFlags,
    };
