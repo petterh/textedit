@@ -240,7 +240,7 @@ String PropertiesDlg::getFileName( void ) {
    const String strFile = getDlgItemText( IDC_FILENAME );
    const String strPath = getDlgItemText( IDC_PATH );
    PATHNAME szFullPath = { 0 };
-   _tmakepath( szFullPath, 0, strPath.c_str(), strFile.c_str(), 0 );
+   _tmakepath_s( szFullPath, 0, strPath.c_str(), strFile.c_str(), 0 );
    return szFullPath;
 }
 
