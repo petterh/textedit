@@ -9,7 +9,6 @@
 //
 #include <windows.h>
 #include <dlgs.h>
-CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "TextEdit.exe.manifest"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -1158,7 +1157,6 @@ END
 BEGIN
     "#include <windows.h>\r\n"
     "#include <dlgs.h>\r\n"
-    "CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST ""TextEdit.exe.manifest""\r\n"
     "\0"
 END
 
