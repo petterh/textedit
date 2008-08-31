@@ -91,7 +91,7 @@ void WaitCursor::_restore( void ) const {
    SetCursor( _hcur );
 }
 
-
+// TODO: Unit test new safe string API
 HCURSOR WaitCursor::_loadCursor( LPCTSTR pszName ) {
 
    if ( 0 != pszName ) {

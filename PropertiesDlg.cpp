@@ -97,8 +97,7 @@ void PropertiesDlg::setInfo( const WIN32_FIND_DATA& fd ) {
    setWindowText( strDialogTitle );
 
    setFileName( m_pDocument->getPath() );
-   setDlgItemText( 
-      IDC_FILETYPE, m_pDocument->getFileTypeDescription( true ) );
+   setDlgItemText( IDC_FILETYPE, m_pDocument->getFileTypeDescription( true ) );
 
    LPCTSTR pszMsDosName = fd.cAlternateFileName;
    if ( 0 == pszMsDosName[ 0 ] ) {
@@ -117,33 +116,25 @@ void PropertiesDlg::setInfo( const WIN32_FIND_DATA& fd ) {
       getCompressedFileSize( m_pDocument->getPath().c_str(),
       &dwCompressedSize );
    if ( isCompressed ) {
-      const String strCompressedSize = 
-         formatBytes( dwCompressedSize, false );
+      const String strCompressedSize = formatBytes( dwCompressedSize, false );
       setDlgItemText( IDC_COMPRESSEDFILESIZE, strCompressedSize );
    } else {
-      setDlgItemText( IDC_COMPRESSEDFILESIZE, 
-         loadString( IDS_FILE_NOT_COMPRESSED ) );
+      setDlgItemText( IDC_COMPRESSEDFILESIZE, loadString( IDS_FILE_NOT_COMPRESSED ) );
    }
 
-   setDlgItemText( 
-      IDC_CREATED , formatFileTime( fd.ftCreationTime   ).c_str() );
-   setDlgItemText( 
-      IDC_MODIFIED, formatFileTime( fd.ftLastWriteTime  ).c_str() );
-   setDlgItemText( 
-      IDC_ACCESSED, formatFileTime( fd.ftLastAccessTime ).c_str() );
+   setDlgItemText( IDC_CREATED , formatFileTime( fd.ftCreationTime   ).c_str() );
+   setDlgItemText( IDC_MODIFIED, formatFileTime( fd.ftLastWriteTime  ).c_str() );
+   setDlgItemText( IDC_ACCESSED, formatFileTime( fd.ftLastAccessTime ).c_str() );
 
    SHFILEINFO fileInfo = { 0 };
    UINT uiFlags = SHGFI_ICON | SHGFI_TYPENAME;
-   SHGetFileInfo( m_pDocument->getPath().c_str(), 0, 
-      &fileInfo, sizeof fileInfo, uiFlags );
+   SHGetFileInfo( m_pDocument->getPath().c_str(), 0, &fileInfo, sizeof fileInfo, uiFlags );
    //setDlgItemText( IDC_FILETYPE, fileInfo.szTypeName );
    HWND hwndIcon = getDlgItem( IDC_FILEICON );
    Static_SetIcon( hwndIcon, fileInfo.hIcon );
 
-   #define CHK_ATTR( id, attr) Button_SetCheck( \
-      getDlgItem( id ), 0 != (attr & fd.dwFileAttributes) )
-   #define CHK_BOOL( id, val) Button_SetCheck( \
-      getDlgItem( id ), val )
+   #define CHK_ATTR( id, attr) Button_SetCheck( getDlgItem( id ), 0 != (attr & fd.dwFileAttributes) )
+   #define CHK_BOOL( id, val) Button_SetCheck(  getDlgItem( id ), val )
 
    CHK_ATTR( IDC_ARCHIVE   , FILE_ATTRIBUTE_ARCHIVE    );
    CHK_ATTR( IDC_COMPRESSED, FILE_ATTRIBUTE_COMPRESSED );
@@ -157,8 +148,7 @@ void PropertiesDlg::setInfo( const WIN32_FIND_DATA& fd ) {
    #undef CHK_ATTR
    #undef CHK_BOOL
 
-   const bool bReadOnly = 
-      0 != (FILE_ATTRIBUTE_READONLY & fd.dwFileAttributes);
+   const bool bReadOnly = 0 != (FILE_ATTRIBUTE_READONLY & fd.dwFileAttributes);
    if ( !m_pDocument->isAccessDenied() ) {
       enableDlgItem( IDC_UNICODE      , !bReadOnly );
       enableDlgItem( IDC_UNIXLINEFEEDS, !bReadOnly );
@@ -177,8 +167,7 @@ BOOL PropertiesDlg::onInitDialog( HWND hwndFocus, LPARAM lParam ) {
       FindFirstFile( m_pDocument->getPath().c_str(), &fd );
    if ( INVALID_HANDLE_VALUE == hFind ) {
       messageBox( GetParent( *this ), MB_OK | MB_ICONERROR,
-         IDS_PROPERTIES_ERROR, 
-         m_pDocument->getPath().c_str(), getError().c_str() );
+         IDS_PROPERTIES_ERROR, m_pDocument->getPath().c_str(), getError().c_str() );
       EndDialog( *this, IDCANCEL );
    } else {
       verify( FindClose( hFind ) );
@@ -202,7 +191,7 @@ BOOL PropertiesDlg::onInitDialog( HWND hwndFocus, LPARAM lParam ) {
       if ( !supportsCompression( m_pDocument->getPath() ) ) {
          enableDlgItem( IDC_COMPRESSED, false );
       }
-      // LATER: Disable unix/unicode if read-only
+      // TODO: Disable unix/unicode if read-only
    }
 
    return FALSE; // We DID set the focus.
@@ -213,8 +202,7 @@ BOOL PropertiesDlg::onInitDialog( HWND hwndFocus, LPARAM lParam ) {
 void PropertiesDlg::setFileName( const String& strPathName ) {
 
    PATHNAME szTitle = { 0 };
-   verify( 0 == GetFileTitle( 
-      strPathName.c_str(), szTitle, dim( szTitle ) ) );
+   verify( 0 == GetFileTitle( strPathName.c_str(), szTitle, dim( szTitle ) ) );
 
    int nPathLength = strPathName.length() - _tcslen( szTitle );
    const String strFile = strPathName.substr( nPathLength );
@@ -223,8 +211,7 @@ void PropertiesDlg::setFileName( const String& strPathName ) {
    // iff we're at the root directory:
    if ( 3 == nPathLength && _T( ':' ) == strPathName[ 1 ] ) {
       ;
-   } else if ( 3 < nPathLength && 
-               _T( '\\' ) == strPathName[ nPathLength - 1 ] ) 
+   } else if ( 3 < nPathLength && _T( '\\' ) == strPathName[ nPathLength - 1 ] ) 
    {
       --nPathLength;
    }
@@ -234,7 +221,7 @@ void PropertiesDlg::setFileName( const String& strPathName ) {
    setDlgItemText( IDC_PATH    , strPath );
 }
 
-
+// TODO: Unit test new safe string API
 String PropertiesDlg::getFileName( void ) {
 
    const String strFile = getDlgItemText( IDC_FILENAME );
@@ -248,8 +235,7 @@ String PropertiesDlg::getFileName( void ) {
 bool PropertiesDlg::onBrowse( void ) {
 
    String strFullPath = getFileName();
-   const bool bRetVal = saveFile( 
-      *this, &strFullPath, IDS_MOVE, IDD_MOVE_CHILD );
+   const bool bRetVal = saveFile( *this, &strFullPath, IDS_MOVE, IDD_MOVE_CHILD );
    if ( bRetVal ) {
       setFileName( strFullPath );
    }
@@ -268,10 +254,8 @@ bool PropertiesDlg::applyChanges( void ) {
    assert( isGoodPtr( this ) );
    assert( isGoodPtr( m_pDocument ) );
    
-   m_pDocument->setUnicode      ( 
-      0 != Button_GetCheck( getDlgItem( IDC_UNICODE       ) ) );
-   m_pDocument->setUnixLineFeeds( 
-      0 != Button_GetCheck( getDlgItem( IDC_UNIXLINEFEEDS ) ) );
+   m_pDocument->setUnicode      ( 0 != Button_GetCheck( getDlgItem( IDC_UNICODE       ) ) );
+   m_pDocument->setUnixLineFeeds( 0 != Button_GetCheck( getDlgItem( IDC_UNIXLINEFEEDS ) ) );
 
    DWORD dwAdd = 0;
    DWORD dwRemove = 0;
@@ -294,8 +278,7 @@ bool PropertiesDlg::applyChanges( void ) {
    }
 
    if ( supportsCompression( m_pDocument->getPath() ) ) {
-      const bool bCompress = 
-         0 != Button_GetCheck( getDlgItem( IDC_COMPRESSED ) );
+      const bool bCompress = 0 != Button_GetCheck( getDlgItem( IDC_COMPRESSED ) );
       if ( !compressFile( m_pDocument->getPath(), bCompress ) ) {
          bSuccess = false;
       }
@@ -310,12 +293,10 @@ bool PropertiesDlg::applyChanges( void ) {
 
    HWND hwndParent = GetParent( *this );
    assert( IsWindow( hwndParent ) );
-   FORWARD_WM_COMMAND( 
-      hwndParent, ID_COMMAND_PROPSCHANGED, 0, 0, SNDMSG );
+   FORWARD_WM_COMMAND( hwndParent, ID_COMMAND_PROPSCHANGED, 0, 0, SNDMSG );
    
    WIN32_FIND_DATA fd = { 0 };
-   HANDLE hFind = 
-      FindFirstFile( m_pDocument->getPath().c_str(), &fd );
+   HANDLE hFind = FindFirstFile( m_pDocument->getPath().c_str(), &fd );
    if ( INVALID_HANDLE_VALUE != hFind ) {
       verify( FindClose( hFind ) );
       setInfo( fd );
