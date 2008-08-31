@@ -175,7 +175,7 @@ void __cdecl Registry::setString(
    }
 }
 
-
+// TODO: Unit test new safe string API
 String Registry::getString( 
    HKEY hkRoot, LPCTSTR pszKey, LPCTSTR pszName, LPCTSTR pszDefault ) 
 {
@@ -184,7 +184,7 @@ String Registry::getString(
       assert( isGoodStringPtr( pszDefault ) );
       assert( isGoodStringPtr( sz  ) );
       assert( _tcsclen( pszDefault ) < dim( sz ) );
-      verify( 0 != _tcsncpy( sz, pszDefault, dim( sz ) ) );
+      verify( 0 != _tcsncpy_s( sz, dim( sz ), pszDefault, dim( sz ) ) );
    }
 
    RegKey hk( openKey( hkRoot, pszKey ) );
