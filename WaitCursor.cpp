@@ -107,8 +107,7 @@ HCURSOR WaitCursor::_loadCursor( LPCTSTR pszName ) {
          // We now have something like C:\\WINNT or C:\\WINDOWS. 
          // There's a terminating \\ if it is a root directory.
          PATHNAME szCursorPath = { 0 };
-         _tmakepath( szCursorPath, 0, szWindowsDirectory, 
-            strCursor.c_str() , 0 );
+		 _tmakepath_s( szCursorPath, 0, szWindowsDirectory, strCursor.c_str() , 0 );
          
          // Sample szCursorPath = "C:\\WINNT\\Cursors\\load.ani"
          return loadCursor( szCursorPath );
