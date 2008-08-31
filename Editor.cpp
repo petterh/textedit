@@ -340,30 +340,29 @@ void Editor::reload() {
     m_pStatusbar->update( m_pEditWnd->getCurPos() );
 }
 
-
+// TODO: Unit test new safe string API
 void Editor::copyFile( void ) {
-
    assert( isGoodPtr( this ) );
    String strPath = m_pDocument->getPath();
    const int nEnd = strPath.find_last_of( _T( "\\" ) );
    assert( 0 < nEnd );
    strPath.erase( nEnd );
-   String strNewPath = createNewFile( m_hwndMain, file_for_copy,
-      0, strPath, m_pDocument->getTitle() );
-   while ( saveFile( GetLastActivePopup( m_hwndMain ),
-       &strNewPath, IDS_COPY_FILE, IDD_COPY_CHILD ) )
+   String strNewPath = createNewFile( m_hwndMain, file_for_copy, 0, strPath, m_pDocument->getTitle() );
+   while ( saveFile( GetLastActivePopup( m_hwndMain ), &strNewPath, IDS_COPY_FILE, IDD_COPY_CHILD ) )
    {
       if ( strNewPath.empty() ) {
          continue;
       }
 
       TCHAR szOldPath[ MAX_PATH + 2 ] = { 0 };
-      _tcscpy( szOldPath, m_pDocument->getPath().c_str() );
+	  LPCTSTR oldString = m_pDocument->getPath().c_str();
+	  _tcscpy_s( szOldPath, std::min( dim( szOldPath ), _tcslen( oldString ) + 1 ), oldString );
       TCHAR szNewPath[ MAX_PATH + 2 ] = { 0 };
-      _tcscpy( szNewPath, strNewPath.c_str() );
+	  LPCTSTR newString = strNewPath.c_str();
+	  _tcscpy_s( szNewPath, std::min( dim (szNewPath ), _tcslen( newString ) + 1 ), newString );
       SHFILEOPSTRUCT shFileOpStruct = {
          m_hwndMain, FO_COPY, szOldPath, szNewPath, 
-         FOF_NOCONFIRMATION | FOF_SIMPLEPROGRESS,
+         FOF_NOCONFIRMATION | FOF_SIMPLEPROGRESS | FOF_MULTIDESTFILES,
       };
 
       WaitCursor waitCursor( _T( "save.ani" ) );
@@ -384,13 +383,13 @@ void Editor::refreshToolbar( void ) {
       m_pEditWnd->hasRedo(), m_pEditWnd->canSetTabs() ) );
 }
 
-
+// TODO: Unit test new safe string API
 PRIVATE void initFont( LOGFONT *pLogFont, HFONT *phfont,
    const String& strFace, long lHeight, long lWeight,
    unsigned char cItalic, unsigned char cCharSet )
 {
    memset( pLogFont, 0, sizeof *pLogFont );
-   _tcscpy( pLogFont->lfFaceName, strFace.c_str() );
+   _tcscpy_s( pLogFont->lfFaceName, strFace.c_str() );
    pLogFont->lfHeight = devPointsFromPrinterPoints( lHeight );
    pLogFont->lfWeight = lWeight;
    pLogFont->lfItalic = cItalic;

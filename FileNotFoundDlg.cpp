@@ -31,11 +31,11 @@ public:
    FileNotFoundDlg( LPCTSTR pszOldFile );
 };
 
-
+// TODO: Unit test new safe string API
 FileNotFoundDlg::FileNotFoundDlg( LPCTSTR pszOldFile )
    : m_pszOldFile( pszOldFile )
 {
-   _tcscpy( m_szNewFile, m_pszOldFile );
+   _tcscpy_s( m_szNewFile, dim( m_szNewFile ), m_pszOldFile );
 }
 
 

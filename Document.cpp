@@ -30,18 +30,17 @@ bool Document::s_bEndSession = false; // Set to true on WM_ENDSESSION.
 
 #define FILE_TYPE _T( "File Types" )
 
+// TODO: Unit test new safe string API
 PRIVATE String getTempFileName( void ) {
 
    PATHNAME szTempPath = { 0 };
    if ( 0 == GetTempPath( dim( szTempPath ), szTempPath ) ) {
-      trace( _T( "Unable to get temp path: %s\n" ), 
-         getError().c_str() );
-      _tcscpy( szTempPath, _T( "." ) );
+      trace( _T( "Unable to get temp path: %s\n" ), getError().c_str() );
+      _tcscpy_s( szTempPath, dim( szTempPath ), _T( "." ) );
    }
 
    PATHNAME szOrgCopy = { 0 };
-   const UINT uiUniqueNumber = 
-      GetTempFileName( szTempPath,  _T( "te" ), 0, szOrgCopy );
+   const UINT uiUniqueNumber = GetTempFileName( szTempPath,  _T( "te" ), 0, szOrgCopy );
    if ( 0 == uiUniqueNumber ) {
       throwException( _T( "Unable to create temporary file" ) );
    }
@@ -498,9 +497,8 @@ String Document::getTitle( void ) const {
    return szTitle;
 }
 
-
+// TODO: Unit test new safe string API
 bool Document::setPath( HWND hwnd, const String& strNewPath ) {
-
    assertValid();
    bool bSuccess = true;
    if ( !areFileNamesEqual( getPath(), strNewPath ) ) {
@@ -511,14 +509,13 @@ bool Document::setPath( HWND hwnd, const String& strNewPath ) {
       // doubly null-terminated.
 
       TCHAR szOldPath[ MAX_PATH + 2 ] = { 0 };
-      _tcscpy( szOldPath, getPath().c_str() );
+      _tcscpy_s( szOldPath, getPath().c_str() );
 
       TCHAR szNewPath[ MAX_PATH + 2 ] = { 0 };
-      _tcscpy( szNewPath, strNewPath.c_str() );
+      _tcscpy_s( szNewPath, strNewPath.c_str() );
 
       SHFILEOPSTRUCT shFileOpStruct = {
-         hwnd, FO_MOVE, szOldPath, szNewPath, 
-         FOF_SIMPLEPROGRESS,
+         hwnd, FO_MOVE, szOldPath, szNewPath, FOF_SIMPLEPROGRESS,
       };
       const int nErr = SHFileOperation( &shFileOpStruct );
       if ( 0 == nErr ) {
@@ -734,17 +731,15 @@ String Document::getRegistryPath( void ) const {
    return formatMessage( _T( "Files\\%1" ), strRegistryPath.c_str() );
 }
 
-
+// TODO: Unit test new safe string API
 String Document::getFileTypeDescription( bool bDisplay ) const {
 
    assertValid();
    TCHAR szExt[ _MAX_EXT ] = { 0 };
-   _tsplitpath( getPath().c_str(), 0, 0, 0, szExt );
-   String strFileTypeDescription = 
-      Registry::fileTypeDescriptionFromExtension( szExt );
+   _tsplitpath_s( getPath().c_str(), 0, 0, 0, 0, 0, 0, szExt, _MAX_EXT );
+   String strFileTypeDescription = Registry::fileTypeDescriptionFromExtension( szExt );
    if ( !bDisplay && strFileTypeDescription.empty() ) {
-      strFileTypeDescription.assign( 
-         0 == szExt[ 0 ] ? _T( "empty" ) : szExt );
+      strFileTypeDescription.assign( 0 == szExt[ 0 ] ? _T( "empty" ) : szExt );
    }
    return strFileTypeDescription;
 }
@@ -807,7 +802,7 @@ void Document::setPersistentString(
       HKEY_CURRENT_USER, strFileKey.c_str(), pszName, str.c_str() );
 }
 
-
+// TODO: Unit test new safe string API
 bool Document::deleteFile( HWND hwnd ) {
 
    assertValid();
@@ -821,7 +816,7 @@ bool Document::deleteFile( HWND hwnd ) {
    // doubly null-terminated. This is the reason for using the 
    // szFileName buffer rather than getPath().c_str.
    TCHAR szFileName[ MAX_PATH + 2 ] = { 0 };
-   _tcscpy( szFileName, getPath().c_str() );
+   _tcscpy_s( szFileName, getPath().c_str() );
    SHFILEOPSTRUCT shFileOpStruct = {
       hwnd, FO_DELETE, szFileName, _T( "\0" ), fileOpFlags,
    };

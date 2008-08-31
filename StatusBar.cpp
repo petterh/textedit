@@ -148,7 +148,7 @@ Statusbar::~Statusbar() {
    }
 }
 
-
+// TODO: Unit test new safe string API
 void __cdecl Statusbar::setMessageV( LPCTSTR pszFmt, va_list vl ) {
 
    // This *must* be a static buffer. Since the first pane is 
@@ -161,10 +161,9 @@ void __cdecl Statusbar::setMessageV( LPCTSTR pszFmt, va_list vl ) {
    assert( isGoodStringPtr( pszFmt ) );
    if ( isGoodStringPtr( pszFmt ) ) {
       const String strMessage = formatMessageV( pszFmt, vl );
-      _tcsncpy( szMessageBuffer, 
-         strMessage.c_str(), dim( szMessageBuffer ) );
+      _tcsncpy_s( szMessageBuffer, dim( szMessageBuffer ), strMessage.c_str(), dim( szMessageBuffer ) );
    } else {
-      _tcscpy( szMessageBuffer, _T( "Internal Error" ) );
+      _tcscpy_s( szMessageBuffer, sizeof szMessageBuffer, _T( "Internal Error" ) );
    }
 
    int nPart = message_part | SBT_OWNERDRAW;
@@ -173,8 +172,7 @@ void __cdecl Statusbar::setMessageV( LPCTSTR pszFmt, va_list vl ) {
       // This invalidation is necessary for SBT_NOBORDERS.
       // With SBT_POPOUT, it is not necessary.
       Rect rc;
-      sendMessage( SB_GETRECT, 
-         message_part, reinterpret_cast< LPARAM >( &rc ) );
+      sendMessage( SB_GETRECT, message_part, reinterpret_cast< LPARAM >( &rc ) );
       InvalidateRect( *this, &rc, TRUE );
    }
    setText( nPart, szMessageBuffer );
@@ -231,8 +229,7 @@ void __cdecl Statusbar::setErrorMessage(
       sm_bHighlight = true;
       setMessageV( strFmt.c_str(), vl );
    } else {
-      messageBoxV( 
-         GetParent( *this ), MB_OK | idFlags, strFmt.c_str(), vl );
+      messageBoxV( GetParent( *this ), MB_OK | idFlags, strFmt.c_str(), vl );
    }
    
    va_end( vl );
@@ -241,27 +238,21 @@ void __cdecl Statusbar::setErrorMessage(
 
 void Statusbar::update( void ) {
 
-#if 0 // Unit test of formatNumber
-   trace( _T( "testing formatNumber: %d = %s\n" ), 
-      0, formatNumber( 0 ).c_str() );
-   trace( _T( "testing formatNumber: %d = %s\n" ), 
-      123, formatNumber( 123 ).c_str() );
-   trace( _T( "testing formatNumber: %d = %s\n" ), 
-      12345, formatNumber( 12345 ).c_str() );
-   trace( _T( "testing formatNumber: %d = %s\n" ), 
-      1234567890, formatNumber( 1234567890 ).c_str() );
+#if 0 // TODO: Unit test of formatNumber
+   trace( _T( "testing formatNumber: %d = %s\n" ), 0, formatNumber( 0 ).c_str() );
+   trace( _T( "testing formatNumber: %d = %s\n" ), 123, formatNumber( 123 ).c_str() );
+   trace( _T( "testing formatNumber: %d = %s\n" ), 12345, formatNumber( 12345 ).c_str() );
+   trace( _T( "testing formatNumber: %d = %s\n" ), 1234567890, formatNumber( 1234567890 ).c_str() );
 #endif
 
    const String strLine = formatNumber( position.y + 1 );
    const String strColumn = formatNumber( position.x + 1 );
-   const String strPos = formatMessage( 
-      IDS_POSITION, strLine.c_str(), strColumn.c_str() );
+   const String strPos = formatMessage( IDS_POSITION, strLine.c_str(), strColumn.c_str() );
    const String strZoom = formatMessage( _T( "  %1!d!%%\t" ), this->zoomPercentage );
    const String str = strPos + strZoom;
    setText( position_part, str.c_str() );
 
-   const HWND hwndEditWnd = 
-      GetDlgItem( GetParent( *this ), IDC_EDIT );
+   const HWND hwndEditWnd = GetDlgItem( GetParent( *this ), IDC_EDIT );
    if ( GetFocus() == hwndEditWnd ) {
       setMessage( IDS_READY );
    }
@@ -283,8 +274,7 @@ void Statusbar::update( const int zoomPercentage ) {
 
 void Statusbar::setFileType( const bool isUnicode ) {
    
-   setText( filetype_part, 
-      isUnicode ? _T( "\tUnicode\t" ) : _T( "\tANSI\t" ) );
+   setText( filetype_part, isUnicode ? _T( "\tUnicode\t" ) : _T( "\tANSI\t" ) );
 }
 
 
@@ -313,8 +303,7 @@ void Statusbar::setIcon( HIMAGELIST hImageList, int nIndex ) {
       m_hicon = ImageList_GetIcon( hImageList, m_nIndex, ILD_NORMAL );
    }
 
-   sendMessage( SB_SETICON, action_part, 
-      reinterpret_cast< LPARAM >( m_hicon ) );
+   sendMessage( SB_SETICON, action_part, reinterpret_cast< LPARAM >( m_hicon ) );
    UpdateWindow( *this );
 }
 

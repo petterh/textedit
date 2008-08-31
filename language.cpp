@@ -42,7 +42,7 @@ PRIVATE void getLanguageName( int nLang, LPTSTR psz, UINT chars ) {
    assert( isGoodStringPtr( psz ) );
    VerLanguageName( nLang, psz, chars );
    if ( 0 == _tcscmp( psz, _T( "Norwegian (Bokmal)" ) ) ) {
-      _tcscpy( psz, _T( "Norwegian (Bokmål)" ) );
+      _tcscpy_s( psz, chars, _T( "Norwegian (Bokmål)" ) );
    }
 }
 

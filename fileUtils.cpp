@@ -145,17 +145,16 @@ void copyFile( HANDLE hSrc, HANDLE hDst, DWORD *pdwBytes ) {
    }
 }
 
-
+// TODO: Unit test new safe string API
 PRIVATE String getWinInit( void ) {
-
    PATHNAME szWinInit = { 0 };
    GetWindowsDirectory( szWinInit, sizeof szWinInit );
    int nLength = _tcsclen( szWinInit );
    if ( 0 < nLength ) {
       if ( !isPathSeparator( szWinInit[ nLength - 1 ] ) ) {
-         _tcscat( szWinInit, _T( "\\" ) );
+         _tcscat_s( szWinInit, _T( "\\" ) );
       }
-      _tcscat( szWinInit, _T( "WININIT.INI" ) );
+      _tcscat_s( szWinInit, _T( "WININIT.INI" ) );
    }
 
    return szWinInit;
@@ -231,9 +230,11 @@ bool delayedRemove( const String& strPath ) {
    }
 
    bool bInserted = false;
-   FILE *fileOut = _tfopen( strWinInit.c_str(), _T( "w" ) );
+   FILE *fileOut = 0;
+   int err1 = _tfopen_s( &fileOut, strWinInit.c_str(), _T( "w" ) );
    if ( 0 != fileOut ) {
-      FILE *fileIn = _tfopen( szTempFile, _T( "r" ) );
+      FILE *fileIn = 0;
+      int err2 = _tfopen_s( &fileIn, szTempFile, _T( "r" ) );
       if ( 0 != fileIn ) {
          // Assume not Unicode:
          char szLine[ 5000 ] = { 0 };
@@ -287,22 +288,21 @@ bool extractStream(
    return true;
 }
 
-
+// TODO: Unit test new safe string API
 String getRootDir( const String& strPath ) {
 
    PATHNAME szRootDir = { 0 };
 
-   verify( _tcscpy( szRootDir, strPath.c_str() ) );
+   verify( NO_ERROR == _tcscpy_s( szRootDir, strPath.c_str() ) );
    if ( !PathStripToRoot( szRootDir ) ) {
       // NOTE: This fails with named streams.
-      trace( _T( "PathStripToRoot( %s ) failed: %s\n" ), 
-         strPath.c_str(), getError().c_str() );
+      trace( _T( "PathStripToRoot( %s ) failed: %s\n" ), strPath.c_str(), getError().c_str() );
 
       // _tsplitpath is no good for UNC path names!
       // _tsplitpath( pszPath, szRootDir, 0, 0, 0 );
       // StrCat( szRootDir, _T( "\\" ) );
       
-      _tcscpy( szRootDir, strPath.c_str() );
+      _tcscpy_s( szRootDir, strPath.c_str() );
       LPTSTR psz = _tcsstr( szRootDir, _T( "\\\\" ) );
       if ( psz == szRootDir ) {
          psz = _tcschr( psz + 2, _T( '\\' ) );
@@ -371,7 +371,7 @@ String& appendPathComponent( String *pPath, LPCTSTR component ) {
     return *pPath;
 }
 
-
+// TODO: Unit test new safe string API
 String compactPath( LPCTSTR pszPath, int nWidth, HFONT hfont ) {
 
    // PathCompactPath has a bug that causes it to trash
@@ -381,7 +381,7 @@ String compactPath( LPCTSTR pszPath, int nWidth, HFONT hfont ) {
 
    TCHAR szCompactPath[ nBugProtection + MAX_PATH + 1 ] = { 0 };
    LPTSTR pszCompactPath = szCompactPath + nBugProtection;
-   _tcscpy( pszCompactPath, pszPath );
+   _tcscpy_s( pszCompactPath, MAX_PATH + 1, pszPath );
 
    ClientDC dc;
    if ( dc.isValid() ) {
@@ -415,7 +415,7 @@ bool isWriteProtectedDisk( LPCTSTR pszPath ) {
    assert( isGoodStringPtr( pszPath ) );
 
    PATHNAME szDir  = { 0 };
-   _tsplitpath( pszPath, szDir, 0, 0, 0 );
+   _tsplitpath_s( pszPath, szDir, dim( szDir ), 0, 0, 0, 0, 0, 0 );
 
    PATHNAME szTest = { 0 };
 

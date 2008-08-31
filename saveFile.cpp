@@ -28,13 +28,10 @@ PRIVATE DWORD s_dwErr = 0;
 PRIVATE inline void onInitDone( HWND hwndChildDlg ) {
 
    subclassOpenDlgCommon( hwndChildDlg, IDD_SAVE_CHILD );
-   const int nLength = SendDlgItemMessage( 
-      hwndChildDlg, IDC_MESSAGE, WM_GETTEXTLENGTH, 0, 0 );
+   const int nLength = SendDlgItemMessage( hwndChildDlg, IDC_MESSAGE, WM_GETTEXTLENGTH, 0, 0 );
    AutoString pszFmt( new TCHAR[ nLength + 1 ] );
-   GetDlgItemText( 
-      hwndChildDlg, IDC_MESSAGE, pszFmt, nLength + 1 );
-   const String strMessage = formatMessage( 
-      String( pszFmt ), s_szFileName, getError( s_dwErr ).c_str() );
+   GetDlgItemText( hwndChildDlg, IDC_MESSAGE, pszFmt, nLength + 1 );
+   const String strMessage = formatMessage( String( pszFmt ), s_szFileName, getError( s_dwErr ).c_str() );
    SetDlgItemText( hwndChildDlg, IDC_MESSAGE, strMessage.c_str() );
    subclassHTML( GetDlgItem( hwndChildDlg, IDC_MESSAGE ) );
 }
@@ -70,14 +67,14 @@ PRIVATE UINT CALLBACK saveFileHookProc(
    return FALSE;
 }
 
-
+// TODO: Unit test new safe string API
 bool saveFile( const HWND hwndParent, String *pstrName, 
    UINT uiTitleString, UINT uiChildDlg )
    throw( CommonDialogException )
 {
    assert( isGoodPtr( pstrName ) );
 
-   _tcscpy( s_szFileName, pstrName->c_str() );
+   _tcscpy_s( s_szFileName, sizeof s_szFileName, pstrName->c_str() );
    s_dwErr = GetLastError();
 
    const bool bOK = getSaveFileName( 

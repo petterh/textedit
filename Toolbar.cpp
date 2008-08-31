@@ -123,14 +123,14 @@ void Toolbar::onDeltaPos( NMUPDOWN *pUpDown ) {
 /**
  * Get tooltip text.
  */
+// TODO: Unit test new safe string API
 bool Toolbar::onGetDispInfo( NMTTDISPINFO *pDispInfo ) {
 
    assertValid();
    assert( isGoodPtr( pDispInfo ) );
 
    // NOTE: The hwndFrom member refers to the tooltip control.
-   const HWND hwndCtl =
-      reinterpret_cast< HWND >( pDispInfo->hdr.idFrom );
+   const HWND hwndCtl = reinterpret_cast< HWND >( pDispInfo->hdr.idFrom );
    if ( GetDlgItem( *this, IDC_TABEDIT ) == hwndCtl ) {
       pDispInfo->lpszText = MAKEINTRESOURCE( IDS_TABS_TIP );
    } else if ( GetDlgItem( *this, IDC_TABUPDOWN ) == hwndCtl ) {
@@ -140,8 +140,7 @@ bool Toolbar::onGetDispInfo( NMTTDISPINFO *pDispInfo ) {
    } else {
       String strToolTip = loadToolTip( pDispInfo->hdr.idFrom );
       pDispInfo->lpszText = pDispInfo->szText;
-      _tcsncpy( pDispInfo->szText,
-         strToolTip.c_str(), dim( pDispInfo->szText ) );
+	  _tcsncpy_s( pDispInfo->szText, strToolTip.c_str(), dim( pDispInfo->szText ) );
       pDispInfo->hinst = 0;
    }
 

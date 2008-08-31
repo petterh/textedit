@@ -153,7 +153,7 @@ inline bool match( LPCTSTR str, LPCTSTR pattern ) {
    return 0 == _tcsncicmp( str, pattern, _tcsclen( pattern ) );
 }
 
-
+// TODO: Unit test new safe string API
 PRIVATE bool isSetup( ArgumentList *pArgumentList ) {
    
    assert( isGoodPtr( pArgumentList ) );
@@ -164,7 +164,7 @@ PRIVATE bool isSetup( ArgumentList *pArgumentList ) {
 
    const String strProgram = getModuleFileName();
    PATHNAME szBaseName = { 0 };
-   _tsplitpath( strProgram.c_str(), 0, 0, szBaseName, 0 );
+   _tsplitpath_s( strProgram.c_str(), 0, 0, 0, 0, szBaseName, dim( szBaseName ), 0, 0 );
 
    if ( match( szBaseName, _T( "setup" ) ) ||
         match( szBaseName, _T( "install" ) ) )
@@ -201,7 +201,7 @@ PRIVATE bool isSetup( ArgumentList *pArgumentList ) {
    return false;
 }
 
-
+// TODO: Unit test new safe string API
 Editor *init( LPCTSTR pszCmdLine, int nShow ) {
 
    const HINSTANCE hinst = getModuleHandle();
@@ -278,7 +278,7 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
          const MRU mru;
          if ( 0 < mru.getCount() ) {
             static PATHNAME szLastFile = { 0 };
-            _tcscpy( szLastFile, mru.getFile( ID_MRU_1 ).c_str() );
+            _tcscpy_s( szLastFile, mru.getFile( ID_MRU_1 ).c_str() );
             pszDocName = szLastFile;
          } else {
             ; // When there are no files in the MRU list, the

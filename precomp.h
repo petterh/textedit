@@ -8,7 +8,6 @@
 #pragma once
 
 #define USE_OWN_EXCEPTIONS
-#define _CRT_SECURE_NO_WARNINGS
 
 #ifndef WINVER
 #define WINVER 0x0500

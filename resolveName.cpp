@@ -21,6 +21,7 @@
  * to the same buffer. pszDst should have a length of at least 
  * MAX_PATH + 1 characters.
  */
+// TODO: Unit test new safe string API
 bool resolveName( LPTSTR pszDst, LPCTSTR pszSrc ) {
 
    assert( isGoodStringPtr( pszDst ) );
@@ -28,28 +29,25 @@ bool resolveName( LPTSTR pszDst, LPCTSTR pszSrc ) {
 
    PATHNAME szFullPathName = { 0 };
    LPTSTR pszFilePart = 0;
-   const DWORD dwChars = GetFullPathName( 
-      pszSrc, dim( szFullPathName ), szFullPathName, &pszFilePart );
+   const DWORD dwChars = GetFullPathName( pszSrc, dim( szFullPathName ), szFullPathName, &pszFilePart );
    if ( 0 < dwChars ) {
       pszSrc = szFullPathName;
    }
 
    if ( pszDst != pszSrc ) {
-      _tcscpy( pszDst, pszSrc ); // assume failure, use org file name
+      _tcscpy_s( pszDst, sizeof(TCHAR) * (MAX_PATH + 1), pszSrc ); // assume failure, use org file name
    }
    
    bool isShortcut = false;
    try {
       // Get a pointer to the IShellLink interface. 
-      AutoComReference< IShellLink > 
-         psl( CLSID_ShellLink, IID_IShellLink );
-      AutoComReference< IPersistFile > 
-         ppf( IID_IPersistFile, psl );
+      AutoComReference< IShellLink > psl( CLSID_ShellLink, IID_IShellLink );
+      AutoComReference< IPersistFile > ppf( IID_IPersistFile, psl );
       
       PATHNAMEW wsz = { 0 };
       
 #ifdef UNICODE
-      _tcscpy( wsz, pszSrc );
+      _tcscpy_s( wsz, pszSrc );
 #else
       multiByteToWideChar( pszSrc, wsz );
 #endif
@@ -80,7 +78,7 @@ bool resolveName( LPTSTR pszDst, LPCTSTR pszSrc ) {
             // Happens if file not found.
             if ( 0 != szGotPath[ 0 ] ) {
                isShortcut = true;
-               _tcscpy( pszDst, szGotPath );
+               _tcscpy_s( pszDst, sizeof( TCHAR ) * MAX_PATH, szGotPath );
             }
          }
       }

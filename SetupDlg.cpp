@@ -271,7 +271,7 @@ PRIVATE void addShortcut( int nFolder, const String &strProgPath ) {
       AutoComReference< IPersistFile > ppf( IID_IPersistFile, psl );
       PATHNAMEW wszLink = { 0 };
 #ifdef UNICODE
-      _tcscpy( wszLink, strLinkPath.c_str() );
+      _tcscpy_s( wszLink, strLinkPath.c_str() );
 #else
       multiByteToWideChar( strLinkPath.c_str(), wszLink );
 #endif
@@ -460,10 +460,8 @@ void SetupDlg::uninstall( void ) {
    }
    m_bDelayedRemove = bDelayedDirRemove || bDelayedDelete;
 
-   SHChangeNotify( SHCNE_UPDATEDIR, SHCNF_PATH, 
-      m_strInstallDir.c_str(), 0 );
-   SHChangeNotify( SHCNE_FREESPACE, SHCNF_PATH, 
-      m_strInstallDir.c_str(), 0 );
+   SHChangeNotify( SHCNE_UPDATEDIR, SHCNF_PATH, m_strInstallDir.c_str(), 0 );
+   SHChangeNotify( SHCNE_FREESPACE, SHCNF_PATH, m_strInstallDir.c_str(), 0 );
 
    if ( !m_isCancelled ) {
       sendMessage( WM_APP, DONE_UNINSTALL );
@@ -472,25 +470,21 @@ void SetupDlg::uninstall( void ) {
 
 
 inline void SetupDlg::setMessage( const String& strMessage ) {
-
    setDlgItemText( IDC_MESSAGE, strMessage.c_str() );
 }
 
 
 inline void SetupDlg::setMessage( UINT uiString ) {
-
    setMessage( loadString( uiString ) );
 }
 
 
 UINT SetupDlg::getResourceID( void ) const {
-   
    return IDD_SETUP;
 }
 
 
 int SetupDlg::getDefaultButtonID( void ) const {
-
    if ( m_hasPrevious ) {
       return m_isOlderThanPrevious ? IDCANCEL : IDC_INSTALL;
    }
@@ -499,7 +493,6 @@ int SetupDlg::getDefaultButtonID( void ) const {
 
 
 BOOL SetupDlg::DlgProc( UINT msg, WPARAM wParam, LPARAM lParam ) {
-
    assert( (ID_HELP_ABOUT & 0xF) == 0 );
    if ( WM_SYSCOMMAND == msg && (wParam & 0xFFF0) == ID_HELP_ABOUT ) {
       AboutDlg( *this );
@@ -507,12 +500,10 @@ BOOL SetupDlg::DlgProc( UINT msg, WPARAM wParam, LPARAM lParam ) {
    }
 
    if ( WM_APP != msg ) {
-
       // Putting this here results in its getting called
       // more often than necessary. But my, how convenient!
       HMENU hmenu = GetSystemMenu( *this, false );
       enableMenuItem( hmenu, SC_RESTORE, 0 != IsIconic( *this ) );
-
       return Dialog::DlgProc( msg, wParam, lParam );
    }
 
@@ -602,35 +593,25 @@ BOOL SetupDlg::DlgProc( UINT msg, WPARAM wParam, LPARAM lParam ) {
    return TRUE;
 }
 
-
 PRIVATE inline void fixSystemMenu( HMENU hmenu ) {
-
    DeleteMenu( hmenu, SC_MAXIMIZE, MF_BYCOMMAND );
    DeleteMenu( hmenu, SC_SIZE    , MF_BYCOMMAND );
    appendSeparator( hmenu );
-   appendMenuItem( 
-      hmenu, ID_HELP_ABOUT, loadString( IDS_ABOUT ).c_str() );
+   appendMenuItem( hmenu, ID_HELP_ABOUT, loadString( IDS_ABOUT ).c_str() );
 }
 
-
 BOOL SetupDlg::onInitDialog( HWND hwndFocus, LPARAM lParam ) {
-
    fixSystemMenu( GetSystemMenu( *this, false ) );
 
-   const HICON hicon = 
-      LoadIcon( getModuleHandle(), MAKEINTRESOURCE( IDI_SETUP ) );
-   sendMessage( 
-      WM_SETICON, ICON_SMALL, reinterpret_cast< LPARAM >( hicon ) );
-   sendMessage( 
-      WM_SETICON, ICON_BIG  , reinterpret_cast< LPARAM >( hicon ) );
+   const HICON hicon = LoadIcon( getModuleHandle(), MAKEINTRESOURCE( IDI_SETUP ) );
+   sendMessage( WM_SETICON, ICON_SMALL, reinterpret_cast< LPARAM >( hicon ) );
+   sendMessage( WM_SETICON, ICON_BIG  , reinterpret_cast< LPARAM >( hicon ) );
 
    const VersionInfo vi( getModuleHandle() );
-   const LPCTSTR pszVersion = 
-      vi.getStringFileInfo( _T( "FileVersion" ) );
+   const LPCTSTR pszVersion = vi.getStringFileInfo( _T( "FileVersion" ) );
    assert( 0 != pszVersion );
    const String strFmt = getDlgItemText( IDC_SETUP_TITLE );
-   setDlgItemText( IDC_SETUP_TITLE,
-      formatMessage( strFmt, pszVersion ) );
+   setDlgItemText( IDC_SETUP_TITLE, formatMessage( strFmt, pszVersion ) );
 
    subclassHTML( getDlgItem( IDC_SETUP_TITLE ) );
    subclassHTML( getDlgItem( IDC_MESSAGE     ) );
@@ -642,7 +623,6 @@ BOOL SetupDlg::onInitDialog( HWND hwndFocus, LPARAM lParam ) {
    SetFocus( getDlgItem( IDCANCEL ) );
    return FALSE; // Don't let dialog manager set the focus; we did it.
 }
-
 
 void SetupDlg::onDlgCommand( int id, HWND hwndCtl, UINT codeNotify ) {
 
@@ -669,10 +649,8 @@ void SetupDlg::onDlgCommand( int id, HWND hwndCtl, UINT codeNotify ) {
                break; //*** BREAK POINT
             }
          }
-         InstallDlg1 installDlg1( getModuleHandle(),
-            m_strInstallDir, m_strDataDir );
-         const UINT uiRetCode = dynamic_cast< Dialog * >( 
-            &installDlg1 )->doModal( *this );
+         InstallDlg1 installDlg1( getModuleHandle(), m_strInstallDir, m_strDataDir );
+         const UINT uiRetCode = dynamic_cast< Dialog * >(  &installDlg1 )->doModal( *this );
          if ( IDC_INSTALL == uiRetCode ) {
             m_strInstallDir = installDlg1.getInstallDir();
             m_strDataDir    = installDlg1.getDataDir   ();

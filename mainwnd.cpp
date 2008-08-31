@@ -504,11 +504,11 @@ PRIVATE inline BOOL onApp( const HWND hwnd, ATOM atomDocName ) {
    return 0 != pDocument && areFileNamesEqual( pDocument->getPath(), szDocName );
 }
 
-
+// TODO: Unit test new safe string API
 PRIVATE bool isExecutable( LPCTSTR title ) {
 
 	TCHAR szExt[ _MAX_EXT ] = { 0 };
-	_tsplitpath( title, 0, 0, 0, szExt );
+	_tsplitpath_s( title, 0, 0, 0, 0, 0, 0, szExt, _MAX_EXT );
 	return
 		0 == _tcsicmp( szExt, _T( ".html" ) ) || 
 		0 == _tcsicmp( szExt, _T( ".htm"  ) ) || 
@@ -922,7 +922,7 @@ PRIVATE void onFilePrint( HWND hwnd ) {
    getEditor( hwnd )->printFile();
 }
 
-
+// TODO: Unit test new safe string API
 PRIVATE void onFileSendToMailRecipient( HWND hwnd ) {
 
 	const Document* pDocument = getDocument( hwnd );
@@ -930,14 +930,14 @@ PRIVATE void onFileSendToMailRecipient( HWND hwnd ) {
 #ifdef UNICODE
 	wideCharToMultiByte( pDocument->getPath().c_str(), szFilepath );
 #else
-	strcpy( szFilepath, pDocument->getPath().c_str() );
+	strcpy_s( szFilepath, pDocument->getPath().c_str() );
 #endif
 
 	PATHNAMEA szFilename = { 0 };
 #ifdef UNICODE
 	wideCharToMultiByte( pDocument->getTitle().c_str(), szFilename );
 #else
-	strcpy( szFilename, pDocument->getTitle().c_str() );
+	strcpy_s( szFilename, pDocument->getTitle().c_str() );
 #endif
 
 	AutoLibrary hLib( _T( "MAPI32.DLL" ) );
@@ -1303,30 +1303,26 @@ public:
    }
 };
 
-
+// TODO: Unit test new safe string API
 PRIVATE void onAccessViolation( HWND ) {
 
    TestClass testClass;
 
-   lstrcpy( 0, _T( "uh-oh!" ) ); // No exception
-   _tcscpy( 0, _T( "uh-oh!" ) ); // Exception
    int *pNullPointer = 0;
    *pNullPointer = 0;            // Exception
 }
 
-
 PRIVATE void onOutOfMemory( HWND ) {
 
-   new TCHAR[ INT_MAX - 100 ];
+   new TCHAR[ (INT_MAX - 100) / 2 ];
+   new TCHAR[ (INT_MAX - 100) / 2 ];
 }
-
-
-PRIVATE void onStackOverflow( HWND hwnd ) {
 
 #pragma warning( disable: 4717 ) // Stack overflow is intentional
+PRIVATE void onStackOverflow( HWND hwnd ) {
    onStackOverflow( hwnd );
-#pragma warning( disable: 4717 )
 }
+#pragma warning( disable: 4717 )
 
 #endif // _DEBUG
 

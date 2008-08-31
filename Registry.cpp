@@ -84,21 +84,17 @@ HKEY Registry::createKey( HKEY hkRoot, LPCTSTR pszKey ) {
  * This functions exists merely to avoid calling formatKey 
  * twice when the first openKey fails in createKey.
  */
-HKEY Registry::openFormattedKey( 
-   HKEY hkRoot, LPCTSTR pszKey, DWORD dwMode ) 
-{
+HKEY Registry::openFormattedKey( HKEY hkRoot, LPCTSTR pszKey, DWORD dwMode ) {
    HKEY hk = 0;
    const long lResult = RegOpenKeyEx( hkRoot, pszKey, 0, dwMode, &hk );
    if ( NOERROR != lResult ) {
-      trace( _T( "Unable to open registry key %s: %s\n" ),
-         pszKey, WinException( lResult ).what() );
+      trace( _T( "Unable to open registry key %s: %s\n" ), pszKey, WinException( lResult ).what() );
    }
    return NOERROR == lResult ? hk : 0;
 }
 
 
 HKEY Registry::openKey( HKEY hkRoot, LPCTSTR pszKey, DWORD dwMode ) {
-
    const String strKey = formatKey( hkRoot, pszKey );
    return openFormattedKey( hkRoot, strKey.c_str(), dwMode );
 }
@@ -108,9 +104,7 @@ HKEY Registry::openKey( HKEY hkRoot, LPCTSTR pszKey, DWORD dwMode ) {
  * @param hkRoot  HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE
  * @param pszKey  Key name, e.g., "Settings\\RunMaximized"
  */
-int Registry::getInt( 
-   HKEY hkRoot, LPCTSTR pszKey, LPCTSTR pszName, int nDefault ) 
-{
+int Registry::getInt( HKEY hkRoot, LPCTSTR pszKey, LPCTSTR pszName, int nDefault ) {
    int nValue = nDefault;
 
    RegKey hk( openKey( hkRoot, pszKey ) );
@@ -120,12 +114,10 @@ int Registry::getInt(
 #ifdef _DEBUG
       const long lResult = 
 #endif
-      RegQueryValueEx( hk, pszName, 0, &dwType, 
-         reinterpret_cast< BYTE * >( &nValue ), &dwSize );
+      RegQueryValueEx( hk, pszName, 0, &dwType, reinterpret_cast< BYTE * >( &nValue ), &dwSize );
       // Check type and size for sanity:
       assert( 4 == dwSize );
-      assert( 
-         REG_DWORD == dwType || ERROR_FILE_NOT_FOUND == lResult );
+      assert( REG_DWORD == dwType || ERROR_FILE_NOT_FOUND == lResult );
    }
 
    return nValue;
@@ -143,16 +135,14 @@ void Registry::setInt(
 #ifdef _DEBUG
       const long lResult = 
 #endif
-      RegSetValueEx( hk, pszName, 0, REG_DWORD, 
-         reinterpret_cast< CONST BYTE * >( &nValue ), sizeof nValue );
+      RegSetValueEx( hk, pszName, 0, REG_DWORD, reinterpret_cast< CONST BYTE * >( &nValue ), sizeof nValue );
       assert( NOERROR == lResult );
    }
 }
 
 
 void __cdecl Registry::setString( 
-   HKEY hkRoot, LPCTSTR pszKey, 
-   LPCTSTR pszName, LPCTSTR pszFmt, ...   ) 
+   HKEY hkRoot, LPCTSTR pszKey, LPCTSTR pszName, LPCTSTR pszFmt, ...   ) 
 {
    assert( isGoodStringPtr( pszKey  ) );
    assert( isGoodStringPtr( pszName ) );
@@ -184,7 +174,7 @@ String Registry::getString(
       assert( isGoodStringPtr( pszDefault ) );
       assert( isGoodStringPtr( sz  ) );
       assert( _tcsclen( pszDefault ) < dim( sz ) );
-      verify( 0 != _tcsncpy_s( sz, dim( sz ), pszDefault, dim( sz ) ) );
+	  verify( NOERROR == _tcsncpy_s( sz, dim( sz ), pszDefault, _tcslen( pszDefault ) ) );
    }
 
    RegKey hk( openKey( hkRoot, pszKey ) );
@@ -198,8 +188,7 @@ String Registry::getString(
          reinterpret_cast< BYTE * >( sz ), &dwSize );
       // Note that ERROR_MORE_DATA is one possible return value.
       // REG_EXPAND_SZ?
-      assert( REG_EXPAND_SZ == dwType || REG_SZ == dwType || 
-         ERROR_FILE_NOT_FOUND == lResult );
+      assert( REG_EXPAND_SZ == dwType || REG_SZ == dwType || ERROR_FILE_NOT_FOUND == lResult );
    }
    return sz;
 }
@@ -213,8 +202,7 @@ bool Registry::getBlob(
    if ( hk.isValid() ) {
       DWORD dwSize = cb; // Bytes, not characters.
       DWORD dwType = 0;  // REG_BINARY expected
-      const long lResult = RegQueryValueEx( hk, pszName, 0, &dwType, 
-         reinterpret_cast< BYTE * >( pBlob ), &dwSize );
+      const long lResult = RegQueryValueEx( hk, pszName, 0, &dwType, reinterpret_cast< BYTE * >( pBlob ), &dwSize );
       // Note that ERROR_MORE_DATA is one possible return value.
       assert( REG_BINARY == dwType );
       return NOERROR == lResult;
@@ -245,14 +233,12 @@ bool enumOpenedKeyNames(
    DWORD dwNameSize = dim( szName ); // Characters, not bytes.
    DWORD dwClassSize = dim( szClass );
    FILETIME ftLastWriteTime = { 0 };
-   const long lResult = RegEnumKeyEx( hk, dwIndex, szName, 
-      &dwNameSize, 0, szClass, &dwClassSize, &ftLastWriteTime );
+   const long lResult = RegEnumKeyEx( hk, dwIndex, szName, &dwNameSize, 0, szClass, &dwClassSize, &ftLastWriteTime );
    if ( NOERROR == lResult ) {
       assert( 0 != pstrName );
       pstrName->assign( szName );
    } else if ( ERROR_NO_MORE_ITEMS != lResult ) {
-      trace( _T( "RegEnumKeyEx %s: %s\n " ), 
-         pszKey, WinException( lResult ).what() );
+      trace( _T( "RegEnumKeyEx %s: %s\n " ), pszKey, WinException( lResult ).what() );
    }
    return NOERROR == lResult;
 }
@@ -264,8 +250,7 @@ bool Registry::enumKeyNames(
    bool bFound = false;
    RegKey hk( openKey( hkRoot, pszKey ) );
    if ( hk.isValid() ) {
-      bFound = 
-         enumOpenedKeyNames( hkRoot, pszKey, dwIndex, pstrName );
+      bFound = enumOpenedKeyNames( hkRoot, pszKey, dwIndex, pstrName );
    } 
    return bFound;
 }

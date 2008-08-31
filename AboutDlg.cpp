@@ -12,9 +12,8 @@
 #include "HTML.h"
 #include "utils.h"
 
-
+// TODO: Unit test new safe string API
 void AboutDlg::setFonts( void ) {
-
    m_hfontBig = GetWindowFont( getDlgItem( IDC_TITLE ) );
    m_hfontBold = m_hfontBig;
    if ( 0 != m_hfontBig ) {
@@ -24,14 +23,14 @@ void AboutDlg::setFonts( void ) {
          logFont.lfWidth  *= 2;
          logFont.lfHeight *= 2;
          const String strSavedFaceName( logFont.lfFaceName );
-         _tcscpy( logFont.lfFaceName, _T( "Comic Sans MS" ) );
+         _tcscpy_s( logFont.lfFaceName, _T( "Comic Sans MS" ) );
          m_hfontBig = CreateFontIndirect( &logFont );
          if ( 0 == m_hfontBig ) {
-            _tcscpy( logFont.lfFaceName, _T( "Arial" ) );
+            _tcscpy_s( logFont.lfFaceName, _T( "Arial" ) );
             m_hfontBig = CreateFontIndirect( &logFont );
          }
          if ( 0 == m_hfontBig ) {
-            _tcscpy( logFont.lfFaceName, strSavedFaceName.c_str() );
+            _tcscpy_s( logFont.lfFaceName, strSavedFaceName.c_str() );
             m_hfontBig = CreateFontIndirect( &logFont );
          }
       }

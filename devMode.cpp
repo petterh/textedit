@@ -15,7 +15,7 @@ DEFINE_PERSISTENT_INT(    "Printer", Paper      , 0                 );
 DEFINE_PERSISTENT_INT(    "Printer", Resolution , 0                 );
 DEFINE_PERSISTENT_STRING( "Printer", DeviceName , ""                );
 
-
+// TODO: Unit test new safe string API
 HGLOBAL getDevMode( void ) {
 
    HGLOBAL hDevMode = GlobalAlloc( GHND, sizeof( DEVMODE ) );
@@ -28,19 +28,16 @@ HGLOBAL getDevMode( void ) {
    pDevMode->dmSize = sizeof( DEVMODE );
 
    const String strDeviceName = getDeviceName();
-   _tcsncpy( (LPTSTR) pDevMode->dmDeviceName, 
-      strDeviceName.c_str(), CCHDEVICENAME );
+   _tcsncpy_s( (LPTSTR) pDevMode->dmDeviceName, CCHDEVICENAME, strDeviceName.c_str(), CCHDEVICENAME );
 
    pDevMode->dmOrientation = getOrientation();
-   if ( DMORIENT_PORTRAIT <= pDevMode->dmOrientation && 
-        pDevMode->dmOrientation <= DMORIENT_LANDSCAPE ) 
+   if ( DMORIENT_PORTRAIT <= pDevMode->dmOrientation && pDevMode->dmOrientation <= DMORIENT_LANDSCAPE ) 
    {
       pDevMode->dmFields = DM_ORIENTATION;
    }
 
    pDevMode->dmPaperSize = getPaper();
-   if ( DMPAPER_FIRST <= pDevMode->dmPaperSize && 
-      pDevMode->dmPaperSize <= DMPAPER_LAST ) 
+   if ( DMPAPER_FIRST <= pDevMode->dmPaperSize && pDevMode->dmPaperSize <= DMPAPER_LAST ) 
    {
       pDevMode->dmFields |= DM_PAPERSIZE;
    }
@@ -58,8 +55,7 @@ HGLOBAL getDevMode( void ) {
 void setDevMode( HGLOBAL hDevMode ) {
    
    if ( 0 != hDevMode ) {
-      DEVMODE *pDevMode = 
-         reinterpret_cast< DEVMODE * >( GlobalLock( hDevMode ) );
+      DEVMODE *pDevMode = reinterpret_cast< DEVMODE * >( GlobalLock( hDevMode ) );
       assert( isGoodPtr( pDevMode ) );
       setDeviceName( (LPTSTR) pDevMode->dmDeviceName );
       if ( pDevMode->dmFields & DM_ORIENTATION) {

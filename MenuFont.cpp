@@ -70,7 +70,7 @@ typedef struct LOGFONTWIN95REG {
 
 #pragma pack()
 
-
+// TODO: Unit test new safe string API
 void MenuFont::refresh( void ) {
 
    if ( 0 != theMenuFont.m_hfontMenu ) {
@@ -99,14 +99,12 @@ void MenuFont::refresh( void ) {
       if ( isMenuFontOK ) {
          CHECKFONT( logFontW );
          theMenuFont.m_hfontMenu = CreateFontIndirectW( &logFontW );
-         GetObject( 
-            theMenuFont.m_hfontMenu, sizeof logFontW, &logFontW );
+         GetObject( theMenuFont.m_hfontMenu, sizeof logFontW, &logFontW );
          theMenuFont.m_nCachedHeight = abs( logFontW.lfHeight );
       }
    } else {
       LOGFONTWIN95REG regFont = { 0 };
-      isMenuFontOK = Registry::getBlob( HKEY_CURRENT_USER, 
-         REG_PATH, REG_ENTRY, &regFont, sizeof regFont );
+      isMenuFontOK = Registry::getBlob( HKEY_CURRENT_USER, REG_PATH, REG_ENTRY, &regFont, sizeof regFont );
       if ( isMenuFontOK ) {
          LOGFONTA logFontA = { 
             regFont.lfHeight        ,
@@ -123,7 +121,7 @@ void MenuFont::refresh( void ) {
             regFont.lfQuality       ,
             regFont.lfPitchAndFamily,
          };
-         strcpy( logFontA.lfFaceName, regFont.lfFaceName );
+         strcpy_s( logFontA.lfFaceName, regFont.lfFaceName );
          CHECKFONT( logFontA );
          theMenuFont.m_hfontMenu = CreateFontIndirectA( &logFontA );
          GetObject( theMenuFont.m_hfontMenu, sizeof logFontA, &logFontA );

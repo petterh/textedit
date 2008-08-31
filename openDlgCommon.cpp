@@ -152,7 +152,8 @@ void subclassOpenDlgCommon( HWND hwndChildDlg, UINT id ) {
 // TODO: Unit test new safe string API
 PRIVATE LPCTSTR getFilterList( const bool save ) {
    
-   static TCHAR szFilters[ 2 ][ 900 ] = { 0 };
+   const size_t MAX_FILTER_LENGTH = 900;
+   static TCHAR szFilters[ 2 ][ MAX_FILTER_LENGTH ] = { 0 };
    if ( 0 != szFilters[ save ][ 0 ] ) {
       return szFilters[ save ]; //** FUNCTION EXIT POINT
    }
@@ -181,20 +182,20 @@ PRIVATE LPCTSTR getFilterList( const bool save ) {
       // If we would, just cut off at this point.
       const int nNewLength = 
          strDescription.length() + 2 * strExtensions.length() + 6;
-      if ( szFilters[ save ] + dim( szFilters[ save ] ) <= pszPtr + nNewLength ) {
-         trace( _T( "Filter string too long adding [%s]\n" ), 
-            strDescription.c_str() );
+      if ( szFilters[ save ] + MAX_FILTER_LENGTH <= pszPtr + nNewLength ) {
+         trace( _T( "Filter string too long adding [%s]\n" ), strDescription.c_str() );
          break; //*** LOOP EXIT POINT
       }
 
       // We're home safe; append the filter:
       wsprintf( pszPtr, _T( "%s (%s)" ), strDescription.c_str(), strExtensions.c_str() );
       pszPtr += _tcsclen( pszPtr ) + 1;
-      _tcscpy_s( pszPtr, filterStart + dim(filterStart) - pszPtr, strExtensions.c_str() );
+	  const size_t charactersLeft = filterStart + MAX_FILTER_LENGTH - pszPtr;
+      _tcscpy_s( pszPtr, charactersLeft, strExtensions.c_str() );
       pszPtr += _tcsclen( pszPtr ) + 1;
    }
 
-   assert( pszPtr < szFilters[ save ] + dim( szFilters[ save ] ) );
+   assert( pszPtr < szFilters[ save ] + MAX_FILTER_LENGTH );
    *pszPtr = 0;
    trace( _T( "Filter length = %d\n" ), pszPtr - szFilters[ save ] );
    return szFilters[ save ];

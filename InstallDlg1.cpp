@@ -89,7 +89,7 @@ void InstallDlg1::getList( void ) {
    }
 }
 
-
+// TODO: Unit test new safe string API
 void InstallDlg1::setupList( void ) {
 
    HWND hwndList = getDlgItem( IDC_FILETYPES );
@@ -140,7 +140,7 @@ void InstallDlg1::setupList( void ) {
          SHGFI_SMALLICON         | 
          SHGFI_TYPENAME          ;
       PATHNAME szExt = { 0 };
-      _tcscpy( szExt, pFileType->getExtension() );
+      _tcscpy_s( szExt, pFileType->getExtension() );
       LPTSTR pszSpace = _tcschr( szExt, _T( ' ' ) );
       if ( 0 != pszSpace ) {
          *pszSpace = 0;

@@ -75,10 +75,10 @@ SE_Translator::~SE_Translator() {
 
 #endif // INTERCEPT_SEH
 
-
 /**
  * This function gets called whenever malloc experiences a failure:
  */
+#pragma warning( disable: 4702 ) // Unreachable code
 PRIVATE int __cdecl allocation_failure( size_t size ) {
    
 #ifdef _DEBUG
@@ -91,12 +91,9 @@ PRIVATE int __cdecl allocation_failure( size_t size ) {
 #endif
 
    throwMemoryException();
-
-#pragma warning( disable: 4702 ) // Unreachable code
    assert( false ); // Never gets here...
-#pragma warning( default: 4702 )
 }
-
+#pragma warning( default: 4702 )
 
 NewHandler::NewHandler( void )
    : saved_new_handler( _set_new_handler( allocation_failure ) )
