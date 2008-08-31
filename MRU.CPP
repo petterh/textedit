@@ -164,7 +164,7 @@ PRIVATE bool pathRelativeToCurrent(
    return 0 != PathRelativePathTo( pszRelativePath, szCurrPath, FILE_ATTRIBUTE_DIRECTORY, pszPath, 0 );
 }
 
-
+// TODO: Unit test new safe string API
 String MRU::getFileTitle( int iCmdID ) const {
 
    String strFile = getFile( iCmdID );
@@ -172,14 +172,14 @@ String MRU::getFileTitle( int iCmdID ) const {
    PATHNAME szRelativePath = { 0 };
    pathRelativeToCurrent( szRelativePath, strFile.c_str() );
    if ( 0 == szRelativePath[ 0 ] ) {
-      _tcscpy( szRelativePath, strFile.c_str() );
+      _tcscpy_s( szRelativePath, strFile.c_str() );
    } else if ( startsWith( szRelativePath, _T( ".\\" ) ) ) {
       // Remove current directory from path
       const int nLength = _tcslen( szRelativePath + 2 );
       memmove( szRelativePath, szRelativePath + 2,  sizeof( TCHAR ) * ( nLength + 1 ) );
    } else if ( startsWith( szRelativePath, _T( "..\\" ) ) ) {
       // If path is above current dir, display complete path
-      _tcscpy( szRelativePath, strFile.c_str() );
+      _tcscpy_s( szRelativePath, strFile.c_str() );
    }
 
    return szRelativePath;
