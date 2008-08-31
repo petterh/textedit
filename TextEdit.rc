@@ -572,20 +572,20 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,198,237,50,14
 END
 
-IDD_ABOUT DIALOG  0, 0, 254, 189
-STYLE DS_SETFONT | DS_MODALFRAME | DS_NOIDLEMSG | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ABOUT DIALOGEX 0, 0, 255, 205
+STYLE DS_SETFONT | DS_MODALFRAME | DS_NOIDLEMSG | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About %1"
-FONT 8, "MS Shell Dlg"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     ICON            IDI_TEXTEDIT1,IDC_STATIC,7,7,20,20
-    LTEXT           "<FileDescription>",IDC_TITLE,42,7,205,16
-    LTEXT           "Version: %1",IDC_VERSION,42,29,205,8
-    LTEXT           "<LegalCopyright>",IDC_COPYRIGHT,42,43,205,16
-    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,42,65,205,1
-    LTEXT           "<Comments>",IDC_COMMENTS,42,71,205,50
+    LTEXT           "<FileDescription>",IDC_TITLE,42,7,206,16
+    LTEXT           "Version: %1",IDC_VERSION,42,29,206,8
+    LTEXT           "<LegalCopyright>",IDC_COPYRIGHT,42,43,206,16
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,42,65,206,1
+    LTEXT           "<Comments>",IDC_COMMENTS,42,71,206,50
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,42,122,204,1
-    LTEXT           "TextEdit was developed as a companion program to the (shamelessly recommended) book <b>Programming Industrial Strength Windows</b>, written by Petter Hesselberg and published by R&D Books, an imprint of Miller Freeman.",IDC_COMMERCIAL,42,130,205,37,SS_NOPREFIX
-    DEFPUSHBUTTON   "OK",IDOK,197,168,50,14,WS_GROUP
+    LTEXT           "TextEdit was developed as a companion program to the (shamelessly recommended) book <b>Programming Industrial Strength Windows</b>, written by Petter Hesselberg and published by R&D Books, an imprint of Miller Freeman.",IDC_COMMERCIAL,42,130,206,52,SS_NOPREFIX
+    DEFPUSHBUTTON   "OK",IDOK,198,184,50,14,WS_GROUP
 END
 
 IDD_SETUP DIALOGEX 0, 0, 279, 178
@@ -606,22 +606,22 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,222,157,50,14
 END
 
-IDD_DELETE DIALOG  0, 0, 282, 159
-STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_DELETE DIALOGEX 0, 0, 283, 183
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Delete File"
-FONT 8, "MS Shell Dlg"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     ICON            IDI_DELETE,IDC_STATIC,7,7,20,20
-    LTEXT           "The <b>Delete</b> command deletes the file <b>%1</b> and closes TextEdit.<p>If you check the box below, you can retrieve the file from the trash can later.",IDC_INFO,44,7,231,57
+    LTEXT           "The <b>Delete</b> command deletes the file <b>%1</b> and closes TextEdit.<p>If you check the box below, you can retrieve the file from the trash can later.",IDC_INFO,44,7,232,57
     ICON            IDI_WASTEBASKET,IDC_WASTEBASKET,7,62,20,20
     ICON            IDI_WASTEBASKETEMPTY,IDC_WASTEBASKETEMPTY,7,62,20,20
     CONTROL         "&Put file in trash can",IDC_TRASHCAN,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,44,67,108,10
     DEFPUSHBUTTON   "OK",IDOK,163,65,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,225,65,50,14
-    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,44,88,231,1
+    PUSHBUTTON      "Cancel",IDCANCEL,226,65,50,14
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,44,88,232,1
     CONTROL         "&Show this dialog next time you delete a file",IDC_SHOWDELETEDIALOG,
-                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,44,98,231,10
-    LTEXT           "If you uncheck the box above, the <b>Put file in trash can</b> setting will remain where it is now, and you won't be bothered by this dialog again.<p>You can turn this dialog box back on through the <b>Options</b> dialog in the <b>View</b> menu.",IDC_TIP,44,111,231,42
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,44,98,232,10
+    LTEXT           "If you uncheck the box above, the <b>Put file in trash can</b> setting will remain where it is now, and you won't be bothered by this dialog again.<p>You can turn this dialog box back on through the <b>Options</b> dialog in the <b>View</b> menu.",IDC_TIP,44,111,232,65
 END
 
 IDD_INSTALL_1 DIALOG  0, 0, 279, 229
@@ -786,10 +786,10 @@ BEGIN
     IDD_ABOUT, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 247
+        RIGHTMARGIN, 248
         VERTGUIDE, 42
         TOPMARGIN, 7
-        BOTTOMMARGIN, 182
+        BOTTOMMARGIN, 198
     END
 
     IDD_SETUP, DIALOG
@@ -804,10 +804,10 @@ BEGIN
     IDD_DELETE, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 275
+        RIGHTMARGIN, 276
         VERTGUIDE, 44
         TOPMARGIN, 7
-        BOTTOMMARGIN, 152
+        BOTTOMMARGIN, 176
     END
 
     IDD_INSTALL_1, DIALOG
