@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="TextEdit"
 	ProjectGUID="{26299D40-2BBC-4017-889B-D40905F737BC}"
 	RootNamespace="TextEdit"
@@ -133,6 +133,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description=""
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -221,8 +223,9 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description=""
 				CommandLine=""
-				ExcludedFromBuild="true"
+				ExcludedFromBuild="false"
 			/>
 		</Configuration>
 		<Configuration

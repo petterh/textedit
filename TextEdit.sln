@@ -2,6 +2,16 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextEdit", "TextEdit.vcproj", "{26299D40-2BBC-4017-889B-D40905F737BC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{923E30E9-D6BD-4FE2-866D-3C2B5F070C45}"
+	ProjectSection(SolutionItems) = preProject
+		TextEdit-tests\formatNumberTest.cpp = TextEdit-tests\formatNumberTest.cpp
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextEdit-tests", "TextEdit-tests\TextEdit-tests.vcproj", "{ECB4D306-2EF8-480E-BE90-AFEC878377F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{26299D40-2BBC-4017-889B-D40905F737BC} = {26299D40-2BBC-4017-889B-D40905F737BC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ansi Debug|Win32 = Ansi Debug|Win32
@@ -24,6 +34,18 @@ Global
 		{26299D40-2BBC-4017-889B-D40905F737BC}.Unicode Debug|Win32.Build.0 = Unicode Debug|Win32
 		{26299D40-2BBC-4017-889B-D40905F737BC}.Unicode Release|Win32.ActiveCfg = Unicode Release|Win32
 		{26299D40-2BBC-4017-889B-D40905F737BC}.Unicode Release|Win32.Build.0 = Unicode Release|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Ansi Debug|Win32.ActiveCfg = Debug|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Ansi Debug|Win32.Build.0 = Debug|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Ansi Release|Win32.ActiveCfg = Release|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Ansi Release|Win32.Build.0 = Release|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Debug|Win32.Build.0 = Debug|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Release|Win32.ActiveCfg = Release|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Release|Win32.Build.0 = Release|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Unicode Debug|Win32.ActiveCfg = Debug|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Unicode Debug|Win32.Build.0 = Debug|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Unicode Release|Win32.ActiveCfg = Release|Win32
+		{ECB4D306-2EF8-480E-BE90-AFEC878377F6}.Unicode Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
