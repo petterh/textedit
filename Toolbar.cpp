@@ -621,7 +621,7 @@ void Toolbar::onSettingChange( LPCTSTR pszSection ) {
 
    assertValid();
    //FORWARD_WM_SETTINGCHANGE( hwndChild, pszSection, SNDMSG );
-   if ( 0 == _tcsicmp( _T( "WindowMetrics" ), pszSection ) ) {
+   if ( isGoodStringPtr( pszSection ) && 0 == _tcsicmp( _T( "WindowMetrics" ), pszSection ) ) {
       //adjust( true );
    }
 }
