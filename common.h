@@ -65,9 +65,9 @@ inline bool isGoodStringPtrOrAtom( LPCTSTR psz ) {
    #define _CRTDBG_MAP_ALLOC
    #define _MFC_OVERRIDES_NEW
    #include <crtdbg.h>
+#if 0
    _CRTIMP void * __cdecl operator new( 
       unsigned int, int, const char *, int );
-#if 0
    inline void __cdecl operator delete( 
       void * _P, int, const char *, int ) 
    { 
