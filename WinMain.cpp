@@ -16,17 +16,10 @@
 #include "combobug.h"
 
 
-#ifdef UNICODE
-#pragma comment( linker, "/entry:wWinMainCRTStartup" )
-#else
-#pragma comment( linker, "/entry:WinMainCRTStartup" )
-#endif
-
-
 int WINAPI _tWinMain( 
    HINSTANCE hinst, HINSTANCE, LPTSTR pszCmdLine, int nShow )
 {
-//   MessageBox( HWND_DESKTOP, pszCmdLine, "Hi from TextEdit", MB_OK );
+// MessageBox( HWND_DESKTOP, pszCmdLine, "Hi from TextEdit", MB_OK );
    trace( _T( "TextEdit _tWinMain( \"%s\" )\n" ), pszCmdLine );
 
    fixComboBug();
@@ -61,24 +54,20 @@ int WINAPI _tWinMain(
       ; // OK, just terminate.
    }
    catch ( const AccessDeniedException& x ) {
-      messageBox( HWND_DESKTOP, MB_ICONERROR | MB_OK, 
-         IDS_ACCESS_DENIED, x.what() );
+      messageBox( HWND_DESKTOP, MB_ICONERROR | MB_OK, IDS_ACCESS_DENIED, x.what() );
    }
    catch ( const ComException& x ) {
       // In case the ComSupport constructor fails
-      messageBox( HWND_DESKTOP, MB_ICONERROR | MB_OK, 
-         IDS_COM_INIT_ERROR, x.what() );
+      messageBox( HWND_DESKTOP, MB_ICONERROR | MB_OK, IDS_COM_INIT_ERROR, x.what() );
    }
    catch ( const Exception& x ) {
       // We get here in case of accidents during init.
-      messageBox( HWND_DESKTOP, MB_ICONERROR | MB_OK, 
-         IDS_INIT_ERROR, x.what() );
+      messageBox( HWND_DESKTOP, MB_ICONERROR | MB_OK, IDS_INIT_ERROR, x.what() );
    }
    catch ( ... ) {
       // We get here in case of SEHs that we don't translate.
       assert( false );
-      messageBox( 
-         HWND_DESKTOP, MB_ICONERROR | MB_OK, IDS_FATAL_ERROR );
+      messageBox( HWND_DESKTOP, MB_ICONERROR | MB_OK, IDS_FATAL_ERROR );
    }
 
    return nRetCode; // Goodbye, and thanks for all the fish.
