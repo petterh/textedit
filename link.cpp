@@ -9,11 +9,13 @@
 #include "precomp.h"
 
 
+#ifndef UNITTEST
 #ifdef UNICODE
 #pragma comment( linker, "/entry:wWinMainCRTStartup" )
 #else
 #pragma comment( linker, "/entry:WinMainCRTStartup" )
 #endif
+#endif // UNITTEST
 
 
 #pragma comment( lib, "kernel32.lib" )
