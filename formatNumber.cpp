@@ -19,7 +19,6 @@
  * this way is better, because it is simpler.
  * See also: GetNumberFormat
  */
-// TODO: Unit test new safe string API
 String formatNumber( int nValue ) {
 
    assert( 0 <= nValue );
@@ -56,13 +55,6 @@ String formatNumber( int nValue ) {
       anGrouping[ 0 ] = 3;
       nGroupings = 1;
    }
-
-#if 0 // Testing. TODO: Add to unit test
-   nGroupings = 3;
-   anGrouping[ 0 ] = 3;
-   anGrouping[ 1 ] = 1;
-   anGrouping[ 2 ] = 2;
-#endif
 
 #ifdef _DEBUG
    for ( int iGrouping = 0; iGrouping < nGroupings; ++iGrouping ) {
