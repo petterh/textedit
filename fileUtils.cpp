@@ -13,14 +13,13 @@
 #include "os.h"
 
 
-#pragma comment( lib, "shlwapi.lib"  )
+#pragma comment( lib, "shlwapi.lib" )
 
 
 // nonstandard extension used: nameless struct/union
 #pragma warning( disable: 4201 ) 
 #include <winioctl.h>
 #pragma warning( default: 4201 ) 
-
 
 /**
  * Simplified version of CreateFile, so as not to 
@@ -145,7 +144,6 @@ void copyFile( HANDLE hSrc, HANDLE hDst, DWORD *pdwBytes ) {
    }
 }
 
-// TODO: Unit test new safe string API
 PRIVATE String getWinInit( void ) {
    PATHNAME szWinInit = { 0 };
    GetWindowsDirectory( szWinInit, sizeof szWinInit );
@@ -159,7 +157,6 @@ PRIVATE String getWinInit( void ) {
 
    return szWinInit;
 }
-
 
 typedef BOOL (WINAPI *MOVEFILEEXPROC)(LPCTSTR, LPCTSTR, DWORD );
 
@@ -188,8 +185,7 @@ bool delayedRemove( const String& strPath ) {
       }
 
       assert( fMoveFileEx == MoveFileEx );
-      return 0 != fMoveFileEx( 
-         strPath.c_str(), 0, MOVEFILE_DELAY_UNTIL_REBOOT );
+      return 0 != fMoveFileEx( strPath.c_str(), 0, MOVEFILE_DELAY_UNTIL_REBOOT );
    }
 
    // Windows 9x:
@@ -197,8 +193,7 @@ bool delayedRemove( const String& strPath ) {
    // function, as all the NUL= strings will be overwritten.
 
    PATHNAME szPath = { 0 };
-   const DWORD dwLength = GetShortPathName( 
-      strPath.c_str(), szPath, dim( szPath ) );
+   const DWORD dwLength = GetShortPathName( strPath.c_str(), szPath, dim( szPath ) );
    if ( 0 == dwLength || dim( szPath ) < dwLength ) {
       return false;
    }
@@ -215,8 +210,7 @@ bool delayedRemove( const String& strPath ) {
    }
 
    PATHNAME szTempFile = { 0 };
-   const UINT uiUniqueNumber = 
-      GetTempFileName( szTempPath,  _T( "te" ), 0, szTempFile );
+   const UINT uiUniqueNumber = GetTempFileName( szTempPath,  _T( "te" ), 0, szTempFile );
    if ( 0 == uiUniqueNumber ) {
       return false;
    }
@@ -445,14 +439,28 @@ bool isWriteProtectedDisk( LPCTSTR pszPath ) {
  * High in the BY_HANDLE_FILE_INFORMATION structure to determine if 
  * two files  are the same, e.g., whether the names "G:\\file.txt" 
  * and "\\server\share\file.txt" actually refer to the same file?
+ * TODO: Determine required size first.
  */
-bool areFileNamesEqual( 
-   const String& strFile1, const String& strFile2 )
+bool areFileNamesEqual( const String& strFile1, const String& strFile2 )
 {
    PATHNAME szFile1 = { 0 };
-   GetShortPathName( strFile1.c_str(), szFile1, dim( szFile1 ) );
+   int length = GetShortPathName( strFile1.c_str(), szFile1, dim( szFile1 ) );
+   if (0 == length) {
+	   const DWORD err = GetLastError();
+	   if (ERROR_FILE_NOT_FOUND == err) {
+		   return false;
+	   }
+   }
+
    PATHNAME szFile2 = { 0 };
-   GetShortPathName( strFile2.c_str(), szFile2, dim( szFile2 ) );
+   length = GetShortPathName( strFile2.c_str(), szFile2, dim( szFile2 ) );
+   if (0 == length) {
+	   const DWORD err = GetLastError();
+	   if (ERROR_FILE_NOT_FOUND == err) {
+		   return false;
+	   }
+   }
+
    return 0 == _tcsicmp( szFile1, szFile2 );
 }
 
