@@ -27,28 +27,7 @@
 
 bool Document::s_bEndSession = false; // Set to true on WM_ENDSESSION.
 
-
 #define FILE_TYPE _T( "File Types" )
-
-// TODO: Unit test new safe string API
-PRIVATE String getTempFileName( void ) {
-
-   PATHNAME szTempPath = { 0 };
-   if ( 0 == GetTempPath( dim( szTempPath ), szTempPath ) ) {
-      trace( _T( "Unable to get temp path: %s\n" ), getError().c_str() );
-      _tcscpy_s( szTempPath, dim( szTempPath ), _T( "." ) );
-   }
-
-   PATHNAME szOrgCopy = { 0 };
-   const UINT uiUniqueNumber = GetTempFileName( szTempPath,  _T( "te" ), 0, szOrgCopy );
-   if ( 0 == uiUniqueNumber ) {
-      throwException( _T( "Unable to create temporary file" ) );
-   }
-
-   return szOrgCopy;
-}
-
-
 
 bool Document::modifyAttribs( 
    const String& strFile, DWORD dwAdd, DWORD dwRemove ) 

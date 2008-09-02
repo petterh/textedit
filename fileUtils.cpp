@@ -12,9 +12,7 @@
 #include "fileUtils.h"
 #include "os.h"
 
-
 #pragma comment( lib, "shlwapi.lib" )
-
 
 // nonstandard extension used: nameless struct/union
 #pragma warning( disable: 4201 ) 
@@ -58,7 +56,6 @@ HANDLE openFile(
    return hFile;
 }
 
-
 // TODO: Return 'not ready'
 bool fileExists( LPCTSTR pszFile ) {
 
@@ -69,7 +66,6 @@ bool fileExists( LPCTSTR pszFile ) {
       openFile( pszFile, GENERIC_READ, FILE_SHARE_READ_WRITE ) );
    return INVALID_HANDLE_VALUE != hFile;
 }
-
 
 bool modifyAttribs( 
    const String& strFile, DWORD dwAdd, DWORD dwRemove ) 
@@ -102,7 +98,6 @@ bool modifyAttribs(
 
    return true;
 }
-
 
 /**
  * CopyFile or CopyFileEx instead?
@@ -255,7 +250,6 @@ bool delayedRemove( const String& strPath ) {
    return bInserted;
 }
 
-
 /**
  * Parses a stream name, if one exists:
  * "C:\Streams\demo.txt:MyStream" 
@@ -315,7 +309,6 @@ String getRootDir( const String& strPath ) {
    return szRootDir;
 }
 
-
 DWORD getClusterSize( const String& strPath ) {
 
    BOOL bPathOK;
@@ -343,7 +336,6 @@ DWORD getClusterSize( const String& strPath ) {
    return dwBytesPerSector * dwSectorsPerCluster;
 }
 
-
 void addPathSeparator( String *pstrPath ) {
 
    assert( 0 != pstrPath );
@@ -356,7 +348,6 @@ void addPathSeparator( String *pstrPath ) {
       *pstrPath += _T( '\\' );
    }
 }
-
 
 String& appendPathComponent( String *pPath, LPCTSTR component ) {
 
@@ -396,7 +387,6 @@ String compactPath( LPCTSTR pszPath, int nWidth, HFONT hfont ) {
    return pszCompactPath;
 }
 
-
 /**
  * Check for write-protected floppy. There is,
  * unfortunately, no good way to do this, except
@@ -431,7 +421,6 @@ bool isWriteProtectedDisk( LPCTSTR pszPath ) {
    return false;
 }
 
-
 /**
  * This will fail if an UNC file name and a non-UNC file name
  * refers to the same file. What about shortcuts?
@@ -464,7 +453,6 @@ bool areFileNamesEqual( const String& strFile1, const String& strFile2 )
    return 0 == _tcsicmp( szFile1, szFile2 );
 }
 
-
 /**
  * SHGetSpecialFolderPath needs version 4.71 of the common controls.
  */
@@ -481,7 +469,6 @@ String getSpecialFolderLocation( int nFolder ) {
    return strSpecialFolder;
 }
 
-
 bool supportsCompression( const String& strPath ) {
 
    const SilentErrorMode sem;
@@ -494,7 +481,6 @@ bool supportsCompression( const String& strPath ) {
       &dwFileSystemFlags, 0, 0 );
    return bOK && (FS_FILE_COMPRESSION & dwFileSystemFlags);
 }
-
 
 bool compressFile( const LPCTSTR pszFile, bool bCompress ) {
 
@@ -519,6 +505,22 @@ bool compressFile( const LPCTSTR pszFile, bool bCompress ) {
    verify( CloseHandle( hFile ) );
    
    return bOK;
+}
+
+String getTempFileName( void ) {
+   PATHNAME szTempPath = { 0 };
+   if ( 0 == GetTempPath( dim( szTempPath ), szTempPath ) ) {
+      trace( _T( "Unable to get temp path: %s\n" ), getError().c_str() );
+      _tcscpy_s( szTempPath, dim( szTempPath ), _T( "." ) );
+   }
+
+   PATHNAME szTempFileName = { 0 };
+   const UINT uiUniqueNumber = GetTempFileName( szTempPath,  _T( "te" ), 0, szTempFileName );
+   if ( 0 == uiUniqueNumber ) {
+      throwException( _T( "Unable to create temporary file" ) );
+   }
+
+   return szTempFileName;
 }
 
 // end of file
