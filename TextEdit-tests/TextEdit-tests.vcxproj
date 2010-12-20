@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{ECB4D306-2EF8-480E-BE90-AFEC878377F6}</ProjectGuid>
+    <RootNamespace>TextEditTests</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)'=='Debug'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)'=='Release'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precomp.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(Configuration)\precomp.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(Configuration)\</AssemblerListingLocation>
+      <ObjectFileName>$(Configuration)\</ObjectFileName>
+      <ProgramDataBaseFileName>$(Configuration)\</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level4</WarningLevel>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(TargetPath)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(Configuration)\$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Message>Running unit tests...</Message>
+      <Command>"$(targetPath)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;UNICODE;_UNICODE;UNITTEST;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <SmallerTypeCheck>true</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;UNICODE;_UNICODE;UNITTEST;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\AboutDlg.cpp" />
+    <ClCompile Include="..\AbstractEditWnd.cpp" />
+    <ClCompile Include="..\activateOldInstance.cpp" />
+    <ClCompile Include="..\addAtom.cpp" />
+    <ClCompile Include="..\ArgumentList.cpp" />
+    <ClCompile Include="..\ComSupport.cpp" />
+    <ClCompile Include="..\createNewFile.cpp" />
+    <ClCompile Include="..\DeleteDlg.cpp" />
+    <ClCompile Include="..\devMode.cpp" />
+    <ClCompile Include="..\devNames.cpp" />
+    <ClCompile Include="..\Dialog.cpp" />
+    <ClCompile Include="..\dlgSubclasser.cpp" />
+    <ClCompile Include="..\Document.cpp" />
+    <ClCompile Include="..\Editor.cpp" />
+    <ClCompile Include="..\EditWnd.cpp" />
+    <ClCompile Include="..\EditWordBreakProc.cpp" />
+    <ClCompile Include="..\Exception.cpp" />
+    <ClCompile Include="..\exeContainsLanguageResources.cpp" />
+    <ClCompile Include="..\FileMapping.cpp" />
+    <ClCompile Include="..\FileNotFoundDlg.cpp" />
+    <ClCompile Include="..\FileType.cpp" />
+    <ClCompile Include="..\fileUtils.cpp" />
+    <ClCompile Include="..\FindDlg.cpp" />
+    <ClCompile Include="..\FontDlg.cpp" />
+    <ClCompile Include="..\formatMessage.cpp" />
+    <ClCompile Include="..\formatNumber.cpp" />
+    <ClCompile Include="..\getLongPathName.cpp" />
+    <ClCompile Include="..\GlobalSubclasser.cpp" />
+    <ClCompile Include="..\handlers.cpp" />
+    <ClCompile Include="..\help.cpp" />
+    <ClCompile Include="..\HTML.cpp" />
+    <ClCompile Include="..\init.cpp" />
+    <ClCompile Include="..\InstallDlg1.cpp" />
+    <ClCompile Include="..\InstanceSubclasser.cpp" />
+    <ClCompile Include="..\language.cpp" />
+    <ClCompile Include="..\link.cpp" />
+    <ClCompile Include="..\mainwnd.cpp" />
+    <ClCompile Include="..\MenuFont.cpp" />
+    <ClCompile Include="..\menuUtils.cpp" />
+    <ClCompile Include="..\MRU.cpp" />
+    <ClCompile Include="..\openDlgCommon.cpp" />
+    <ClCompile Include="..\openFileDlg.cpp" />
+    <ClCompile Include="..\OptionsDlg.cpp" />
+    <ClCompile Include="..\os.cpp" />
+    <ClCompile Include="..\precomp.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\print.cpp" />
+    <ClCompile Include="..\printFile.cpp" />
+    <ClCompile Include="..\PropertiesDlg.cpp" />
+    <ClCompile Include="..\reboot.cpp" />
+    <ClCompile Include="..\Registry.cpp" />
+    <ClCompile Include="..\RegRename.cpp" />
+    <ClCompile Include="..\resolveName.cpp" />
+    <ClCompile Include="..\RichEditWnd.cpp" />
+    <ClCompile Include="..\saveFile.cpp" />
+    <ClCompile Include="..\search.cpp" />
+    <ClCompile Include="..\setup.cpp" />
+    <ClCompile Include="..\SetupDlg.cpp" />
+    <ClCompile Include="..\setupPage.cpp" />
+    <ClCompile Include="..\startInstance.cpp" />
+    <ClCompile Include="..\StatusBar.cpp" />
+    <ClCompile Include="..\Toolbar.cpp" />
+    <ClCompile Include="..\trace.cpp" />
+    <ClCompile Include="..\utils.cpp" />
+    <ClCompile Include="..\VersionInfo.cpp" />
+    <ClCompile Include="..\WaitCursor.cpp" />
+    <ClCompile Include="..\Window.cpp" />
+    <ClCompile Include="..\winUtils.cpp" />
+    <ClCompile Include="..\combobug.c">
+      <PrecompiledHeader />
+    </ClCompile>
+    <ClCompile Include="..\themes.c">
+      <PrecompiledHeader />
+    </ClCompile>
+    <ClCompile Include="..\wdjsub.c">
+      <PrecompiledHeader />
+    </ClCompile>
+    <ClCompile Include="..\wnd_snap.c">
+      <PrecompiledHeader />
+    </ClCompile>
+    <ClCompile Include="fileUtilsTest.cpp" />
+    <ClCompile Include="formatNumberTest.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="CppUnitLite\Failure.cpp" />
+    <ClCompile Include="CppUnitLite\Test.cpp" />
+    <ClCompile Include="CppUnitLite\TestRegistry.cpp" />
+    <ClCompile Include="CppUnitLite\TestResult.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CppUnitLite\CppUnitLite.h" />
+    <ClInclude Include="CppUnitLite\Failure.h" />
+    <ClInclude Include="CppUnitLite\Test.h" />
+    <ClInclude Include="CppUnitLite\TestRegistry.h" />
+    <ClInclude Include="CppUnitLite\TestResult.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextEdit.vcxproj">
+      <Project>{26299d40-2bbc-4017-889b-d40905f737bc}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

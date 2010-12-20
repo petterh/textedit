@@ -17,10 +17,8 @@
 // Neutral resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
-#ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -48,7 +46,7 @@ IDI_TEXTEDIT            ICON                    "res\\textedit2.ico"
 // Toolbar
 //
 
-IDR_TOOLBAR TOOLBAR  16, 15
+IDR_TOOLBAR TOOLBAR 16, 15
 BEGIN
     BUTTON      IDOK
     BUTTON      IDOK
@@ -56,7 +54,7 @@ BEGIN
     BUTTON      IDOK
 END
 
-IDR_TOOLBAR_LARGE TOOLBAR  24, 24
+IDR_TOOLBAR_LARGE TOOLBAR 24, 24
 BEGIN
     BUTTON      IDOK
     BUTTON      IDOK
@@ -78,7 +76,7 @@ IDR_TOOLBAR_LARGE       BITMAP                  "res\\toolbar_large.bmp"
 // Menu
 //
 
-IDR_MRU MENU 
+IDR_MRU MENU
 BEGIN
     POPUP "MRU"
     BEGIN
@@ -95,7 +93,7 @@ BEGIN
     END
 END
 
-IDR_COMMANDS MENU 
+IDR_COMMANDS MENU
 BEGIN
     POPUP "COMMAND"
     BEGIN
@@ -127,8 +125,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,0,2298,0
- PRODUCTVERSION 1,1,0,0
+ FILEVERSION 2,0,2299,0
+ PRODUCTVERSION 2,0,1,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x3L
@@ -143,15 +141,15 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "TextEdit is a text editor that replaces Notepad.<p>TextEdit neither has nor needs a <b>Save</b> command -- it operates directly on files.<p>See <b>Help</b> for more information."
+            VALUE "Comments", "TextEdit is a Notedad replacement.<p>It neither has nor needs a <b>Save </b>command; it operates directly on files.<p>See <b>Help </b>for more information."
             VALUE "CompanyName", "Hesselberg Consulting"
             VALUE "FileDescription", "TextEdit"
-            VALUE "FileVersion", "2.0.2298"
+            VALUE "FileVersion", "2.0.2299.0"
             VALUE "InternalName", "TextEdit"
-            VALUE "LegalCopyright", "© 1999 - 2008 Petter Hesselberg.\\nSee CodePlex license agreement for details."
+            VALUE "LegalCopyright", "© 1999 - 2010 Petter Hesselberg.\\nSee CodePlex license agreement for details."
             VALUE "OriginalFilename", "TextEdit.exe"
             VALUE "ProductName", "TextEdit"
-            VALUE "ProductVersion", "2.0"
+            VALUE "ProductVersion", "2.0.1.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -166,7 +164,7 @@ END
 // Dialog
 //
 
-IDD_DIALOG_WITH_CHILD_IDS DIALOG  0, 0, 114, 183
+IDD_DIALOG_WITH_CHILD_IDS DIALOG 0, 0, 114, 183
 STYLE DS_MODALFRAME | DS_NOFAILCREATE | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog with child IDs"
 BEGIN
@@ -180,7 +178,7 @@ BEGIN
     PUSHBUTTON      "IDC_EDIT",IDC_EDIT,7,163,100,14
 END
 
-IDD_PAGE_SETUP DIALOG  0, 0, 186, 95
+IDD_PAGE_SETUP DIALOG 0, 0, 186, 95
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dummy Page Setup Dialog"
 FONT 8, "MS Shell Dlg"
@@ -190,7 +188,7 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,129,24,50,14
 END
 
-IDD_PRINT DIALOG  0, 0, 186, 95
+IDD_PRINT DIALOG 0, 0, 186, 95
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dummy Print Dialog"
 BEGIN
@@ -198,7 +196,7 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,129,24,50,14
 END
 
-IDD_PRINT_SETUP DIALOG  0, 0, 186, 95
+IDD_PRINT_SETUP DIALOG 0, 0, 186, 95
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dummy Print Setup Dialog"
 BEGIN
@@ -213,7 +211,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_DIALOG_WITH_CHILD_IDS, DIALOG
     BEGIN
@@ -254,13 +252,11 @@ END
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -269,9 +265,9 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 #if defined(APSTUDIO_INVOKED) || defined(_DEBUG)
 #if defined(APSTUDIO_INVOKED)
-IDR_MENU$(_DEBUG) MENU 
+IDR_MENU$(_DEBUG) MENU
 #else
-IDR_MENU MENU 
+IDR_MENU MENU
 #endif
 BEGIN
     POPUP "&File"
@@ -353,9 +349,9 @@ END
 
 #if defined(APSTUDIO_INVOKED) || defined(NDEBUG)
 #if defined(APSTUDIO_INVOKED)
-IDR_MENU$(NDEBUG) MENU 
+IDR_MENU$(NDEBUG) MENU
 #else
-IDR_MENU MENU 
+IDR_MENU MENU
 #endif
 BEGIN
     POPUP "&File"
@@ -434,7 +430,7 @@ END
 // Dialog
 //
 
-IDD_PROPERTIES DIALOG  0, 0, 261, 247
+IDD_PROPERTIES DIALOG 0, 0, 261, 247
 STYLE DS_SETFONT | DS_MODALFRAME | DS_NOIDLEMSG | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "%1 Properties"
 FONT 8, "MS Shell Dlg"
@@ -478,7 +474,7 @@ BEGIN
     PUSHBUTTON      "&Apply",IDC_APPLY,204,226,50,14,WS_DISABLED
 END
 
-IDD_FILENOTFOUND DIALOG  0, 0, 277, 79
+IDD_FILENOTFOUND DIALOG 0, 0, 277, 79
 STYLE DS_SETFONT | DS_MODALFRAME | DS_NOIDLEMSG | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "TextEdit: Unable to Open File"
 FONT 8, "MS Shell Dlg"
@@ -491,7 +487,7 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,220,58,50,14
 END
 
-IDD_SAVE_CHILD DIALOG  0, 0, 302, 113
+IDD_SAVE_CHILD DIALOG 0, 0, 302, 113
 STYLE DS_SETFONT | DS_3DLOOK | DS_CONTROL | WS_CHILD | WS_CLIPSIBLINGS
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -520,7 +516,7 @@ BEGIN
     LTEXT           "<b>Tip:</b> After this dialog has closed, you can press <b>F3</b> to repeat the search.",IDC_SEARCH_TIP,7,83,264,9,SS_NOPREFIX
 END
 
-IDD_EDITREPLACE DIALOG  0, 0, 278, 106
+IDD_EDITREPLACE DIALOG 0, 0, 278, 106
 STYLE DS_SETFONT | DS_MODALFRAME | DS_NOIDLEMSG | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Replace "
 FONT 8, "MS Shell Dlg"
@@ -542,7 +538,7 @@ BEGIN
     LTEXT           "<b>Tip:</b> After this dialog has closed, you can press <b>F3</b> to repeat the search.",IDC_SEARCH_TIP,7,90,264,9
 END
 
-IDD_OPTIONS DIALOG  0, 0, 255, 258
+IDD_OPTIONS DIALOG 0, 0, 255, 258
 STYLE DS_SETFONT | DS_MODALFRAME | DS_NOIDLEMSG | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "TextEdit Options"
 FONT 8, "MS Shell Dlg"
@@ -624,7 +620,7 @@ BEGIN
     LTEXT           "If you uncheck the box above, the <b>Put file in trash can</b> setting will remain where it is now, and you won't be bothered by this dialog again.<p>You can turn this dialog box back on through the <b>Options</b> dialog in the <b>View</b> menu.",IDC_TIP,44,111,232,65
 END
 
-IDD_INSTALL_1 DIALOG  0, 0, 279, 229
+IDD_INSTALL_1 DIALOG 0, 0, 279, 229
 STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_NOFAILCREATE | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "TextEdit Setup - Step 1 of 1"
 FONT 8, "MS Shell Dlg"
@@ -645,7 +641,7 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,222,208,50,14
 END
 
-IDD_FONT DIALOG  0, 0, 277, 177
+IDD_FONT DIALOG 0, 0, 277, 177
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Font"
 FONT 8, "MS Shell Dlg"
@@ -672,7 +668,7 @@ BEGIN
     COMBOBOX        1140,111,157,94,30,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL | CBS_HASSTRINGS | WS_BORDER | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_PREVIEW_CHILD DIALOG  0, 0, 134, 125
+IDD_PREVIEW_CHILD DIALOG 0, 0, 134, 125
 STYLE DS_SETFONT | DS_3DLOOK | DS_CONTROL | WS_CHILD | WS_CLIPSIBLINGS
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -683,7 +679,7 @@ BEGIN
     CONTROL         "Open in New &Window",IDC_NEW_WINDOW,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,27,114,87,10
 END
 
-IDD_MOVE_CHILD DIALOG  0, 0, 302, 113
+IDD_MOVE_CHILD DIALOG 0, 0, 302, 113
 STYLE DS_SETFONT | DS_3DLOOK | DS_CONTROL | WS_CHILD | WS_CLIPSIBLINGS
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -692,7 +688,7 @@ BEGIN
     LTEXT           "stc32",1119,7,37,288,69,NOT WS_VISIBLE | WS_DISABLED
 END
 
-IDD_DELETE_STDIN DIALOG  0, 0, 282, 159
+IDD_DELETE_STDIN DIALOG 0, 0, 282, 159
 STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Delete Temporary File?"
 FONT 8, "MS Shell Dlg"
@@ -710,7 +706,7 @@ BEGIN
     LTEXT           "If you uncheck the box above, the <b>Put file in trash can</b> setting will remain where it is now, and you won't be bothered by this dialog again.<p>You can turn this dialog box back on through the <b>Options</b> dialog in the <b>View</b> menu.",IDC_TIP,44,111,231,42
 END
 
-IDD_COPY_CHILD DIALOG  0, 0, 302, 113
+IDD_COPY_CHILD DIALOG 0, 0, 302, 113
 STYLE DS_SETFONT | DS_3DLOOK | DS_CONTROL | WS_CHILD | WS_CLIPSIBLINGS
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -726,7 +722,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_PROPERTIES, DIALOG
     BEGIN
@@ -867,7 +863,7 @@ END
 // Accelerator
 //
 
-IDR_ACCELERATOR ACCELERATORS 
+IDR_ACCELERATOR ACCELERATORS
 BEGIN
     VK_F3,          ID_ACCEL_FINDNEXT,      VIRTKEY, NOINVERT
     VK_F3,          ID_ACCEL_FINDPREVIOUS,  VIRTKEY, SHIFT, NOINVERT
@@ -914,7 +910,7 @@ IDR_HLP_FILE            FILE                    "Help\\TEXTEDIT.HLP"
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_FILE_NEW             "Create a new file\nNew (Ctrl+N)"
     ID_FILE_OPEN            "Open another file...\nOpen (Ctrl+O)"
@@ -928,14 +924,14 @@ BEGIN
     ID_EDIT_DELETE          "Delete selected text\nDelete (Del)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VERSION             "Version:"
     IDS_TABS                "&Tabs:"
     IDS_STRING_NOT_FOUND    "Unable to find <b>%1</b>"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_FILE_COPY           "Make Copy of %1..."
     ID_EDIT_FINDSELECTION   "Find next occurence of selection, or, if no text is selected, finds the next occurence of the current word"
@@ -956,7 +952,7 @@ BEGIN
     IDS_ACCESS_DENIED       "Unable to open file:%n%1"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_OPENFILE            "Open File"
     IDS_REPLACEMENTS        "%1!d! replacements were made"
@@ -976,7 +972,7 @@ BEGIN
     IDS_FILE_NOT_COMPRESSED "File is not compressed"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_FIND_FOLDER         "TextEdit is unable to determine your personal folder. Please select a default document folder:"
     IDS_BYTES               " (%s bytes)"
@@ -996,7 +992,7 @@ BEGIN
     IDS_POSITION            "\tLn %1  Col %2"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_NEW_FILE_1          "New Text File"
     IDS_NEW_FILE_N          "New Text File (%1!u!)"
@@ -1016,7 +1012,7 @@ BEGIN
     IDS_FIND_MENU           "<b>Search</b> menu: Contains commands for searching"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_HELP_ABOUT           "Display the <b>About TextEdit</b> dialog box"
     ID_EDIT_FINDNEXT        "Find next occurence of a string"
@@ -1036,7 +1032,7 @@ BEGIN
     IDS_INSTALL_FOUND       "<b>TextEdit</b> version %1 was found"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_MOVE                "Move or Rename File"
     IDS_PRINT_ARG_ERROR     "Not enough arguments for /pt"
@@ -1055,7 +1051,7 @@ BEGIN
     IDS_FAILED_MOVE         "Kan ikke flytte filen eller endre navn på den"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIEW_MENU           "<b>View</b> menu: Commands to manipulate visual elements"
     IDS_HELP_MENU           "<b>Help</b> menu: Help on the program, the About box"
@@ -1068,34 +1064,34 @@ BEGIN
     IDS_FILEFILTERS2        "Text File|*.txt|Command File|*.cmd|HTML File|*.html|XML File|*.xml|XSL File|*.xsl|Cascading Style Sheet|*.css|C++ Source File|*.cpp|C Source File|*.c|C/C++ Header File|*.h|C# Source File|*.cs|Java Source File|*.java|Resource Script|*.rc|Assembler Source File|*.asm|All Files|*.*|"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     61728                   "Restore a minimzed or maximized TextEdit window"
     IDS_COPY_FILE           "Copy File"
     IDS_FILE_SENDTO_MENU    "<b>Send To</b> menu: Commands to send document via email"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     61456                   "Move the TextEdit window"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     61440                   "Change the size of the TextEdit window"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     61488                   "Maximize the TextEdit window to fill the screen"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     61472                   "Minimize the TextEdit window to the task bar"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PASSED_END_OF_FILE  "Found <b>%1</b> (passed the end of the file)"
     IDS_TAB_PROMPT          "Set number of spaces per tab stop"
@@ -1115,7 +1111,7 @@ BEGIN
     IDS_COM_INIT_ERROR      "Cannot initialize COM:\n%1\nSorry, I give up."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PRINT_HEADER        "Print %1"
     ID_FILE_RENAME          "Move or rename <b>%1</b>"
@@ -1124,23 +1120,21 @@ BEGIN
     ID_FILE_SENDTO_MAILRECIPIENT "Send the file as an e-mail attachment"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_SENDTO_SYSTEM        "Open (or execute) the current file"
 END
 
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Norwegian (Bokmal) resources
+// Norwegian, Bokmål (Norway) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NOR)
-#ifdef _WIN32
 LANGUAGE LANG_NORWEGIAN, SUBLANG_NORWEGIAN_BOKMAL
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -1167,7 +1161,7 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
-#endif    // Norwegian (Bokmal) resources
+#endif    // Norwegian, Bokmål (Norway) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

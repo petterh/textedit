@@ -221,10 +221,10 @@ bool delayedRemove( const String& strPath ) {
    bool bInserted = false;
    FILE *fileOut = 0;
    int err1 = _tfopen_s( &fileOut, strWinInit.c_str(), _T( "w" ) );
-   if ( 0 != fileOut ) {
+   if ( NO_ERROR == err1 && 0 != fileOut ) {
       FILE *fileIn = 0;
       int err2 = _tfopen_s( &fileIn, szTempFile, _T( "r" ) );
-      if ( 0 != fileIn ) {
+      if ( NO_ERROR == err2 && 0 != fileIn ) {
          // Assume not Unicode:
          char szLine[ 5000 ] = { 0 };
          while ( fgets( szLine, sizeof szLine, fileIn ) ) {
