@@ -61,13 +61,13 @@
 DEFINE_PERSISTENT_INT(    "Fonts", FixedHeight , 10            );
 DEFINE_PERSISTENT_INT(    "Fonts", FixedWeight , FW_NORMAL     );
 DEFINE_PERSISTENT_INT(    "Fonts", FixedItalic , 0             );
-DEFINE_PERSISTENT_STRING( "Fonts", FixedFace   , "Courier New" );
+DEFINE_PERSISTENT_STRING( "Fonts", FixedFace   , "Consolas"    );
 DEFINE_PERSISTENT_INT(    "Fonts", FixedCharSet, ANSI_CHARSET  );
 
 DEFINE_PERSISTENT_INT(    "Fonts", ProportionalHeight , 10          );
 DEFINE_PERSISTENT_INT(    "Fonts", ProportionalWeight , FW_NORMAL   );
 DEFINE_PERSISTENT_INT(    "Fonts", ProportionalItalic , 0           );
-DEFINE_PERSISTENT_STRING( "Fonts", ProportionalFace   , "Arial"     );
+DEFINE_PERSISTENT_STRING( "Fonts", ProportionalFace   , "Segoe UI"  );
 DEFINE_PERSISTENT_INT(    "Fonts", ProportionalCharSet,ANSI_CHARSET );
 
 DEFINE_PERSISTENT_INT(       "Open"  , FilterIndex, 1   );
