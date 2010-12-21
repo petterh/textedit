@@ -2,13 +2,13 @@
  * $Header: /Book/link.cpp 5     20.08.99 16:33 Oslph312 $
  *
  * Contains linker comments to spare us a long linker command line.
- * NOTE: If your compiler/linker doesn't support these pragmas, 
- * you should specify these libraries on the linker command line.
+ * If your compiler/linker doesn't support these pragmas, 
+ * specify the libraries on the linker command line.
  */
 
 #include "precomp.h"
 
-
+/*
 #ifndef UNITTEST
 #ifdef UNICODE
 #pragma comment( linker, "/entry:wWinMainCRTStartup" )
@@ -16,7 +16,7 @@
 #pragma comment( linker, "/entry:WinMainCRTStartup" )
 #endif
 #endif // UNITTEST
-
+*/
 
 #pragma comment( lib, "kernel32.lib" )
 #pragma comment( lib, "gdi32.lib"    )
