@@ -270,7 +270,7 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
    LPCTSTR pszPort    = 0;
    String strArgAll; // Must be at this scope!
    
-   HANDLE hIn = GetStdHandle( STD_INPUT_HANDLE  );
+   HANDLE hIn = GetStdHandle( STD_INPUT_HANDLE );
    trace( _T( "hIn = %d\n" ), hIn );
 
    if ( !isValidHandle( hIn ) ) {
