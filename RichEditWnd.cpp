@@ -31,6 +31,9 @@
 #endif
 
 
+/**
+ * http://msdn.microsoft.com/en-us/library/bb787873(VS.85).aspx
+ */
 class RichEditWnd : public AbstractEditWnd {
 private:
    LPTSTR getText( int nStart, int nEnd ) const;
@@ -159,8 +162,7 @@ RichEditWnd::RichEditWnd( HWND hwndParent, LPCTSTR pszText )
    sendMessage( EM_SETOPTIONS, ECOOP_OR, ECO_AUTOWORDSELECTION );
    sendMessage( EM_AUTOURLDETECT, 1, 0 );
 
-   sendMessage( 
-      WM_SETFONT, (WPARAM) GetStockFont( DEFAULT_GUI_FONT ) );
+   sendMessage( WM_SETFONT, (WPARAM) GetStockFont( DEFAULT_GUI_FONT ) );
    sendMessage( EM_SETMARGINS, EC_USEFONTINFO );
    DWORD dwEventMask = sendMessage( EM_GETEVENTMASK );
    dwEventMask |= ENM_CHANGE;
@@ -235,8 +237,7 @@ int RichEditWnd::getSearchText( LPTSTR psz, UINT cb ) const {
    assert( isGoodStringPtr( psz ) );
 
    TEXTRANGE textRange = { { 0, cb }, psz };
-   const long lResult = 
-      sendMessage( EM_GETTEXTRANGE, 0, (LPARAM) &textRange );
+   const long lResult = sendMessage( EM_GETTEXTRANGE, 0, (LPARAM) &textRange );
 
 #ifdef _DEBUG
    const long nRealLength = _tcsclen( textRange.lpstrText );
@@ -297,8 +298,7 @@ Point RichEditWnd::getCurPos( void ) const {
 bool RichEditWnd::getSel( int *pnStart, int *pnEnd ) const {
    
    CHARRANGE charRange = { 0 };
-   sendMessage( EM_EXGETSEL, 0, 
-      reinterpret_cast< LPARAM >( &charRange ) );
+   sendMessage( EM_EXGETSEL, 0, reinterpret_cast< LPARAM >( &charRange ) );
 
    if ( 0 != pnStart ) {
       *pnStart = charRange.cpMin;
@@ -365,8 +365,7 @@ void RichEditWnd::setSel( int nStart, int nEnd ) {
 
    assert( isGoodPtr( this ) );
    CHARRANGE charRange = { nStart, nEnd };
-   sendMessage( EM_EXSETSEL, 0, 
-      reinterpret_cast< LPARAM >( &charRange ) );
+   sendMessage( EM_EXSETSEL, 0, reinterpret_cast< LPARAM >( &charRange ) );
 }
 
 
@@ -374,8 +373,7 @@ void RichEditWnd::replaceSel( LPCTSTR psz ) {
    
    assert( isGoodPtr( this ) );
    assert( isGoodStringPtr( psz ) );
-   sendMessage( EM_REPLACESEL, TRUE, 
-      reinterpret_cast< LPARAM >( psz ) );
+   sendMessage( EM_REPLACESEL, TRUE, reinterpret_cast< LPARAM >( psz ) );
 }
 
 
@@ -398,25 +396,20 @@ bool RichEditWnd::getWord( String *pstrWord ) const {
    AutoString pszText( getText( nLineStart, nLineEnd ) );
    int nEnd = nStart;
 
-   const int nWordBreakFlags = 
-      sendMessage( EM_FINDWORDBREAK, WB_CLASSIFY, nStart );
+   const int nWordBreakFlags = sendMessage( EM_FINDWORDBREAK, WB_CLASSIFY, nStart );
 
-   if ( ((WBF_ISWHITE | WBF_BREAKLINE) & nWordBreakFlags) || 
-         getTextLength() <= nStart ) {
-      nStart = 
-         sendMessage( EM_FINDWORDBREAK, WB_MOVEWORDLEFT, nStart );
+   if ( ((WBF_ISWHITE | WBF_BREAKLINE) & nWordBreakFlags) || getTextLength() <= nStart ) {
+      nStart = sendMessage( EM_FINDWORDBREAK, WB_MOVEWORDLEFT, nStart );
    } else {
       if ( nLineStart < nStart ) {
          const int nClassAndFlags =
             sendMessage( EM_FINDWORDBREAK, WB_CLASSIFY, nStart - 1 );
          if ( nWordBreakFlags == nClassAndFlags ) {
-            nStart = sendMessage( 
-               EM_FINDWORDBREAK, WB_MOVEWORDLEFT, nStart );
+            nStart = sendMessage( EM_FINDWORDBREAK, WB_MOVEWORDLEFT, nStart );
          }
       }
       while ( nEnd < nLineEnd && 
-              nWordBreakFlags == 
-                 sendMessage( EM_FINDWORDBREAK, WB_CLASSIFY, nEnd ) )
+              nWordBreakFlags == sendMessage( EM_FINDWORDBREAK, WB_CLASSIFY, nEnd ) )
       {
          ++nEnd;
       }
@@ -480,8 +473,7 @@ bool RichEditWnd::undo( void ) {
 String RichEditWnd::getUndoName( void ) const {
 
    if ( canUndo() ) {
-      const UNDONAMEID unid = 
-         (UNDONAMEID) sendMessage( EM_GETUNDONAME );
+      const UNDONAMEID unid = (UNDONAMEID) sendMessage( EM_GETUNDONAME );
       return translateUndoCommand( unid );
    }
    return _T( "" );
@@ -509,8 +501,7 @@ bool RichEditWnd::redo( void ) {
 String RichEditWnd::getRedoName( void ) const {
    
    if ( canRedo() ) {
-      const UNDONAMEID unid = 
-         (UNDONAMEID) sendMessage( EM_GETREDONAME );
+      const UNDONAMEID unid = (UNDONAMEID) sendMessage( EM_GETREDONAME );
       return translateUndoCommand( unid );
    }
    return _T( "" );
