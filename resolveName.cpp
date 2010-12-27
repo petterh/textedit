@@ -35,7 +35,7 @@ bool resolveName( LPTSTR pszDst, LPCTSTR pszSrc ) {
    }
 
    if ( pszDst != pszSrc ) {
-      _tcscpy_s( pszDst, sizeof(TCHAR) * (MAX_PATH + 1), pszSrc ); // assume failure, use org file name
+      _tcscpy_s( pszDst, MAX_PATH + 1, pszSrc ); // assume failure, use org file name
    }
    
    bool isShortcut = false;
@@ -78,7 +78,7 @@ bool resolveName( LPTSTR pszDst, LPCTSTR pszSrc ) {
             // Happens if file not found.
             if ( 0 != szGotPath[ 0 ] ) {
                isShortcut = true;
-               _tcscpy_s( pszDst, sizeof( TCHAR ) * MAX_PATH, szGotPath );
+               _tcscpy_s( pszDst, MAX_PATH + 1, szGotPath );
             }
          }
       }
