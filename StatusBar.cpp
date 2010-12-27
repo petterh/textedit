@@ -161,9 +161,9 @@ void __cdecl Statusbar::setMessageV( LPCTSTR pszFmt, va_list vl ) {
    assert( isGoodStringPtr( pszFmt ) );
    if ( isGoodStringPtr( pszFmt ) ) {
       const String strMessage = formatMessageV( pszFmt, vl );
-      _tcsncpy_s( szMessageBuffer, dim( szMessageBuffer ), strMessage.c_str(), dim( szMessageBuffer ) );
+      _tcsncpy_s( szMessageBuffer, strMessage.c_str(), dim( szMessageBuffer ) );
    } else {
-      _tcscpy_s( szMessageBuffer, sizeof szMessageBuffer, _T( "Internal Error" ) );
+      _tcscpy_s( szMessageBuffer, _T( "Internal Error" ) );
    }
 
    int nPart = message_part | SBT_OWNERDRAW;

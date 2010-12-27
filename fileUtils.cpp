@@ -511,7 +511,7 @@ String getTempFileName( void ) {
    PATHNAME szTempPath = { 0 };
    if ( 0 == GetTempPath( dim( szTempPath ), szTempPath ) ) {
       trace( _T( "Unable to get temp path: %s\n" ), getError().c_str() );
-      _tcscpy_s( szTempPath, dim( szTempPath ), _T( "." ) );
+      _tcscpy_s( szTempPath, _T( "." ) );
    }
 
    PATHNAME szTempFileName = { 0 };

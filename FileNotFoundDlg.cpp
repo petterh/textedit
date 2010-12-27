@@ -35,7 +35,7 @@ public:
 FileNotFoundDlg::FileNotFoundDlg( LPCTSTR pszOldFile )
    : m_pszOldFile( pszOldFile )
 {
-   _tcscpy_s( m_szNewFile, dim( m_szNewFile ), m_pszOldFile );
+   _tcscpy_s( m_szNewFile, m_pszOldFile );
 }
 
 

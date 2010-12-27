@@ -354,6 +354,10 @@ void Editor::copyFile( void ) {
          continue;
       }
 
+	   // The pFrom member of SHFILEOPSTRUCT is actually a list
+	   // of null-terminated file names; the list itself must be
+	   // doubly null-terminated. This is the reason for using the 
+	   // szFileName buffer rather than getPath().c_str.
       TCHAR szOldPath[ MAX_PATH + 2 ] = { 0 };
 	  LPCTSTR oldString = m_pDocument->getPath().c_str();
 	  _tcscpy_s( szOldPath, std::min( dim( szOldPath ), _tcslen( oldString ) + 1 ), oldString );

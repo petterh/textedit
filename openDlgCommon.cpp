@@ -204,7 +204,7 @@ PRIVATE LPCTSTR getFilterList( const bool save ) {
 // TODO: Unit test new safe string API
 PRIVATE bool getOpenOrSaveFileName( 
    HWND hwndParent, UINT uiTitleString, LPOFNHOOKPROC fnHook,
-   LPTSTR pszFileName, UINT cb,
+   LPTSTR pszFileName, UINT cch,
    UINT uiChildDlg, DWORD dwFlags, bool bSave ) 
 {
    assert( isGoodStringPtr( pszFileName ) );
@@ -234,7 +234,7 @@ PRIVATE bool getOpenOrSaveFileName(
       sizeof( OPENFILENAME ), hwndParent,
       getModuleHandle(), getFilterList( bSave ),
       szCustomFilter, dim( szCustomFilter ), nFilterIndex, 
-      pszFileName, cb, 0, 0, szCurrPath, strTitle.c_str(),
+      pszFileName, cch, 0, 0, szCurrPath, strTitle.c_str(),
       OFN_EXPLORER | OFN_ENABLETEMPLATE | OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
       0, 0, getDefaultExtension() + 1, // Don't want dot...
       0, fnHook, MAKEINTRESOURCE( uiChildDlg ),
@@ -298,20 +298,20 @@ PRIVATE bool getOpenOrSaveFileName(
 
 
 bool getOpenFileName( HWND hwndParent, UINT uiTitleString,
-   LPOFNHOOKPROC fnHook, LPTSTR pszFileName, UINT cb, 
+   LPOFNHOOKPROC fnHook, LPTSTR pszFileName, UINT cch, 
    UINT uiChildDlg, DWORD dwFlags )
 {
    return getOpenOrSaveFileName( hwndParent, uiTitleString,
-      fnHook, pszFileName, cb, uiChildDlg, dwFlags, false );
+      fnHook, pszFileName, cch, uiChildDlg, dwFlags, false );
 }
 
 
 bool getSaveFileName(  HWND hwndParent, UINT uiTitleString,
-   LPOFNHOOKPROC fnHook, LPTSTR pszFileName, UINT cb, 
+   LPOFNHOOKPROC fnHook, LPTSTR pszFileName, UINT cch, 
    UINT uiChildDlg, DWORD dwFlags )
 {
    return getOpenOrSaveFileName( hwndParent, uiTitleString,
-      fnHook, pszFileName, cb, uiChildDlg, dwFlags, true );
+      fnHook, pszFileName, cch, uiChildDlg, dwFlags, true );
 }
 
 // end of file

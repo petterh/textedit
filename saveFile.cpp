@@ -74,7 +74,7 @@ bool saveFile( const HWND hwndParent, String *pstrName,
 {
    assert( isGoodPtr( pstrName ) );
 
-   _tcscpy_s( s_szFileName, sizeof s_szFileName, pstrName->c_str() );
+   _tcscpy_s( s_szFileName, pstrName->c_str() );
    s_dwErr = GetLastError();
 
    const bool bOK = getSaveFileName( 
