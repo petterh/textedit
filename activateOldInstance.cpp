@@ -87,7 +87,7 @@ bool activateOldInstance( LPCTSTR pszPath, bool bPrinting ) {
 				FlashWindowEx( &flash_info );
 			} else {
 				HWND hwndToActivate = GetLastActivePopup( enumStruct.hwnd );
-				verify( SetForegroundWindow( hwndToActivate ) );
+				SetForegroundWindow( hwndToActivate );
 			}
 			return true; //*** FUNCTION EXIT POINT
 		}
