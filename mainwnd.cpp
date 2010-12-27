@@ -1247,7 +1247,7 @@ PRIVATE void onHelpHomePage( HWND hwnd ) {
       0, //SEE_MASK_FLAG_DDEWAIT,
       hwnd,
       _T( "open" ),
-      _T( "http://www.codeplex.com/TextEdit" ),
+      _T( "http://textedit.codeplex.com/" ),
       0, 0, SW_SHOWNORMAL,
    };
 
