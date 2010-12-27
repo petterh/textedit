@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+    Id="a205bda6-40d0-4e96-aacb-a5491057f67f"
+    Name="TextEdit"
+    Language="1033"
+    Version="2.1.0.0"
+    Manufacturer="Petter Hesselberg"
+    UpgradeCode="af224c41-f897-4ca0-bcf8-2728c28ffc44">
+
+    <Package
+      InstallerVersion="200"
+      Compressed="yes" />
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="TextEdit" />
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component
+        Id="ProgramCompontent"
+        Guid="571FC265-D155-42E1-947C-F1F4845DDBAF">
+        <File
+          KeyPath="yes"
+          Source="..\$(var.Configuration)\TextEdit.exe" />
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="ProductFeature" Title="TextEdit" Level="1">
+       <ComponentRef Id="ProgramCompontent" /> 
+    </Feature>
+  </Product>
+</Wix>
