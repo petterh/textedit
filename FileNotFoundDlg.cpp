@@ -111,7 +111,7 @@ PRIVATE void cleanup( LPCTSTR pszOld, LPCTSTR pszNew = 0 ) {
 }
 
 
-HANDLE getNewFile( HWND hwnd, String *pstrFile )  {
+HANDLE getNewFile( HWND hwnd, String *pstrFile ) throw(CancelException) {
 
    assert( 0 != pstrFile );
    const String strOldFile( *pstrFile );
@@ -123,16 +123,14 @@ HANDLE getNewFile( HWND hwnd, String *pstrFile )  {
    case IDOK:
       pstrFile->assign( fileNotFoundDlg.m_szNewFile );
       cleanup( strOldFile.c_str(), pstrFile->c_str() );
-      return openNewFile( *pstrFile ); 
-      break;
+      return openNewFile( *pstrFile );
 
    case IDCANCEL:
       cleanup( strOldFile.c_str() );
       throw CancelException();
-      break;
    }
 
-   assert( false ); // Should never happen!
+//   assert( false ); // Should never happen!
    return INVALID_HANDLE_VALUE;
 }
 

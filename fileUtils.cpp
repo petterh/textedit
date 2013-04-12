@@ -435,19 +435,19 @@ bool areFileNamesEqual( const String& strFile1, const String& strFile2 )
    PATHNAME szFile1 = { 0 };
    int length = GetShortPathName( strFile1.c_str(), szFile1, dim( szFile1 ) );
    if (0 == length) {
-	   const DWORD err = GetLastError();
-	   if (ERROR_FILE_NOT_FOUND == err) {
-		   return false;
-	   }
+       const DWORD err = GetLastError();
+       if (ERROR_FILE_NOT_FOUND == err) {
+           return false;
+       }
    }
 
    PATHNAME szFile2 = { 0 };
    length = GetShortPathName( strFile2.c_str(), szFile2, dim( szFile2 ) );
    if (0 == length) {
-	   const DWORD err = GetLastError();
-	   if (ERROR_FILE_NOT_FOUND == err) {
-		   return false;
-	   }
+       const DWORD err = GetLastError();
+       if (ERROR_FILE_NOT_FOUND == err) {
+           return false;
+       }
    }
 
    return 0 == _tcsicmp( szFile1, szFile2 );

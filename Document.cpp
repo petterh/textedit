@@ -77,7 +77,7 @@ void Document::createOrgCopy( HANDLE hIn ) {
 
 // TODO: In case of device not ready, options are:
 // retry, cancel, select a different file
-HANDLE Document::openFile( HWND hwnd ) {
+HANDLE Document::openFile( HWND hwnd ) throw(CancelException) {
    
    assertValid();
    DWORD dwErr = 0;
@@ -151,7 +151,7 @@ HANDLE Document::openFile( HWND hwnd ) {
 }
 
 
-Document::Document( HWND hwnd, LPCTSTR pszFile ) 
+Document::Document( HWND hwnd, LPCTSTR pszFile ) throw(CancelException)
    : m_strFileName( _T( "" ) )
    , m_isReadOnly( false )
    , m_hasUnixLineFeeds( false )
