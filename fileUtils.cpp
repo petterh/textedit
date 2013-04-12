@@ -497,7 +497,7 @@ bool compressFile( const LPCTSTR pszFile, bool bCompress ) {
    
    const bool bOK = 0 != DeviceIoControl(
       hFile, FSCTL_SET_COMPRESSION, 
-      &usCompression,sizeof usCompression, 0, 0,
+      &usCompression, sizeof usCompression, 0, 0,
       &dwBytesReturned, 0 );
    
    assert( 0 == dwBytesReturned );

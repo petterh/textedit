@@ -212,28 +212,28 @@ inline void Document::setUnixLineFeeds( const bool bUnixLineFeeds ) {
 
 
 inline bool Document::hasUnixLineFeeds( void ) const {
-   
+
    assertValid();
    return m_hasUnixLineFeeds;
 }
 
 
 inline bool Document::modifyAttribs( DWORD dwAdd, DWORD dwRemove ) {
-   
+
    assertValid();
    return modifyAttribs( getPath(), dwAdd, dwRemove );
 }
 
 
 inline void Document::assertValid( void ) {
-   
+
    assert( isGoodPtr( this ) );
    static_cast< const Document * >( this )->assertValid();
 }
 
 
 inline void Document::assertValid( void ) const {
-   
+
    assert( isGoodConstPtr( this ) );
 }
 
