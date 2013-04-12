@@ -21,7 +21,7 @@
 #include "geometry.h"
 #include "themes.h"
 #include <uxtheme.h>
-#include <Tmschema.h>
+//#include <Tmschema.h>
 
 
 PRIVATE LRESULT CALLBACK tabSubclassWndProc(
@@ -630,7 +630,7 @@ void Toolbar::onSettingChange( LPCTSTR pszSection ) {
 LRESULT Toolbar::dispatch( UINT msg, WPARAM wParam, LPARAM lParam ) {
 
    /*const*/ LRESULT result = Window::dispatch( msg, wParam, lParam );
-#if 1
+#if 0
    if ( WM_CTLCOLORSTATIC == msg ) {
       HTHEME ht = openThemeData( *this, L"Toolbar" ); // TOOLBARCLASSNAMEW
       if ( 0 != ht ) {
