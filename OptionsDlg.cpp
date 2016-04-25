@@ -32,21 +32,15 @@ PRIVATE int CALLBACK EnumFontFamExProc(
       reinterpret_cast< const ENUMLOGFONTEX * >( pLogFont );
    assert( isGoodConstPtr( pEnumLogFontEx ) );
 
-   if ( isWindowsNT() || (TRUETYPE_FONTTYPE & dwType) ) {
-      if ( 0 != pEnumLogFontEx->elfStyle[ 0 ] ) {
-         *pstrDescription = formatMessage( _T( "%1 %2 %%1!d! (%3)" ),
-            pEnumLogFontEx->elfFullName, 
-            pEnumLogFontEx->elfStyle, 
-            pEnumLogFontEx->elfScript );
-      } else {
-         *pstrDescription = formatMessage( _T( "%1 %%1!d! (%2)" ),
-            pEnumLogFontEx->elfFullName, 
-            pEnumLogFontEx->elfScript );
-      }
+   if (0 != pEnumLogFontEx->elfStyle[0]) {
+       *pstrDescription = formatMessage(_T("%1 %2 %%1!d! (%3)"),
+           pEnumLogFontEx->elfFullName,
+           pEnumLogFontEx->elfStyle,
+           pEnumLogFontEx->elfScript);
    } else {
-      *pstrDescription = formatMessage( _T( "%1 %%1!d! (%2)" ),
-         pLogFont->lfFaceName, 
-         pEnumLogFontEx->elfScript );
+       *pstrDescription = formatMessage(_T("%1 %%1!d! (%2)"),
+           pEnumLogFontEx->elfFullName,
+           pEnumLogFontEx->elfScript);
    }
 
    return 0;

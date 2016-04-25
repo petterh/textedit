@@ -63,6 +63,7 @@
 #include <string>
 #include <memory>
 #include <map>
+#include <algorithm>
 
 #ifdef _MSC_VER
    #if 1200 <= _MSC_VER

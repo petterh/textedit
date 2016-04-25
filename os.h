@@ -6,7 +6,6 @@
 
 #pragma once
 
-bool isWindowsNT( void );
 DWORD getGoodIOBufferSize( void );
 HRESULT coInitialize( void );
 bool getCompressedFileSize( LPCTSTR pszFile, DWORD *pdwSize );

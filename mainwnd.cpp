@@ -447,16 +447,15 @@ PRIVATE inline void onSysColorChange( HWND hwnd ) {
 
 PRIVATE void refreshMenu( HWND hwnd ) {
 
-   if ( isWindowsNT() ) { // May have changed language.
-      verify( DestroyMenu( GetMenu( hwnd ) ) );
-      SetMenu( hwnd, LoadMenu( getModuleHandle(),
-         MAKEINTRESOURCE( IDR_MENU ) ) );
-      verify( DrawMenuBar( hwnd ) );
-      getEditor( hwnd )->loadAcceleratorTable();
-   }
-   Editor *pEditor = getEditor( hwnd );
-   pEditor->refreshToolbar();
-   pEditor->setTitle();
+    // May have changed language.
+    verify(DestroyMenu(GetMenu(hwnd)));
+    SetMenu(hwnd, LoadMenu(getModuleHandle(), MAKEINTRESOURCE(IDR_MENU)));
+    verify(DrawMenuBar(hwnd));
+    getEditor(hwnd)->loadAcceleratorTable();
+
+    Editor *pEditor = getEditor(hwnd);
+    pEditor->refreshToolbar();
+    pEditor->setTitle();
 }
 
 

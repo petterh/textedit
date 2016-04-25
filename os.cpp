@@ -16,15 +16,6 @@
 #include "AutoLibrary.h"
 
 
-bool isWindowsNT( void ) {
-
-   OSVERSIONINFO osvi = { sizeof osvi };
-   assert( 0 == offsetof( OSVERSIONINFO, dwOSVersionInfoSize ) );
-   return GetVersionEx( &osvi ) && 
-      VER_PLATFORM_WIN32_NT == osvi.dwPlatformId;
-}
-
-
 DWORD getGoodIOBufferSize( void ) {
 
    SYSTEM_INFO si = { 0 };

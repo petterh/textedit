@@ -24,16 +24,14 @@ PRIVATE void transformToExistingLanguage( int *pLanguage ) {
 void setNewLanguage( int nLanguage ) {
 
    setLanguage( nLanguage );
-   if ( isWindowsNT() )  {
-      if ( -1 == nLanguage ) {
-         nLanguage = GetUserDefaultLangID();
-      } else if ( 0 == nLanguage ) {
-         nLanguage = GetSystemDefaultLangID();
-      }
-      transformToExistingLanguage( &nLanguage );
-      verify( setThreadLocale( MAKELCID( nLanguage, SORT_DEFAULT ) ) );
+   if (-1 == nLanguage) {
+       nLanguage = GetUserDefaultLangID();
+   } else if (0 == nLanguage) {
+       nLanguage = GetSystemDefaultLangID();
    }
-   setLanguage( nLanguage );
+   transformToExistingLanguage(&nLanguage);
+   verify(setThreadLocale(MAKELCID(nLanguage, SORT_DEFAULT)));
+   setLanguage(nLanguage);
 }
 
 
@@ -61,19 +59,14 @@ void initLanguageComboBox( HWND hwnd ) {
 
    int nIndex = 0;
 
-   const bool runningNT = isWindowsNT();
-   EnableWindow( hwndLanguage, runningNT );
-   EnableWindow( hwndLanguageLabel, runningNT );
-   if ( runningNT ) {
-      const int nUserDefaultLanguage = GetUserDefaultLangID();
-      if ( exeContainsLanguageResources( nUserDefaultLanguage ) ) {
-         getLanguageName(
-            nUserDefaultLanguage, szLanguage, dim( szLanguage ) );
-         wsprintf( szMessage, _T( "*User Default - %s" ), szLanguage );
-         nIndex = ComboBox_AddString( hwndLanguage, szMessage );
-         assert( 0 <= nIndex );
-         ComboBox_SetItemData( hwndLanguage, nIndex, -1 );
-      }
+   const int nUserDefaultLanguage = GetUserDefaultLangID();
+   if (exeContainsLanguageResources(nUserDefaultLanguage)) {
+       getLanguageName(
+           nUserDefaultLanguage, szLanguage, dim(szLanguage));
+       wsprintf(szMessage, _T("*User Default - %s"), szLanguage);
+       nIndex = ComboBox_AddString(hwndLanguage, szMessage);
+       assert(0 <= nIndex);
+       ComboBox_SetItemData(hwndLanguage, nIndex, -1);
    }
 
    const int nSystemDefaultLanguage = GetSystemDefaultLangID();
@@ -83,7 +76,7 @@ void initLanguageComboBox( HWND hwnd ) {
       wsprintf( szMessage, _T( "*System Default - %s" ), szLanguage );
       nIndex = ComboBox_AddString( hwndLanguage, szMessage );
       assert( 0 <= nIndex );
-      const int nSysLang = runningNT ? 0 : -1;
+      const int nSysLang = 0;
       ComboBox_SetItemData( hwndLanguage, nIndex, nSysLang );
    }
 

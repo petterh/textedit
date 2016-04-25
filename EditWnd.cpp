@@ -220,7 +220,7 @@ void EditWnd::setText( LPCTSTR psz ) {
 #ifdef _DEBUG
    trace( _T( "EditWnd::setText returns %d, strlen = %d\n" ), 
       bRetval, _tcslen( psz ) );
-   assert( bRetval || ( !isWindowsNT() && 0 == *psz ) );
+   assert( bRetval );
 #endif
 }
 

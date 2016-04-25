@@ -49,27 +49,28 @@ void fixUnixLineFeeds( T *buf, int buf_size ) {
 
 PRIVATE void showPreview( HANDLE hIn, HWND hwndPreview ) {
 
-   CHAR szContents[ 4096 ] = { 0 };
-   DWORD dwBytesRead = 0;
-   const BOOL bOK = ReadFile( hIn, szContents,
-      sizeof szContents - sizeof( WCHAR ), &dwBytesRead, 0 );
-   if ( bOK ) {
-      assert( dwBytesRead <= sizeof szContents - sizeof( WCHAR ) );
-      if ( isTextUnicode( szContents, dwBytesRead, 0 ) ) {
-         // NOTE: isTextUnicode always returns false under Win95.
-         assert( isWindowsNT() );
-         LPWSTR pszwContents =
-            reinterpret_cast< LPWSTR >( szContents );
-         pszwContents[ dwBytesRead / sizeof( WCHAR ) ] = 0;
-         const size_t wchars_per_char = sizeof( WCHAR ) / sizeof( CHAR );
-         fixUnixLineFeeds( pszwContents, sizeof szContents / wchars_per_char );
-         SetWindowTextW( hwndPreview, pszwContents );
-      } else {
-         szContents[ dwBytesRead ] = 0;
-         fixUnixLineFeeds( szContents, sizeof szContents );
-         SetWindowTextA( hwndPreview, szContents );
-      }
-   }
+    CHAR szContents[4096] = { 0 };
+    DWORD dwBytesRead = 0;
+    const BOOL bOK = ReadFile(
+        hIn,
+        szContents,
+        sizeof szContents - sizeof(WCHAR),
+        &dwBytesRead,
+        0);
+    if (bOK) {
+        assert(dwBytesRead <= sizeof szContents - sizeof(WCHAR));
+        if (isTextUnicode(szContents, dwBytesRead, 0)) {
+            LPWSTR pszwContents = reinterpret_cast<LPWSTR>(szContents);
+            pszwContents[dwBytesRead / sizeof(WCHAR)] = 0;
+            const size_t wchars_per_char = sizeof(WCHAR) / sizeof(CHAR);
+            fixUnixLineFeeds(pszwContents, sizeof szContents / wchars_per_char);
+            SetWindowTextW(hwndPreview, pszwContents);
+        } else {
+            szContents[dwBytesRead] = 0;
+            fixUnixLineFeeds(szContents, sizeof szContents);
+            SetWindowTextA(hwndPreview, szContents);
+        }
+    }
 }
 
 

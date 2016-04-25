@@ -72,17 +72,7 @@ PRIVATE BOOL getPathFromIDListW(
 String getPathFromIDList( ITEMIDLIST *pidl ) {
 
    PATHNAME szPath = { 0 };
-   bool bOK = false;
-
-#ifdef UNICODE
-   if ( isWindowsNT() ) {
-      bOK = 0 != getPathFromIDListW( pidl, szPath );
-   } else {
-      bOK = 0 != getPathFromIDListA( pidl, szPath );
-   }
-#else
-   bOK = 0 != SHGetPathFromIDListA( pidl, szPath );
-#endif
+   bool bOK = 0 != getPathFromIDListW(pidl, szPath);
 
    if ( !bOK ) {
       throwException( _T( "Unable to get path from ID list" ) );

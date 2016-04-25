@@ -139,20 +139,6 @@ void copyFile( HANDLE hSrc, HANDLE hDst, DWORD *pdwBytes ) {
    }
 }
 
-PRIVATE String getWinInit( void ) {
-   PATHNAME szWinInit = { 0 };
-   GetWindowsDirectory( szWinInit, sizeof szWinInit );
-   int nLength = _tcsclen( szWinInit );
-   if ( 0 < nLength ) {
-      if ( !isPathSeparator( szWinInit[ nLength - 1 ] ) ) {
-         _tcscat_s( szWinInit, _T( "\\" ) );
-      }
-      _tcscat_s( szWinInit, _T( "WININIT.INI" ) );
-   }
-
-   return szWinInit;
-}
-
 typedef BOOL (WINAPI *MOVEFILEEXPROC)(LPCTSTR, LPCTSTR, DWORD );
 
 /**
@@ -160,94 +146,26 @@ typedef BOOL (WINAPI *MOVEFILEEXPROC)(LPCTSTR, LPCTSTR, DWORD );
  */
 bool delayedRemove( const String& strPath ) {
 
-   if ( isWindowsNT() ) {
-      HMODULE hmodule = GetModuleHandle( _T( "KERNEL32" ) );
-      MOVEFILEEXPROC fMoveFileEx = (MOVEFILEEXPROC) GetProcAddress( 
-         hmodule, 
+    HMODULE hmodule = GetModuleHandle(_T("KERNEL32"));
+    MOVEFILEEXPROC fMoveFileEx = (MOVEFILEEXPROC) GetProcAddress(
+        hmodule,
 
-         // Find the correct name for ANSI or Unicode.
-         // Note that GetProcAddress is *never* a Unicode function;
-         // the function name is an LPCSTR rather than an LPCTSTR.
+        // Find the correct name for ANSI or Unicode.
+        // Note that GetProcAddress is *never* a Unicode function;
+        // the function name is an LPCSTR rather than an LPCTSTR.
 #ifdef UNICODE
-         "MoveFileExW"
+        "MoveFileExW"
 #else
-         "MoveFileExA"
+        "MoveFileExA"
 #endif
-         );
-      if ( 0 == fMoveFileEx ) {
-         trace( _T( "Failed to get MoveFileEx proc address\n" ) );
-         return false;
-      }
+        );
+    if (0 == fMoveFileEx) {
+        trace(_T("Failed to get MoveFileEx proc address\n"));
+        return false;
+    }
 
-      assert( fMoveFileEx == MoveFileEx );
-      return 0 != fMoveFileEx( strPath.c_str(), 0, MOVEFILE_DELAY_UNTIL_REBOOT );
-   }
-
-   // Windows 9x:
-   // We can't, unfortunately, use the WritePrivateProfileString
-   // function, as all the NUL= strings will be overwritten.
-
-   PATHNAME szPath = { 0 };
-   const DWORD dwLength = GetShortPathName( strPath.c_str(), szPath, dim( szPath ) );
-   if ( 0 == dwLength || dim( szPath ) < dwLength ) {
-      return false;
-   }
-   assert( dwLength == _tcsclen( szPath ) );
-
-   String strWinInit = getWinInit();
-   if ( strWinInit.empty() ) {
-      return false;
-   }
-
-   PATHNAME szTempPath = { 0 };
-   if ( 0 == GetTempPath( dim( szTempPath ), szTempPath ) ) {
-      return false;
-   }
-
-   PATHNAME szTempFile = { 0 };
-   const UINT uiUniqueNumber = GetTempFileName( szTempPath,  _T( "te" ), 0, szTempFile );
-   if ( 0 == uiUniqueNumber ) {
-      return false;
-   }
-
-   if ( !CopyFile( strWinInit.c_str(), szTempFile, FALSE ) ) {
-      const DWORD win_error = GetLastError();
-      if ( ERROR_FILE_NOT_FOUND != win_error ) {
-         return false;
-      }
-      // Otherwise, continue. We'll be OK.
-   }
-
-   bool bInserted = false;
-   FILE *fileOut = 0;
-   int err1 = _tfopen_s( &fileOut, strWinInit.c_str(), _T( "w" ) );
-   if ( NO_ERROR == err1 && 0 != fileOut ) {
-      FILE *fileIn = 0;
-      int err2 = _tfopen_s( &fileIn, szTempFile, _T( "r" ) );
-      if ( NO_ERROR == err2 && 0 != fileIn ) {
-         // Assume not Unicode:
-         char szLine[ 5000 ] = { 0 };
-         while ( fgets( szLine, sizeof szLine, fileIn ) ) {
-            const bool bFound = 0 != strstr( szLine, "[rename]" );
-            fputs( szLine, fileOut );
-            if ( !bInserted && bFound ) {
-               fprintf( fileOut, "NUL=%s\n", szPath );
-               bInserted = true;
-            }
-         }
-         fclose( fileIn );
-         reset_pointer( fileIn );
-      }
-      if ( !bInserted ) {
-         fprintf( fileOut, "[rename]\nNUL=%s\n", szPath );
-         bInserted = true;
-      }
-      fclose( fileOut );
-      reset_pointer( fileOut );
-   }
-
-   verify( DeleteFile( szTempFile ) );
-   return bInserted;
+    assert(fMoveFileEx == MoveFileEx);
+    return 0 != fMoveFileEx(strPath.c_str(), 0, MOVEFILE_DELAY_UNTIL_REBOOT);
 }
 
 /**
