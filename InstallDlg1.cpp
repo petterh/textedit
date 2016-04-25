@@ -149,11 +149,16 @@ void InstallDlg1::setupList( void ) {
          &fileInfo, sizeof fileInfo, uiFlags );
 
       const int nItems = ListView_GetItemCount( hwndList );
-      LV_ITEM lvItem = {
-         LVIF_TEXT | LVIF_IMAGE | LVIF_STATE, nItems, 
-         0, 0 == nItems ? (LVIS_FOCUSED | LVIS_SELECTED) : 0, 0,
-         fileInfo.szTypeName, _tcsclen( fileInfo.szTypeName ), 
-         fileInfo.iIcon, (LPARAM) 0,
+      LVITEMW lvItem = {
+         (UINT) (LVIF_TEXT | LVIF_IMAGE | LVIF_STATE),
+         nItems,
+         0,
+         (UINT) (0 == nItems ? (LVIS_FOCUSED | LVIS_SELECTED) : 0),
+         0,
+         fileInfo.szTypeName,
+         (int)_tcsclen( fileInfo.szTypeName ),
+         fileInfo.iIcon,
+         (LPARAM) 0,
       };
       ListView_InsertItem( hwndList, &lvItem );
       ListView_CheckItem( hwndList, nItems );

@@ -255,8 +255,8 @@ LRESULT AbstractEditWnd::dispatch(
 			reinterpret_cast< WPARAM >( &numerator   ),
 			reinterpret_cast< WPARAM >( &denominator ) ) )
 		{
-			zoomChanged = numerator != this->numerator || 
-			            denominator != this->denominator;
+			zoomChanged = numerator != this->m_numerator ||
+			            denominator != this->m_denominator;
 		}
 		assert( 0 <= nLine );
 		assert( 0 <= nColumn );
@@ -269,8 +269,8 @@ LRESULT AbstractEditWnd::dispatch(
 				m_nCurLine   = nLine;
 				m_nCurColumn = nColumn;
 				m_nLastEnd   = nEnd;
-				this->numerator = numerator;
-				this->denominator = denominator;
+				this->m_numerator = numerator;
+				this->m_denominator = denominator;
 				pListener->onPosChange( Point( nColumn, nLine ) );
 				if (  zoomChanged ) {
 					int zoomPercentage = 100;

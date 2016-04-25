@@ -25,8 +25,8 @@ private:
 	int m_nCurLine  ;
 	int m_nCurColumn;
 	int m_nLastEnd  ;
-	int numerator   ;
-	int denominator ;
+	int m_numerator ;
+	int m_denominator;
 
 protected:
 	bool wordWrap;
@@ -134,15 +134,15 @@ inline AbstractEditWnd::AbstractEditWnd( void )
 	, m_nCurLine     ( -1 )
 	, m_nCurColumn   ( -1 )
 	, m_nLastEnd     ( -1 )
-	, numerator      (  0 )
-	, denominator    (  0 )
+	, m_numerator    (  0 )
+	, m_denominator  (  0 )
 {
 }
 
 
 inline void AbstractEditWnd::resetPosition( void ) {
    m_nCurLine = m_nCurColumn = m_nLastEnd = -1;
-   numerator = denominator = 0;
+   m_numerator = m_denominator = 0;
 }
 
 

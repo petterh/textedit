@@ -259,15 +259,15 @@ void Statusbar::update( void ) {
 }
 
 
-void Statusbar::update( const Point& position ) {
+void Statusbar::update( const Point& updatedPosition ) {
 
-	this->position = position;
+	this->position = updatedPosition;
 	update();
 }
 
 
-void Statusbar::update( const int zoomPercentage ) {
-	this->zoomPercentage = zoomPercentage;
+void Statusbar::update( const int updatedZoomPercentage ) {
+	this->zoomPercentage = updatedZoomPercentage;
 	update();
 }
 

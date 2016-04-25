@@ -85,10 +85,18 @@ void printFile( Document *pDocument,
 {
    PRINTDLG printDlg = {
       sizeof( PRINTDLG ),
-      HWND_DESKTOP, getDevMode(), 
+      HWND_DESKTOP,
+      getDevMode(),
       getDevNames( pszPrinter, pszDriver, pszPort ),
-      0, PD_COMMON_TEXTEDIT | PD_NOSELECTION,
-      0, 0, 0, 0, 1, 0, reinterpret_cast< DWORD >( pDocument ),
+      0,
+      (DWORD) (PD_COMMON_TEXTEDIT | PD_NOSELECTION),
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      reinterpret_cast< LPARAM >( pDocument ),
       PrintHookProc,
    };
 
@@ -144,8 +152,18 @@ void Editor::printFile( void ) {
    PRINTDLG printDlg = {
       sizeof( PRINTDLG ),
       GetLastActivePopup( m_hwndMain ), 
-      getDevMode(), getDevNames(), 0, 
-      PD_COMMON_TEXTEDIT, 0, 0, 0, 0, s_nCopies, 0, 0, PrintHookProc,
+      getDevMode(),
+      getDevNames(),
+      0,
+      PD_COMMON_TEXTEDIT,
+      0,
+      0,
+      0,
+      0,
+      (WORD) s_nCopies,
+      0,
+      0,
+      PrintHookProc,
    };
 
    const AutoGlobalMemoryHandle a1( printDlg.hDevMode  );

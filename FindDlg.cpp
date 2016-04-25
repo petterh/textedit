@@ -145,10 +145,10 @@ void FindDlg::saveStrings( bool bSaveReplacements ) {
    HWND hwndSearchPattern = getDlgItem( IDC_SEARCHPATTERN );
    addComboString( hwndSearchPattern, m_strSearchPattern );
 
-   const int nCount = 
+   const int nSearchCount =
       __min( MAX_STRINGS, ComboBox_GetCount( hwndSearchPattern ) );
    int iString;
-   for ( iString = 0; iString < nCount; ++iString ) {
+   for ( iString = 0; iString < nSearchCount; ++iString ) {
       TCHAR szString[ MAX_TEXT_LENGTH + 1 ] = { 0 };
       assert( ComboBox_GetLBTextLen( 
          hwndSearchPattern, iString ) < dim( szString ) );
@@ -160,13 +160,13 @@ void FindDlg::saveStrings( bool bSaveReplacements ) {
       assert( m_isReplace );
       HWND hwndReplacement = getDlgItem( IDC_REPLACEMENT );
       addComboString( hwndReplacement, m_strReplacePattern );
-      
-      const int nCount = 
+
+      const int nReplaceCount =
          __min( MAX_STRINGS, ComboBox_GetCount( hwndReplacement ) );
       int nString = 0;
-      for ( iString = 0; iString < nCount; ++iString ) {
+      for ( iString = 0; iString < nReplaceCount; ++iString ) {
          TCHAR szString[ MAX_TEXT_LENGTH + 1 ] = { 0 };
-         const int nLength = 
+         const int nLength =
             ComboBox_GetLBTextLen( hwndReplacement, iString );
          assert( nLength < dim( szString ) );
          if ( 0 < nLength ) { // Don't want empty replacement strings.

@@ -231,13 +231,26 @@ PRIVATE bool getOpenOrSaveFileName(
 
    const String strTitle = loadString( uiTitleString );
    OPENFILENAME openFileName = {
-      sizeof( OPENFILENAME ), hwndParent,
-      getModuleHandle(), getFilterList( bSave ),
-      szCustomFilter, dim( szCustomFilter ), nFilterIndex, 
-      pszFileName, cch, 0, 0, szCurrPath, strTitle.c_str(),
+      sizeof( OPENFILENAME ),
+      hwndParent,
+      getModuleHandle(),
+      getFilterList( bSave ),
+      szCustomFilter,
+      dim( szCustomFilter ),
+      (DWORD) nFilterIndex,
+      pszFileName,
+      cch,
+      0,
+      0,
+      szCurrPath,
+      strTitle.c_str(),
       OFN_EXPLORER | OFN_ENABLETEMPLATE | OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
-      0, 0, getDefaultExtension() + 1, // Don't want dot...
-      0, fnHook, MAKEINTRESOURCE( uiChildDlg ),
+      0,
+      0,
+      getDefaultExtension() + 1, // Don't want dot...
+      0,
+      fnHook,
+      MAKEINTRESOURCE( uiChildDlg ),
    };
    openFileName.Flags |= dwFlags;
    if ( 0 != fnHook ) {

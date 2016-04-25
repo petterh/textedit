@@ -423,11 +423,11 @@ void Toolbar::setButtons( bool hasRedo ) {
 
    TBADDBITMAP tbabmpStd = {
       HINST_COMMCTRL,
-      MenuFont::isLarge() ? IDB_STD_LARGE_COLOR : IDB_STD_SMALL_COLOR,
+      (UINT_PTR) (MenuFont::isLarge() ? IDB_STD_LARGE_COLOR : IDB_STD_SMALL_COLOR),
    };
    TBADDBITMAP tbabmpCustom = {
       getModuleHandle(),
-      MenuFont::isLarge() ? IDR_TOOLBAR_LARGE : IDR_TOOLBAR,
+      (UINT_PTR) (MenuFont::isLarge() ? IDR_TOOLBAR_LARGE : IDR_TOOLBAR),
    };
 
    static const TBBUTTON tb[] = {

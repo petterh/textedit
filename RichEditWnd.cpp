@@ -236,7 +236,8 @@ int RichEditWnd::getSearchText( LPTSTR psz, UINT cb ) const {
 
    assert( isGoodStringPtr( psz ) );
 
-   TEXTRANGE textRange = { { 0, cb }, psz };
+   LONG cMax = (LONG) cb;
+   TEXTRANGE textRange = { { 0, cMax }, psz };
    const long lResult = sendMessage( EM_GETTEXTRANGE, 0, (LPARAM) &textRange );
 
 #ifdef _DEBUG
