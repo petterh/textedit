@@ -53,7 +53,7 @@
    inline void set ## name( int nIndex, LPCTSTR pszValue ) { \
       TCHAR szName[ 20 ];                                    \
       wsprintf( szName, _T( #name ) _T( "%d" ), nIndex );    \
-      Registry::setString( HKEY_CURRENT_USER,                \
+      Registry::setString2( HKEY_CURRENT_USER,               \
          _T( section ), szName, pszValue );                  \
    }
 

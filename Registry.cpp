@@ -155,7 +155,7 @@ void __cdecl Registry::setString(
 
    RegKey hk( createKey( hkRoot, pszKey ) );
    if ( hk.isValid() ) {
-#ifdef _DEBUG     
+#ifdef _DEBUG
       const long lResult = 
 #endif
       RegSetValueEx( hk, pszName, 0, REG_SZ, 
@@ -164,6 +164,36 @@ void __cdecl Registry::setString(
       assert( NOERROR == lResult );
    }
 }
+
+
+void __cdecl Registry::setString2(
+    HKEY hkRoot, LPCTSTR pszKey, LPCTSTR pszName, LPCTSTR pszValue)
+{
+    assert(isGoodStringPtr(pszKey));
+    assert(isGoodStringPtr(pszName));
+    assert(isGoodStringPtr(pszValue));
+
+    String str(pszValue);
+
+    RegKey hk(createKey(hkRoot, pszKey));
+    if (hk.isValid()) {
+#ifdef _DEBUG
+        const long lResult =
+#endif
+            RegSetValueEx(hk, pszName, 0, REG_SZ,
+            reinterpret_cast< CONST BYTE * >(str.c_str()),
+            (str.length() + 1) * sizeof(TCHAR));
+        assert(NOERROR == lResult);
+    }
+}
+
+
+static void __cdecl setString2(
+    HKEY hkRoot,
+    LPCTSTR pszKey,
+    LPCTSTR pszName,
+    LPCTSTR pszValue);
+
 
 // TODO: Unit test new safe string API
 String Registry::getString( 

@@ -38,6 +38,11 @@ public:
    static void __cdecl setString(
       HKEY hkRoot, LPCTSTR pszKey,
       LPCTSTR pszName = _T( "" ), LPCTSTR pszFmt = _T( "" ), ... );
+   static void __cdecl setString2(
+       HKEY hkRoot,
+       LPCTSTR pszKey,
+       LPCTSTR pszName,
+       LPCTSTR pszValue);
 
    static bool getBlob(
       HKEY hkRoot, LPCTSTR pszKey,
