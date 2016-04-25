@@ -1,10 +1,10 @@
-#include "precomp.h"
+#include "..\precomp.h"
 #include "CppUnitLite\CppUnitLite.h"
 
 int _tmain()
 {
-	TestResult tr;
+    TestResult tr;
     TestRegistry::runAllTests(tr);
 
-	return 0;
+    return 0;
 }

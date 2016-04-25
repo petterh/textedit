@@ -1,4 +1,4 @@
-#include "precomp.h"
+#include "..\..\precomp.h"
 #include "Test.h"
 #include "TestResult.h"
 #include "TestRegistry.h"

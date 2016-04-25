@@ -1,5 +1,5 @@
 
-#include "precomp.h"
+#include "..\..\precomp.h"
 #include "Failure.h"
 
 #include <stdio.h>

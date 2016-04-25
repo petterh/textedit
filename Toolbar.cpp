@@ -140,7 +140,7 @@ bool Toolbar::onGetDispInfo( NMTTDISPINFO *pDispInfo ) {
    } else {
       String strToolTip = loadToolTip( pDispInfo->hdr.idFrom );
       pDispInfo->lpszText = pDispInfo->szText;
-	  _tcsncpy_s( pDispInfo->szText, strToolTip.c_str(), dim( pDispInfo->szText ) );
+      _tcsncpy_s(pDispInfo->szText, strToolTip.c_str(), dim(pDispInfo->szText));
       pDispInfo->hinst = 0;
    }
 
