@@ -49,9 +49,7 @@ void initLanguageComboBox( HWND hwnd ) {
 
    assert( IsWindow( hwnd ) );
    HWND hwndLanguage = GetDlgItem( hwnd, IDC_LANGUAGE );
-   HWND hwndLanguageLabel = GetDlgItem( hwnd, IDC_LANGUAGE_LABEL );
    assert( IsWindow( hwndLanguage ) );
-   assert( IsWindow( hwndLanguageLabel ) );
    ComboBox_SetExtendedUI( hwndLanguage, true );
 
    TCHAR szLanguage[ 100 ] = { 0 };
