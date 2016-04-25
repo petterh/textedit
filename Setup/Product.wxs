@@ -1,18 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?include Constants.wxi ?>
+  <?define UpgradeCode = "ADF51807-C823-42EF-994D-2FFF41F98FF6" ?>
+
   <Product
-    Id="a205bda6-40d0-4e96-aacb-a5491057f67f"
+    Id="*"
     Name="TextEdit"
     Language="1033"
-    Version="2.1.0.0"
-    Manufacturer="Petter Hesselberg"
-    UpgradeCode="af224c41-f897-4ca0-bcf8-2728c28ffc44">
+    Version="$(var.ProductVersion)"
+    Manufacturer="$(var.ProductCompany)"
+    UpgradeCode="$(var.UpgradeCode)">
 
     <Package
       InstallerVersion="200"
-      Compressed="yes" />
+      Compressed="yes"
+      Description="$(var.ProductName) $(var.ProductDisplayVersion)"
+      Manufacturer="$(var.ProductCompany)" />
 
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <!-- These properties provide Add/Remove Programs functionality in addition to those in ArpProperties -->
+    <Property Id="ARPCOMMENTS">
+      $(var.ProductName) is a Notepad replacement that neither has nor needs a Save command; it operates directly on files.
+    </Property>
+    <Property Id="ARPCONTACT">$(var.ProductCompany)</Property>
+    <!--<Property Id="ARPREADME">http://www.petterhesselberg.com/</Property>-->
+    <!--<Property Id="ARPPRODUCTICON">Studio.ico</Property>-->
+    <Property Id="ARPURLINFOABOUT">http://textedit.codeplex.com/</Property>
+
+    <!-- Custom actions -->
+    <Property Id="NEWERVERSIONMSG">Unable to install because a newer version of this product is already installed.  You must uninstall this version before installing the product.</Property>
+    <CustomAction Id="NoDowngrade" Error="[NEWERVERSIONMSG]" />
+    <CustomAction
+      Id="SetTargetDirToDefault"
+      Return="check"
+      Execute="firstSequence"
+      Property="TARGETDIR"
+      Value="[ProgramFilesFolder]$(var.ProductName)" />
+
+    <!-- Check for installed versions of the product -->
+    <Upgrade Id="$(var.UpgradeCode)">
+
+      <!-- Removes ANY existing version. -->
+      <UpgradeVersion
+        Minimum="0.0.0.0"
+        Maximum="$(var.ProductVersion)"
+        Property="EXISTINGPRODUCTFOUND"
+        OnlyDetect="no"
+        IncludeMinimum="yes"
+        IncludeMaximum="yes" />
+
+      <!-- Sets the property if a newer version is found. -->
+      <UpgradeVersion
+        Minimum="$(var.ProductVersion)"
+        Property="NEWERPRODUCTFOUND"
+        OnlyDetect="yes"
+        IncludeMinimum="no" />
+    </Upgrade>
+
+    <InstallUISequence>
+      <LaunchConditions After="AppSearch" />
+      <Custom Action="SetTargetDirToDefault" After="ValidateProductID">TARGETDIR=""</Custom>
+      <Custom Action="NoDowngrade" After="FindRelatedProducts">NEWERPRODUCTFOUND AND NOT Installed</Custom>
+    </InstallUISequence>
+
+    <InstallExecuteSequence>
+      <LaunchConditions After="AppSearch" />
+      <RemoveExistingProducts After="InstallInitialize" />
+      <InstallExecute After="RemoveExistingProducts" />
+      <Custom Action="SetTargetDirToDefault" After="ValidateProductID">TARGETDIR=""</Custom>
+      <Custom Action="NoDowngrade" After="FindRelatedProducts">NEWERPRODUCTFOUND AND NOT Installed</Custom>
+    </InstallExecuteSequence>
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
@@ -33,5 +92,11 @@
     <Feature Id="ProductFeature" Title="TextEdit" Level="1">
        <ComponentRef Id="ProgramCompontent" /> 
     </Feature>
+
+    <!-- UI -->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <UIRef Id="WixUI_FeatureTree" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
   </Product>
 </Wix>

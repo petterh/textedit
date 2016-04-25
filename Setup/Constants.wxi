@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define ProductCompany = "Petter Hesselberg" ?>
+  <?define RegistryCompany = "Petter Hesselberg" ?>
+  <?define ProductName = "TextEdit" ?>
+  <?define ProductDisplayVersion = "2.5.1000" ?>
+  <?define ProductVersion = "$(var.ProductDisplayVersion).0" ?>
+
+  <?if $(var.Configuration) = "Debug" ?>
+  <?define Flavor = "debug" ?>
+  <?else?>
+  <?define Flavor = "ship" ?>
+  <?endif?>
+
+</Include>
