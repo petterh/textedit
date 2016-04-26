@@ -42,14 +42,14 @@
     <!-- Check for installed versions of the product -->
     <Upgrade Id="$(var.UpgradeCode)">
 
-      <!-- Removes ANY existing version. -->
+      <!-- Removes any older versions. -->
       <UpgradeVersion
         Minimum="0.0.0.0"
         Maximum="$(var.ProductVersion)"
         Property="EXISTINGPRODUCTFOUND"
         OnlyDetect="no"
         IncludeMinimum="yes"
-        IncludeMaximum="yes" />
+        IncludeMaximum="no" />
 
       <!-- Sets the property if a newer version is found. -->
       <UpgradeVersion
