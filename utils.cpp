@@ -26,8 +26,6 @@ void comFreeImpl( LPVOID pObject ) {
 }
 
 
-#ifdef UNICODE
-
 typedef BOOL (WINAPI *GETPATHFROMIDLISTWPROC) ( \
    LPCITEMIDLIST pidl, LPWSTR pwszPath);
 
@@ -59,8 +57,6 @@ PRIVATE BOOL getPathFromIDListW(
    }
    return fGetGetPathFromIDListW( pidl, pwszPath );
 }
-
-#endif // UNICODE
 
 
 /**

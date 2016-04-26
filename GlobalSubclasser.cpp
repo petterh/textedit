@@ -65,23 +65,14 @@ GlobalSubclasser::~GlobalSubclasser() {
 			HWND hwnd = CreateWindow( m_pszWndClass, _T( "" ), WS_POPUP,
 				0, 0, 0, 0, HWND_DESKTOP, 0, getModuleHandle(), 0 );
 			if ( IsWindow( hwnd ) ) {
-#if defined( _DEBUG ) && !defined( UNICODE ) // The realProc is weird in Unicode
-				const DWORD realProc = GetClassLong( hwnd, GCL_WNDPROC );
-				const DWORD assumedProc = reinterpret_cast< DWORD >( m_wndProc );
-				assert( realProc == assumedProc );
-#endif
-				SetClassLong( hwnd, GCL_WNDPROC, 
-					reinterpret_cast< LONG >( m_wndProcSaved ) );
+				SetClassLong( hwnd, GCL_WNDPROC, reinterpret_cast< LONG >( m_wndProcSaved ) );
 				verify( DestroyWindow( hwnd ) );
 			}
 		}
 
-#if 0 // Test exception handling using div by zero:
-		int y = 0;
-		int x = 1 / y;
-#endif
 	}
-	// No exceptions may leave the destructor!
+
+    // No exceptions may leave the destructor!
 	// This one's always called at exit time anyway.
 	catch ( ... ) {
 		trace( _T( "*** Exception in Subclasser dtor ignored\n" ) );

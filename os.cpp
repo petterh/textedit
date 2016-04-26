@@ -72,12 +72,6 @@ HRESULT coInitialize( void ) {
 }
 
 
-#ifdef UNICODE
-#define FN_NAME "GetCompressedFileSizeW"
-#else
-#define FN_NAME "GetCompressedFileSizeA"
-#endif
-
 bool getCompressedFileSize( LPCTSTR pszFile, DWORD *pdwSize ) {
 
    assert( isGoodStringPtr( pszFile ) );
@@ -88,7 +82,7 @@ bool getCompressedFileSize( LPCTSTR pszFile, DWORD *pdwSize ) {
    assert( 0 != (HMODULE) hmodule );
 
    GETCOMPRESSEDFILESIZE fnGetCompressedFileSize = 
-      (GETCOMPRESSEDFILESIZE) GetProcAddress( hmodule, FN_NAME );
+      (GETCOMPRESSEDFILESIZE) GetProcAddress( hmodule, "GetCompressedFileSizeW" );
    bOK = 0 != fnGetCompressedFileSize;
    if ( bOK ) {
       assert( isGoodCodePtr( fnGetCompressedFileSize ) );
@@ -98,8 +92,6 @@ bool getCompressedFileSize( LPCTSTR pszFile, DWORD *pdwSize ) {
    return bOK;
 }
 
-
-#undef FN_NAME
 
 // LOCALE_USER_DEFAULT, LOCALE_SYSTEM_DEFAULT
 bool setThreadLocale( LCID locale ) {

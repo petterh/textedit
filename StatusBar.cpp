@@ -148,7 +148,6 @@ Statusbar::~Statusbar() {
    }
 }
 
-// TODO: Unit test new safe string API
 void __cdecl Statusbar::setMessageV( LPCTSTR pszFmt, va_list vl ) {
 
    // This *must* be a static buffer. Since the first pane is 

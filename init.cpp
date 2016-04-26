@@ -153,7 +153,6 @@ inline bool match( LPCTSTR str, LPCTSTR pattern ) {
    return 0 == _tcsncicmp( str, pattern, _tcsclen( pattern ) );
 }
 
-// TODO: Unit test new safe string API
 PRIVATE bool isSetup( ArgumentList *pArgumentList ) {
    
    assert( isGoodPtr( pArgumentList ) );
@@ -188,7 +187,8 @@ PRIVATE bool isSetup( ArgumentList *pArgumentList ) {
    // case that would be an unwarranted intrusion.
    if ( 1 == pArgumentList->getNumArgs() &&
         shouldUpgrade( strInstalledProgram ) ) 
-   {     
+   {
+#if 0 // Don't self-upgrade. TODO: Thread to check the web
       const UINT uiRet = messageBox( HWND_DESKTOP,
          MB_ICONQUESTION | MB_YESNOCANCEL, IDS_UPGRADE_WARNING,
          strProgram.c_str(), strInstalledProgram.c_str() );
@@ -196,12 +196,12 @@ PRIVATE bool isSetup( ArgumentList *pArgumentList ) {
          throw CancelException();
       }
       return IDYES == uiRet;
+#endif
    }
 
    return false;
 }
 
-// TODO: Unit test new safe string API
 Editor *init( LPCTSTR pszCmdLine, int nShow ) {
 
    const HINSTANCE hinst = getModuleHandle();
@@ -220,15 +220,18 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
       clean();
       throw CancelException();
    }
+
    startInstance( _T( "-clean" ) );
 
    // Better not do this *before* calling reboot, or we'll loop:
    initReboot();
 
    if ( isSetup( &argumentList ) ) {
+#if 0
       const bool bSilent = argumentList.hasOption( _T( "silent" ) );
       setup( bSilent );
       throw CancelException();
+#endif
    }
 
    const bool bMin      = argumentList.hasOption( _T( "min"     ) );

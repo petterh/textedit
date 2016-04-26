@@ -77,10 +77,6 @@ public:
 typedef AutoArray< CHAR  > AutoStringA;
 typedef AutoArray< WCHAR > AutoStringW;
 
-#ifdef UNICODE
 typedef AutoStringW AutoString;
-#else
-typedef AutoStringA AutoString;
-#endif
 
 // end of file

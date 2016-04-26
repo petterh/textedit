@@ -89,7 +89,6 @@ void InstallDlg1::getList( void ) {
    }
 }
 
-// TODO: Unit test new safe string API
 void InstallDlg1::setupList( void ) {
 
    HWND hwndList = getDlgItem( IDC_FILETYPES );

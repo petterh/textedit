@@ -444,25 +444,11 @@ void Document::update(
    const int nBytes = nChars * nBytesPerChar;
 
    if ( m_isUnicode ) {
-      
-#ifdef UNICODE
       save( hwnd, pszNewContents, nBytes );
-#else
-      AutoStringW pwszBuffer( new WCHAR[ nChars + 1 ] );
-      multiByteToWideChar( pszNewContents, pwszBuffer, nChars );
-      save( hwnd, pwszBuffer, nBytes );
-#endif
-      
    } else {
-      
-#ifdef UNICODE
       AutoStringA pszBuffer( new char[ nChars + 1 ] );
       wideCharToMultiByte( pszNewContents, pszBuffer, nChars );
       save( hwnd, pszBuffer, nBytes );
-#else
-      save( hwnd, pszNewContents, nBytes );
-#endif
-      
    }
 }
 
@@ -476,7 +462,6 @@ String Document::getTitle( void ) const {
    return szTitle;
 }
 
-// TODO: Unit test new safe string API
 bool Document::setPath( HWND hwnd, const String& strNewPath ) {
    assertValid();
    bool bSuccess = true;
@@ -550,14 +535,7 @@ LPTSTR Document::convert( const LPVOID pbRawFile, DWORD dwBytes ) {
    int nFlags = IS_TEXT_UNICODE_UNICODE_MASK;
    m_isUnicode = 0 != isTextUnicode( pbRawFile, dwBytes, &nFlags );
 
-   trace( _T( "file is %s on %s\n" ),
-      m_isUnicode ? _T( "UNICODE" ) : _T( "ANSI" ),
-#ifdef UNICODE
-      _T( "UNICODE" )
-#else
-      _T( "ANSI" )
-#endif
-      );
+   trace(L"file is %s\n", m_isUnicode ? L"UNICODE" : L"ANSI");
 
    m_hasUnicodeTranslationError = false;
    m_bBinary = m_isUnicode && 0 != dwBytes % 2;
@@ -570,30 +548,18 @@ LPTSTR Document::convert( const LPVOID pbRawFile, DWORD dwBytes ) {
       assert( 0 == dwBytes % 2 );
       dwChars = dwBytes / 2;
    }
+
    LPTSTR pszConvertedContents = new TCHAR[ dwChars + 1 ];
    assert( 0 != pszConvertedContents );
 
    pszConvertedContents[ dwChars ] = 0;
 
    if ( m_isUnicode ) {
-
-#ifdef UNICODE
       memcpy( pszConvertedContents, pbRawFile, dwBytes );
-#else
-      m_hasUnicodeTranslationError = wideCharToMultiByte( 
-         (LPCWSTR) pbRawFile, pszConvertedContents, dwChars );
-#endif
-
    } else {
-
-#ifdef UNICODE
       multiByteToWideChar(
          reinterpret_cast< LPCSTR >( pbRawFile ),
          pszConvertedContents, dwChars );
-#else
-      memcpy( pszConvertedContents, pbRawFile, dwBytes );
-#endif
-
    }
 
    for ( int iChar = 0; iChar < (int) dwChars; ++iChar ) {
@@ -710,7 +676,6 @@ String Document::getRegistryPath( void ) const {
    return formatMessage( _T( "Files\\%1" ), strRegistryPath.c_str() );
 }
 
-// TODO: Unit test new safe string API
 String Document::getFileTypeDescription( bool bDisplay ) const {
 
    assertValid();
@@ -781,7 +746,6 @@ void Document::setPersistentString(
       HKEY_CURRENT_USER, strFileKey.c_str(), pszName, str.c_str() );
 }
 
-// TODO: Unit test new safe string API
 bool Document::deleteFile( HWND hwnd ) {
 
    assertValid();

@@ -270,11 +270,7 @@ PRIVATE void addShortcut( int nFolder, const String &strProgPath ) {
          psl( CLSID_ShellLink, IID_IShellLink );
       AutoComReference< IPersistFile > ppf( IID_IPersistFile, psl );
       PATHNAMEW wszLink = { 0 };
-#ifdef UNICODE
       _tcscpy_s( wszLink, strLinkPath.c_str() );
-#else
-      multiByteToWideChar( strLinkPath.c_str(), wszLink );
-#endif
       trace( _T( "Creating link: %ws\n" ), wszLink );
       verify( SUCCEEDED( psl->SetPath( strProgPath.c_str() ) ) );
       verify( SUCCEEDED( psl->SetIconLocation( 

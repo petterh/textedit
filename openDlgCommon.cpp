@@ -149,7 +149,6 @@ void subclassOpenDlgCommon( HWND hwndChildDlg, UINT id ) {
    }
 }
 
-// TODO: Unit test new safe string API
 PRIVATE LPCTSTR getFilterList( const bool save ) {
    
    const size_t MAX_FILTER_LENGTH = 900;
@@ -201,7 +200,6 @@ PRIVATE LPCTSTR getFilterList( const bool save ) {
    return szFilters[ save ];
 }
 
-// TODO: Unit test new safe string API
 PRIVATE bool getOpenOrSaveFileName( 
    HWND hwndParent, UINT uiTitleString, LPOFNHOOKPROC fnHook,
    LPTSTR pszFileName, UINT cch,

@@ -4,10 +4,4 @@
 
 #include "precomp.h"
 
-#ifdef UNICODE
-#pragma message( "Unicode build" )
-#else
-#pragma message( "Ansi build" )
-#endif
-
 // end of file

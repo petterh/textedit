@@ -62,21 +62,13 @@ inline bool wideCharToMultiByte( LPCWSTR pwszIn, LPSTR pszOut ) {
 
 inline LPTSTR charNext( LPCTSTR psz ) {
 
-#ifdef UNICODE
    return CharNext( psz );
-#else
-   return CharNextExA( CP_ACP, psz, 0 );
-#endif
 }
 
 
 inline LPTSTR charPrev( LPCTSTR pszStart, LPCTSTR pszCurr ) {
 
-#ifdef UNICODE
    return CharPrev( pszStart, pszCurr );
-#else
-   return CharPrevExA( CP_ACP, pszStart, pszCurr, 0 );
-#endif
 }
 
 

@@ -14,7 +14,6 @@ DEFINE_PERSISTENT_STRING( "Printer", Driver, "" );
 DEFINE_PERSISTENT_STRING( "Printer", Device, "" );
 DEFINE_PERSISTENT_STRING( "Printer", Port  , "" );
 
-// TODO: Unit test new safe string API
 HGLOBAL getDevNames( LPCTSTR pszPrinter, LPCTSTR pszDriver, LPCTSTR pszPort ) {  
    String strDriver = getDriver();
    String strDevice = getDevice();

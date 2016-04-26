@@ -146,26 +146,7 @@ typedef BOOL (WINAPI *MOVEFILEEXPROC)(LPCTSTR, LPCTSTR, DWORD );
  */
 bool delayedRemove( const String& strPath ) {
 
-    HMODULE hmodule = GetModuleHandle(_T("KERNEL32"));
-    MOVEFILEEXPROC fMoveFileEx = (MOVEFILEEXPROC) GetProcAddress(
-        hmodule,
-
-        // Find the correct name for ANSI or Unicode.
-        // Note that GetProcAddress is *never* a Unicode function;
-        // the function name is an LPCSTR rather than an LPCTSTR.
-#ifdef UNICODE
-        "MoveFileExW"
-#else
-        "MoveFileExA"
-#endif
-        );
-    if (0 == fMoveFileEx) {
-        trace(_T("Failed to get MoveFileEx proc address\n"));
-        return false;
-    }
-
-    assert(fMoveFileEx == MoveFileEx);
-    return 0 != fMoveFileEx(strPath.c_str(), 0, MOVEFILE_DELAY_UNTIL_REBOOT);
+    return 0 != MoveFileEx(strPath.c_str(), 0, MOVEFILE_DELAY_UNTIL_REBOOT);
 }
 
 /**
@@ -173,8 +154,7 @@ bool delayedRemove( const String& strPath ) {
  * "C:\Streams\demo.txt:MyStream" 
  *    -> "C:\Streams\demo.txt" and "MyStream"
  */
-bool extractStream( 
-   const String& strPath, String *pstrBase, String *pstrStream ) 
+bool extractStream(const String& strPath, String *pstrBase, String *pstrStream)
 {
    assert( isGoodPtr( pstrBase ) );
    assert( isGoodPtr( pstrStream ) );
@@ -194,7 +174,6 @@ bool extractStream(
    return true;
 }
 
-// TODO: Unit test new safe string API
 String getRootDir( const String& strPath ) {
 
    PATHNAME szRootDir = { 0 };
@@ -274,7 +253,6 @@ String& appendPathComponent( String *pPath, LPCTSTR component ) {
     return *pPath;
 }
 
-// TODO: Unit test new safe string API
 String compactPath( LPCTSTR pszPath, int nWidth, HFONT hfont ) {
 
    // PathCompactPath has a bug that causes it to trash

@@ -12,7 +12,6 @@
 #include "HTML.h"
 #include "utils.h"
 
-// TODO: Unit test new safe string API
 void AboutDlg::setFonts( void ) {
    m_hfontBig = GetWindowFont( getDlgItem( IDC_TITLE ) );
    m_hfontBold = m_hfontBig;
@@ -71,10 +70,6 @@ void AboutDlg::setInfo( void ) {
 
 #ifdef _DEBUG
    strFmt += _T( " Debug" );
-#endif
-
-#ifdef UNICODE
-   strFmt += L" (Unicode build)";
 #endif
 
    setDlgItemTextF( IDC_VERSION, strFmt, pszVersion );

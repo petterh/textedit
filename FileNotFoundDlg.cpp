@@ -31,7 +31,7 @@ public:
    FileNotFoundDlg( LPCTSTR pszOldFile );
 };
 
-// TODO: Unit test new safe string API
+
 FileNotFoundDlg::FileNotFoundDlg( LPCTSTR pszOldFile )
    : m_pszOldFile( pszOldFile )
 {

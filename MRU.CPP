@@ -164,7 +164,6 @@ PRIVATE bool pathRelativeToCurrent(
    return 0 != PathRelativePathTo( pszRelativePath, szCurrPath, FILE_ATTRIBUTE_DIRECTORY, pszPath, 0 );
 }
 
-// TODO: Unit test new safe string API
 String MRU::getFileTitle( int iCmdID ) const {
 
    String strFile = getFile( iCmdID );

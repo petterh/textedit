@@ -67,7 +67,6 @@ PRIVATE UINT CALLBACK saveFileHookProc(
    return FALSE;
 }
 
-// TODO: Unit test new safe string API
 bool saveFile( const HWND hwndParent, String *pstrName, 
    UINT uiTitleString, UINT uiChildDlg )
    throw( CommonDialogException )

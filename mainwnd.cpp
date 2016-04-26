@@ -503,16 +503,15 @@ PRIVATE inline BOOL onApp( const HWND hwnd, ATOM atomDocName ) {
    return 0 != pDocument && areFileNamesEqual( pDocument->getPath(), szDocName );
 }
 
-// TODO: Unit test new safe string API
-PRIVATE bool isExecutable( LPCTSTR title ) {
+PRIVATE bool isExecutable(LPCTSTR title) {
 
-	TCHAR szExt[ _MAX_EXT ] = { 0 };
-	_tsplitpath_s( title, 0, 0, 0, 0, 0, 0, szExt, _MAX_EXT );
-	return
-		0 == _tcsicmp( szExt, _T( ".html" ) ) || 
-		0 == _tcsicmp( szExt, _T( ".htm"  ) ) || 
-		0 == _tcsicmp( szExt, _T( ".bat"  ) ) || 
-		0 == _tcsicmp( szExt, _T( ".cmd"  ) ) ; 
+    TCHAR szExt[_MAX_EXT] = { 0 };
+    _tsplitpath_s(title, 0, 0, 0, 0, 0, 0, szExt, _MAX_EXT);
+    return
+        0 == _tcsicmp(szExt, _T(".html")) ||
+        0 == _tcsicmp(szExt, _T(".htm")) ||
+        0 == _tcsicmp(szExt, _T(".bat")) ||
+        0 == _tcsicmp(szExt, _T(".cmd"));
 }
 
 
@@ -921,23 +920,14 @@ PRIVATE void onFilePrint( HWND hwnd ) {
    getEditor( hwnd )->printFile();
 }
 
-// TODO: Unit test new safe string API
 PRIVATE void onFileSendToMailRecipient( HWND hwnd ) {
 
 	const Document* pDocument = getDocument( hwnd );
 	PATHNAMEA szFilepath = { 0 };
-#ifdef UNICODE
 	wideCharToMultiByte( pDocument->getPath().c_str(), szFilepath );
-#else
-	strcpy_s( szFilepath, pDocument->getPath().c_str() );
-#endif
 
 	PATHNAMEA szFilename = { 0 };
-#ifdef UNICODE
 	wideCharToMultiByte( pDocument->getTitle().c_str(), szFilename );
-#else
-	strcpy_s( szFilename, pDocument->getTitle().c_str() );
-#endif
 
 	AutoLibrary hLib( _T( "MAPI32.DLL" ) );
 	LPMAPISENDDOCUMENTS fpMAPISendDocuments =
@@ -1302,7 +1292,6 @@ public:
    }
 };
 
-// TODO: Unit test new safe string API
 PRIVATE void onAccessViolation( HWND ) {
 
    TestClass testClass;

@@ -194,8 +194,6 @@ static void __cdecl setString2(
     LPCTSTR pszName,
     LPCTSTR pszValue);
 
-
-// TODO: Unit test new safe string API
 String Registry::getString( 
    HKEY hkRoot, LPCTSTR pszKey, LPCTSTR pszName, LPCTSTR pszDefault ) 
 {

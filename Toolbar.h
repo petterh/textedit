@@ -38,9 +38,6 @@ private: // TBSTYLE_WRAPABLE | CCS_NODIVIDER
 
    void onDeltaPos   ( NMUPDOWN *pNmUpDown );
    bool onGetDispInfo( NMTTDISPINFO *pDispInfo );
-#ifndef UNICODE
-   bool onGetDispInfoW( NMTTDISPINFOW *pDispInfo );
-#endif
 
    HWND getChild( UINT uiID ) const;
 

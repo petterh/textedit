@@ -340,7 +340,6 @@ void Editor::reload() {
     m_pStatusbar->update( m_pEditWnd->getCurPos() );
 }
 
-// TODO: Unit test new safe string API
 void Editor::copyFile( void ) {
    assert( isGoodPtr( this ) );
    String strPath = m_pDocument->getPath();
@@ -387,7 +386,6 @@ void Editor::refreshToolbar( void ) {
       m_pEditWnd->hasRedo(), m_pEditWnd->canSetTabs() ) );
 }
 
-// TODO: Unit test new safe string API
 PRIVATE void initFont( LOGFONT *pLogFont, HFONT *phfont,
    const String& strFace, long lHeight, long lWeight,
    unsigned char cItalic, unsigned char cCharSet )

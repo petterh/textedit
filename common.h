@@ -92,12 +92,7 @@ inline bool isGoodStringPtrOrAtom( LPCTSTR psz ) {
 typedef WCHAR PATHNAMEW[ MAX_PATH + 1 ];
 typedef CHAR  PATHNAMEA[ MAX_PATH + 1 ];
 
-#ifdef UNICODE
-   typedef PATHNAMEW PATHNAME;
-#else
-   typedef PATHNAMEA PATHNAME;
-#endif
-
+typedef PATHNAMEW PATHNAME;
 
 #define HANDLE_WM_COMMAND_ID( id, fn ) \
     case (id): ((fn)((hWnd), (id), (hWndCtrl), (nCode))); return 

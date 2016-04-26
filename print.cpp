@@ -11,7 +11,6 @@
 #include "geometry.h"
 #include "utils.h"
 
-// TODO: Unit test new safe string API
 HFONT Document::createPrintFont( HDC hdc ) {
    
    LOGFONT logFont = { 0 };

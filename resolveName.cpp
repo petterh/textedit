@@ -21,7 +21,6 @@
  * to the same buffer. pszDst should have a length of at least 
  * MAX_PATH + 1 characters.
  */
-// TODO: Unit test new safe string API
 bool resolveName( LPTSTR pszDst, LPCTSTR pszSrc ) {
 
    assert( isGoodStringPtr( pszDst ) );
@@ -46,11 +45,7 @@ bool resolveName( LPTSTR pszDst, LPCTSTR pszSrc ) {
       
       PATHNAMEW wsz = { 0 };
       
-#ifdef UNICODE
       _tcscpy_s( wsz, pszSrc );
-#else
-      multiByteToWideChar( pszSrc, wsz );
-#endif
       
       // Load the shortcut. Fails if non-existent or non-link.
       // Succeeds if empty file, so we check for this below.
@@ -62,7 +57,7 @@ bool resolveName( LPTSTR pszDst, LPCTSTR pszSrc ) {
          assert(
              E_FAIL           == hres ||
              FILE_NOT_FOUND   == hres ||
-			 PATH_NOT_FOUND   == hres ||
+             PATH_NOT_FOUND   == hres ||
              DEVICE_NOT_READY == hres ||
              INVALID_NAME     == hres ||
              ACCESS_DENIED    == hres );

@@ -113,8 +113,7 @@ void PropertiesDlg::setInfo( const WIN32_FIND_DATA& fd ) {
    DWORD dwCompressedSize = 0;
    const bool isCompressed = 
       (FILE_ATTRIBUTE_COMPRESSED & fd.dwFileAttributes) &&
-      getCompressedFileSize( m_pDocument->getPath().c_str(),
-      &dwCompressedSize );
+      getCompressedFileSize( m_pDocument->getPath().c_str(), &dwCompressedSize );
    if ( isCompressed ) {
       const String strCompressedSize = formatBytes( dwCompressedSize, false );
       setDlgItemText( IDC_COMPRESSEDFILESIZE, strCompressedSize );
@@ -221,7 +220,6 @@ void PropertiesDlg::setFileName( const String& strPathName ) {
    setDlgItemText( IDC_PATH    , strPath );
 }
 
-// TODO: Unit test new safe string API
 String PropertiesDlg::getFileName( void ) {
 
    const String strFile = getDlgItemText( IDC_FILENAME );

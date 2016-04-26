@@ -70,7 +70,6 @@ typedef struct LOGFONTWIN95REG {
 
 #pragma pack()
 
-// TODO: Unit test new safe string API
 void MenuFont::refresh( void ) {
 
    if ( 0 != theMenuFont.m_hfontMenu ) {

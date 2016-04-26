@@ -264,19 +264,12 @@ void paintHTML(
    }
 }
 
-// TODO: Unit test new safe string API
 PRIVATE void paintWithDC( HWND hwnd, HDC hdc ) {
 
-#if 1
    const String *pString = (String *) s_HTML_Subclasser.getUserData( hwnd );
    const int bufferSize = pString->length() + 1;
    AutoString pszText( new TCHAR[ bufferSize ] );
    _tcscpy_s( pszText, bufferSize, pString->c_str() );
-#else
-   const int nLength = GetWindowTextLength( hwnd );
-   AutoString pszText( nLength + 1 );
-   GetWindowText( hwnd, pszText, nLength + 1 );
-#endif
 
    Rect rc = getClientRect( hwnd );
    --rc.bottom;

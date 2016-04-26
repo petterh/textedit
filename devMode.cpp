@@ -15,7 +15,6 @@ DEFINE_PERSISTENT_INT(    "Printer", Paper      , 0                 );
 DEFINE_PERSISTENT_INT(    "Printer", Resolution , 0                 );
 DEFINE_PERSISTENT_STRING( "Printer", DeviceName , ""                );
 
-// TODO: Unit test new safe string API
 HGLOBAL getDevMode( void ) {
 
    HGLOBAL hDevMode = GlobalAlloc( GHND, sizeof( DEVMODE ) );

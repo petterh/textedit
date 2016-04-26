@@ -123,7 +123,6 @@ void Toolbar::onDeltaPos( NMUPDOWN *pUpDown ) {
 /**
  * Get tooltip text.
  */
-// TODO: Unit test new safe string API
 bool Toolbar::onGetDispInfo( NMTTDISPINFO *pDispInfo ) {
 
    assertValid();
@@ -148,53 +147,7 @@ bool Toolbar::onGetDispInfo( NMTTDISPINFO *pDispInfo ) {
 }
 
 
-#ifndef UNICODE
-bool Toolbar::onGetDispInfoW( NMTTDISPINFOW *pDispInfo ) {
-
-   assertValid();
-   assert( isGoodPtr( pDispInfo ) );
-
-   // NOTE: The hwndFrom member refers to the tooltip control.
-   const HWND hwndCtl =
-      reinterpret_cast< HWND >( pDispInfo->hdr.idFrom );
-   if ( GetDlgItem( *this, IDC_TABEDIT ) == hwndCtl ) {
-      pDispInfo->lpszText = MAKEINTRESOURCEW( IDS_TABS_TIP );
-   } else if ( GetDlgItem( *this, IDC_TABUPDOWN ) == hwndCtl ) {
-      pDispInfo->lpszText = MAKEINTRESOURCEW( IDS_TABS_UPDOWN_TIP );
-   } else if ( GetDlgItem( *this, IDC_READONLY ) == hwndCtl ) {
-      pDispInfo->lpszText = MAKEINTRESOURCEW( IDS_READ_ONLY_TIP );
-   } else {
-      StringA strToolTip = loadToolTip( pDispInfo->hdr.idFrom );
-      pDispInfo->lpszText = pDispInfo->szText;
-	  multiByteToWideChar( strToolTip.c_str(), pDispInfo->szText );
-      pDispInfo->hinst = 0;
-   }
-
-   return true;
-}
-#endif
-
-
 LRESULT Toolbar::onNotify( const int id, const LPNMHDR pHdr ) {
-
-#ifdef _DEBUG
-
-#ifdef UNICODE
-	trace( L"UNICODE\n" );
-#else
-	trace( "NOT UNICODE\n" );
-#endif
-
-#ifdef _UNICODE
-	trace( L"_UNICODE\n" );
-#else
-	trace( "NOT _UNICODE\n" );
-#endif
-
-	trace( _T( "TTN_GETDISPINFO  = %x\n" ), TTN_GETDISPINFO );
-	trace( _T( "TTN_GETDISPINFOA = %x\n" ), TTN_GETDISPINFOA );
-	trace( _T( "TTN_GETDISPINFOW = %x\n" ), TTN_GETDISPINFOW );
-#endif
 
 	assert( isGoodPtr( pHdr ) );
 

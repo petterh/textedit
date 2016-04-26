@@ -18,19 +18,16 @@ String getLongPathName( const String& strShort ) {
    AutoComReference< IShellFolder > pShellFolder;
    HRESULT hres = SHGetDesktopFolder( &pShellFolder );
    if ( SUCCEEDED( hres ) ) {
-
-#ifdef UNICODE
-#define wszShort const_cast< LPWSTR >( strShort.c_str() )
-#else
-      PATHNAMEW wszShort = { 0 };
-      multiByteToWideChar( strShort.c_str(), wszShort );
-#endif
-
       ULONG ulEaten = 0;
       ULONG ulAttributes = 0;
       AutoShellObject< ITEMIDLIST > pidl;
-      hres = pShellFolder->ParseDisplayName( HWND_DESKTOP, 0,
-         wszShort, &ulEaten, &pidl, &ulAttributes );
+      hres = pShellFolder->ParseDisplayName(
+          HWND_DESKTOP,
+          0,
+          const_cast< LPWSTR >(strShort.c_str()),
+          &ulEaten,
+          &pidl,
+          &ulAttributes );
       if ( SUCCEEDED( hres ) ) {
          strLong = getPathFromIDList( pidl );
       }
