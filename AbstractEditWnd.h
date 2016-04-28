@@ -11,6 +11,8 @@
 #include "AutoPtr.h"
 #include "geometry.h"
 
+#define EDIT_CLASS_NAME RICHEDIT_CLASS // MSFTEDIT_CLASS
+
 class EditListener;
 
 /**

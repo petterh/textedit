@@ -10,30 +10,26 @@
 #define USE_OWN_EXCEPTIONS
 
 #ifndef WINVER
-#define WINVER 0x0500
+#define WINVER _WIN32_WINNT_WIN7
 #endif
 
 #ifndef _WIN32_IE
-#define _WIN32_IE 0x0500
+#define _WIN32_IE _WIN32_IE_IE90
 #endif
 
 //#define _WIN32_WINDOWS 0x0400
 #ifndef _WIN32_WINNT
-#define _WIN32_WINNT   0x500 // required for mouse wheel definitions
+#define _WIN32_WINNT _WIN32_WINNT_WIN7 // required for mouse wheel definitions
 #endif
 
-
 #include "unicode.h"
-
 
 #define STRICT
 #define OEMRESOURCE
 #define NOMINMAX
 #define NOCRYPT
 
-
 #include "warnings.h"
-
 
 #include <windows.h>
 #include <windowsx.h>
@@ -76,7 +72,6 @@
 #ifdef _MSC_VER
    #pragma warning( disable: 4711 ) // function 'xxx' selected for automatic inline expansion
 #endif
-
 
 #include "common.h" // TODO -- this is questionable
 

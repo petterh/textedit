@@ -75,7 +75,8 @@ AbstractEditWnd *AbstractEditWnd::create(
       bForceEdit ? 0 :
 #endif
 
-      GetModuleHandle( _T( "RICHED20.DLL" ) );
+   GetModuleHandle(_T("RICHED20.DLL"));
+   GetModuleHandle(_T("Msftedit.DLL"));
 
 #if 0
    pszText = "!This is a test!";

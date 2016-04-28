@@ -428,7 +428,8 @@ Editor::Editor( HWND hwndParent, AutoDocument *ppDocument )
    const AutoString pszOrgText( getContents() ); 
    MRU().addFile( m_pDocument->getPath() );
 
-   LoadLibrary( _T( "RICHED20.DLL" ) );
+   LoadLibrary(_T("RICHED20.DLL"));
+   LoadLibrary(_T("Msftedit.DLL"));
 
    m_pEditWnd = AbstractEditWnd::create( 
       hwndParent, pszOrgText, this, 0 != m_pDocument->getWordWrap() );
@@ -480,7 +481,8 @@ Editor::~Editor() {
    verify( DestroyAcceleratorTable( m_haccel ) );
    is_alive = false;
 
-   FreeLibrary( GetModuleHandle( _T( "RICHED20.DLL" ) ) );
+   FreeLibrary(GetModuleHandle(_T("Msftedit.DLL")));
+   FreeLibrary(GetModuleHandle(_T("RICHED20.DLL")));
 }
 
 
@@ -517,7 +519,7 @@ void Editor::setTitle( void ) {
    if ( AbstractEditWnd::bForceEdit ) {
       strWindowTitle += _T( " [Debug - EDIT]" ); 
    } else {
-      strWindowTitle += _T( " [Debug - " ) RICHEDIT_CLASS _T( "]" ); 
+      strWindowTitle += _T( " [Debug - " ) EDIT_CLASS_NAME _T( "]" );
    }
 #endif
 

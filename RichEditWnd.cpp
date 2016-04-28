@@ -121,7 +121,6 @@ AbstractEditWnd *createRichEdit( HWND hwndParent, LPCTSTR pszText ) {
    return new RichEditWnd( hwndParent, pszText );
 }
 
-
 RichEditWnd::RichEditWnd( HWND hwndParent, LPCTSTR pszText ) 
    : m_nSpacesPerTab( 3 ) 
 {
@@ -130,7 +129,7 @@ RichEditWnd::RichEditWnd( HWND hwndParent, LPCTSTR pszText )
 
    {
        HWND hwnd = CreateWindowEx(
-           WS_EX_CLIENTEDGE, RICHEDIT_CLASS,
+           WS_EX_CLIENTEDGE, EDIT_CLASS_NAME,
            _T( "" ),
            WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL | 
            ES_AUTOHSCROLL | ES_AUTOVSCROLL | 
@@ -138,7 +137,8 @@ RichEditWnd::RichEditWnd( HWND hwndParent, LPCTSTR pszText )
            0, 0, 0, 0, hwndParent, (HMENU) IDC_EDIT,
            getModuleHandle(), 0 );
        if ( !IsWindow( hwnd ) ) {
-           throwException( _T( "error creating rich edit window" ) );
+           DWORD error = GetLastError();
+           throwException( _T( "error creating rich edit window" ), error );
        }
 
        // Trick to figure out whether this is RE 2.0 or RW 3.0:
