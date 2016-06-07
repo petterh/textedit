@@ -155,12 +155,12 @@ void __cdecl Statusbar::setMessageV( LPCTSTR pszFmt, va_list vl ) {
    // this is text; the lParam is merely 32 arbitrary bits of 
    // application data, and the status bar doesn't retain the 
    // text, just the pointer.
-   static TCHAR szMessageBuffer[ 200 ];
+   static TCHAR szMessageBuffer[ 512 ];
 
    assert( isGoodStringPtr( pszFmt ) );
    if ( isGoodStringPtr( pszFmt ) ) {
       const String strMessage = formatMessageV( pszFmt, vl );
-      _tcsncpy_s( szMessageBuffer, strMessage.c_str(), dim( szMessageBuffer ) );
+      _tcsncpy_s( szMessageBuffer, strMessage.c_str(), _TRUNCATE );
    } else {
       _tcscpy_s( szMessageBuffer, _T( "Internal Error" ) );
    }
