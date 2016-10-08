@@ -122,6 +122,7 @@
     <ResourceCompile Include="TextEdit.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\accessories-text-editor.xcf" />
     <None Include="res\Toolbar.bmp" />
     <None Include="res\toolbar_large.bmp" />
     <None Include="..\..\Program Files\Microsoft Visual Studio\Common\Graphics\Videos\FILECOPY.AVI" />
@@ -331,6 +332,9 @@
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="TextEdit.exe.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\accessories-text-editor.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

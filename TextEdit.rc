@@ -27,7 +27,7 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_TEXTEDIT1           ICON                    "res\\textedit.ico"
+IDI_TEXTEDIT1           ICON                    "res\\accessories-text-editor.ico"
 IDI_PROG_FOLDER         ICON                    "res\\prog_folder.ico"
 IDI_FIND                ICON                    "res\\find.ico"
 IDI_DELETE              ICON                    "res\\delete.ico"
@@ -36,7 +36,7 @@ IDI_ARROW_UP            ICON                    "res\\arrow_up.ico"
 IDI_FIXED_FONT          ICON                    "res\\fixed_font.ico"
 IDI_WASTEBASKET         ICON                    "res\\WasteBasket.ico"
 IDI_ARROW_DOWN          ICON                    "res\\arrow_down.ico"
-IDI_PROPORTIOANL_FONT   ICON                    "res\\proportional_font.ico"
+IDI_PROPORTIONAL_FONT   ICON                    "res\\proportional_font.ico"
 IDI_WASTEBASKETEMPTY    ICON                    "res\\WastebasketEmpty.ico"
 IDI_MS_DOS              ICON                    "res\\ms_dos.ico"
 IDI_TEXTEDIT            ICON                    "res\\textedit2.ico"
@@ -125,8 +125,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,5,1000,0
- PRODUCTVERSION 2,5,0,0
+ FILEVERSION 2,5,1001,0
+ PRODUCTVERSION 2,5,1001,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x3L
@@ -141,15 +141,15 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "TextEdit is a Notedad replacement.<p>It neither has nor needs a <b>Save </b>command; it operates directly on files.<p>See <b>Help </b>for more information."
+            VALUE "Comments", "TextEdit is a Notepad replacement.<p>It neither has nor needs a <b>Save </b>command; it operates directly on files.<p>See <b>Help </b>for more information."
             VALUE "CompanyName", "Hesselberg Consulting"
             VALUE "FileDescription", "TextEdit"
-            VALUE "FileVersion", "2.5.1000.0"
+            VALUE "FileVersion", "2.5.1001.0"
             VALUE "InternalName", "TextEdit"
             VALUE "LegalCopyright", "© 1999 - 2016 Petter Hesselberg.\\nSee CodePlex license agreement for details."
             VALUE "OriginalFilename", "TextEdit.exe"
             VALUE "ProductName", "TextEdit"
-            VALUE "ProductVersion", "2.5.0.0"
+            VALUE "ProductVersion", "2.5.1001.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -555,7 +555,7 @@ BEGIN
     CTEXT           "Courier New Bold 18",IDC_FIXED_FONT_SAMPLE,44,90,204,31,SS_CENTERIMAGE | WS_BORDER
     LTEXT           "Proportional Font:",IDC_STATIC,44,136,65,8
     PUSHBUTTON      "Ch&ange...",IDC_CHANGE_PROPORTIONAL_FONT,198,130,50,14,WS_GROUP
-    ICON            IDI_PROPORTIOANL_FONT,IDC_STATIC,7,154,20,20,WS_GROUP
+    ICON            IDI_PROPORTIONAL_FONT,IDC_STATIC,7,154,20,20,WS_GROUP
     CTEXT           "MS Sans Serif 12",IDC_PROPORTIONAL_FONT_SAMPLE,44,146,204,31,SS_CENTERIMAGE | WS_BORDER
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ | WS_GROUP,44,193,202,1
     ICON            IDI_DELETE,IDC_STATIC,7,199,20,20,WS_GROUP

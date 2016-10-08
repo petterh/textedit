@@ -39,7 +39,7 @@
 #define IDD_PRINT                       148
 #define IDD_PRINT_SETUP                 149
 #define IDI_FIXED_FONT                  151
-#define IDI_PROPORTIOANL_FONT           152
+#define IDI_PROPORTIONAL_FONT           152
 #define IDD_FONT                        153
 #define IDD_SAVE_CHILD                  159
 #define IDI_MS_DOS                      162

@@ -105,7 +105,7 @@ void renameRegistryItem( HKEY root, String& from, String& to ) {
     const LONG status = 
 #endif
     RegDeleteKey( root, from.c_str() );
-    assert( ERROR_SUCCESS == status || ERROR_FILE_NOT_FOUND == status );
+    assert( ERROR_SUCCESS == status || ERROR_FILE_NOT_FOUND == status || ERROR_ACCESS_DENIED == status);
 }
 
 // end of file

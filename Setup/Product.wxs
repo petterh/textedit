@@ -93,10 +93,14 @@
        <ComponentRef Id="ProgramCompontent" /> 
     </Feature>
 
+    <!-- Embedded binaries (dlls for custom actions, icons, bitmaps) -->
+    <Binary Id="BannerBitmap" SourceFile="Resources\BannerBitmap.bmp" />
+
     <!-- UI -->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <UIRef Id="WixUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
+    <UIRef Id="UserInterface" />
 
   </Product>
 </Wix>

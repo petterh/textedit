@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+
+    <WixVariable Id="WixUIBannerBmp" Value="Resources\BannerBitmap.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="Resources\DialogBitmap.bmp" />
+    <WixVariable Id="WixUILicenseRtf" Value="Files\EULA.rtf" />
+
+    <UI Id="UserInterface" />
+
+  </Fragment>
+</Wix>

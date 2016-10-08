@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />
+    <Compile Include="UserInterface.wxs" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUIExtension">
@@ -35,6 +36,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Constants.wxi" />
+    <Content Include="Files\EULA.rtf" />
+    <Content Include="Resources\BannerBitmap.bmp" />
+    <Content Include="Resources\DialogBitmap.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files" />
+    <Folder Include="Resources" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
 </Project>
