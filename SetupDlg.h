@@ -69,7 +69,7 @@ public:
 
 
 inline const String& SetupDlg::getExePath( void ) const {
-   
+
    assert( !m_strExePath.empty() );
    return m_strExePath;
 }

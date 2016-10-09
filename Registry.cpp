@@ -12,33 +12,11 @@
 #include "Exception.h"
 #include "formatMessage.h"
 
-
-#define OLD_REGKEY_BASE1 _T( "Software\\Andersen Consulting" )
-#define OLD_REGKEY_BASE2 _T( "Software\\Accenture" )
 #define REGKEY_BASE      _T( "Software\\Hesselberg Consulting" )
 #define APP_NAME         _T( "TextEdit" )
 
 #define WIN_SETTINGS     _T( "Microsoft\\Windows\\CurrentVersion" )
 #define CPL_SETTINGS     _T( "Control Panel\\Desktop\\WindowMetrics" ) 
-
-
-// TODO: Rebrand only on installation?
-class Rebrander {
-public:
-    Rebrander( String oldRegKeyBase, String newRegKeyBase ) {
-		oldRegKeyBase += _T( "\\" ) APP_NAME;
-		newRegKeyBase += _T( "\\" ) APP_NAME;
-        renameRegistryItem( HKEY_CURRENT_USER, // User-specific settings
-            oldRegKeyBase, newRegKeyBase );
-        renameRegistryItem( HKEY_LOCAL_MACHINE, // Uninstall stuff
-            oldRegKeyBase, newRegKeyBase );
-    }
-};
-
-
-static Rebrander rebrander1( OLD_REGKEY_BASE1, REGKEY_BASE );
-static Rebrander rebrander2( OLD_REGKEY_BASE2, REGKEY_BASE );
-
 
 String Registry::formatKey( HKEY hkRoot, LPCTSTR pszKey ) {
 
@@ -198,11 +176,12 @@ String Registry::getString(
    HKEY hkRoot, LPCTSTR pszKey, LPCTSTR pszName, LPCTSTR pszDefault ) 
 {
    PATHNAME sz = { 0 };
-   if ( 0 != pszDefault ) {
-      assert( isGoodStringPtr( pszDefault ) );
-      assert( isGoodStringPtr( sz  ) );
-      assert( _tcsclen( pszDefault ) < dim( sz ) );
-	  verify( NOERROR == _tcsncpy_s( sz, dim( sz ), pszDefault, _tcslen( pszDefault ) ) );
+   if (0 != pszDefault)
+   {
+      assert(isGoodStringPtr(pszDefault));
+      assert(isGoodStringPtr(sz));
+      assert(_tcsclen(pszDefault) < dim(sz));
+      verify(NOERROR == _tcsncpy_s(sz, dim(sz), pszDefault, _tcslen(pszDefault)));
    }
 
    RegKey hk( openKey( hkRoot, pszKey ) );

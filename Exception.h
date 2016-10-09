@@ -40,14 +40,6 @@ inline LPCTSTR Exception::what( void ) const {
 #endif
 
 
-class CancelException : public Exception {
-public:
-   virtual String getDescr( void ) const { 
-      return _T( "CancelException" ); 
-   }
-};
-
-
 class NullPointerException : public Exception {
 public:
    virtual String getDescr( void ) const { 

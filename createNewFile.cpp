@@ -58,9 +58,10 @@ PRIVATE String getNewDocumentPath( HWND hwndParent ) {
    };
 
    AutoShellObject< ITEMIDLIST > pidl( SHBrowseForFolder( &browseInfo ) );
-   if ( pidl.isNull() ) {
+   if (pidl.isNull())
+   {
       trace( _T( "No default directory\n" ) );
-      throw CancelException();
+      return String();
    }
 
    const String strNewDocumentPath = getPathFromIDList( pidl );
@@ -83,6 +84,10 @@ String createNewFile(
       strNewPath = getDocumentPath( getDefaultPath().c_str() );
       if ( strNewPath.empty() ) {
          strNewPath = getNewDocumentPath( hwndParent );
+         if (strNewPath.empty())
+         {
+             return strNewPath;
+         }
       }
       assert( 0 < strNewPath.length() );
 

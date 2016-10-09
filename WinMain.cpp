@@ -47,11 +47,11 @@ int WINAPI _tWinMain(
       AutoEditor pEditor;
       // In case of exception thrown during init.
       pEditor = init( pszCmdLine, nShow );
-      assert( isGoodPtr( (Editor *) pEditor ) );
-      nRetCode = pEditor->run();
-   }
-   catch ( const CancelException& ) {
-      ; // OK, just terminate.
+      if ((const Editor *)pEditor != nullptr)
+      {
+          assert(isGoodPtr((Editor *) pEditor));
+          nRetCode = pEditor->run();
+      }
    }
    catch ( const AccessDeniedException& x ) {
       messageBox( HWND_DESKTOP, MB_ICONERROR | MB_OK, IDS_ACCESS_DENIED, x.what() );

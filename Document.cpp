@@ -77,73 +77,80 @@ void Document::createOrgCopy( HANDLE hIn ) {
 
 // TODO: In case of device not ready, options are:
 // retry, cancel, select a different file
-HANDLE Document::openFile( HWND hwnd ) throw(CancelException) {
-   
+HANDLE Document::openFile( HWND hwnd )
+{
    assertValid();
    DWORD dwErr = 0;
-   HANDLE hIn = ::openFile( m_strFileName.c_str(), 
-      GENERIC_READ_WRITE, FILE_SHARE_READ );
-   if ( INVALID_HANDLE_VALUE == hIn ) {
+   HANDLE hIn = ::openFile( m_strFileName.c_str(), GENERIC_READ_WRITE, FILE_SHARE_READ );
+   if ( INVALID_HANDLE_VALUE == hIn )
+   {
       dwErr = GetLastError();
-      if ( ERROR_INVALID_NAME == dwErr ) {
-         messageBox( hwnd, MB_OK | MB_ICONINFORMATION, 
-            IDS_WILDCARDS, m_strFileName.c_str() );
+      if ( ERROR_INVALID_NAME == dwErr )
+      {
+         messageBox( hwnd, MB_OK | MB_ICONINFORMATION, IDS_WILDCARDS, m_strFileName.c_str() );
          PATHNAME szNewPath = { 0 };
-         const bool bOpenOK =
-            ::openFileDlg( hwnd, szNewPath, dim( szNewPath ), 0, false );
-         if ( bOpenOK ) {
+         const bool bOpenOK = ::openFileDlg( hwnd, szNewPath, dim( szNewPath ), 0, false );
+         if ( bOpenOK )
+         {
             m_strFileName = szNewPath;
-            hIn = ::openFile( m_strFileName.c_str(), 
-               GENERIC_READ_WRITE, FILE_SHARE_READ );
-         } else {
-            throw CancelException();
+            hIn = ::openFile( m_strFileName.c_str(), GENERIC_READ_WRITE, FILE_SHARE_READ );
          }
-      } else if ( ERROR_FILE_NOT_FOUND == dwErr ) {
-         String strFileNameWithExtension = formatMessage(
-            _T( "%1.txt" ), m_strFileName.c_str() );
-         hIn = ::openFile( strFileNameWithExtension.c_str(), 
-            GENERIC_READ_WRITE, FILE_SHARE_READ );
+         else
+         {
+            return INVALID_HANDLE_VALUE;
+         }
+      }
+      else if (ERROR_FILE_NOT_FOUND == dwErr)
+      {
+         String strFileNameWithExtension = formatMessage(_T( "%1.txt" ), m_strFileName.c_str());
+         hIn = ::openFile( strFileNameWithExtension.c_str(), GENERIC_READ_WRITE, FILE_SHARE_READ );
          dwErr = GetLastError();
-         if ( ERROR_FILE_NOT_FOUND != dwErr ) {
+         if ( ERROR_FILE_NOT_FOUND != dwErr )
+         {
             m_strFileName = strFileNameWithExtension;
          }
-      } else if ( ERROR_DEVICE_DOOR_OPEN == dwErr ) {
+      }
+      else if ( ERROR_DEVICE_DOOR_OPEN == dwErr )
+      {
          // ERROR_DEVICE_NOT_AVAILABLE ERROR_NOT_READY
       }
    }
 
-   if ( INVALID_HANDLE_VALUE == hIn ) {
-      // Try to open as read-only. 
+   if ( INVALID_HANDLE_VALUE == hIn )
+   {
+      // Try to open as read-only.
       // What other errors could reasonably be handled here?
-      if ( ERROR_ACCESS_DENIED == dwErr || 
-           ERROR_SHARING_VIOLATION == dwErr ) 
+      if ( ERROR_ACCESS_DENIED == dwErr || ERROR_SHARING_VIOLATION == dwErr )
       {
-         hIn = ::openFile( m_strFileName.c_str(),
-            GENERIC_READ, FILE_SHARE_READ );
-         if ( INVALID_HANDLE_VALUE == hIn ) {
-             hIn = ::openFile( m_strFileName.c_str(),
-                GENERIC_READ, FILE_SHARE_READ_WRITE );
+         hIn = ::openFile( m_strFileName.c_str(), GENERIC_READ, FILE_SHARE_READ );
+         if ( INVALID_HANDLE_VALUE == hIn )
+         {
+             hIn = ::openFile( m_strFileName.c_str(), GENERIC_READ, FILE_SHARE_READ_WRITE );
          }
-         if ( INVALID_HANDLE_VALUE == hIn ) {
+
+         if ( INVALID_HANDLE_VALUE == hIn )
+         {
             dwErr = GetLastError();
-         } else {
+         }
+         else
+         {
             m_isReadOnly = true;
-            const DWORD dwAttribs = 
-               GetFileAttributes( m_strFileName.c_str() );
-            if ( 0 == ( dwAttribs & FILE_ATTRIBUTE_READONLY ) ) {
+            const DWORD dwAttribs = GetFileAttributes( m_strFileName.c_str() );
+            if ( 0 == ( dwAttribs & FILE_ATTRIBUTE_READONLY ) )
+            {
                m_bAccessDenied = true;
             }
          }
       }
    }
 
-   if ( INVALID_HANDLE_VALUE == hIn ) {
-      if ( ERROR_FILE_NOT_FOUND == dwErr ) {
-         hIn = getNewFile( hwnd, &m_strFileName );
-      }
+   if ( INVALID_HANDLE_VALUE == hIn && ERROR_FILE_NOT_FOUND == dwErr )
+   {
+       hIn = getNewFile( hwnd, &m_strFileName );
    }
 
-   if ( INVALID_HANDLE_VALUE == hIn ) {
+   if ( INVALID_HANDLE_VALUE == hIn )
+   {
       throwException( m_strFileName.c_str(), dwErr ); 
    }
 
@@ -151,7 +158,7 @@ HANDLE Document::openFile( HWND hwnd ) throw(CancelException) {
 }
 
 
-Document::Document( HWND hwnd, LPCTSTR pszFile ) throw(CancelException)
+Document::Document( HWND hwnd, LPCTSTR pszFile )
    : m_strFileName( _T( "" ) )
    , m_isReadOnly( false )
    , m_hasUnixLineFeeds( false )

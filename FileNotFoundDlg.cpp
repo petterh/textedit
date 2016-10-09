@@ -111,8 +111,8 @@ PRIVATE void cleanup( LPCTSTR pszOld, LPCTSTR pszNew = 0 ) {
 }
 
 
-HANDLE getNewFile( HWND hwnd, String *pstrFile ) throw(CancelException) {
-
+HANDLE getNewFile( HWND hwnd, String *pstrFile )
+{
    assert( 0 != pstrFile );
    const String strOldFile( *pstrFile );
 
@@ -127,11 +127,8 @@ HANDLE getNewFile( HWND hwnd, String *pstrFile ) throw(CancelException) {
 
    case IDCANCEL:
       cleanup( strOldFile.c_str() );
-      throw CancelException();
+      return INVALID_HANDLE_VALUE;
    }
 
-//   assert( false ); // Should never happen!
    return INVALID_HANDLE_VALUE;
 }
-
-// end of file

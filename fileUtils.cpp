@@ -352,21 +352,21 @@ bool areFileNamesEqual( const String& strFile1, const String& strFile2 )
 /**
  * SHGetSpecialFolderPath needs version 4.71 of the common controls.
  */
-String getSpecialFolderLocation( int nFolder ) {
-
+String getSpecialFolderLocation( int nFolder )
+{
    String strSpecialFolder;
    AutoShellObject< ITEMIDLIST > pidl;
-   HRESULT hres = SHGetSpecialFolderLocation(
-      HWND_DESKTOP, nFolder, &pidl );
-   if ( SUCCEEDED( hres ) ) {
-      strSpecialFolder = getPathFromIDList( pidl );
+   HRESULT hres = SHGetSpecialFolderLocation(HWND_DESKTOP, nFolder, &pidl);
+   if (SUCCEEDED(hres))
+   {
+      strSpecialFolder = getPathFromIDList(pidl);
    }
 
    return strSpecialFolder;
 }
 
-bool supportsCompression( const String& strPath ) {
-
+bool supportsCompression( const String& strPath )
+{
    const SilentErrorMode sem;
    const String strRoot = getRootDir( strPath );
    DWORD dwMaximumComponentLength = 0;
@@ -378,12 +378,13 @@ bool supportsCompression( const String& strPath ) {
    return bOK && (FS_FILE_COMPRESSION & dwFileSystemFlags);
 }
 
-bool compressFile( const LPCTSTR pszFile, bool bCompress ) {
-
-   HANDLE hFile = CreateFile( pszFile, 
-      GENERIC_READ_WRITE, FILE_SHARE_READ, 0, 
+bool compressFile( const LPCTSTR pszFile, bool bCompress )
+{
+   HANDLE hFile = CreateFile( pszFile,
+      GENERIC_READ_WRITE, FILE_SHARE_READ, 0,
       OPEN_EXISTING, 0, 0 );
-   if ( INVALID_HANDLE_VALUE == hFile ) {
+   if ( INVALID_HANDLE_VALUE == hFile )
+   {
       return false;
    }
 
@@ -403,20 +404,21 @@ bool compressFile( const LPCTSTR pszFile, bool bCompress ) {
    return bOK;
 }
 
-String getTempFileName( void ) {
+String getTempFileName( void )
+{
    PATHNAME szTempPath = { 0 };
-   if ( 0 == GetTempPath( dim( szTempPath ), szTempPath ) ) {
-      trace( _T( "Unable to get temp path: %s\n" ), getError().c_str() );
-      _tcscpy_s( szTempPath, _T( "." ) );
+   if (0 == GetTempPath(dim(szTempPath), szTempPath))
+   {
+      trace(_T("Unable to get temp path: %s\n"), getError().c_str());
+      _tcscpy_s(szTempPath, _T("."));
    }
 
    PATHNAME szTempFileName = { 0 };
    const UINT uiUniqueNumber = GetTempFileName( szTempPath,  _T( "te" ), 0, szTempFileName );
-   if ( 0 == uiUniqueNumber ) {
+   if ( 0 == uiUniqueNumber )
+   {
       throwException( _T( "Unable to create temporary file" ) );
    }
 
    return szTempFileName;
 }
-
-// end of file

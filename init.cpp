@@ -150,34 +150,36 @@ PRIVATE bool shouldUpgrade( const String& strInstalled ) {
 
 inline bool match( LPCTSTR str, LPCTSTR pattern ) {
 
-   return 0 == _tcsncicmp( str, pattern, _tcsclen( pattern ) );
+    return 0 == _tcsncicmp(str, pattern, _tcsclen(pattern));
 }
 
-PRIVATE bool isSetup( ArgumentList *pArgumentList ) {
-   
+PRIVATE bool isSetup( ArgumentList *pArgumentList )
+{
    assert( isGoodPtr( pArgumentList ) );
 
-   if ( pArgumentList->hasOption( _T( "setup" ) ) ) {
+   if (pArgumentList->hasOption(_T("setup")))
+   {
       return true;
    }
 
    const String strProgram = getModuleFileName();
    PATHNAME szBaseName = { 0 };
-   _tsplitpath_s( strProgram.c_str(), 0, 0, 0, 0, szBaseName, dim( szBaseName ), 0, 0 );
+   _tsplitpath_s(strProgram.c_str(), 0, 0, 0, 0, szBaseName, dim(szBaseName), 0, 0);
 
-   if ( match( szBaseName, _T( "setup" ) ) ||
-        match( szBaseName, _T( "install" ) ) )
+   if (match(szBaseName, _T("setup")) || match(szBaseName, _T("install")))
    {
       return true;
    }
 
    const String strInstalledProgram = getInstallPath();
-   if ( strInstalledProgram.empty() ) {
+   if (strInstalledProgram.empty())
+   {
       return true;
    }
 
    // If others are already running, never mind.
-   if ( FindWindow( MAIN_CLASS, 0 ) ) {
+   if (FindWindow(MAIN_CLASS, 0))
+   {
       return false;
    }
 
@@ -193,7 +195,7 @@ PRIVATE bool isSetup( ArgumentList *pArgumentList ) {
          MB_ICONQUESTION | MB_YESNOCANCEL, IDS_UPGRADE_WARNING,
          strProgram.c_str(), strInstalledProgram.c_str() );
       if ( IDCANCEL == uiRet ) {
-         throw CancelException();
+          return nullptr;
       }
       return IDYES == uiRet;
 #endif
@@ -213,12 +215,12 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
 
    if ( argumentList.hasOption( _T( "boot" ) ) ) {
       reboot();
-      throw CancelException();
+      return nullptr;
    }
 
    if ( argumentList.hasOption( _T( "clean" ) ) ) {
       clean();
-      throw CancelException();
+      return nullptr;
    }
 
    startInstance( _T( "-clean" ) );
@@ -227,11 +229,9 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
    initReboot();
 
    if ( isSetup( &argumentList ) ) {
-#if 0
       const bool bSilent = argumentList.hasOption( _T( "silent" ) );
       setup( bSilent );
-      throw CancelException();
-#endif
+      return nullptr;
    }
 
    const bool bMin      = argumentList.hasOption( _T( "min"     ) );
@@ -261,7 +261,7 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
          LPCTSTR const pszArg = argumentList.getArg( iArg );
          messageBox( HWND_DESKTOP, 
             MB_OK | MB_ICONERROR, IDS_UNKNOWN_OPTION, pszArg );
-         throw CancelException();
+         return nullptr;
       }
    }
 #endif
@@ -295,7 +295,7 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
          if ( argumentList.getNumArgs() < 4 ) {
             messageBox( HWND_DESKTOP, 
                MB_OK | MB_ICONERROR, IDS_PRINT_ARG_ERROR );
-            throw CancelException();
+            return nullptr;
          }
          pszPrinter = argumentList.getArg( 1, true );
          pszDriver  = argumentList.getArg( 1, true );
@@ -344,24 +344,32 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
 
       if ( !bPrintTo && activateOldInstance( szRealDocName, bPrint ) )
       {
-         throw CancelException();
+          return nullptr;
       }
       pDocument = new Document( HWND_DESKTOP, szRealDocName );
    } else if ( isValidHandle( hIn ) ) {
       const String strNewFile = 
          createNewFile( HWND_DESKTOP, file_for_stdin, hIn );
       verify( CloseHandle( hIn ) );
-      startInstance( makeCommandLine( bPrint, strNewFile ), nShow );
-      throw CancelException();
-   } else {
-      pDocument = 
-         new Document( HWND_DESKTOP, createNewFile().c_str() );
+      if (!strNewFile.empty())
+      {
+          startInstance(makeCommandLine(bPrint, strNewFile), nShow);
+      }
+      return nullptr;
    }
+
+   const String newFilePath = createNewFile();
+   if (newFilePath.empty())
+   {
+       return nullptr;
+   }
+
+   pDocument = new Document( HWND_DESKTOP, newFilePath.c_str() );
    assert( isGoodPtr( pDocument ) );
 
    if ( bPrint || bPrintTo ) {
       printFile( pDocument, pszPrinter, pszDriver, pszPort );
-      throw CancelException();
+      return nullptr;
    }
 
    // No more obstacles; we really are going to edit a file.

@@ -219,6 +219,7 @@ String getModuleFileName( void ) {
    }
 
    assert( dwLength == _tcsclen( szModuleFileName ) );
+
    return szModuleFileName;
 }
 
@@ -281,10 +282,11 @@ void replace( String *pstr, LPCTSTR pszPattern, LPCTSTR pszReplacement ) {
    assert( 0 != _tcscmp( pszPattern, pszReplacement ) );
 
    const int nLength = _tcslen( pszPattern );
-   int nPos;
-   while ( 0 <= (nPos = pstr->find( pszPattern ) ) ) {
+   int nPos = 0;
+   while ( 0 <= (nPos = pstr->find( pszPattern, nPos ) ) ) {
       pstr->erase( nPos, nLength );
       pstr->insert( nPos, pszReplacement );
+      nPos += _tcslen(pszReplacement);
    }
 }
 
