@@ -122,6 +122,7 @@
     <ResourceCompile Include="TextEdit.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="res\accessories-text-editor.xcf" />
     <None Include="res\Toolbar.bmp" />
     <None Include="res\toolbar_large.bmp" />

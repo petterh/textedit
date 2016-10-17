@@ -336,7 +336,8 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
 
    // Load the document, if we can:
    AutoDocument pDocument( 0 );
-   if ( 0 != pszDocName ) {
+   if ( 0 != pszDocName )
+   {
       assert( isGoodStringPtr( pszDocName ) );
 
       PATHNAME szRealDocName = { 0 };
@@ -346,25 +347,31 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
       {
           return nullptr;
       }
+
       pDocument = new Document( HWND_DESKTOP, szRealDocName );
-   } else if ( isValidHandle( hIn ) ) {
-      const String strNewFile = 
-         createNewFile( HWND_DESKTOP, file_for_stdin, hIn );
+   }
+   else if ( isValidHandle( hIn ) )
+   {
+      const String strNewFile = createNewFile( HWND_DESKTOP, file_for_stdin, hIn );
       verify( CloseHandle( hIn ) );
       if (!strNewFile.empty())
       {
           startInstance(makeCommandLine(bPrint, strNewFile), nShow);
       }
+
       return nullptr;
    }
-
-   const String newFilePath = createNewFile();
-   if (newFilePath.empty())
+   else
    {
-       return nullptr;
+       const String newFilePath = createNewFile();
+       if (newFilePath.empty())
+       {
+           return nullptr;
+       }
+
+       pDocument = new Document(HWND_DESKTOP, newFilePath.c_str());
    }
 
-   pDocument = new Document( HWND_DESKTOP, newFilePath.c_str() );
    assert( isGoodPtr( pDocument ) );
 
    if ( bPrint || bPrintTo ) {
