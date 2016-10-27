@@ -126,8 +126,6 @@
     <None Include="res\accessories-text-editor.xcf" />
     <None Include="res\Toolbar.bmp" />
     <None Include="res\toolbar_large.bmp" />
-    <None Include="..\..\Program Files\Microsoft Visual Studio\Common\Graphics\Videos\FILECOPY.AVI" />
-    <None Include="..\..\Program Files\Microsoft Visual Studio\Common\Graphics\Videos\FILENUKE.AVI" />
     <None Include="..\..\Program Files\Microsoft Visual Studio\Common\Graphics\Videos\SEARCH.AVI" />
     <None Include="res\arrow_down.ico" />
     <None Include="res\arrow_up.ico" />
@@ -178,6 +176,7 @@
     <ClInclude Include="devMode.h" />
     <ClInclude Include="devNames.h" />
     <ClInclude Include="Dialog.h" />
+    <ClInclude Include="DisableDebugFill.h" />
     <ClInclude Include="Document.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EditWnd.h" />

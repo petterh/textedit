@@ -125,8 +125,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,5,1002,0
- PRODUCTVERSION 2,5,1001,0
+ FILEVERSION 2,5,1003,0
+ PRODUCTVERSION 2,5,1003,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x3L
@@ -144,12 +144,12 @@ BEGIN
             VALUE "Comments", "TextEdit is a Notepad replacement.<p>It neither has nor needs a <b>Save </b>command; it operates directly on files.<p>See <b>Help </b>for more information."
             VALUE "CompanyName", "Hesselberg Consulting"
             VALUE "FileDescription", "TextEdit"
-            VALUE "FileVersion", "2.5.1002.0"
+            VALUE "FileVersion", "2.5.1003.0"
             VALUE "InternalName", "TextEdit"
             VALUE "LegalCopyright", "© 1999 - 2016 Petter Hesselberg.\\nSee CodePlex license agreement for details."
             VALUE "OriginalFilename", "TextEdit.exe"
             VALUE "ProductName", "TextEdit"
-            VALUE "ProductVersion", "2.5.1001.0"
+            VALUE "ProductVersion", "2.5.1003.0"
         END
     END
     BLOCK "VarFileInfo"

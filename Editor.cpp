@@ -5,6 +5,7 @@
 #include "precomp.h"
 #include "Editor.h"
 #include "AutoArray.h"
+#include "DisableDebugFill.h"
 #include "Registry.h"
 #include "Exception.h"
 #include "WaitCursor.h"
@@ -326,55 +327,62 @@ void Editor::openFile( const String& strPath ) {
 
 
 // TODO -- too similar to openFile; extract "load" part
-void Editor::reload() {
-		
-	assert( isGoodPtr( this ) );
-	TemporaryStatusIcon statusIcon( m_pStatusbar, STD_FILEOPEN );
-    WaitCursor waitCursor( _T( "load.ani" ) );
-	const String strPath = m_pDocument->getPath();
-    m_pStatusbar->setMessage( IDS_LOADING, strPath.c_str() );
-    Document *pNewDcument = new Document( m_hwndMain, strPath.c_str() );
-    setDocument( pNewDcument );
+void Editor::reload()
+{
+    assert(isGoodPtr(this));
+    TemporaryStatusIcon statusIcon(m_pStatusbar, STD_FILEOPEN);
+    WaitCursor waitCursor(_T("load.ani"));
+    const String strPath = m_pDocument->getPath();
+    m_pStatusbar->setMessage(IDS_LOADING, strPath.c_str());
+    Document *pNewDcument = new Document(m_hwndMain, strPath.c_str());
+    setDocument(pNewDcument);
     setSettings();
     updateToolbar();
-    m_pStatusbar->update( m_pEditWnd->getCurPos() );
+    m_pStatusbar->update(m_pEditWnd->getCurPos());
 }
 
-void Editor::copyFile( void ) {
-   assert( isGoodPtr( this ) );
-   String strPath = m_pDocument->getPath();
-   const int nEnd = strPath.find_last_of( _T( "\\" ) );
-   assert( 0 < nEnd );
-   strPath.erase( nEnd );
-   String strNewPath = createNewFile( m_hwndMain, file_for_copy, 0, strPath, m_pDocument->getTitle() );
-   while ( saveFile( GetLastActivePopup( m_hwndMain ), &strNewPath, IDS_COPY_FILE, IDD_COPY_CHILD ) )
-   {
-      if ( strNewPath.empty() ) {
-         continue;
-      }
+void Editor::copyFile(void) {
+    assert(isGoodPtr(this));
+    String strPath = m_pDocument->getPath();
+    const int nEnd = strPath.find_last_of(_T("\\"));
+    assert(0 < nEnd);
+    strPath.erase(nEnd);
+    String strNewPath = createNewFile(m_hwndMain, file_for_copy, 0, strPath, m_pDocument->getTitle());
 
-	   // The pFrom member of SHFILEOPSTRUCT is actually a list
-	   // of null-terminated file names; the list itself must be
-	   // doubly null-terminated. This is the reason for using the 
-	   // szFileName buffer rather than getPath().c_str.
-      TCHAR szOldPath[ MAX_PATH + 2 ] = { 0 };
-	  LPCTSTR oldString = m_pDocument->getPath().c_str();
-	  _tcscpy_s( szOldPath, std::min( dim( szOldPath ), _tcslen( oldString ) + 1 ), oldString );
-      TCHAR szNewPath[ MAX_PATH + 2 ] = { 0 };
-	  LPCTSTR newString = strNewPath.c_str();
-	  _tcscpy_s( szNewPath, std::min( dim (szNewPath ), _tcslen( newString ) + 1 ), newString );
-      SHFILEOPSTRUCT shFileOpStruct = {
-         m_hwndMain, FO_COPY, szOldPath, szNewPath, 
-         FOF_NOCONFIRMATION | FOF_SIMPLEPROGRESS | FOF_MULTIDESTFILES,
-      };
+    DisableDebugFill disableDebugFill;
 
-      WaitCursor waitCursor( _T( "save.ani" ) );
-      const int nErr = SHFileOperation( &shFileOpStruct );
-      if ( 0 == nErr ) {
-         openFile( strNewPath );
-         break; //*** SUCCESS LOOP EXIT
-      }
-   }
+    while (saveFile(GetLastActivePopup(m_hwndMain), &strNewPath, IDS_COPY_FILE, IDD_COPY_CHILD))
+    {
+        if (strNewPath.empty())
+        {
+            continue;
+        }
+
+        // The pFrom member of SHFILEOPSTRUCT is actually a list
+        // of null-terminated file names; the list itself must be
+        // doubly null-terminated. This is the reason for using the
+        // szFileName buffer rather than getPath().c_str.
+        TCHAR szOldPath[MAX_PATH + 2] = { 0 };
+        LPCTSTR oldString = m_pDocument->getPath().c_str();
+        _tcscpy_s(szOldPath, std::min(dim(szOldPath), _tcslen(oldString) + 1), oldString);
+        TCHAR szNewPath[MAX_PATH + 2] = { 0 };
+        LPCTSTR newString = strNewPath.c_str();
+        _tcscpy_s(szNewPath, std::min(dim(szNewPath), _tcslen(newString) + 1), newString);
+        SHFILEOPSTRUCT shFileOpStruct =
+            {
+                m_hwndMain, FO_COPY, szOldPath, szNewPath,
+                FOF_NOCONFIRMATION | FOF_SIMPLEPROGRESS | FOF_MULTIDESTFILES,
+            };
+
+        WaitCursor waitCursor(_T("save.ani"));
+        const int nErr = SHFileOperation(&shFileOpStruct);
+        if (0 == nErr)
+        {
+            openFile(strNewPath);
+            break; //*** SUCCESS LOOP EXIT
+        }
+
+    }
 }
 
 

@@ -210,7 +210,8 @@ void PropertiesDlg::setFileName( const String& strPathName ) {
    // iff we're at the root directory:
    if ( 3 == nPathLength && _T( ':' ) == strPathName[ 1 ] ) {
       ;
-   } else if ( 3 < nPathLength && _T( '\\' ) == strPathName[ nPathLength - 1 ] ) 
+   }
+   else if ( 3 < nPathLength && _T( '\\' ) == strPathName[ nPathLength - 1 ] )
    {
       --nPathLength;
    }
