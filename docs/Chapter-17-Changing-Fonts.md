@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: Printing](Chapter-16-—-Printing) — [Next: Going Abroad »](Chapter-18-—-Going-Abroad)
+﻿### Programming Industrial Strength Windows
+[« Previous: Printing](Chapter-16-Printing) — [Next: Going Abroad »](Chapter-18-Going-Abroad)
 # Chapter 17: Changing Fonts
 
 TextEdit allows the user to select one proportional font and one fixed-width font. These selections are global across all instances of TextEdit, but it is quick to switch between proportional and fixed-width font, and the selected font is retained for individual files and for file types.

@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: The Main Window](Chapter-9-—-The-Main-Window) — [Next: Wait a Moment »](Chapter-11-—-Wait-a-Moment)
+﻿### Programming Industrial Strength Windows
+[« Previous: The Main Window](Chapter-9-The-Main-Window) — [Next: Wait a Moment »](Chapter-11-Wait-a-Moment)
 # Chapter 10: Customization and Persistence
 
 Customization and persistence are closely linked. If J. Random Hacker’s customization settings aren’t preserved between sessions, she’ll lose interest very quickly.

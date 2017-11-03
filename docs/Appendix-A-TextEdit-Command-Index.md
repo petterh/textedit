@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: The End of the Road](Chapter-21-—-The-End-of-the-Road) — [Next: Bibliography and Recommended Reading »](Appendix-B-—-Bibliography-and-Recommended-Reading)
+﻿### Programming Industrial Strength Windows
+[« Previous: The End of the Road](Chapter-21-The-End-of-the-Road) — [Next: Bibliography and Recommended Reading »](Appendix-B-Bibliography-and-Recommended-Reading)
 # Appendix A: TextEdit Command Index
 
 || Command || Description || Location || Accelerator ||

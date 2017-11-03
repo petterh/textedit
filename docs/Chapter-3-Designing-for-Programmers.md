@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: Designing for Users](Chapter-2-—-Designing-for-Users) — [Next: The Mechanics of Subclassing »](Chapter-4-—-The-Mechanics-of-Subclassing)
+﻿### Programming Industrial Strength Windows
+[« Previous: Designing for Users](Chapter-2-Designing-for-Users) — [Next: The Mechanics of Subclassing »](Chapter-4-The-Mechanics-of-Subclassing)
 # Chapter 3: Designing for Programmers
 
 In the previous chapter, I discussed software usability from the user’s point of view. Programmers are users, too, albeit with a different worldview. Programmers, including yourself, are users of your source code. 

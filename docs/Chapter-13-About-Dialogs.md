@@ -1,8 +1,8 @@
-### Programming Industrial Strength Windows
-[« Previous: File I/O](Chapter-12-—-File-I_O) — [Next: File Management »](Chapter-14-—-File-Management)
+﻿### Programming Industrial Strength Windows
+[« Previous: File I/O](Chapter-12-File-I-O) — [Next: File Management »](Chapter-14-File-Management)
 # Chapter 13: About Dialogs
 
-The logical continuation of the TextEdit story is really Chapter 13, File Management. That subject, however, involves dialog boxes. Let’s ease into the subject of dialog boxes through some easy ones, such as the About dialog and the Options dialog (and defer file management to [Chapter 14](Chapter-14-—-File-Management)).
+The logical continuation of the TextEdit story is really Chapter 13, File Management. That subject, however, involves dialog boxes. Let’s ease into the subject of dialog boxes through some easy ones, such as the About dialog and the Options dialog (and defer file management to [Chapter 14](Chapter-14-File-Management)).
 
 ## What is a Dialog Box, Anyway?
 
@@ -166,6 +166,6 @@ What happens if we disable the IDC{"_"}APPLY button, but omit the gotoDlgItem( I
 
 One of the possible flag parameters to the MessageBox function is MB{"_"}NOFOCUS, which ensures that no button has the initial focus. This is useful if you want to protect the MessageBox against accidental dismissal. To create a really obnoxious dialog box, let it respond to all WM{"_"}COMMAND messages with SetFocus( 0 ).
 
-The most complex examples of dialog interaction that TextEdit has to offer are the Find and Replace dialogs, described in [Chapter 15](Chapter-15-—-Search-and-Replace).
+The most complex examples of dialog interaction that TextEdit has to offer are the Find and Replace dialogs, described in [Chapter 15](Chapter-15-Search-and-Replace).
 
 [Sidebar: Default Buttons and Multi-line Edit](Sidebar_-Default-Buttons-and-Multi-line-Edit)

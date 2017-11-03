@@ -1,4 +1,4 @@
-### TextEdit documentation: "Programming Industrial Strength Windows"
+﻿### TextEdit documentation: "Programming Industrial Strength Windows"
 
 * “If you’re de­vel­op­ing Win­dows soft­ware for a com­mer­cial or shrink­wrap type mar­ket, this book should be required read­ing. ” —[Joel Spolsky](http://www.joelonsoftware.com/items/2003/08/20.html)
 * "God help the programming industry!" —_A reader from Japan_
@@ -12,33 +12,33 @@ _I've uploaded all the chapters, adapting to the Wiki formatting as best I could
 
 ## Part I : Background
 
-[Chapter 1 — The Road Ahead](Chapter-1-—-The-Road-Ahead)
-[Chapter 2 — Designing for Users](Chapter-2-—-Designing-for-Users)
-[Chapter 3 — Designing for Programmers](Chapter-3-—-Designing-for-Programmers)
-[Chapter 4 — The Mechanics of Subclassing](Chapter-4-—-The-Mechanics-of-Subclassing)
+[Chapter 1 — The Road Ahead](Chapter-1-The-Road-Ahead)
+[Chapter 2 — Designing for Users](Chapter-2-Designing-for-Users)
+[Chapter 3 — Designing for Programmers](Chapter-3-Designing-for-Programmers)
+[Chapter 4 — The Mechanics of Subclassing](Chapter-4-The-Mechanics-of-Subclassing)
 
 ## Part II: Foreground
 
-[Chapter 5 — The Bare Bones](Chapter-5-—-The-Bare-Bones)
-[Chapter 6 — Exceptions](Chapter-6-—-Exceptions)
-[Chapter 7 — Off the Launch Pad](Chapter-7-—-Off-the-Launch-Pad)
-[Chapter 8 — Child Windows](Chapter-8-—-Child-Windows)
-[Chapter 9 — The Main Window](Chapter-9-—-The-Main-Window)
-[Chapter 10 — Customization and Persistence](Chapter-10-—-Customization-and-Persistence)
-[Chapter 11 — Wait a Moment](Chapter-11-—-Wait-a-Moment)
-[Chapter 12 — File I/O](Chapter-12-—-File-I_O)
-[Chapter 13 — About Dialogs](Chapter-13-—-About-Dialogs)
-[Chapter 14 — File Management](Chapter-14-—-File-Management)
-[Chapter 15 — Search and Replace](Chapter-15-—-Search-and-Replace)
-[Chapter 16 — Printing](Chapter-16-—-Printing)
-[Chapter 17 — Changing Fonts](Chapter-17-—-Changing-Fonts)
-[Chapter 18 — Going Abroad](Chapter-18-—-Going-Abroad)
-[Chapter 19 — Meanwhile, in the Background](Chapter-19-—-Meanwhile,-in-the-Background)
-[Chapter 20 — Setup, and Down Again](Chapter-20-—-Setup,-and-Down-Again)
-[Chapter 21 — The End of the Road](Chapter-21-—-The-End-of-the-Road)
+[Chapter 5 — The Bare Bones](Chapter-5-The-Bare-Bones)
+[Chapter 6 — Exceptions](Chapter-6-Exceptions)
+[Chapter 7 — Off the Launch Pad](Chapter-7-Off-the-Launch-Pad)
+[Chapter 8 — Child Windows](Chapter-8-Child-Windows)
+[Chapter 9 — The Main Window](Chapter-9-The-Main-Window)
+[Chapter 10 — Customization and Persistence](Chapter-10-Customization-and-Persistence)
+[Chapter 11 — Wait a Moment](Chapter-11-Wait-a-Moment)
+[Chapter 12 — File I/O](Chapter-12-File-I-O)
+[Chapter 13 — About Dialogs](Chapter-13-About-Dialogs)
+[Chapter 14 — File Management](Chapter-14-File-Management)
+[Chapter 15 — Search and Replace](Chapter-15-Search-and-Replace)
+[Chapter 16 — Printing](Chapter-16-Printing)
+[Chapter 17 — Changing Fonts](Chapter-17-Changing-Fonts)
+[Chapter 18 — Going Abroad](Chapter-18-Going-Abroad)
+[Chapter 19 — Meanwhile, in the Background](Chapter-19-Meanwhile-in-the-Background)
+[Chapter 20 — Setup, and Down Again](Chapter-20-Setup-and-Down-Again)
+[Chapter 21 — The End of the Road](Chapter-21-The-End-of-the-Road)
 
-[Appendix A — TextEdit Command Index](Appendix-A-—-TextEdit-Command-Index)
-[Appendix B — Bibliography and Recommended Reading](Appendix-B-—-Bibliography-and-Recommended-Reading)
+[Appendix A — TextEdit Command Index](Appendix-A-TextEdit-Command-Index)
+[Appendix B — Bibliography and Recommended Reading](Appendix-B-Bibliography-and-Recommended-Reading)
 
 # þe Olde Blurbe
 

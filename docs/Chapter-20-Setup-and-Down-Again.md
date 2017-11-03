@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: Meanwhile, in the Background](Chapter-19-—-Meanwhile,-in-the-Background) — [Next: The End of the Road »](Chapter-21-—-The-End-of-the-Road)
+﻿### Programming Industrial Strength Windows
+[« Previous: Meanwhile, in the Background](Chapter-19-Meanwhile-in-the-Background) — [Next: The End of the Road »](Chapter-21-The-End-of-the-Road)
 # Chapter 20: Setup, and Down Again
 
 Installation and setup of TextEdit is less of a chore than installation and setup of, say, Microsoft Office. TextEdit is distributed as a single file, rather than umpteen zillion. Still, a number of issues must be dealt with, including version control, registry entries, shortcuts to the application and how to uninstall cleanly. 

@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: The Mechanics of Subclassing](Chapter-4-—-The-Mechanics-of-Subclassing) — [Next: Exceptions »](Chapter-6-—-Exceptions)
+﻿### Programming Industrial Strength Windows
+[« Previous: The Mechanics of Subclassing](Chapter-4-The-Mechanics-of-Subclassing) — [Next: Exceptions »](Chapter-6-Exceptions)
 # Chapter 5: The Bare Bones
 
 This chapter gives you an overview of the TextEdit application architecture – the skeleton of the application, if you like. But first, this message from our sponsors:

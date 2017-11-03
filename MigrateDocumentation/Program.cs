@@ -70,7 +70,8 @@ namespace MigrateDocumentation
                     var length = match.Index + 1 - pos;
                     sb.Append(text.Substring(pos, length));
 
-                    string link = match.Value.Substring(1, match.Length - 2);
+                    string innerValue = match.Value.Substring(1, match.Length - 2);
+                    string link = innerValue;
                     string newName = TransformName(link);
                     if (fileNames.Contains(newName))
                     {
@@ -83,7 +84,7 @@ namespace MigrateDocumentation
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(newName);
                         Console.ForegroundColor = color;
-                        sb.Append(match.Value).Append(')');
+                        sb.Append(innerValue).Append(')');
                     }
 
                     pos = match.Index + match.Length;
@@ -92,7 +93,7 @@ namespace MigrateDocumentation
 
                 sb.Append(text.Substring(pos));
                 string newText = sb.ToString();
-                Console.WriteLine(newText);
+                File.WriteAllText(docFile.FullName, newText, Encoding.UTF8);
             }
         }
 

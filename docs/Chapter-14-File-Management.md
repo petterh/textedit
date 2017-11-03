@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: File Management](Chapter-13-—-About-Dialogs) — [Next: Search and Replace »](Chapter-15-—-Search-and-Replace)
+﻿### Programming Industrial Strength Windows
+[« Previous: File Management](Chapter-13-About-Dialogs) — [Next: Search and Replace »](Chapter-15-Search-and-Replace)
 # Chapter 14: File Management
 
 File management in the context of TextEdit is the management of a single file. It includes the ability to change file attributes such as the read-only flag, it includes renaming and repositioning of the file, and it includes deleting the file (and, incidentally, closing TextEdit).

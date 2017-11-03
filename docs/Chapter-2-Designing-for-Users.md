@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: The Road Ahead](Chapter-1-—-The-Road-Ahead) — [Next: Designing for Programmers »](Chapter-3-—-Designing-for-Programmers)
+﻿### Programming Industrial Strength Windows
+[« Previous: The Road Ahead](Chapter-1-The-Road-Ahead) — [Next: Designing for Programmers »](Chapter-3-Designing-for-Programmers)
 # Chapter 2: Designing for Users
 
 From the Unix world comes a text editor named **vi**. It’s powerful and fast – provided you know how to use it. The problem with vi is that it is difficult to learn. A host of keyboard commands must be learned by heart – the user interface doesn’t give you a clue as to what you can and can’t do. The problem is compounded by vi’s several modes – it has different modes for text insertion and text manipulation, for example. The modes are in themselves no disaster, but their invisibility is. Nothing indicates whether your keystrokes will be interpreted as text to be inserted or commands to be executed.
@@ -47,7 +47,7 @@ The status bar has one big problem in this role: Most people don’t pay it much
 
 **Figure 1: Status bar with a message.** Highlighting makes the user pay attention.
 
-In [Chapter 15](Chapter-15-—-Search-and-Replace), I’ll show you how to do away with message boxes in connection with search and replace.
+In [Chapter 15](Chapter-15-Search-and-Replace), I’ll show you how to do away with message boxes in connection with search and replace.
 
 ## Robustness
 

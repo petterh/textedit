@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: Designing for Programmers](Chapter-3-—-Designing-for-Programmers) — [Next: The Bare Bones »](Chapter-5-—-The-Bare-Bones)
+﻿### Programming Industrial Strength Windows
+[« Previous: Designing for Programmers](Chapter-3-Designing-for-Programmers) — [Next: The Bare Bones »](Chapter-5-The-Bare-Bones)
 # Chapter 4: The Mechanics of Subclassing
 
 In an ideal world, at least for C++ programmers, Windows would be C++ throughout. Subclassing a window would be a matter of subclassing a C++ class, creating a window would be a matter of invoking the window’s constructor, message handling would be a matter of overriding virtual functions.
@@ -262,7 +262,7 @@ int APIENTRY WinMain( HINSTANCE hinst, HINSTANCE, LPSTR, int ) {
 
 Thus endeth the subclassing tutorial. That’s all there is to it, really, except for various esoteric techniques used to subclass windows in other processes, which I won’t go into. 
 
-The next section presents the code that TextEdit uses to accomplish instance and global subclassing. The code uses other classes that I haven’t described yet. For now, I’ll just use the String and Exception classes without further ado; I’ll go into more detail about them in Chapters [5](Chapter-5-—-The-Bare-Bones) and [6](Chapter-6-—-Exceptions).
+The next section presents the code that TextEdit uses to accomplish instance and global subclassing. The code uses other classes that I haven’t described yet. For now, I’ll just use the String and Exception classes without further ado; I’ll go into more detail about them in Chapters [5](Chapter-5-The-Bare-Bones) and [6](Chapter-6-Exceptions).
 
 ## General Mechanism for Global Subclassing
 

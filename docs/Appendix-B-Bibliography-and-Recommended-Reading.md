@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: TextEdit Command Index](Appendix-A-—-TextEdit-Command-Index)
+﻿### Programming Industrial Strength Windows
+[« Previous: TextEdit Command Index](Appendix-A-TextEdit-Command-Index)
 # Appendix B: Bibliography and Recommended Reading
 
 || _2008 update: Some of these recommendations are a bit outdated. I'll update this page when I get some spare time._ ||

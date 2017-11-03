@@ -1,12 +1,12 @@
-### Programming Industrial Strength Windows
-[« Previous: The Bare Bones](Chapter-5-—-The-Bare-Bones) — [Next: Off the Launch Pad »](Chapter-7-—-Off-the-Launch-Pad)
+﻿### Programming Industrial Strength Windows
+[« Previous: The Bare Bones](Chapter-5-The-Bare-Bones) — [Next: Off the Launch Pad »](Chapter-7-Off-the-Launch-Pad)
 # Chapter 6: Exceptions
 
 When your application calls a function, there’s always a chance that the function fails to carry out its assigned duties. Possible causes are multifarious – a file was not found, a network file server crashed, the system could not allocate memory, a computation overflowed, the system is corrupt, your application is corrupt, the government is corrupt – the list is endless. 
 
 The occasional failure is unavoidable. Failing gracefully is, however, infinitely preferable to falling flat on your face.
 
-Sometimes you don’t care if a function failed. Perhaps it wasn’t terribly important, perhaps the function has already reported the problem to the user, or perhaps no reasonable course of action exists. The WaitCursor class (see [Chapter 11](Chapter-11-—-Wait-a-Moment)) is an example of no-fail software. Its methods don’t need to communicate success or failure to the caller, because the caller doesn’t care one way or another. 
+Sometimes you don’t care if a function failed. Perhaps it wasn’t terribly important, perhaps the function has already reported the problem to the user, or perhaps no reasonable course of action exists. The WaitCursor class (see [Chapter 11](Chapter-11-Wait-a-Moment)) is an example of no-fail software. Its methods don’t need to communicate success or failure to the caller, because the caller doesn’t care one way or another. 
 
 Other times, you do care, if for no other reason that you must tell the user that you failed to print his file. Failure can be reported through two basic mechanisms: return codes and exceptions. From modern computer literature, one often gets the impression that exceptions are in some way “better” than return codes, but that distinction is meaningless. The goal is to reduce total complexity to a minimum. Often enough, exceptions support that goal best, but by no means always. 
 

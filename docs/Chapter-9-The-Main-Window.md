@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Previous: Child Windows](Chapter-8-—-Child-Windows) — [Next: Customization and Persistence »](Chapter-10-—-Customization-and-Persistence)
+﻿### Programming Industrial Strength Windows
+[« Previous: Child Windows](Chapter-8-Child-Windows) — [Next: Customization and Persistence »](Chapter-10-Customization-and-Persistence)
 # Chapter 9: The Main Window
 
 The **mainWndProc** function (in mainwnd.cpp) implements the window function for TextEdit’s main window, and is the central switchboard of TextEdit. To do the switching, it employs the message cracker macros in windowsx.h. Even though mainWndProc contains the big switch statement of traditional window functions, the {"HANDLE_MSG"} macro delegates each message to an appropriate handler function in a – sort of – type-safe manner. At least the programmer doesn’t need to worry about the parameter packing for the various messages. Furthermore, the macros are portable between Win16 and Win32. This is particularly important for messages such as {"WM_COMMAND"}, where the parameter packing changed.

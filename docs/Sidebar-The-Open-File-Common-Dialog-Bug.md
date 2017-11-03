@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Back: File Management](Chapter-14-—-File-Management)
+﻿### Programming Industrial Strength Windows
+[« Back: File Management](Chapter-14-File-Management)
 ## Sidebar: The Open File Common Dialog Bug
 
 The Win32 Open File common dialog has a curious bug – at least it does under Windows NT 4.0. It is not even close to being a showstopper, but it is nevertheless a bug. To manifest the bug, do the following:

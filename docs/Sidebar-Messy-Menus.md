@@ -1,5 +1,5 @@
-### Programming Industrial Strength Windows
-[« Back: The Main Window](Chapter-9-—-The-Main-Window)
+﻿### Programming Industrial Strength Windows
+[« Back: The Main Window](Chapter-9-The-Main-Window)
 ## Sidebar:  Messy Menus
 
 The keyboard interface to the menu has its problems. Hold down the Alt key, press F, and the File menu pops up (or rolls down, whichever you prefer). Don’t let go of that Alt key yet; look instead at the line that says “Properties… Alt{"+"}Enter.” 
