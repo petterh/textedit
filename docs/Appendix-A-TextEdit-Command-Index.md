@@ -1,8 +1,11 @@
-﻿### Programming Industrial Strength Windows
-[« Previous: The End of the Road](Chapter-21-The-End-of-the-Road.md) — [Next: Bibliography and Recommended Reading »](Appendix-B-Bibliography-and-Recommended-Reading.md)
-# Appendix A: TextEdit Command Index
+﻿# Programming Industrial Strength Windows
 
-|| Command || Description || Location || Accelerator ||
+[« Previous: The End of the Road](Chapter-21-The-End-of-the-Road.md) — [Next: Bibliography and Recommended Reading »](Appendix-B-Bibliography-and-Recommended-Reading.md)
+
+## Appendix A: TextEdit Command Index
+
+| Command | Description | Location | Accelerator |
+|---|---|---|---|
 | New Window | Creates a new window (with a new document) | File Menu | Ctrl{"+"}Shift{"+"}N |
 | New | Creates a new document. | File Menu, Toolbar | Ctrl{"+"}N |
 | Open... | Displays the Open File dialog | File Menu, Toolbar | Ctrl{"+"}O |
@@ -40,6 +43,6 @@
 | Options... | Opens the Options dialog box, which lets you change fonts, language and whether to show the Delete dialog next time you delete a file | View Menu |  |
 | Contents | Shows help contents | Help Menu | F1 |
 | Keyboard | Shows keyboard command list | Help Menu |  |
-| Web Home Page | Opens the TextEdit Web site (http://www.codeplex.com/TextEdit) in your browser | Help Menu |  |
+| Web Home Page | Opens the [TextEdit Web site](http://www.codeplex.com/TextEdit) in your browser | Help Menu |  |
 | About TextEdit... | Displays the About dialog box | Help Menu |  |
 | Toggle Read Only | Toggles the read-only attribute of the current file | Toolbar | Alt{"+"}R |
