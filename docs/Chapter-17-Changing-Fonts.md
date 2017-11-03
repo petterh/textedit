@@ -1,12 +1,12 @@
 ﻿### Programming Industrial Strength Windows
-[« Previous: Printing](Chapter-16-Printing) — [Next: Going Abroad »](Chapter-18-Going-Abroad)
+[« Previous: Printing](Chapter-16-Printing.md) — [Next: Going Abroad »](Chapter-18-Going-Abroad.md)
 # Chapter 17: Changing Fonts
 
 TextEdit allows the user to select one proportional font and one fixed-width font. These selections are global across all instances of TextEdit, but it is quick to switch between proportional and fixed-width font, and the selected font is retained for individual files and for file types.
 
 The TextEdit Font Dialog is an example of implementation problems overpowering user requirements, a problem I talked about in Chapter 2. My original plan called for a single dialog for font customization, looking something like Figure 35:
 
-![](Chapter 17 — Changing Fonts_Figure35.bmp)
+![](Chapter-17-Changing-Fonts-Figure35.bmp)
 
 **Figure 35: The Font dialog that never was.** Is there a bug in WM_CHOOSEFONT_SETLOGFONT, or am I all thumbs?
 

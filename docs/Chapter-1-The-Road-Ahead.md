@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Previous: Introduction](Introduction) — [Next: Designing for Users »](Chapter-2-Designing-for-Users)
+[« Previous: Introduction](Introduction.md) — [Next: Designing for Users »](Chapter-2-Designing-for-Users.md)
 # Chapter 1: The Road Ahead
 
 This book is the story of a Windows application. I considered several alternatives for this application, and eventually landed on TextEdit, a Notepad replacement with a twist in the usability department. This chapter explains the how, the why and the wherefore.

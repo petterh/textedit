@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Back: About Dialogs](Chapter-13-About-Dialogs)
+[« Back: About Dialogs](Chapter-13-About-Dialogs.md)
 ## Sidebar: Default Buttons and Multi-line Edit
 
 I'd like to draw your attention to a user interface bug that runs rampant through the world of Windows applications. It involves the interaction of multi-line edit controls and default push buttons.

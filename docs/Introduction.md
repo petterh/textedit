@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[Next: The Road Ahead »](Chapter-1-The-Road-Ahead)
+[Next: The Road Ahead »](Chapter-1-The-Road-Ahead.md)
 # Introduction
 
 **“Error handling has been omitted for clarity.”**
@@ -35,7 +35,7 @@ If you are a programmer with some knowledge of {"C++"} and some Windows experien
 
 It does, however, cover many aspects of application design, target platform and implementation language selection, usability issues and a myriad implementation details, including error handling and recovery, installation, internationalization and registry handling. Along the way, I touch upon enough programming issues to make this book interesting for programmers at many levels of experience. Both neophytes and experienced Windows programmers will find things of interest here.
 
-The book also has something to offer MFC programmers and even Visual Basic programmers – in short, all programmers working with Windows. [Chapter 1](Chapter-1-The-Road-Ahead) discusses the relationship between several approaches to Windows programming.
+The book also has something to offer MFC programmers and even Visual Basic programmers – in short, all programmers working with Windows. [Chapter 1](Chapter-1-The-Road-Ahead.md) discusses the relationship between several approaches to Windows programming.
 
 This is not a reference manual, but more of an exploratory trip into nooks and crannies of the Windows API. If I don’t exhaustively explain everything found along the way, you will at least learn something about what’s out there, and can find the reference material for yourself – in the material included with your compiler or on the Net.
 

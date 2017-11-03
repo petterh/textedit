@@ -11,29 +11,13 @@ namespace MigrateDocumentation
 {
     public static class Program
     {
-        private class Replacement
-        {
-            Replacement(int start, int length, string value)
-            {
-                Start = start;
-                Length = length;
-                Value = value;
-            }
-
-            public int Start { get; }
-
-            public int Length { get; }
-
-            public string Value { get; }
-        }
-
         public static void Main()
         {
             DirectoryInfo solutionFolder = GetSolutionFolder();
             DirectoryInfo docsFolder = new DirectoryInfo(Path.Combine(solutionFolder.FullName, "docs"));
             Environment.CurrentDirectory = docsFolder.FullName;
 
-            ISet<string> fileNames = new HashSet<string>();
+            IDictionary<string, string> nameToFile = new Dictionary<string, string>();
 
             IEnumerable<FileInfo> docFiles = docsFolder.GetFiles().ToList();
             foreach (FileInfo docFile in docFiles)
@@ -47,7 +31,8 @@ namespace MigrateDocumentation
                 }
 
                 int dot = newName.LastIndexOf('.');
-                fileNames.Add(newName.Substring(0, dot));
+                string key = newName.Substring(dot) == ".md" ? newName.Substring(0, dot) : newName;
+                nameToFile.Add(key, newName);
             }
 
             docFiles = docsFolder.GetFiles();
@@ -73,10 +58,10 @@ namespace MigrateDocumentation
                     string innerValue = match.Value.Substring(1, match.Length - 2);
                     string link = innerValue;
                     string newName = TransformName(link);
-                    if (fileNames.Contains(newName))
+                    if (nameToFile.TryGetValue(newName, out var fileName))
                     {
-                        Console.WriteLine(newName);
-                        sb.Append(newName).Append(')');
+                        Console.WriteLine(fileName);
+                        sb.Append(fileName).Append(')');
                     }
                     else
                     {

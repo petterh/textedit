@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Previous: Meanwhile, in the Background](Chapter-19-Meanwhile-in-the-Background) — [Next: The End of the Road »](Chapter-21-The-End-of-the-Road)
+[« Previous: Meanwhile, in the Background](Chapter-19-Meanwhile-in-the-Background.md) — [Next: The End of the Road »](Chapter-21-The-End-of-the-Road.md)
 # Chapter 20: Setup, and Down Again
 
 Installation and setup of TextEdit is less of a chore than installation and setup of, say, Microsoft Office. TextEdit is distributed as a single file, rather than umpteen zillion. Still, a number of issues must be dealt with, including version control, registry entries, shortcuts to the application and how to uninstall cleanly. 
@@ -10,7 +10,7 @@ The TextEdit installation is hand coded, mainly because I want to show you some 
 
 In its installation incarnation, TextEdit looks like Figure 39 when it starts.
 
-![](Chapter 20 — Setup, and Down Again_Figure39.bmp)
+![](Chapter-20-Setup-and-Down-Again-Figure39.bmp)
 
 **Figure 39: TextEdit Setup in Action.** This is the standard TextEdit executable, started with the **/setup** switch.
 
@@ -35,7 +35,7 @@ The first thing the setup dialog does is check for a previous installation. If i
 
 Invoking the Install button in Figure 39 starts the installation. The first step is customization, handled by InstallDlg1, as shown in Figure 40.
 
-![](Chapter 20 — Setup, and Down Again_Figure40.bmp)
+![](Chapter-20-Setup-and-Down-Again-Figure40.bmp)
 
 **Figure 40: The Installation dialog.** The check marks in the list are communicated back to SetupDlg through the FileType class.
 
@@ -113,7 +113,7 @@ The user does not know about the /setup switch. How, then, does she invoke unins
 
 The currently recommended approach is to use the Add/Remove Programs applet in the Control Panel (see Figure 41). The title of this dialog is passing strange, by the way – why “Properties?” And, when the keyboard focus is in the list of removable software, why isn’t the Add/Remove button the default button?
 
-![](Chapter 20 — Setup, and Down Again_Figure41.bmp)
+![](Chapter-20-Setup-and-Down-Again-Figure41.bmp)
 
 **Figure 41: The Add/Remove Programs Control Panel Applet.** Given that the keyboard focus is in the list, why isn’t the Add/Remove button the default? Eh?
 

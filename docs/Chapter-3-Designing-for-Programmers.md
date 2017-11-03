@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Previous: Designing for Users](Chapter-2-Designing-for-Users) — [Next: The Mechanics of Subclassing »](Chapter-4-The-Mechanics-of-Subclassing)
+[« Previous: Designing for Users](Chapter-2-Designing-for-Users.md) — [Next: The Mechanics of Subclassing »](Chapter-4-The-Mechanics-of-Subclassing.md)
 # Chapter 3: Designing for Programmers
 
 In the previous chapter, I discussed software usability from the user’s point of view. Programmers are users, too, albeit with a different worldview. Programmers, including yourself, are users of your source code. 
@@ -407,7 +407,7 @@ int WINAPI WinMain(
 {code:C#}
 The resulting window lacks even the sense to paint its own client area, but it does have a title bar, and it responds correctly to resizing, maximizing and minimizing (see Figure 3).
 
-![](Chapter 3 — Designing for Programmers_Figure3.bmp)
+![](Chapter-3-Designing-for-Programmers-Figure3.bmp)
 
 **Figure 3: The DefWindowProc window, with its client area full of garbage.**
 

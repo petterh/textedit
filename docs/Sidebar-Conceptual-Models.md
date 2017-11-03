@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Back: Designing for Users](Chapter-2-Designing-for-Users)
+[« Back: Designing for Users](Chapter-2-Designing-for-Users.md)
 ## Sidebar: Conceptual Models
 
 A conceptual model is a mental map of the most important parts of a system and how they relate to each other. The term mental model is sometimes used as a synonym.

@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Previous: Customization and Persistence](Chapter-10-Customization-and-Persistence) — [Next: File I/O »](Chapter-12-File-I-O)
+[« Previous: Customization and Persistence](Chapter-10-Customization-and-Persistence.md) — [Next: File I/O »](Chapter-12-File-I-O.md)
 # Chapter 11: Wait a Moment
 
 Before I get into potentially time-consuming operations such as File I/O and printing, I’ll digress into the subject of the wait cursor. I’ll describe a problem with the typical implementation, and discuss enhancements to the standard hourglass.

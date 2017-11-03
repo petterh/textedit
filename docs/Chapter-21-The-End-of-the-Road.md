@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Previous: Setup, and Down Again](Chapter-20-Setup-and-Down-Again) — [Next: TextEdit Command Index »](Appendix-A-TextEdit-Command-Index)
+[« Previous: Setup, and Down Again](Chapter-20-Setup-and-Down-Again.md) — [Next: TextEdit Command Index »](Appendix-A-TextEdit-Command-Index.md)
 # Chapter 21: The End of the Road
 
 This is it. We’ve reached the end of the road; TextEdit is done. At least, version 1 of TextEdit is done. There are many things I’d like to change, and there are many features that I’d like to add. In spite of blemishes and imperfections, however, I think the overall design and implementation of TextEdit illustrate my basic arguments. My intention with this book has not been to present TextEdit as an example of a perfect Windows program, but rather to make you think.

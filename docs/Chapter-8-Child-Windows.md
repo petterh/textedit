@@ -1,10 +1,10 @@
 ﻿### Programming Industrial Strength Windows
-[« Previous: Off the Launch Pad](Chapter-7-Off-the-Launch-Pad) — [Next: The Main Window »](Chapter-9-The-Main-Window)
+[« Previous: Off the Launch Pad](Chapter-7-Off-the-Launch-Pad.md) — [Next: The Main Window »](Chapter-9-The-Main-Window.md)
 # Chapter 8: Child Windows
 
 The TextEdit main windows is a standard SDI (Single Document Interface) application window with optional tool– and status bars, and a big, fat text editing window in the middle.
 
-![](Chapter 8 — Child Windows_Figure10.bmp)
+![](Chapter-8-Child-Windows-Figure10.bmp)
 
 **Figure 10: TextEdit in Action, with eight of its nine windows visible.**
 
@@ -21,7 +21,7 @@ How many windows do you count in Figure 10? There are nine of them, eight of whi
 }}
 The ninth window is the toolbar’s ToolTip window, which was not present when the picture in Figure 10 was taken. The individual bitmaps on the toolbar are not windows; neither are the panes on the status bar. The scroll bars are part of the non-client area of the editing window. If this were OS/2 presentation manager, the scroll bars would be windows in their own right. Since this is Windows, they are not.
 
-TextEdit has more windows than these, though. Dialog boxes and their controls are windows too, and I’ll have more to say about them later, starting in [Chapter 13](Chapter-13-About-Dialogs).
+TextEdit has more windows than these, though. Dialog boxes and their controls are windows too, and I’ll have more to say about them later, starting in [Chapter 13](Chapter-13-About-Dialogs.md).
 
 ## Window Creation
 
@@ -93,7 +93,7 @@ Most of the **Statusbar** class is devoted to providing convenient ways of setti
 
 Like the tool bar, the status bar subclasses the main window to intercept messages. The status bar is interested in {"WM_SIZE"} and {"WM_DRAWITEM"}. (Subclassing a window to listen in on the message traffic is different from MFC’s message reflection mechanism, but the result is similar – improved encapsulation.)
 
-The first pane is **{"SBT_OWNERDRAW"}**, because I want to display rich text in the pane, and because I want to highlight some messages. The **paintHTML** function (in HTML.cpp) handles both; I’ll get back to the details in [Chapter 13](Chapter-13-About-Dialogs).
+The first pane is **{"SBT_OWNERDRAW"}**, because I want to display rich text in the pane, and because I want to highlight some messages. The **paintHTML** function (in HTML.cpp) handles both; I’ll get back to the details in [Chapter 13](Chapter-13-About-Dialogs.md).
 
 The final item of interest is the recalcParts method, which (re-) calculates the sizes of the status bar panes in response to size changes in the main window. This is necessary because the first pane is the one that stretches.
 

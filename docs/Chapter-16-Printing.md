@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Previous: Search and Replace](Chapter-15-Search-and-Replace) — [Next: Changing Fonts »](Chapter-17-Changing-Fonts)
+[« Previous: Search and Replace](Chapter-15-Search-and-Replace.md) — [Next: Changing Fonts »](Chapter-17-Changing-Fonts.md)
 # Chapter 16: Printing
 
 In one sense, printing under Windows is similar to displaying stuff on the screen: You use GDI commands to draw text and graphics in a display context. You don’t obtain (or release) a printer display context the same way you obtain a screen display context, but once you have that display context, you use the same familiar set of GDI functions. 
@@ -35,7 +35,7 @@ TextEdit uses the standard common dialog for page setup. The setupPage function 
 
 You invoke the standard page setup dialog by calling PageSetupDlg with a pointer to a suitably initialized PAGESETUPDLG as its lone parameter. The result looks like Figure 33.
 
-![](Chapter 16 — Printing_Figure32.bmp)
+![](Chapter-16-Printing-Figure32.bmp)
 
 **Figure 33: The Page Setup Dialog Box.**
 
@@ -49,7 +49,7 @@ TextEdit uses the standard common dialog for printing. The printFile function is
 
 You invoke the standard print dialog by calling PrintDlg with a pointer to a suitably initialized PRINTDLG as its lone parameter. The result looks like Figure 34.
 
-![](Chapter 16 — Printing_Figure32.bmp)
+![](Chapter-16-Printing-Figure32.bmp)
 
 **Figure 34: The Print Dialog Box.**
 

@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Previous: The Mechanics of Subclassing](Chapter-4-The-Mechanics-of-Subclassing) — [Next: Exceptions »](Chapter-6-Exceptions)
+[« Previous: The Mechanics of Subclassing](Chapter-4-The-Mechanics-of-Subclassing.md) — [Next: Exceptions »](Chapter-6-Exceptions.md)
 # Chapter 5: The Bare Bones
 
 This chapter gives you an overview of the TextEdit application architecture – the skeleton of the application, if you like. But first, this message from our sponsors:
@@ -44,7 +44,7 @@ The core of TextEdit consists of one window function and three {"C++"} classes. 
 
 The relationships between these are shown in Figure 5.
 
-![](Chapter 5 — The Bare Bones_Figure5.bmp)
+![](Chapter-5-The-Bare-Bones-Figure5.bmp)
 
 **Figure 5: Application Architecture Overview.**
 

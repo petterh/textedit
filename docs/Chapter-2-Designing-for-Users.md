@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Previous: The Road Ahead](Chapter-1-The-Road-Ahead) — [Next: Designing for Programmers »](Chapter-3-Designing-for-Programmers)
+[« Previous: The Road Ahead](Chapter-1-The-Road-Ahead.md) — [Next: Designing for Programmers »](Chapter-3-Designing-for-Programmers.md)
 # Chapter 2: Designing for Users
 
 From the Unix world comes a text editor named **vi**. It’s powerful and fast – provided you know how to use it. The problem with vi is that it is difficult to learn. A host of keyboard commands must be learned by heart – the user interface doesn’t give you a clue as to what you can and can’t do. The problem is compounded by vi’s several modes – it has different modes for text insertion and text manipulation, for example. The modes are in themselves no disaster, but their invisibility is. Nothing indicates whether your keystrokes will be interpreted as text to be inserted or commands to be executed.
@@ -43,11 +43,11 @@ Some message boxes are just plain unnecessary. TextEdit uses the status bar to d
 
 The status bar has one big problem in this role: Most people don’t pay it much attention. To remedy this problem, TextEdit’s status bar displays highlighted text whenever it has something substantial to say (as shown in Figure 1).
 
-![](Chapter 2 — Designing for Users_Figure1.bmp)
+![](Chapter-2-Designing-for-Users-Figure1.bmp)
 
 **Figure 1: Status bar with a message.** Highlighting makes the user pay attention.
 
-In [Chapter 15](Chapter-15-Search-and-Replace), I’ll show you how to do away with message boxes in connection with search and replace.
+In [Chapter 15](Chapter-15-Search-and-Replace.md), I’ll show you how to do away with message boxes in connection with search and replace.
 
 ## Robustness
 
@@ -66,7 +66,7 @@ First, you need to know the following about TextEdit:
 
 If the user opens the properties dialog, changes the file extension from .txt to .cpp and clicks the Apply button, the icon on the dialog should change (see Figure 2). In addition, the textual type description should change, the dialog title should change, and the time stamp of last file access should change.
 
-![](Chapter 2 — Designing for Users_Figure2.bmp)
+![](Chapter-2-Designing-for-Users-Figure2.bmp)
 
 **Figure 2: TextEdit displays different icons for different file types.**
 

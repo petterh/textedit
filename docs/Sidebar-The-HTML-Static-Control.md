@@ -1,5 +1,5 @@
 ﻿### Programming Industrial Strength Windows
-[« Back: About Dialogs](Chapter-13-About-Dialogs)
+[« Back: About Dialogs](Chapter-13-About-Dialogs.md)
 ## Sidebar:  The HTML Static Control
 
 The resource script for the About TextEdit dialog box includes this line:
