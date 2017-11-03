@@ -35,7 +35,7 @@ Furthermore, the Toolbar class contains TextEdit-specific code that makes it non
 
 ## The Major Organs
 
-The core of TextEdit consists of one window function and three {"C++"} classes. There is a large supporting cast as well, but these are the stars:
+The core of TextEdit consists of one window function and three C++ classes. There is a large supporting cast as well, but these are the stars:
 
 * The main window function (mainWndProc in mainwnd.cpp), which is described in Chapter 9
 * The Editor class, which lives in symbiosis with MainWndProc and is the nearest thing TextEdit has to a global application object
@@ -132,7 +132,7 @@ Let’s take a time-out here, to look at some common definitions and data types 
 
 ### String
 
-The String type is just my name for the std::string type from the Standard {"C++"} Template Library (STL). It equates to a string or a wstring, depending on whether _UNICODE is defined. The String type is defined in String.h.
+The String type is just my name for the std::string type from the Standard C++ Template Library (STL). It equates to a string or a wstring, depending on whether _UNICODE is defined. The String type is defined in String.h.
 
 < Listing 19: String.h>
 
@@ -184,7 +184,7 @@ It is handy for figuring out the number of elements in an array. TextEdit uses t
 
 ###  PRIVATE
 
-C and {"C++"} use the static keyword for several different things. When a variable declaration is static at function or class scope, or a function declaration is static at class scope, it means that the variable is global (albeit with limited visibility), as opposed to being allocated on the stack or as part of a class instance. When a variable or function declaration is static at file scope, it means that the variable is private to the current compilation unit. 
+C and C++ use the static keyword for several different things. When a variable declaration is static at function or class scope, or a function declaration is static at class scope, it means that the variable is global (albeit with limited visibility), as opposed to being allocated on the stack or as part of a class instance. When a variable or function declaration is static at file scope, it means that the variable is private to the current compilation unit. 
 
 Since the semantics of these uses of static are unrelated, I’ve created the **PRIVATE** macro, which I use for the latter meaning. The **PRIVATE** macro is also defined in **common.h**.
 

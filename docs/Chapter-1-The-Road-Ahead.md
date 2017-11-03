@@ -25,7 +25,7 @@ Is there anything good to say about Notepad? Simple though it is, it is at least
 The most important reason why I want to replace Notepad is more fundamental: The entire conceptual model that Notepad presents to the end user is faulty. Admittedly, Notepad shares this problem with most current software, so I’m being a bit unfair, picking on Notepad like this. 
 
 I’ll get back to that particular problem in the next chapter.
- 
+
 ## Roadbed: The Target Platform
 
 TextEdit runs on a subset of Win32: Windows 95 or higher, and Windows NT 4.0 or higher. It does not run on any 16-bit version of Windows, or on Win32s, or on Windows NT versions prior to 4.0, or on Windows CE.
@@ -42,9 +42,9 @@ There’s a “political” side to it, too – I don’t believe in flogging a 
 
 ## Vehicle: The Programming Language
 
-C, {"C++"}, Basic, Java – several programming languages are reasonable choices for writing Windows applications. Why {"C++"}?
+C, C++, Basic, Java – several programming languages are reasonable choices for writing Windows applications. Why C++?
 
-Choosing {"C++"} over C is a no-brainer. Even if you don’t use a single object-oriented feature of {"C++"}, it is still a “better C” that lets you do function overloading and allows you to freely mix variable declarations and statements. The only reasonable reason ever to choose straight C is if you lack a {"C++"} compiler for your platform – or if you’re writing the control software for a new airplane.
+Choosing C++ over C is a no-brainer. Even if you don’t use a single object-oriented feature of C++, it is still a “better C” that lets you do function overloading and allows you to freely mix variable declarations and statements. The only reasonable reason ever to choose straight C is if you lack a C++ compiler for your platform – or if you’re writing the control software for a new airplane.
 
 See also the discussion of MFC below.
 
@@ -73,17 +73,17 @@ This is, of course, used as an argument in favor of Visual Basic, but there is a
 A few years ago, I was on a project where we wrote the hard parts in C, using VB as glue to stick all the parts together. Most of the programmers were inexperienced, you see, so the management felt that this was the best way. It did (of course) turn on us with a vengeance. VB’s ease of use does not turn amateurs into professional programmers; it is no substitute for actual knowledge and experience.
 
 
-The Java language definition is superb in spots, but it does have holes. One hole is the lack of destructors. Garbage collection is fine, but what about objects that encapsulate files, network connections, window handles or other system resources? You’re forced to create methods for explicit destruction, and miss the beauty of {"C++"} stack unwinding. Another hole is the lack of a preprocessor. I know that this lack is a result of a conscious decision, and I even understand the rationale behind it; I merely happen to disagree. You don’t deny grown men beef merely because it’s unfit food for babies. 
+The Java language definition is superb in spots, but it does have holes. One hole is the lack of destructors. Garbage collection is fine, but what about objects that encapsulate files, network connections, window handles or other system resources? You’re forced to create methods for explicit destruction, and miss the beauty of C++ stack unwinding. Another hole is the lack of a preprocessor. I know that this lack is a result of a conscious decision, and I even understand the rationale behind it; I merely happen to disagree. You don’t deny grown men beef merely because it’s unfit food for babies. 
 
 In spite of these and other holes (lack of const, for example), Java is a well-designed language with, I believe, a substantial role to play. Java still suffers – badly – from the immaturity of the tools and libraries surrounding it, and the marketing wars and quasi-political power struggles don’t help any. Those are not unique to Java, though. 
 
 In truth, there is no “best programming language,” and you’d do well not to get religious on this issue. (That’s my prerogative.) Choose the tool best suited to the job at hand. 
 
-I do believe that {"C++"} is the best general-purpose programming language in widespread use available to the professional programmer. It is also the most difficult to learn and to use, which is why I emphasized “professional.” Java may yet threaten it, at least in some areas. Java’s design more or less eliminates several notorious classes of errors, including pointer arithmetic and memory management. This helps reduce the cost of software development, and, in most companies, it is difficult to argue with the bottom line.
+I do believe that C++ is the best general-purpose programming language in widespread use available to the professional programmer. It is also the most difficult to learn and to use, which is why I emphasized “professional.” Java may yet threaten it, at least in some areas. Java’s design more or less eliminates several notorious classes of errors, including pointer arithmetic and memory management. This helps reduce the cost of software development, and, in most companies, it is difficult to argue with the bottom line.
 
 ## Class Libraries
 
-Why write a native Windows application? Given that I’m programming in {"C++"}, why not use a ready-made class library such as Microsoft Foundation Classes (MFC)? Again, a question with no “right” answer. I’ve written MFC applications in the past, and been reasonably satisfied with the process and the results. Here are some of the reasons I chose another route for this book:
+Why write a native Windows application? Given that I’m programming in C++, why not use a ready-made class library such as Microsoft Foundation Classes (MFC)? Again, a question with no “right” answer. I’ve written MFC applications in the past, and been reasonably satisfied with the process and the results. Here are some of the reasons I chose another route for this book:
 
 * A book about native Windows programming holds interest for MFC programmers too, while a book about MFC programming is unlikely to interest those that write to the native Windows API.
 * MFC is not a true black box; you cannot use it effectively unless you have extensive knowledge of the underlying API. If you’re an MFC programmer, I hope you will take the time to read this book – to learn more about native Windows programming, to start thinking about how to design class libraries for Windows programming, and to start thinking “out of the MFC box.”

@@ -31,7 +31,7 @@ If the conversion overflows, the result is “undefined.” Why not return zero 
 
 In one sense, atoi doesn’t have “errors.” It all depends on how you define its behavior, and atoi’s behavior is defined in terms of its implementation. This is totally backwards; as a result, atoi is unusable without additional error checking. This kind of programming is shaky under the best of circumstances, but if you apply atoi directly to user input, you’re really courting disaster.
 
-Consider malloc. This function also uses a special value – zero, again – to signal failure. In contrast to atoi’s error value, malloc’s error value is outside the range of valid pointer values – the null pointer is a well-defined concept in C and {"C++"} programming. But no attention is drawn to the possibility of failure, and it is therefore less likely that error checking will actually be performed. I was once involved with a large Unix application in which all calls to malloc were simply assumed to succeed. When I asked why, the programmer said, in essence, “if memory allocation fails, we’re already in shit so deep that we’ve no chance of bailing out.” 
+Consider malloc. This function also uses a special value – zero, again – to signal failure. In contrast to atoi’s error value, malloc’s error value is outside the range of valid pointer values – the null pointer is a well-defined concept in C and C++ programming. But no attention is drawn to the possibility of failure, and it is therefore less likely that error checking will actually be performed. I was once involved with a large Unix application in which all calls to malloc were simply assumed to succeed. When I asked why, the programmer said, in essence, “if memory allocation fails, we’re already in shit so deep that we’ve no chance of bailing out.” 
 
 The standard C library is a notorious violator of the principle of separating return values from return codes, and I shudder when I contemplate the debugging man-years that have been wasted on this. If you look at the evolution of the Windows API, you’ll find a distinct trend towards better separation of return values and return codes. Once upon a time, for example, there was a function named **GetWindowOrg**, declared like this:
 
@@ -49,13 +49,13 @@ Here we have a clean separation between return code and return value, and changi
 
 The C language doesn’t have exception handling, except in the limited form provided by setjmp and longjmp, and in the form of language extensions to deal with Structured Exception Handling (SEH) under 32-bit Windows. 
 
-The {"C++"} language does have exception handling. Aside from syntax, one major difference from setjmp/longjmp is the “unwinding of the stack.” This means that the destructors of all stack-allocated objects are called before the exception handler is invoked, giving each stack frame a chance to clean up after itself. Another difference is that throwing a real exception invokes the first applicable handler it finds on the stack, rather than a specifically identified handler, as does longjmp.
+The C++ language does have exception handling. Aside from syntax, one major difference from setjmp/longjmp is the “unwinding of the stack.” This means that the destructors of all stack-allocated objects are called before the exception handler is invoked, giving each stack frame a chance to clean up after itself. Another difference is that throwing a real exception invokes the first applicable handler it finds on the stack, rather than a specifically identified handler, as does longjmp.
 
 ## Two-stage Construction
 
-{"C++"} constructors lack return values. This is no accident. If they did, you’d have a problem with allocating arrays of objects – which element’s constructor should be responsible for the return value?
+C++ constructors lack return values. This is no accident. If they did, you’d have a problem with allocating arrays of objects – which element’s constructor should be responsible for the return value?
 
-The natural way to signal errors in a {"C++"} constructor is by means of exceptions. This can be an inconvenience, though – sometimes you actually want return codes. 
+The natural way to signal errors in a C++ constructor is by means of exceptions. This can be an inconvenience, though – sometimes you actually want return codes. 
 
 A common solution to this conundrum is called two-stage construction. The constructor simply does nothing that might cause problems; instead, some method is called after construction to do the “real” initialization. Consider the MFC CFile class, for example. CFile is designed to work both ways, depending on which constructor you use. One way is to use the default (i.e., parameterless) constructor, which does not open any files, followed by a call to the Open method, which returns an error code if it fails to open the specified file. The other way is to use a constructor that takes a file name; this constructor throws an exception if it fails to open the file.
 
@@ -69,7 +69,7 @@ The VersionInfo class demonstrates yet another option. If the constructor fails,
 
 What happens if you throw an exception from the construction of a global object – one at file scope? You can only catch it by getting compiler-dependent. 
 
-In the case of a Visual {"C++"} program, your real entry point is not WinMain, but an extern “C” function called WinMainCRTStartup (or wWinMainCRTStartup, if you are a Unicode application). This function performs all the initialization required and then calls WinMain (or wWinMain, as the case may be). Among other things, it calls a function named _initterm, which walks a list of function pointers and calls them. The _initterm function is first called with a list of run-time library initializers, for example __initstdio, and then with a list of {"C++"} constructors for global objects.
+In the case of a Visual C++ program, your real entry point is not WinMain, but an extern “C” function called WinMainCRTStartup (or wWinMainCRTStartup, if you are a Unicode application). This function performs all the initialization required and then calls WinMain (or wWinMain, as the case may be). Among other things, it calls a function named _initterm, which walks a list of function pointers and calls them. The _initterm function is first called with a list of run-time library initializers, for example __initstdio, and then with a list of C++ constructors for global objects.
 
 To catch an exception thrown during the construction of a global object, you must override WinMainCRTStartup, or its equivalent in other environments. If you don’t need the C Runtime Library (CRT) and have no static instances of classes, this may actually be a good idea, since it reduces the size of the executable and speeds up loading. Otherwise, it is a bad idea; you’d have to copy all the initialization code, and you’d have no guarantee that the next compiler release wouldn’t break your code. As for porting to other compilers, that’s out.
 
@@ -455,7 +455,7 @@ void throwException( const String& strDescr, DWORD dwErr ) {
 
 ## Converting Allocation Failures to Exceptions
 
-{"C++"} programs usually call operator new rather than malloc. Behind the scenes, though, the typical operator new implementation calls malloc to actually allocate memory; malloc, in turn, may call on the operating system for help. At any rate, while the {"C++"} standard mandates that an exception be thrown on failure, Microsoft’s compiler returns a null pointer if the allocation request fails. As a result, much code is littered with checks such as this:
+C++ programs usually call operator new rather than malloc. Behind the scenes, though, the typical operator new implementation calls malloc to actually allocate memory; malloc, in turn, may call on the operating system for help. At any rate, while the C++ standard mandates that an exception be thrown on failure, Microsoft’s compiler returns a null pointer if the allocation request fails. As a result, much code is littered with checks such as this:
 
 {code:C#}
 LPTSTR pszMyString = new TCHAR[ MAX_PATH ](-MAX_PATH-);
@@ -495,13 +495,13 @@ Microsoft PowerPoint got this right. My installation must be screwed up somehow;
 
 A down side of a completely integrated exception architecture is that it becomes hard to snatch a single class or function out of its context and reuse it somewhere else – you need to take all the exception baggage with you. Because of this, some general functions in TextEdit don’t use all the facilities available. The VersionInfo class, for example, doesn’t use TextEdit’s getModuleFileName function, but relies instead on the underlying GetModuleFileName.
 
-## Structured Exception Handling and {"C++"} Exceptions
+## Structured Exception Handling and C++ Exceptions
 
 Structured Exception Handling (SEH) is built into the Win32 operating systems. Windows throws system-level exceptions for a number of reasons, such as stack overflow, memory access violations and divisions by zero. (TextEdit, by the way, automatically multiplies by zero to compensate for accidentally dividing by zero.) (Joke!)
 
-To allow C and {"C++"} programmers access to SEH, Microsoft defined language extensions in the form of __try, __catch and __finally keywords. Unfortunately, SEH is incompatible with {"C++"} exception handling. It’s OK to have both in the same program, but not in the same function. 
+To allow C and C++ programmers access to SEH, Microsoft defined language extensions in the form of __try, __catch and __finally keywords. Unfortunately, SEH is incompatible with C++ exception handling. It’s OK to have both in the same program, but not in the same function. 
 
-Luckily, there’s a solution: You can install a translator function to translate SEH exceptions into {"C++"} exceptions. Windows calls the translator function with parameters describing the structured exception, enough to let you throw a {"C++"} exception of your choice.
+Luckily, there’s a solution: You can install a translator function to translate SEH exceptions into C++ exceptions. Windows calls the translator function with parameters describing the structured exception, enough to let you throw a C++ exception of your choice.
 
 ### Listing 23: handlers.cpp
 {code:C#}

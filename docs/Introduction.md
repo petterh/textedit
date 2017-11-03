@@ -31,7 +31,7 @@ The book is divided into two parts of unequal size. Part I is called Background,
 
 ## Who Should Read This Book?
 
-If you are a programmer with some knowledge of {"C++"} and some Windows experience, this book is for you. If you don’t know what a {"C++"} class is, or if you have never heard of **WinMain** or window functions, you should read some introductory material first. This book doesn't cover the basics. 
+If you are a programmer with some knowledge of C++ and some Windows experience, this book is for you. If you don’t know what a C++ class is, or if you have never heard of **WinMain** or window functions, you should read some introductory material first. This book doesn't cover the basics. 
 
 It does, however, cover many aspects of application design, target platform and implementation language selection, usability issues and a myriad implementation details, including error handling and recovery, installation, internationalization and registry handling. Along the way, I touch upon enough programming issues to make this book interesting for programmers at many levels of experience. Both neophytes and experienced Windows programmers will find things of interest here.
 
@@ -73,7 +73,7 @@ For a deeper discussion of coding styles, I recommend Steve McConnel’s Code Co
 When I refer to a _method_, I invariably mean a non-static member function of some class. Everything else is a function.
 
 
-TextEdit was developed using version 6 of Microsoft Visual {"C++"}. While the text reflects that fact on occasion, the book is meant to be compiler-independent. In particular, it is not a book about Visual {"C++"}.
+TextEdit was developed using version 6 of Microsoft Visual C++. While the text reflects that fact on occasion, the book is meant to be compiler-independent. In particular, it is not a book about Visual C++.
 
 | References to source code availability removed from text; they're irrelevant on CodePlex. |
 
