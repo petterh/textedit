@@ -25,5 +25,6 @@ It's in the [`docs`](docs) folder, but be warned: All links need tweaking -- the
 
 ## Getting started
 
-* Install Visual Studio
+* [Install Visual Studio](https://www.visualstudio.com/downloads/)
+* [Install WiX](http://wixtoolset.org/)
 * Clone this project
