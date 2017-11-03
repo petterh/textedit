@@ -60,7 +60,7 @@ If the current locale is French, the loadString example returns the US English r
 
 Windows NT allows you to change the user default language on the fly from the Control Panel. If this happens, a WM{"_"}SETTINGCHANGE message is broadcast, allowing us to change the application’s language on the fly. The main window’s onSettingChange function, in mainwnd.cpp, contains the following code fragment:
 
-```C#
+```C++
 // Switch languages, if indicated:
 const LCID lcid = GetUserDefaultLCID();
 if ( GetThreadLocale() != lcid ) {
@@ -78,12 +78,12 @@ You can switch languages programmatically, too, by calling the SetThreadLocale f
 
 To change languages on the fly under Windows 9x, your best approach is to put all the resources into a DLL, then create differently-named versions of this DLL for each supported language. With such an approach, the call
 
-```C#
+```C++
 LoadMenu( getModuleHandle(), ... );
 ```
 above would change to something like
 
-```C#
+```C++
 LoadMenu( getResourceModuleHandle(), ... );
 ```
 where getResourceModuleHandle would return the module handle of the DLL matching the currently selected language. 
@@ -94,17 +94,17 @@ If I haven’t said so before, I’ll say it now: Windows NT is a much, much bet
 
 Traditional C programming relies on the printf family of functions to format messages. Thus, one writes:
 
-```C#
+```C++
 wsprintf( szMsg, "File %s not found", szFile );
 ```
 Now, if this string were hard-coded, a translation into German would entail changing that line of code, then recompiling:
 
-```C#
+```C++
 wsprintf( szMsg, "Datei %s nicht gefunden", szFile );
 ```
 To avoid this, we store the string in a string table. Translation no longer requires recompilation, and the code might look like this:
 
-```C#
+```C++
 wsprintf( szMsg, loadString( IDS_FILE_NOT_FOUND ).c_str(), szFile );
 ```
 This is better, but one problem remains. When you use wsprintf (or any of its relatives), the order of the arguments is fixed. This is not a problem in the example above, but is sometimes a problem in translations involving two or more inserts, where argument reordering may be preferable, or even required.
@@ -119,7 +119,7 @@ The functions defined in formatMessage.cpp wraps FormatMessage in functions that
 
 The formatMessageV function is the real workhorse. It defines text buffer that FormatMessage will fill:
 
-```C#
+```C++
 TCHAR sz[ MAX_LENGTH ](-MAX_LENGTH-) = { 0 };
 ```
 Note that this initializes the buffer to an empty string. All string declarations in TextEdit are initialized in the same manner, but in this case, it is particularly important: If the format specification string is empty, FormatMessage does nothing to the output string – it does not even empty it. If it were uninitialized, the best that could happen would be the return of a garbage string. As for the worst that could happen, the sky is the limit: If the uninitialized array doesn’t contain a terminator somewhere, the String constructor (called when the function returns) will continue to read beyond the end of the array.
@@ -128,14 +128,14 @@ Note that this initializes the buffer to an empty string. All string declaration
 
 The formatMessage function with a string argument was originally defined as follows:
 
-```C#
+```C++
 String __cdecl formatMessage( LPCTSTR pszFmt, ... );
 ```
 This was fine, except that most places that called the function had a formatting String rather than a formatting LPCTSTR, and the code was littered with calls to String::c_str, there being no conversion operator available. Why not, I thought, change the formal parameter to a const String&, and avoid the conversion hassle? Any calls to formatMessage that actually used an LPCTSTR would be OK, since a suitable String constructor is available to convert the LPCTSTR to a String.
 
 In innocent ignorance, I changed formatMessage to the following:
 
-```C#
+```C++
 String __cdecl formatMessage( const String& strFmt, ... ) {
 
    va_list vl;
@@ -152,7 +152,7 @@ The culprit is the application of the va{"_"}start macro to a reference. The str
 
 Solving the problem was then a simple trade-off between efficiency (an LPCTSTR parameter) and readability at the point of call (a String parameter). For TextEdit, I chose readability, and changed formatMessage to this:
 
-```C#
+```C++
 String __cdecl formatMessage( const String strFmt, ... ) {
 ```
 The string is now passed by value, and must therefore be copied. Inefficient, yes, but TextEdit doesn’t format messages frequently enough to make it much of an issue.
@@ -167,7 +167,7 @@ The easy way to format a number for display is to use printf( "%d", 1834597891 )
 
 To find out what the correct format is, we have the GetLocaleInfo function to help us. If you call it with LOCALE{"_"}STHOUSAND as the second parameter, it will return a string containing the thousands separator. For example, if you’re using the US locale, this code snippet will set szThousandSep to “,”:
 
-```C#
+```C++
 TCHAR szThousandSep[ 10 ](-10-) = { 0 };
 GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_STHOUSAND,  szThousandSep, dim( szThousandSep ) ) );
 ```
@@ -185,7 +185,7 @@ GetNumberFormat is another Windows function useful for number formatting. I woul
 
 I have already covered most of the formatting that TextEdit does – TextEdit is a light formatter. The Properties dialog needs to display time stamps, though. Their formatting is handled by the formatFileTime function, defined in PropertiesDlg.cpp:
 
-```C#
+```C++
 PRIVATE String formatFileTime( const FILETIME& ft ) {
    FILETIME local = ft;
    verify( FileTimeToLocalFileTime( &ft, &local ) );

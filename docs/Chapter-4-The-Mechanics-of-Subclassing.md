@@ -43,7 +43,7 @@ InstSub is the simplest working example I can think of; it is far from complete.
 
 **Listing 5: InstSub.rc** (used for all three subclassing examples)
 
-```C#
+```C++
 // InstSub.rc – used for all three subclassing examples
 
 #include <windows.h>
@@ -89,7 +89,7 @@ FONT 8, "MS Sans Serif"
 
 **Listing 6: InstSub.cpp**
 
-```C#
+```C++
 #include <windows.h>
 
 #define IDC_NUMBERS 1000
@@ -151,7 +151,7 @@ The dialog box function no longer handles WM_INITDIALOG. The numeric input edit 
 
 **Listing 7: GlobSub.cpp**
 
-```C#
+```C++
 #include <windows.h>
 
 #define IDC_NUMBERS 1000
@@ -216,7 +216,7 @@ It isn’t mandatory to change the window function during class cloning. Sometim
 
 **Listing 8: Clone.cpp**
 
-```C#
+```C++
 #include <windows.h>
 
 #define IDC_NUMBERS 1000
@@ -294,13 +294,13 @@ If you were to use SetWindowLong, the **{"GWL_USERDATA"}** offset would be the o
 
 According to conventional wisdom, window properties are less efficient than window words. Benchmarking
 
-```C#
+```C++
 GetWindowLong( hwnd, GWL_USERDATA );
 ```
 
 against
 
-```C#
+```C++
 GetProp( hwnd, “test” ); 
 ```
 
@@ -308,7 +308,7 @@ verifies this. When I used an atom instead of the string for the property name, 
 
 One solution to the problem of multiple subclassings is to store the old window function as a property, using a unique property name for each subclassing. With multiple subclassings, this suggests an image of saved window functions sticking out all over the window like pins from a pincushion. While I’ve used this porcupine technique successfully, it does have one disadvantage: the subclassings are isolated from one another, and unhooking must be done in reverse order of subclassing. To remedy this, the InstanceSubclasser maintains a linked list of subclassing descriptors:
 
-```C#
+```C++
 class Node {
 public:
    WNDPROC m_wndProc;

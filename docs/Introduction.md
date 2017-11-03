@@ -45,7 +45,7 @@ I won’t describe my coding style in detail; you’ll get the idea by looking a
 
 **I always use braces with conditionals and loops, even if only a single statement is controlled.** I started this practice after I had spent several hours hunting down a bug caused by indentation mismatch:
 
-```C#
+```C++
 if ( x == y )
    ++x;
    --y;
@@ -54,7 +54,7 @@ I wowed that this bug would never bite me again, and it hasn’t. Yet.
 
 **When comparing for equality, I always put the constant (if any) on the left-hand side.** In the past, I’ve been caught more than once by unintended assignments:
 
-```C#
+```C++
 if ( variable = CONSTANT ) {
    ...
 }

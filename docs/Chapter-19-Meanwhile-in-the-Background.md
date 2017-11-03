@@ -34,7 +34,7 @@ In TextEdit, this is wrapped in **beginThread** and **endThread**, defined in th
 
 The threads in SetupDlg communicate with the dialog’s UI thread by sending or posting messages. Message posting, being asynchronous, is usually a safer bet than message sending, but consider this code fragment in SetupDlg’s installThread function:
 
-```C#
+```C++
 try {
    pSetupDlg->install();
 }
@@ -51,7 +51,7 @@ One solution would be to split the message in two – one message for setting th
 
 Another solution – the one actually used – is to employ **ReplyMessage**. On the receiving end, the UI thread first grabs the string, then calls **ReplyMessage** and finally **cleanupThread**:
 
-```C#
+```C++
 case INSTALL_FAILED:
    ...
    setDlgItemText( 

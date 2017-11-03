@@ -17,7 +17,7 @@ Some command handlers are pure debug scaffolding: onDivideByZero, onAccessViolat
 
 TestClass is used to verify proper stack unwinding when an exception is thrown; all it does is trace its construction and its destruction:
 
-```C#
+```C++
 class TestClass {
 public:
    TestClass () { trace( _T( "TestClass ctor\n" ) ); }
@@ -52,17 +52,17 @@ To properly enable and disable the paste command, the TextEdit main window hooks
 
 At any rate, mainwnd.cpp has a static variable {"s_hwndNextClipboardViewer"} to do the job; it is initialized in onCreate:
 
-```C#
+```C++
 s_hwndNextClipboardViewer = SetClipboardViewer( hwnd );
 ```
 The window is unhooked from the chain again in onDestroy:
 
-```C#
+```C++
 ChangeClipboardChain( hwnd, s_hwndNextClipboardViewer );
 ```
 Once registered as a clipboard viewer, the window receives {"WM_DRAWCLIPBOARD"} messages whenever the clipboard contents change:
 
-```C#
+```C++
 PRIVATE void onDrawClipboard( HWND hwnd ) {
 
    if ( IsWindow( s_hwndNextClipboardViewer ) ) {
@@ -75,7 +75,7 @@ The **enablePaste** function is responsible for actually enabling and disabling 
 
 The hairiest part of clipboard viewerhood is handling someone else’s unhooking from the chain. If the window just below us in the chain – {"s_hwndNextClipboardViewer"} – is bailing out, we must update the {"s_hwndNextClipboardViewer"} variable with the next window down the chain. If not, we just forward the {"WM_CHANGECBCHAIN"} message to {"s_hwndNextClipboardViewer"}:
 
-```C#
+```C++
 PRIVATE void onChangeCBChain(
 	HWND hwnd, HWND hwndRemove, HWND hwndNext ) 
 {
@@ -113,7 +113,7 @@ To support file drag and drop, a window must do three things:
 
 Handling the message is a matter of calling DragQueryFile (perhaps several times), then calling DragFinish. Since TextEdit is an SDI application, we must settle the question of how to handle dropping of multiple files – we obviously can’t open them all in the same application instance. TextEdit solves this in a manner similar to how it opens multiple files on the command line: It takes the first file for itself, and sends the rest to startInstance:
 
-```C#
+```C++
 PRIVATE void onDropFiles( HWND hwnd, HDROP hdrop ) {
    const UINT DRAGQUERY_NUMFILES = (UINT) -1;
    const int nFiles = DragQueryFile( hdrop, DRAGQUERY_NUMFILES, 0, 0 );

@@ -103,7 +103,7 @@ namespace MigrateDocumentation
                     sb.Append(newText.Substring(prev, pos - prev)).Append("```");
                     if (opening)
                     {
-                        sb.Append("C#");
+                        sb.Append("C++");
                     }
 
                     opening = !opening;

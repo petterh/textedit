@@ -16,7 +16,7 @@ Such is theory. In practice, the abstract base class implements several of the o
 
 To get notifications from an **AbstractEditWindow**, you must implement the **EditListener** interface. Among other things, the **EditListener** wraps the {"EN_**"} notifications, so that the listener won’t have to worry about such implementation details:
 
-```C#
+```C++
 class EditListener {
 public:
    virtual void onChange   ( void ) = 0;
@@ -58,7 +58,7 @@ The heart of TextEdit – indeed, of any Windows application – is the message 
 
 Here is a simplified version of **Editor::run**:
 
-```C#
+```C++
 int Editor::run( HINSTANCE hinst ) {
    MSG msg = { 0, 0, static_cast< WPARAM >( -1 ) };
 
@@ -140,7 +140,7 @@ The String type is just my name for the std::string type from the Standard C++ T
 
 A PATHNAME is a character array of length MAX_PATH. It is defined in common.h, as follows:
 
-```C#
+```C++
 typedef WCHAR PATHNAMEW[ MAX_PATH + 1 ](-MAX_PATH-+-1-);
 typedef CHAR  PATHNAMEA[ MAX_PATH + 1 ](-MAX_PATH-+-1-);
 
@@ -152,12 +152,12 @@ typedef CHAR  PATHNAMEA[ MAX_PATH + 1 ](-MAX_PATH-+-1-);
 ```
 Whenever a PATHNAME (or any other string array) is declared, it is initialized thusly:
 
-```C#
+```C++
 PATHNAME szTempPath = { 0 };
 ```
 An alternative formulation would be this:
 
-```C#
+```C++
 PATHNAME szTempPath = _T( "" );
 ```
 The first formulation is preferable, as it is independent of Unicode and ANSI strings, and thus doesn’t require use of the _T macro. Zero is an accommodating constant; it adapts to lvalues of any size.
@@ -166,7 +166,7 @@ The PATHNAME type is an imperfect solution to the file name problem. If MAX_PATH
 
 Beware of URLs, which are not subject to the MAX_PATH limit. The wininet.h header file defines the following (arbitrary) constants:
 
-```C#
+```C++
 #define INTERNET_MAX_PATH_LENGTH   2048
 #define INTERNET_MAX_SCHEME_LENGTH 32 // longest protocol name length
 #define INTERNET_MAX_URL_LENGTH         (INTERNET_MAX_SCHEME_LENGTH \
@@ -179,7 +179,7 @@ The dim macro is defined in common.h, as follows:
 
 ```
 #define dim( x ) (sizeof( x ) / sizeof( ( x )[ 0 ](-0-) ))
-```C#
+```C++
 It is handy for figuring out the number of elements in an array. TextEdit uses this macro a lot with strings, as this is crucial for Unicode builds. For an ANSI build, the dim of a character array is equal to its sizeof; for a Unicode build, dim is half of its sizeof.
 
 ###  PRIVATE

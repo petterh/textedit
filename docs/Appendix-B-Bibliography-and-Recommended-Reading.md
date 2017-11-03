@@ -34,7 +34,7 @@ Much of this book concern pitfalls in pre-ANSI C, which does date it a bit. It s
 
 The following (perfectly portable) expression gives a flavor of the book; it evaluates to the hexadecimal character corresponding to x:
 
-```C#
+```C++
 "0123456789ABCDEF" [ x & 0xf ](-x-&-0xf-)
 ```
 

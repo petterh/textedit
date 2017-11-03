@@ -61,8 +61,8 @@ Robustness is more than not losing data, though. If the application is unable to
 
 First, you need to know the following about TextEdit:
 
-* Although TextEdit doesn’t have a Save As command, you can change the file name, including the extension, from the File menu or from the Properties dialog box.
-* TextEdit displays the icon that belongs with the file type, rather than an application-specific icon. This, I feel, is in a quite document-centric spirit.
+# Although TextEdit doesn’t have a Save As command, you can change the file name, including the extension, from the File menu or from the Properties dialog box.
+# TextEdit displays the icon that belongs with the file type, rather than an application-specific icon. This, I feel, is in a quite document-centric spirit.
 
 If the user opens the properties dialog, changes the file extension from .txt to .cpp and clicks the Apply button, the icon on the dialog should change (see Figure 2). In addition, the textual type description should change, the dialog title should change, and the time stamp of last file access should change.
 

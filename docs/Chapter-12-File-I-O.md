@@ -20,7 +20,7 @@ Figuring out whether a floppy is write-protected is less straightforward than yo
 
 Here is the isWriteProtectedDisk function from fileUtils.cpp:
 
-```C#
+```C++
 bool isWriteProtectedDisk( LPCTSTR pszPath ) {
 
    assert( isGoodStringPtr( pszPath ) );
@@ -96,7 +96,7 @@ The conversions in Figure 14 are good examples of functions that really need opt
 
 Here is some early code from the outbound converter to remove carriage returns from a string:
 
-```C#
+```C++
 if ( m_hasUnixLineFeeds ) {
    for ( int iChar = 0; 0 != pszNewContents[ iChar ](-iChar-); ++iChar ) {
       if ( _T( '\r' ) == pszNewContents[ iChar ](-iChar-) ) {
@@ -112,7 +112,7 @@ This snippet is obviously doing a lot of extra work, as it moves characters all 
 
 This code turned out to have a huge performance problem. I replaced the code above with the code below. On a 2.2 MB test file with 56,000 lines of text, the execution time of the loop fell from a good-sized coffee break (over 16 minutes) to 0.071 seconds. I had expected things to improve, but speeding things up by four orders of magnitude is definitely above average.
 
-```C#
+```C++
 const int nBytesPerChar = 
    m_isUnicode ? sizeof( WCHAR ) : sizeof( char );
 if ( m_hasUnixLineFeeds ) {

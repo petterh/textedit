@@ -33,7 +33,7 @@ The tool bar is a window of class ToolbarWindow32, implemented in COMCTL32.DLL a
 
 The toolbar is somewhat dynamic; it may change during a TextEdit session. This may happen if the user changes the desktop settings, or if the user changes the language (via the Options dialog box). Changing toolbar metrics on the fly turns out to be difficult, so the Editor class handles this by creating a new toolbar from scratch in its refreshToolbar method:
 
-```C#
+```C++
 void Editor::refreshToolbar( void ) {
    assert( isGoodPtr( this ) );
    assert( isGoodPtr( m_pEditWnd ) );
@@ -44,7 +44,7 @@ In other words, the old toolbar is deleted, and a new toolbar is created in its 
 
 The tool bar’s tool tips come in two different flavors. We get tool tips for the buttons just by adding the {"TBSTYLE_TOOLTIPS"} style bit, but tool tips for the child controls must be added the hard way – control by control. The Toolbar constructor sends itself a {"TB_GETTOOLTIPS"} message to get hold of the tool tip window, then sends the tool tip a {"TTM_ADDTOOL"} message for each child:
 
-```C#
+```C++
 HWND hwndToolTip = 
    reinterpret_cast< HWND >( sendMessage( TB_GETTOOLTIPS ) );
 if ( IsWindow( hwndToolTip ) ) {
@@ -79,7 +79,7 @@ The final item of interest is the adjust method, which calculates the position o
 
 The status bar is a window of class {"msctls_statusbar32"}, implemented in COMCTL32.DLL and wrapped by the StatusBar class, a subclass of the Window class. The status bar has no children; instead, it has four panes, identified by the enumeration Statusbar::StatusBarParts:
 
-```C#
+```C++
 enum StatusBarParts {
    message_part ,
    position_part,

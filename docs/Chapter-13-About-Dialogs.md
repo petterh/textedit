@@ -46,7 +46,7 @@ The positioning of a dialog is a somewhat tortuous process. When dispatchDlgMsg 
 
 TextEdit dialog positions are persistent, although only within a single session. Positioning is handled by a pair of functions defined in winUtils.cpp, along with the static variable thePointMap:
 
-```C#
+```C++
 typedef std::map< int, Point > PointMap;
 PRIVATE PointMap thePointMap;
  
@@ -104,7 +104,7 @@ The Options dialog box looks like this:
 
 It is a little bit more complex, interaction-wise, than the About dialog. AboutDlg can get along with just the default onDlgCommand method defined in the Dialog base class, whereas OptionsDlg needs its own:
 
-```C#
+```C++
 void OptionsDlg::onDlgCommand( 
    int id, HWND hwndCtl, UINT codeNotify ) 
 {
@@ -143,7 +143,7 @@ The black border is just a visual clue; the functional aspects of the default bu
 
 This is less straightforward than it sounds. In particular, problems abound whenever you dynamically enable and disable buttons, or when you change the default button. Consider this code fragment from the onDlgCommand method of PropertiesDlg (described in Chapter 14):
 
-```C#
+```C++
 switch ( id ) {
 ...
 case IDC_APPLY:

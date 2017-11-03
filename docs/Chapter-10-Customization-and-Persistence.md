@@ -34,7 +34,7 @@ The onSettingChange function is more complex. The language may have changed, fon
 
 The description of a UI font is stored in the registry as a blob. The menu font is stored under the following key:
 
-```C#
+```C++
 HKEY{"_"}CURRENT{"_"}USER\Control Panel\Desktop\WindowMetrics\MenuFont
 ```
 (BLOB is an acronym for a Binary Large OBject. Whether this blob deserves the adjective “large” is another matter.) This blob turns out to be a LOGFONT structure, and it can be used to instantiate a GDI object of the HFONT persuasion.
@@ -188,7 +188,7 @@ Let’s go back to level two for a moment, and look at the Registry class. This 
 }}
 Sometimes, though, we need to access information elsewhere in the registry. The following strings are recognized; if either is present, the key is retained as is:
 
-```C#
+```C++
 #define WIN_SETTINGS _T( "Microsoft\\Windows\\CurrentVersion" )
 #define CPL_SETTINGS _T( "Control Panel\\Desktop\\WindowMetrics" ) 
 ```
@@ -200,7 +200,7 @@ Sometimes, though, we need to access information elsewhere in the registry. The 
 
 Let’s study one of the macros in persistence.h, DEFINE{"_"}PERSISTENT{"_"}BOOL, to see how it works:
 
-```C#
+```C++
 #define DEFINE_PERSISTENT_BOOL( section, name )        \
    inline bool get ## name( void ) {                   \
       return 0 != Registry::getInt( HKEY_CURRENT_USER, \
@@ -213,12 +213,12 @@ Let’s study one of the macros in persistence.h, DEFINE{"_"}PERSISTENT{"_"}BOOL
 ```
 One use of the macro is this:
 
-```C#
+```C++
 DEFINE_PERSISTENT_BOOL( "Search", MatchCase );
 ```
 This expands to:
 
-```C#
+```C++
    inline bool getMatchCase( void ) {
       return 0 != Registry::getInt( HKEY_CURRENT_USER,
          _T( "Search" ), _T( MatchCase ), 0 ); 
@@ -230,12 +230,12 @@ This expands to:
 ```
 The macros for integers and strings are similar in structure. One deserves special mention: DEFINE{"_"}PERSISTENT{"_"}STRING{"_"}EX allows indexed persistent variables. After the declaration of 
 
-```C#
+```C++
 DEFINE_PERSISTENT_STRING_EX( "Search", Pattern );
 ```
 I can write
 
-```C#
+```C++
 setPattern( 1, _T( "someString" );
 ```
 and end up with the following registry entry:
@@ -263,7 +263,7 @@ If you change the word wrapping while editing C:\Data\test.txt, both these regis
 
 Document local persistence is implemented through macros defined in Document.h. Actually, there’s only one such macro, since all the values happen to be numbers:
 
-```C#
+```C++
 #define DEFINE_PERSISTENT_DOC_INT( name, type )               \
    inline int get ## name( int nDefault ) const {             \
       return getPersistentInt( _T( #name ), nDefault, type ); \
@@ -303,7 +303,7 @@ Whenever Windows starts, it enumerates all key-value pairs under this key, and e
 
 A naïve (and all too common) use of this facility is to insert a RunOnce command in response to the WM{"_"}ENDSESSION message, e.g.:
 
-```C#
+```C++
 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\
    TextEdit="C:\Program Files\TextEdit\TextEdit.exe C:\Data\test.txt"
 ```
@@ -318,7 +318,7 @@ What TextEdit actually does is the following: When TextEdit starts, it inserts t
 
 It is not a problem if this overwrites an existing entry, as all entries are equal. The code to do this is located in init.cpp, and looks like this:
 
-```C#
+```C++
 LOCAL void initReboot( void ) {
 
    const String strProgram = getModuleFileName();
@@ -329,7 +329,7 @@ LOCAL void initReboot( void ) {
 ```
 The constant RUNONCE{"_"}PATH is defined in setup.h, as follows:
 
-```C#
+```C++
 #define WIN_PATH _T( "Software\\Microsoft\\Windows\\CurrentVersion" )
 #define RUNONCE_PATH   WIN_PATH _T( "\\RunOnce" )
 ```

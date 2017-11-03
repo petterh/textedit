@@ -16,7 +16,7 @@ A DEVNAMES data structure contains strings that identify the driver, device and 
 
 The DEVNAMES structure is a nasty, variable-length thing, where you have to figure out the position of the strings from the offsets:
 
-```C#
+```C++
 typedef struct tagDEVNAMES {
    WORD wDriverOffset;
    WORD wDeviceOffset;

@@ -6,7 +6,7 @@ As with skinning a cat, there is more than one way to start a Win32 app­li­ca�
 
 **Listing 24: Exploring the Command Line**
 
-```C#
+```C++
 int WinMain( HINSTANCE, HINSTANCE, LPSTR pszCmdLine, int )
 {
    MessageBox( 0, pszCmdLine, "Arguments", MB_OK );
@@ -128,7 +128,7 @@ The one unfortunate thing about **GetLongPathName** is that it’s only availabl
 
 **Listing 26: getLongPathName.cpp**
 
-```C#
+```C++
 String getLongPathName( const String& strShort ) {
  
    String strLong;
@@ -228,7 +228,7 @@ C> dir | textedit
 }}
 Wouldn’t it be nice if the output from the dir command were to appear in TextEdit? This was not a viable proposition under Win16, but it’s dead easy under Win32. The following call works even for GUI pro­g­rams: 
 
-```C#
+```C++
 HANDLE hIn = GetStdHandle( STD_INPUT_HANDLE );
 ```
 To stay in character, TextEdit must of course create a file in which to keep the standard input. This is handled analogously to creating a new file, by the same func­tion, createNewFile (createNewFile.cpp). 
@@ -257,7 +257,7 @@ What TextEdit actually does is open one of the files in the existing win­dow, a
 
 Handling the **WM_DROPFILES** mes­sage involves two func­tions: **DragQueryFile** and **DragFinish**. The handler can be found in mainwnd.cpp, and it looks like this: 
 
-```C#
+```C++
 LOCAL void onDropFiles( HWND hwnd, HDROP hdrop ) {
    const UINT DRAGQUERY_NUMFILES = (UINT) -1;
    const int nFiles = DragQueryFile( hdrop, DRAGQUERY_NUMFILES, 0, 0 );

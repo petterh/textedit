@@ -6,7 +6,7 @@ Before I get into potentially time-consuming operations such as File I/O and pri
 
 Most Windows applications display an hourglass cursor during lengthy operations. The implementation usually looks something like this:
 
-```C#
+```C++
 // Set hourglass cursor, saving the current one:
 const HCURSOR hcurSave = SetCursor( LoadCursor( 0, IDC_WAIT ) );
 // ...perform lengthy operation here...
@@ -25,7 +25,7 @@ The problem is that the cursor isn't supposed to be an arrow when it’s on the 
 
 This particular crack is easily mended, and the result is actually simpler to use than the standard example above. What we need is a function analogous to InvalidateRect that operates on the cursor. We no longer need to save the existing cursor, and the above example becomes:
 
-```C#
+```C++
 // Set hourglass cursor:
 SetCursor( LoadCursor( 0, IDC_WAIT ) );
 // ...perform lengthy operation here...
@@ -34,7 +34,7 @@ InvalidateCursor();
 ```
 The implementation of InvalidateCursor is simple:
 
-```C#
+```C++
 void InvalidateCursor ( void ) {
    POINT pt; // Screen coordinates!
    GetCursorPos( &pt );
@@ -47,7 +47,7 @@ GetCursorPos and SetCursorPos have changed somewhat during the migration from Wi
 
 An improved implementation of MFC’s CWaitCursor class might have the following declaration:
 
-```C#
+```C++
 class WaitCursor {
 public:
    WaitCursor();
@@ -57,7 +57,7 @@ public:
 ```
 The constructor and the restore method are both trivial; the interesting part is the destructor:
 
-```C#
+```C++
 WaitCursor::WaitCursor() {
    SetCursor( LoadCursor( 0, IDC_WAIT ) ); // or call restore...
 }
@@ -93,7 +93,7 @@ It obviously wouldn’t do to steal Microsoft’s cursors and ship them with Tex
 
 **Listing 48: WaitCursor.cpp**
 
-```C#
+```C++
 #define CURSOR_PATH _T( "Cursors\\" )
 
 

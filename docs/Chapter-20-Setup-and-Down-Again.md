@@ -83,7 +83,7 @@ IDR_HLP_FILE FILE DISCARDABLE "Help\\TextEdit.hlp"
 
 The copyResource function in SetupDlg.cpp uses the resource access API to copy a resource from the executable into a file. After you execute the following code, pData points to the first byte of TEXTEDIT.HLP:
 
-```C#
+```C++
 HRSRC hrsrc = FindResource( 
    0, MAKEINTRESOURCE( IDR_HLP_FILE ), _T( "FILE" ) );
 HGLOBAL hRes = LoadResource( 0, hrsrc );
@@ -91,7 +91,7 @@ LPVOID pData = LockResource( hRes );
 ```
 When you’re done with pData, the following code frees up the resource:
 
-```C#
+```C++
 UnlockResource( hrsrc );
 FreeResource( hrsrc );
 ```
