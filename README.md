@@ -10,18 +10,24 @@ TextEdit demonstrates a number of things:
 
 * There is no _Save_ command. TextEdit follows Allan Cooper's unified file model, where all changes are committed directly to disk.
 * Error handling and robustness.
-* Persistence everywhere.
+* [Persistence everywhere](docs/Chapter-10-Customization-and-Persistence.md).
 * Send as email.
-* Installation and registration.
+* [Installation and registration](docs/Chapter-20-Setup-and-Down-Again.md) (under the hood, as it were).
 * Utilizing the SendTo folder.
-* The myriad ways of starting a Windows app and receiving arguments.
-* The fine points of dialogs.
-* Simple HTML parsing and rendering.
+* [The myriad ways of starting a Windows app and receiving arguments](docs/Chapter-7-Off-the-Launch-Pad.md).
+* [The fine points of dialogs](docs/Chapter-13-About-Dialogs.md)
+* [Simple HTML parsing and rendering](docs/Sidebar-The-HTML-Static-Control.md).
 * Snap window to edges of work area during move and resize.
 
 ## Documentation
 
-It's in the [`docs`](docs) folder, but be warned: All links need tweaking -- the import from CodePlex was imperfect (spaces in file names being the main problem). I'll get around to it.
+I'm posting an entire book here, in the hope that this will provide sufficient documentation, and perhaps some additional value:
+
+[Programming Industrial Strength Windows](docs/Programming-Industrial-Strength-Windows.md)
+
+![](docs/Home-pisw.jpg)
+
+The logo was made with [Microsoft Expression Design 2.](http://www.microsoft.com/expression/products/Overview.aspx?key=design)
 
 ## Getting started
 

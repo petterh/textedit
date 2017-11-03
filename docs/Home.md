@@ -14,7 +14,7 @@ TextEdit demonstrates a number of things:
 * Utilizing the SendTo folder.
 * [The myriad ways of starting a Windows app and receiving arguments](Chapter-7-Off-the-Launch-Pad.md).
 * [The fine points of dialogs](Chapter-13-About-Dialogs.md)
-* [Simple HTML parsing and rendering](Sidebar_-The-HTML-Static-Control).
+* [Simple HTML parsing and rendering](Sidebar-The-HTML-Static-Control.md).
 * Snap window to edges of work area during move and resize
 
 [release:Go to download page](16713)
