@@ -156,7 +156,7 @@ The menuUtils module defines utility functions for use with menus and menu items
 < Listing 36: menuUtils.h>
 < Listing 38: menuUtils.cpp>
 
-[Sidebar: Messy Menus, Accelerator Alignment](Sidebar_-Messy-Menus)
+[Sidebar: Messy Menus, Accelerator Alignment](Sidebar-Messy-Menus.md)
 
 ## Communication Between TextEdit Instances
 

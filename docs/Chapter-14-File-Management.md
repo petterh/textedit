@@ -94,7 +94,7 @@ You change the look of most common dialogs by specifying a resource template tha
 
 **Figure 21: The Open File Child Dialog.** The STATIC control labeled stc32 is a placeholder for the standard contents of the Open File dialog.
 
-[Sidebar: The Open File Common Dialog Bug](Sidebar_-The-Open-File-Common-Dialog-Bug)
+[Sidebar: The Open File Common Dialog Bug](Sidebar-The-Open-File-Common-Dialog-Bug.md)
 
 ## Filter Strings
 

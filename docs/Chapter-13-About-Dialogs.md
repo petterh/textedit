@@ -88,7 +88,7 @@ The only possible interaction is to dismiss the dialog, which is why I call it s
 
 If you look at the dialog box in Figure 15, you’ll note several different fonts. In the case of the program title and version, this is a simple matter of creating the desired font, then sending a WM{"_"}SETFONT message to the control. This is done using the SetWindowFont macro defined in windowsx.h. 
 
-More interesting is the boldfacing of individual words in the IDC{"_"}COMMENTS and IDC{"_"}COMMERCIAL controls. This is done by subclassing normal static controls. In onInitDialog, you’ll find a pair of calls to subclassHTML, which is all it takes to accomplish this. Except, of course, for writing the subclassHTML function itself, and accompanying paraphernalia. This is described in the sidebar entitled “[The HTML Static Control](Sidebar_-The-HTML-Static-Control).”
+More interesting is the boldfacing of individual words in the IDC{"_"}COMMENTS and IDC{"_"}COMMERCIAL controls. This is done by subclassing normal static controls. In onInitDialog, you’ll find a pair of calls to subclassHTML, which is all it takes to accomplish this. Except, of course, for writing the subclassHTML function itself, and accompanying paraphernalia. This is described in the sidebar entitled “[The HTML Static Control](Sidebar-The-HTML-Static-Control.md).”
 
 < Listing 55: AboutDlg.cpp >
 < Listing 56: HTML.h>
@@ -168,4 +168,4 @@ One of the possible flag parameters to the MessageBox function is MB{"_"}NOFOCUS
 
 The most complex examples of dialog interaction that TextEdit has to offer are the Find and Replace dialogs, described in [Chapter 15](Chapter-15-Search-and-Replace.md).
 
-[Sidebar: Default Buttons and Multi-line Edit](Sidebar_-Default-Buttons-and-Multi-line-Edit)
+[Sidebar: Default Buttons and Multi-line Edit](Sidebar-Default-Buttons-and-Multi-line-Edit.md)

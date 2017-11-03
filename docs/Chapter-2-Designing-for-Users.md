@@ -15,7 +15,7 @@ This doesn’t bother expert vi users much, but it is truly galling for novices 
 
 A traditional quandary for software design is the simultaneous accommodation of novices and experts. This is similar to learning to bicycle: once you know how, you’d like to get rid of the training wheels – they are just an impediment to efficient bicycling. 
 
-[Sidebar: Conceptual Models](Sidebar_-Conceptual-Models)
+[Sidebar: Conceptual Models](Sidebar-Conceptual-Models.md)
 
 Catering to all user groups is difficult. Try it anyway; it can be done. Furthermore, the process of trying can help you refine or even totally rethink the application’s conceptual model. 
 
