@@ -17,7 +17,7 @@ Some command handlers are pure debug scaffolding: onDivideByZero, onAccessViolat
 
 TestClass is used to verify proper stack unwinding when an exception is thrown; all it does is trace its construction and its destruction:
 
-{code:C#}
+```C#
 class TestClass {
 public:
    TestClass () { trace( _T( "TestClass ctor\n" ) ); }
@@ -31,7 +31,7 @@ PRIVATE void onAccessViolation( HWND ) {
    lstrcpy( 0, _T( "uh-oh!" ) ); // No exception 
    _tcscpy( 0, _T( "uh-oh!" ) ); // Exception
 }
-{code:C#}
+```
 My first implementation of onAccessViolation used lstrcpy to force an access violation. This failed though, in the sense that it didn’t fail. The access violation is caught in the bowels of lstrcpy, which just fails quietly. This kind of “error handling” is an abomination; while it certainly protects the program from crashing, it also protects the programmer from noticing what is certain to be a bug in the program. It certainly doesn’t protect the program from working incorrectly.
 
 ## The Clipboard User Interface
@@ -52,17 +52,17 @@ To properly enable and disable the paste command, the TextEdit main window hooks
 
 At any rate, mainwnd.cpp has a static variable {"s_hwndNextClipboardViewer"} to do the job; it is initialized in onCreate:
 
-{code:C#}
+```C#
 s_hwndNextClipboardViewer = SetClipboardViewer( hwnd );
-{code:C#}
+```
 The window is unhooked from the chain again in onDestroy:
 
-{code:C#}
+```C#
 ChangeClipboardChain( hwnd, s_hwndNextClipboardViewer );
-{code:C#}
+```
 Once registered as a clipboard viewer, the window receives {"WM_DRAWCLIPBOARD"} messages whenever the clipboard contents change:
 
-{code:C#}
+```C#
 PRIVATE void onDrawClipboard( HWND hwnd ) {
 
    if ( IsWindow( s_hwndNextClipboardViewer ) ) {
@@ -70,12 +70,12 @@ PRIVATE void onDrawClipboard( HWND hwnd ) {
    }
    enablePaste( hwnd );
 }
-{code:C#}
+```
 The **enablePaste** function is responsible for actually enabling and disabling the paste command. Its implementation is trivial; the trick lies in calling it at the right time. The onDrawClipboard function takes care of this.
 
 The hairiest part of clipboard viewerhood is handling someone else’s unhooking from the chain. If the window just below us in the chain – {"s_hwndNextClipboardViewer"} – is bailing out, we must update the {"s_hwndNextClipboardViewer"} variable with the next window down the chain. If not, we just forward the {"WM_CHANGECBCHAIN"} message to {"s_hwndNextClipboardViewer"}:
 
-{code:C#}
+```C#
 PRIVATE void onChangeCBChain(
 	HWND hwnd, HWND hwndRemove, HWND hwndNext ) 
 {
@@ -86,7 +86,7 @@ PRIVATE void onChangeCBChain(
          hwndRemove, hwndNext, SNDMSG );
    }
 }
-{code:C#}
+```
 An interesting experiment is to remove the forwarding of {"WM_DRAWCLIPBOARD"}, then start the clipboard viewer, then start TextEdit. The clipboard viewer is now essentially blind to changes of the clipboard contents! As I said, the design of the clipboard viewer chain is asking for trouble.
 
 ## Persistence in the Main Window
@@ -113,7 +113,7 @@ To support file drag and drop, a window must do three things:
 
 Handling the message is a matter of calling DragQueryFile (perhaps several times), then calling DragFinish. Since TextEdit is an SDI application, we must settle the question of how to handle dropping of multiple files – we obviously can’t open them all in the same application instance. TextEdit solves this in a manner similar to how it opens multiple files on the command line: It takes the first file for itself, and sends the rest to startInstance:
 
-{code:C#}
+```C#
 PRIVATE void onDropFiles( HWND hwnd, HDROP hdrop ) {
    const UINT DRAGQUERY_NUMFILES = (UINT) -1;
    const int nFiles = DragQueryFile( hdrop, DRAGQUERY_NUMFILES, 0, 0 );
@@ -131,7 +131,7 @@ PRIVATE void onDropFiles( HWND hwnd, HDROP hdrop ) {
    }
    DragFinish( hdrop );
 }
-{code:C#}
+```
 
 ## Menu Management
 

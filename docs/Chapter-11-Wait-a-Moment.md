@@ -6,13 +6,13 @@ Before I get into potentially time-consuming operations such as File I/O and pri
 
 Most Windows applications display an hourglass cursor during lengthy operations. The implementation usually looks something like this:
 
-{code:C#}
+```C#
 // Set hourglass cursor, saving the current one:
 const HCURSOR hcurSave = SetCursor( LoadCursor( 0, IDC_WAIT ) );
 // ...perform lengthy operation here...
 // Restore old cursor:
 SetCursor( hcurSave );
-{code:C#}
+```
 SetCursor returns a handle to the previous cursor; this suggests such usage. Most Windows books I’ve seen do the above, and the MFC class CWaitCursor encapsulates the same functionality.  
 
 What’s wrong with this picture? Consider the following sequence of events:
@@ -25,39 +25,39 @@ The problem is that the cursor isn't supposed to be an arrow when it’s on the 
 
 This particular crack is easily mended, and the result is actually simpler to use than the standard example above. What we need is a function analogous to InvalidateRect that operates on the cursor. We no longer need to save the existing cursor, and the above example becomes:
 
-{code:C#}
+```C#
 // Set hourglass cursor:
 SetCursor( LoadCursor( 0, IDC_WAIT ) );
 // ...perform lengthy operation here...
 // Restore normal cursor:
 InvalidateCursor();
-{code:C#}
+```
 The implementation of InvalidateCursor is simple:
 
-{code:C#}
+```C#
 void InvalidateCursor ( void ) {
    POINT pt; // Screen coordinates!
    GetCursorPos( &pt );
    SetCursorPos( pt.x, pt.y );
 }
-{code:C#}
+```
 This moves the cursor to its current location (i.e., the cursor does not actually move anywhere), forcing a WM{"_"}SETCURSOR message in the process. Doing it this way is a lot simpler than synthesizing and dispatching a WM{"_"}SETCURSOR message. 
 
 GetCursorPos and SetCursorPos have changed somewhat during the migration from Win16 to Win32. In Win16, these were void functions; in Win32, they each return TRUE for success and FALSE for failure. As is its wont, however, Microsoft’s documentation is vague about possible causes of failure. 
 
 An improved implementation of MFC’s CWaitCursor class might have the following declaration:
 
-{code:C#}
+```C#
 class WaitCursor {
 public:
    WaitCursor();
    ~WaitCursor();
    void restore();
 };
-{code:C#}
+```
 The constructor and the restore method are both trivial; the interesting part is the destructor:
 
-{code:C#}
+```C#
 WaitCursor::WaitCursor() {
    SetCursor( LoadCursor( 0, IDC_WAIT ) ); // or call restore...
 }
@@ -83,7 +83,7 @@ WaitCursor::~WaitCursor() {
    SetCursorPos( pt.x, pt.y );
 #endif
 }
-{code:C#}
+```
 
 ## Changing the Cursor Image
 
@@ -93,7 +93,7 @@ It obviously wouldn’t do to steal Microsoft’s cursors and ship them with Tex
 
 **Listing 48: WaitCursor.cpp**
 
-{code:C#}
+```C#
 #define CURSOR_PATH _T( "Cursors\\" )
 
 
@@ -248,4 +248,4 @@ void WaitCursor::restore( void ) {
   _finishThread();
   _restore();
 }
-{code:C#}
+```

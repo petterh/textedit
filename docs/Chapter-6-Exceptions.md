@@ -35,14 +35,14 @@ Consider malloc. This function also uses a special value – zero, again – to 
 
 The standard C library is a notorious violator of the principle of separating return values from return codes, and I shudder when I contemplate the debugging man-years that have been wasted on this. If you look at the evolution of the Windows API, you’ll find a distinct trend towards better separation of return values and return codes. Once upon a time, for example, there was a function named **GetWindowOrg**, declared like this:
 
-{code:C#}
+```C#
 DWORD GetWindowOrg( HDC );
-{code:C#}
+```
 The return value stuffed two 16-bit coordinates into a DWORD. This left no good way to signal errors, and created a tight coupling between the function and the size of GDI coordinates. Contrast this with its successor, GetWindowOrgEx:
 
-{code:C#}
+```C#
 BOOL GetWindowOrgEx( HDC, LPPOINT );
-{code:C#}
+```
 Here we have a clean separation between return code and return value, and changing the coordinate type from 16 to 32 to any number of bits becomes a simple matter of a recompile.
 
 ## Exceptions
@@ -77,7 +77,7 @@ To catch an exception thrown during the construction of a global object, you mus
 
 ### Listing 21: Exception.h
 
-{code:C#}
+```C#
 ...
 #define INTERCEPT_SEH 1
  
@@ -247,11 +247,11 @@ inline void throwException( DWORD dwErr = GetLastError() ) {
 
 
 #define throwMemoryException()  throw MemoryException::getMemoryException()
-{code:C#}
+```
 
 ### Listing 22: Exception.cpp
 
-{code:C#}
+```C#
 #if INTERCEPT_SEH
 
 String sehException::getDescr( void ) const {
@@ -451,18 +451,18 @@ void throwException( const String& strDescr, DWORD dwErr ) {
 
   throw WinException( strDescr, dwErr );
 }
-{code:C#}
+```
 
 ## Converting Allocation Failures to Exceptions
 
 C++ programs usually call operator new rather than malloc. Behind the scenes, though, the typical operator new implementation calls malloc to actually allocate memory; malloc, in turn, may call on the operating system for help. At any rate, while the C++ standard mandates that an exception be thrown on failure, Microsoft’s compiler returns a null pointer if the allocation request fails. As a result, much code is littered with checks such as this:
 
-{code:C#}
+```C#
 LPTSTR pszMyString = new TCHAR[ MAX_PATH ](-MAX_PATH-);
 if ( 0 == pszMyString ) {
    // handle error
 }
-{code:C#}
+```
 Luckily, you can make even Microsoft’s operator new throw an exception on failure. The _set_new_mode function lets you decide whether an allocation failure should return zero or call an application-defined function; the _set_new_handler allows you to specify the function to call if an allocation fails. In this callback, you can do just about anything you like, such as throwing an exception. Just keep in mind that you may not have a lot of memory to play with! 
 
 ## Recovering from Errors
@@ -504,7 +504,7 @@ To allow C and C++ programmers access to SEH, Microsoft defined language extensi
 Luckily, there’s a solution: You can install a translator function to translate SEH exceptions into C++ exceptions. Windows calls the translator function with parameters describing the structured exception, enough to let you throw a C++ exception of your choice.
 
 ### Listing 23: handlers.cpp
-{code:C#}
+```C#
 /*
 *
 * Defines translator for system-level exceptions 
@@ -635,4 +635,4 @@ NewMode::~NewMode() {
   __finally {
   }
 }
-{code:C#}
+```

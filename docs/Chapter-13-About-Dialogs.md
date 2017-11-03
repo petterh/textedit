@@ -46,7 +46,7 @@ The positioning of a dialog is a somewhat tortuous process. When dispatchDlgMsg 
 
 TextEdit dialog positions are persistent, although only within a single session. Positioning is handled by a pair of functions defined in winUtils.cpp, along with the static variable thePointMap:
 
-{code:C#}
+```C#
 typedef std::map< int, Point > PointMap;
 PRIVATE PointMap thePointMap;
  
@@ -65,7 +65,7 @@ void restorePosition( HWND hwnd, int id ) {
    }
    adjustToScreen( hwnd );
 }
-{code:C#}
+```
 
 Note the call to MapWindowPoints, which ensures that the position of the dialog is remembered in relation to the application window rather than in relation to the screen.
 
@@ -104,7 +104,7 @@ The Options dialog box looks like this:
 
 It is a little bit more complex, interaction-wise, than the About dialog. AboutDlg can get along with just the default onDlgCommand method defined in the Dialog base class, whereas OptionsDlg needs its own:
 
-{code:C#}
+```C#
 void OptionsDlg::onDlgCommand( 
    int id, HWND hwndCtl, UINT codeNotify ) 
 {
@@ -133,7 +133,7 @@ void OptionsDlg::onDlgCommand(
       break;
    }
 }
-{code:C#}
+```
 
 ## Enter with Care
 
@@ -143,7 +143,7 @@ The black border is just a visual clue; the functional aspects of the default bu
 
 This is less straightforward than it sounds. In particular, problems abound whenever you dynamically enable and disable buttons, or when you change the default button. Consider this code fragment from the onDlgCommand method of PropertiesDlg (described in Chapter 14):
 
-{code:C#}
+```C#
 switch ( id ) {
 ...
 case IDC_APPLY:
@@ -160,7 +160,7 @@ case IDC_APPLY:
    }
    break;
 }
-{code:C#}
+```
 
 What happens if we disable the IDC{"_"}APPLY button, but omit the gotoDlgItem( IDOK ) line? We lose the keyboard interface, that’s what, and all keys simply go beep in the night. Furthermore, the Property dialog’s Apply button retains its default border, even when disabled.
 

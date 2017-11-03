@@ -26,7 +26,7 @@ The third solution is the only sensible way to handle the problem. Some applicat
 
 This WM{"_"}COMMAND handler code fragment implements this in the simplest possible way: 
 
-{code:C#}
+```C#
 if ( IDC_MY_MULTILINE_EDIT == id ) {
    if ( EN_SETFOCUS == codeNotify ) {
       SendMessage( DM_SETDEFID, 0, 0 );
@@ -35,11 +35,11 @@ if ( IDC_MY_MULTILINE_EDIT == id ) {
    }
    return TRUE;
 }
-{code:C#}
+```
 
 If your dialog contains a button with the ID IDOK, the call
 
-{code:C#}
+```C#
 SendMessage( DM_SETDEFID, 0, 0 );
-{code:C#}
+```
 will give the OK button the default property. This is why the code fragment above uses IDC{"_"}OK, a value presumably different from 1. 

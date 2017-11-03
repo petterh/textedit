@@ -16,14 +16,14 @@ A DEVNAMES data structure contains strings that identify the driver, device and 
 
 The DEVNAMES structure is a nasty, variable-length thing, where you have to figure out the position of the strings from the offsets:
 
-{code:C#}
+```C#
 typedef struct tagDEVNAMES {
    WORD wDriverOffset;
    WORD wDeviceOffset;
    WORD wOutputOffset;
    WORD wDefault;
 } DEVNAMES;
-{code:C#}
+```
 The documentation fails to mention whether the strings should be ANSI or Unicode; testing reveals them to be LPTSTRs.
 
 < Listing 66: devMode.cpp >

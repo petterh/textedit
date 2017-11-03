@@ -20,7 +20,7 @@ Figuring out whether a floppy is write-protected is less straightforward than yo
 
 Here is the isWriteProtectedDisk function from fileUtils.cpp:
 
-{code:C#}
+```C#
 bool isWriteProtectedDisk( LPCTSTR pszPath ) {
 
    assert( isGoodStringPtr( pszPath ) );
@@ -39,7 +39,7 @@ bool isWriteProtectedDisk( LPCTSTR pszPath ) {
    verify( DeleteFile( szTest ) );
    return false;
 }
-{code:C#}
+```
 
 ## SilentErrorMode
 
@@ -96,7 +96,7 @@ The conversions in Figure 14 are good examples of functions that really need opt
 
 Here is some early code from the outbound converter to remove carriage returns from a string:
 
-{code:C#}
+```C#
 if ( m_hasUnixLineFeeds ) {
    for ( int iChar = 0; 0 != pszNewContents[ iChar ](-iChar-); ++iChar ) {
       if ( _T( '\r' ) == pszNewContents[ iChar ](-iChar-) ) {
@@ -107,12 +107,12 @@ if ( m_hasUnixLineFeeds ) {
       }
    }
 }
-{code:C#}
+```
 This snippet is obviously doing a lot of extra work, as it moves characters all the way to the end of the string each time a line separator is encountered. Still, the code is simple, and therefore difficult to get wrong. If the performance is good enough, as, indeed, it seemed to be, why jump through hoops when the only noticeable result will be an increased likelihood of bugs?
 
 This code turned out to have a huge performance problem. I replaced the code above with the code below. On a 2.2 MB test file with 56,000 lines of text, the execution time of the loop fell from a good-sized coffee break (over 16 minutes) to 0.071 seconds. I had expected things to improve, but speeding things up by four orders of magnitude is definitely above average.
 
-{code:C#}
+```C#
 const int nBytesPerChar = 
    m_isUnicode ? sizeof( WCHAR ) : sizeof( char );
 if ( m_hasUnixLineFeeds ) {
@@ -136,7 +136,7 @@ if ( m_hasUnixLineFeeds ) {
       }
    }
 }
-{code:C#}
+```
 As you can see, the code is considerably more complex. I wrote the first version practically without thinking; the second version required considerably more care. Write trivial code whenever you can get away with it. It is faster to write, it is quicker to test, it is easier to understand, and it is smaller. 
 
 **“Keep things as simple as possible, but not simpler than that.”**

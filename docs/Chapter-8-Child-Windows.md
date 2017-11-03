@@ -33,18 +33,18 @@ The tool bar is a window of class ToolbarWindow32, implemented in COMCTL32.DLL a
 
 The toolbar is somewhat dynamic; it may change during a TextEdit session. This may happen if the user changes the desktop settings, or if the user changes the language (via the Options dialog box). Changing toolbar metrics on the fly turns out to be difficult, so the Editor class handles this by creating a new toolbar from scratch in its refreshToolbar method:
 
-{code:C#}
+```C#
 void Editor::refreshToolbar( void ) {
    assert( isGoodPtr( this ) );
    assert( isGoodPtr( m_pEditWnd ) );
    m_pToolbar.reset( new Toolbar( this, IDC_TOOLBAR, m_pEditWnd->hasRedo(), m_pEditWnd->canSetTabs() ) );
 }
-{code:C#}
+```
 In other words, the old toolbar is deleted, and a new toolbar is created in its place.
 
 The tool bar’s tool tips come in two different flavors. We get tool tips for the buttons just by adding the {"TBSTYLE_TOOLTIPS"} style bit, but tool tips for the child controls must be added the hard way – control by control. The Toolbar constructor sends itself a {"TB_GETTOOLTIPS"} message to get hold of the tool tip window, then sends the tool tip a {"TTM_ADDTOOL"} message for each child:
 
-{code:C#}
+```C#
 HWND hwndToolTip = 
    reinterpret_cast< HWND >( sendMessage( TB_GETTOOLTIPS ) );
 if ( IsWindow( hwndToolTip ) ) {
@@ -62,7 +62,7 @@ if ( IsWindow( hwndToolTip ) ) {
       SNDMSG( hwndToolTip, TTM_ADDTOOL, 0, reinterpret_cast< WPARAM >( &toolInfo ) );
    }
 }
-{code:C#}
+```
 The onGetDispInfo method handles the {"TTN_GETDISPINFO"} notification, which the tool tip sends to get the text to display. The child windows require a separate test for each, while the buttons are handled in a generic manner. The loadToolTip function (in utils.cpp) is a simple wrapper around loadString (also in utils.cpp). If the string contains a carriage return, everything up to and including the CR is deleted. (Everything in front of the CR is used to display the menu help text in the status bar.)
 
 The **Toolbar** module defines two instance subclassings: 
@@ -79,14 +79,14 @@ The final item of interest is the adjust method, which calculates the position o
 
 The status bar is a window of class {"msctls_statusbar32"}, implemented in COMCTL32.DLL and wrapped by the StatusBar class, a subclass of the Window class. The status bar has no children; instead, it has four panes, identified by the enumeration Statusbar::StatusBarParts:
 
-{code:C#}
+```C#
 enum StatusBarParts {
    message_part ,
    position_part,
    filetype_part,
    action_part  ,
 };
-{code:C#}
+```
 (There are situations where status bars do have children; a typical example is the display of a progress bar during a lengthy operation.)
 
 Most of the **Statusbar** class is devoted to providing convenient ways of setting texts and icons in the various panes.

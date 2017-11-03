@@ -16,7 +16,7 @@ Such is theory. In practice, the abstract base class implements several of the o
 
 To get notifications from an **AbstractEditWindow**, you must implement the **EditListener** interface. Among other things, the **EditListener** wraps the {"EN_**"} notifications, so that the listener won’t have to worry about such implementation details:
 
-{code:C#}
+```C#
 class EditListener {
 public:
    virtual void onChange   ( void ) = 0;
@@ -24,7 +24,7 @@ public:
    virtual void onErrSpace ( void ) = 0;
    virtual void onPosChange( const Point& position ) = 0;
 };
-{code:C#}
+```
 A truly general EditListener interface would have a reference to the AbstractEditWindow as a parameter in all the notifications. In TextEdit, the EditListener interface is implemented by the Editor object, which already knows about the only AbstractEditWindow in the application. This parameter is therefore unnecessary, and, being more concerned with overall simplicity than OO purity, I chose to skip it. 
 
 A truly general **AbstractEditWindow** class would allow registration of multiple **EditListeners**. If you are familiar with the Java Abstract Windowing Toolkit (AWT), this should ring a bell. At any rate, TextEdit doesn’t need this, so **AbstractEditWindow** does not provide it.
@@ -58,7 +58,7 @@ The heart of TextEdit – indeed, of any Windows application – is the message 
 
 Here is a simplified version of **Editor::run**:
 
-{code:C#}
+```C#
 int Editor::run( HINSTANCE hinst ) {
    MSG msg = { 0, 0, static_cast< WPARAM >( -1 ) };
 
@@ -81,7 +81,7 @@ int Editor::run( HINSTANCE hinst ) {
 
    return msg.wParam;
 }
-{code:C#}
+```
 Two things here are of particular interest. First, there is a double while loop, although one would be sufficient from a logical point of view. This is done to increase efficiency. Setting up a try block involves considerable overhead, so I want to avoid doing it for every message that’s pumped through the system. With a double loop, the try block is set up once when we start, then once for every exception that makes it this far.
 
 Second, **TranslateAccelerator** is called before **isToolbarDialogMessag**e (which wraps **IsDialogMessage**). This is to ensure that the accelerators work even when the focus is in one of the controls on the toolbar. If I switch the order, accelerators such as Ctrl{"+"}O (File Open) and Ctrl{"+"}F (Edit Find) don’t work whenever the focus is in the tab edit field or on the Read Only checkbox. 
@@ -140,7 +140,7 @@ The String type is just my name for the std::string type from the Standard C++ T
 
 A PATHNAME is a character array of length MAX_PATH. It is defined in common.h, as follows:
 
-{code:C#}
+```C#
 typedef WCHAR PATHNAMEW[ MAX_PATH + 1 ](-MAX_PATH-+-1-);
 typedef CHAR  PATHNAMEA[ MAX_PATH + 1 ](-MAX_PATH-+-1-);
 
@@ -149,24 +149,24 @@ typedef CHAR  PATHNAMEA[ MAX_PATH + 1 ](-MAX_PATH-+-1-);
 #else
    typedef PATHNAMEA PATHNAME;
 #endif
-{code:C#}
+```
 Whenever a PATHNAME (or any other string array) is declared, it is initialized thusly:
 
-{code:C#}
+```C#
 PATHNAME szTempPath = { 0 };
-{code:C#}
+```
 An alternative formulation would be this:
 
-{code:C#}
+```C#
 PATHNAME szTempPath = _T( "" );
-{code:C#}
+```
 The first formulation is preferable, as it is independent of Unicode and ANSI strings, and thus doesn’t require use of the _T macro. Zero is an accommodating constant; it adapts to lvalues of any size.
 
 The PATHNAME type is an imperfect solution to the file name problem. If MAX_PATH changes, as well it might, we must recompile the application. 
 
 Beware of URLs, which are not subject to the MAX_PATH limit. The wininet.h header file defines the following (arbitrary) constants:
 
-{code:C#}
+```C#
 #define INTERNET_MAX_PATH_LENGTH   2048
 #define INTERNET_MAX_SCHEME_LENGTH 32 // longest protocol name length
 #define INTERNET_MAX_URL_LENGTH         (INTERNET_MAX_SCHEME_LENGTH \
@@ -177,9 +177,9 @@ Beware of URLs, which are not subject to the MAX_PATH limit. The wininet.h heade
 
 The dim macro is defined in common.h, as follows:
 
-{code:C#}
+```
 #define dim( x ) (sizeof( x ) / sizeof( ( x )[ 0 ](-0-) ))
-{code:C#}
+```C#
 It is handy for figuring out the number of elements in an array. TextEdit uses this macro a lot with strings, as this is crucial for Unicode builds. For an ANSI build, the dim of a character array is equal to its sizeof; for a Unicode build, dim is half of its sizeof.
 
 ###  PRIVATE

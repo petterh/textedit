@@ -34,7 +34,7 @@ In TextEdit, this is wrapped in **beginThread** and **endThread**, defined in th
 
 The threads in SetupDlg communicate with the dialog’s UI thread by sending or posting messages. Message posting, being asynchronous, is usually a safer bet than message sending, but consider this code fragment in SetupDlg’s installThread function:
 
-{code:C#}
+```C#
 try {
    pSetupDlg->install();
 }
@@ -42,7 +42,7 @@ catch ( const Exception& x ) {
    pSetupDlg->sendMessage( WM_APP, INSTALL_FAILED, 
       reinterpret_cast< LPARAM >( x.what() ) );
 }
-{code:C#}
+```
 On the receiving end of this sendMessage call, the UI thread needs to get hold of the string passed in LPARAM. If the message were posted, the string would almost certainly be invalid by the time the UI thread got around to handling it. One possibility would be to copy the string to a static buffer. Since this creates reentrancy problems, it is bad as a general solution.
 
 The problem with using **sendMessage** lies in the UI thread’s response to the message. Among other things, it calls **cleanupThread**, which calls **WaitForSingleObject** on the thread handle. Since the thread is currently in **SendMessage**, waiting for a response, it will not terminate any time soon. We have a deadlock situation until **WaitForSingleObject** times out.
@@ -51,7 +51,7 @@ One solution would be to split the message in two – one message for setting th
 
 Another solution – the one actually used – is to employ **ReplyMessage**. On the receiving end, the UI thread first grabs the string, then calls **ReplyMessage** and finally **cleanupThread**:
 
-{code:C#}
+```C#
 case INSTALL_FAILED:
    ...
    setDlgItemText( 
@@ -60,5 +60,5 @@ case INSTALL_FAILED:
    ...
    cleanupThread();
    break;
-{code:C#}
+```
 After the **ReplyMessage** call, the worker thread’s call to **sendMessage** returns, and the worker thread is free to continue to termination. Thus, **cleanupThread** avoids the deadlock.

@@ -51,7 +51,7 @@ The Delete command may or may not open the confirmation dialog shown in Figure 1
 
 A menu command should have a trailing ellipsis if it invokes a dialog box; otherwise not. The onInitMenu message handler (in mainwnd.h) handles this by altering the menu text depending on the setting of ShowDeleteDialog, as follows:
 
-{code:C#}
+```C#
 String strDeleteFile = getMenuItemText( hmenu, ID_FILE_DELETE );
 int iDotPos = strDeleteFile.find( _T( '.' ) );
 if ( 0 <= iDotPos ) {
@@ -61,7 +61,7 @@ if ( getShowDeleteDialog() ) {
    strDeleteFile.append( _T( "..." ) );
 }
 setMenuItemText( hmenu, ID_FILE_DELETE, _T( "%1" ), strDeleteFile.c_str() );
-{code:C#}
+```
 
 This code fragment checks to see if an ellipsis is present; if so, the ellipsis is removed. If the dialog is to be shown, the ellipsis is appended again. That way, it doesn’t matter whether the original menu string contained an ellipsis.
 
@@ -71,9 +71,9 @@ One of the parameters to SHFileOperation is a pointer to an SHFILEOPSTRUCT. The 
 
 The trash can icon in Figure 19 is really two icons – one icon showing a full trash can, another icon showing an empty one. Only one of them is visible at a time, though; this is toggled whenever the user checks or unchecks the “Put file in trash can” checkbox:
 
-{code:C#}
+```C#
 toggleIcon( IDC_WASTEBASKET, IDC_WASTEBASKETEMPTY, 0 != Button_GetCheck( getDlgItem( IDC_TRASHCAN ) ) );
-{code:C#}
+```
 
 The icon serves as a visual reinforcement of the setting of the checkbox. In addition to being pretty cool, this is actually useful. The Find dialog uses the same technique.
 

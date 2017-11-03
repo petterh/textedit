@@ -83,18 +83,18 @@ IDR_HLP_FILE FILE DISCARDABLE "Help\\TextEdit.hlp"
 
 The copyResource function in SetupDlg.cpp uses the resource access API to copy a resource from the executable into a file. After you execute the following code, pData points to the first byte of TEXTEDIT.HLP:
 
-{code:C#}
+```C#
 HRSRC hrsrc = FindResource( 
    0, MAKEINTRESOURCE( IDR_HLP_FILE ), _T( "FILE" ) );
 HGLOBAL hRes = LoadResource( 0, hrsrc );
 LPVOID pData = LockResource( hRes );
-{code:C#}
+```
 When you’re done with pData, the following code frees up the resource:
 
-{code:C#}
+```C#
 UnlockResource( hrsrc );
 FreeResource( hrsrc );
-{code:C#}
+```
 …or does it? According to the documentation, UnlockResource is deprecated in Win32. Its definition bears this out – it’s a macro that simply evaluates its argument. A dummy, in other words.
 
 According to the documentation, FreeResource is also obsolete. In this case, however, the header file (winbase.h) serves up a function prototype rather than a dummy macro, so the obsolescence is less obvious. The documentation goes on to say that, in the case of accelerator tables, bitmaps, cursors, icons and menus, you should call the corresponding destructor function (DestroyAcceleratorTable, DeleteObject, DestroyCursor, DestroyIcon and DestroyMenu) when you’re done with them.

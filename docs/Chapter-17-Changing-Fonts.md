@@ -88,7 +88,7 @@ A pointer to the rectangle of the sample widget is passed in the **prcAvoid** pa
 
 The **Editor** class has responsibility for the fonts used in the editor; it is the responsibility of selectFont’s callers to get and set the fonts, as demonstrated by this excerpt from **mainwnd.h**:
 
-{code:C#}
+```C#
 PRIVATE void onViewSetFixedFont( HWND hwnd ) {
 
    LOGFONT logFont = *getEditor( hwnd )->getLogFont( true );
@@ -113,6 +113,6 @@ PRIVATE void onViewSetFont( HWND hwnd ) { // Ctrl+Shift+F
       onViewSetProportionalFont( hwnd );
    }
 }
-{code:C#}
+```
 
 < Listing 72: FontDlg.cpp >

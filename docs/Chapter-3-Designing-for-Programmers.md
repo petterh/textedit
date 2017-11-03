@@ -16,53 +16,53 @@ A guiding principle is a general rule to guide design decisions; it usually incl
 
 This means compiling at the highest warning level available. It means defining STRICT before including any Windows header files. It means avoiding casts when you can (which is not all that often, in Windows programming). It means using little tricks such as putting the constant first in all comparisons. Consider this code fragment:
 
-{code:C#}
+```C#
 if ( uiRetCode = IDOK ) {
    // ...
 }
-{code:C#}
+```
 
 This example contains a bug. The controlling expression has one equal sign instead of two, so it is a (perfectly legal) assignment, rather than the intended comparison. Moreover, IDOK being non-zero, the expression is constant and always evaluates to true – the controlled clause is always executed.
 
 If you code the statement like this instead, the compiler will catch the bug:
 
-{code:C#}
+```C#
 if ( IDOK = uiRetCode ) {
    // ...
 }
-{code:C#}
+```
 
 Actually, most compilers will warn about “assignment in comparison” on the first example. This warning is one reason why many programmers fail to use all the help the compiler can give them – they like writing assignments in comparisons, and disable the warning to avoid complaints about constructs such as this:
 
-{code:C#}
+```C#
 if ( hdc = GetDC( hwnd ) ) {
    // ...
    ReleaseDC( hwnd, hdc );
 }
-{code:C#}
+```
 
 Don’t do it! The last time I was burned by an assignment in a comparison was in 1996. It cost me five hours of debugging, all of them unnecessary, and I vowed that it would never happen again. 
 
 If you absolutely _must_ do the assignment on the fly, this formulation generates equivalent code on any decent compiler:
 
-{code:C#}
+```C#
 if ( 0 != (hdc = GetDC( hwnd )) ) {
    // ...
    ReleaseDC( hwnd, hdc );
 }
-{code:C#}
+```
 
 Another reason to avoid assignments in comparisons is that it makes the code harder to read. Not unreadable, by any means, but harder. Furthermore, if you put each statement on a line by itself, the number of code lines gives a more accurate indication of the complexity of the code. Obfuscated coding may be fun, but it has no place in production code. Program as clearly as possible; there is no such thing as being too clear.
 
 This is better, and easier to step through when debugging, because it allows you to change the value of hdc before reaching the test:
 
-{code:C#}
+```C#
 hdc = GetDC( hwnd );
 if ( 0 != hdc ) {
    // ...
    ReleaseDC( hwnd, hdc );
 }
-{code:C#}
+```
 
 The one place where an assignment in a comparison is defensible is in the controlling expression of a while statement. Lifting the assignment may require its duplication – once before the statement, and once at the end of the controlled body. This cure is worse than the disease; code duplication fits firmly in the Bad category.
 
@@ -97,20 +97,20 @@ The code is reusable across platforms. Coding for portability may entail
 
 To illustrate what I mean by testability, here’s a code fragment from getPathFromIdListA in utils.cpp:
 
-{code:C#}
+```C#
 const BOOL bOK = SHGetPathFromIDListA( pidl, szAnsiPath );
 if ( bOK ) {
    multiByteToWideChar( szAnsiPath, pwszPath, MAX_PATH );
 }
-{code:C#}
+```
 
 I could have saved one line and one variable as follows:
 
-{code:C#}
+```C#
 if ( SHGetPathFromIDListA( pidl, szAnsiPath ) ) {
    MultiByteToWideChar( szAnsiPath, pwszPath, MAX_PATH );
 }
-{code:C#}
+```
 
 These two versions are functionally equivalent, but the first is easier to debug. You can see the value of bOK, and when you’re single stepping through the code, you can even change the value before the test. This provides you with an opportunity to cover both branches. (Actually, you may have to remove the const keyword to get the debugger’s permission to change the value.)
 
@@ -128,19 +128,19 @@ The assert macro evaluates its argument; if the expression evaluates to non-zero
 
 The whole idea behind the assert macro is to identify logical errors during program development. An assertion is a sanity check on your assumptions. Here’s an example from the ArgumentList class:
 
-{code:C#}
+```C#
 inline LPCTSTR ArgumentList::getArg( int nArg ) const {
    ...
    assert( 0 <= nArg && nArg < m_argc );
    return m_argv[ nArg ](-nArg-);
 }
-{code:C#}
+```
 
 The m_argc member denotes the number of arguments present in the argument list; the assertion documents the assumption that we never call the getArg method with an argument that’s out of range. If that happens, there’s a bug in the program. With the assertion in place, you’re much more likely to catch that bug during development, and to do it in a way that lets you fix it cleanly and cheaply.
 
 The assert macro is also a documentation tool. Consider the isWindowsNT function from **os.cpp**:
 
-{code:C#}
+```C#
 bool isWindowsNT( void ) {
 
    OSVERSIONINFO osvi = { sizeof osvi };
@@ -149,7 +149,7 @@ bool isWindowsNT( void ) {
    return GetVersionEx( &osvi ) && 
       VER_PLATFORM_WIN32_NT == osvi.dwPlatformId;
 }
-{code:C#}
+```
 
 The assertion serves to document what the initialization of the osvi variable is all about, namely initializing the size member, dwOSVersionInfoSize. It will also catch the problem whenever the size member turns out not to be the first member of the structure.
 
@@ -157,17 +157,17 @@ The assert macro is active only in debug code. Release builds define the NDEBUG 
 
 One common mistake is to put production code into the assert macro. For example:
 
-{code:C#}
+```C#
 assert( FindClose( hFind ) );
-{code:C#}
+```
 
 This documents that I expect FindClose to succeed, or that I see the likelihood of failure small enough that I won’t bother with error handling, or that there is little to do in the way of recovery. If the function fails, it’s probably because of a programming error (such as forgetting to call FindFirstFile), and the assertion will alert me to the problem.
 
 Putting FindClose into the assert will work fine in a debug build. In a release build, however, FindClose won’t be called. If you want to combine assertion with release-build execution, use the verify macro instead, which evaluates its argument even when NDEBUG is defined:
 
-{code:C#}
+```C#
 verify( FindClose( hFind ) );
-{code:C#}
+```
 
 The assert macro is defined in the standard header file assert.h; the verify macro is defined in the TextEdit include file common.h. I’ll get back to this header file towards the end of Chapter 5.
 
@@ -175,10 +175,10 @@ The assert macro is defined in the standard header file assert.h; the verify mac
 
 The !const! keyword is as underused as the assert macro. When the const keyword modifies a variable, it says that the value of that variable may not be changed:
 
-{code:C#}
+```C#
 const int i = 5;
 i = 6; // Compilation error!
-{code:C#}
+```
 
 The benefits of const are many:
 
@@ -218,7 +218,7 @@ Objects allocated on the stack are destroyed automatically. Not so with objects 
 
 Consider the **getWindowText** method from the **Window** class, which we’ll look at in Chapter 4:
 
-{code:C#}
+```C#
 String Window::getWindowText( void ) const {
 
    const int nLength = GetWindowTextLength( *this );
@@ -228,7 +228,7 @@ String Window::getWindowText( void ) const {
    delete[]() pszWindowText;
    return strWindowText;                               //x3
 }
-{code:C#}
+```
 
 If the program follows the nominal execution path, this code works correctly. Problems appear when things begin to fail, though. The statements marked x1, x2 and x3 may throw exceptions:
 
@@ -242,7 +242,7 @@ In this example, the problem results in a “mere” memory leak. Sometimes it i
 
 One way of handling such situations is to catch the exception, do whatever cleanup is necessary, and then rethrow the exception:
 
-{code:C#}
+```C#
 String Window::getWindowText( void ) const {
    const int nLength = GetWindowTextLength( *this );
    LPTSTR pszWindowText = new TCHAR[ nLength  1 ](-nLength--1-);
@@ -258,20 +258,20 @@ String Window::getWindowText( void ) const {
    delete[]() pszWindowText;
    return strWindowText;
 }
-{code:C#}
+```
 
 While this works correctly, it is verbose and difficult to read. Even worse, the clean-up code is duplicated, a guarantee for maintenance headaches. (Java has the edge on C++ when it comes to exception handling semantics; it allows a finally clause that is executed both during the normal flow of control and after an exception has been thrown.)
 
 A better solution is to wrap the pointer to the heap-allocated memory in an object, making it a smart pointer. The essential part of a smart pointer class is its destructor, which (in simple cases) deletes the pointer that it wraps. (More complex cases may involve, say, reference counting.) 
 
-{code:C#}
+```C#
 String Window::getWindowText( void ) const {
    const int nLength = GetWindowTextLength( *this );
    AutoString pszWindowText( nLength  1 );
    GetWindowText( *this, pszWindowText, nLength  1 );
    return pszWindowText;
 }
-{code:C#}
+```
 
 The result is considerably more readable than either of the previous examples. We get rid of the delete statement; this saves us one line. As a fringe benefit, we also get rid of the temporary String object. The return statement invokes the String(LPCTSTR) constructor, and this happens before the AutoString object goes out of scope. The important part, though, is that the destructor is called even if an exception is thrown, as part of stack unwinding:
 
@@ -285,7 +285,7 @@ Both auto_ptr and AutoPtr have one little problem with respect to the getWindowT
 
 **Listing 2: AutoArray.h**
 
-{code:C#}
+```C#
 /*
  * HINT: To see the string wrapped by AutoString during Visual C++
  * debugging, add the following line to the AUTOEXP.DAT file:
@@ -336,7 +336,7 @@ typedef AutoStringW AutoString;
 #else
 typedef AutoStringA AutoString;
 #endif
-{code:C#}
+```
 
 The problem addressed by AutoPtr and AutoArray is not limited to memory; it applies to other resources as well – file handles, display contexts, network connections, et cetera ad nauseam. I include two examples here: The AutoHandle class wraps a Win32 HANDLE, while the PaintStruct class wraps – you guessed it – a PAINTSTRUCT (or, rather, the sandwich-layer calls to BeginPaint and EndPaint that wrap the use of the PAINTSTRUCT). Such wrappers are usually trivial to implement.
 
@@ -385,7 +385,7 @@ Inheritance: One of the members of the HWND structure is the address of the call
 
 Windows even has a primordial base object. As Java and Smalltalk have their respective Object classes, Windows has the DefWindowProc. The following program demonstrates this:
 
-{code:C#}
+```C#
 int WINAPI WinMain( 
    HINSTANCE hinst, HINSTANCE, LPTSTR, int ) 
 {
@@ -404,7 +404,7 @@ int WINAPI WinMain(
    }
    return 0;
 }
-{code:C#}
+```
 The resulting window lacks even the sense to paint its own client area, but it does have a title bar, and it responds correctly to resizing, maximizing and minimizing (see Figure 3).
 
 ![](Chapter-3-Designing-for-Programmers-Figure3.bmp)

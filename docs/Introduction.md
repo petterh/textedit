@@ -45,20 +45,20 @@ I won’t describe my coding style in detail; you’ll get the idea by looking a
 
 **I always use braces with conditionals and loops, even if only a single statement is controlled.** I started this practice after I had spent several hours hunting down a bug caused by indentation mismatch:
 
-{code:C#}
+```C#
 if ( x == y )
    ++x;
    --y;
-{code:C#}
+```
 I wowed that this bug would never bite me again, and it hasn’t. Yet.
 
 **When comparing for equality, I always put the constant (if any) on the left-hand side.** In the past, I’ve been caught more than once by unintended assignments:
 
-{code:C#}
+```C#
 if ( variable = CONSTANT ) {
    ...
 }
-{code:C#}
+```
 If you switch variable and CONSTANT, the assignment above generates a compilation error, as CONSTANT is not an l-value.
 
 What these examples have in common is that they prevent bugs. Some aspects of coding style are matters of preference – it’s unimportant whether you indent your code with three or four spaces. If you do not indent your code at all, however, it matters a great deal, since such formatting fails to reflect the logical structure of the program.

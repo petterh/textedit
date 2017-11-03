@@ -34,9 +34,9 @@ The onSettingChange function is more complex. The language may have changed, fon
 
 The description of a UI font is stored in the registry as a blob. The menu font is stored under the following key:
 
-{code:C#}
+```C#
 HKEY{"_"}CURRENT{"_"}USER\Control Panel\Desktop\WindowMetrics\MenuFont
-{code:C#}
+```
 (BLOB is an acronym for a Binary Large OBject. Whether this blob deserves the adjective “large” is another matter.) This blob turns out to be a LOGFONT structure, and it can be used to instantiate a GDI object of the HFONT persuasion.
 
 But, of course, there is no such thing as a LOGFONT structure. LOGFONT is a macro that evaluates to either LOGFONTA or LOGFONTW, depending on whether the preprocessor symbol UNICODE is defined. It turns out that the blob is a LOGFONTW under Windows NT. Under Windows 95, it’s a LOGFONTA – almost. The first five members of the LOGFONTA structure are defined as LONG in wingdi.h; in the Windows 95 registry blob, they are shorts, as defined in the LOGFONTWIN95REG structure in MenuFont.cpp. 
@@ -188,10 +188,10 @@ Let’s go back to level two for a moment, and look at the Registry class. This 
 }}
 Sometimes, though, we need to access information elsewhere in the registry. The following strings are recognized; if either is present, the key is retained as is:
 
-{code:C#}
+```C#
 #define WIN_SETTINGS _T( "Microsoft\\Windows\\CurrentVersion" )
 #define CPL_SETTINGS _T( "Control Panel\\Desktop\\WindowMetrics" ) 
-{code:C#}
+```
 
 < Listing 42: Registry.h>
 < Listing 43: Registry.cpp>
@@ -200,7 +200,7 @@ Sometimes, though, we need to access information elsewhere in the registry. The 
 
 Let’s study one of the macros in persistence.h, DEFINE{"_"}PERSISTENT{"_"}BOOL, to see how it works:
 
-{code:C#}
+```C#
 #define DEFINE_PERSISTENT_BOOL( section, name )        \
    inline bool get ## name( void ) {                   \
       return 0 != Registry::getInt( HKEY_CURRENT_USER, \
@@ -210,15 +210,15 @@ Let’s study one of the macros in persistence.h, DEFINE{"_"}PERSISTENT{"_"}BOOL
       Registry::setInt( HKEY_CURRENT_USER,             \
          _T( section ), _T( #name ), bValue );         \
    }
-{code:C#}
+```
 One use of the macro is this:
 
-{code:C#}
+```C#
 DEFINE_PERSISTENT_BOOL( "Search", MatchCase );
-{code:C#}
+```
 This expands to:
 
-{code:C#}
+```C#
    inline bool getMatchCase( void ) {
       return 0 != Registry::getInt( HKEY_CURRENT_USER,
          _T( "Search" ), _T( MatchCase ), 0 ); 
@@ -227,17 +227,17 @@ This expands to:
       Registry::setInt( HKEY_CURRENT_USER, 
          _T( "Search" ), _T( MatchCase ), bValue );
    }
-{code:C#}
+```
 The macros for integers and strings are similar in structure. One deserves special mention: DEFINE{"_"}PERSISTENT{"_"}STRING{"_"}EX allows indexed persistent variables. After the declaration of 
 
-{code:C#}
+```C#
 DEFINE_PERSISTENT_STRING_EX( "Search", Pattern );
-{code:C#}
+```
 I can write
 
-{code:C#}
+```C#
 setPattern( 1, _T( "someString" );
-{code:C#}
+```
 and end up with the following registry entry:
 {{
 Software\Andersen Consulting\TextEdit\Search\Pattern1=someString
@@ -263,7 +263,7 @@ If you change the word wrapping while editing C:\Data\test.txt, both these regis
 
 Document local persistence is implemented through macros defined in Document.h. Actually, there’s only one such macro, since all the values happen to be numbers:
 
-{code:C#}
+```C#
 #define DEFINE_PERSISTENT_DOC_INT( name, type )               \
    inline int get ## name( int nDefault ) const {             \
       return getPersistentInt( _T( #name ), nDefault, type ); \
@@ -271,7 +271,7 @@ Document local persistence is implemented through macros defined in Document.h. 
    inline void set ## name( int nValue ) {                    \
       setPersistentInt( _T( #name ), nValue, type );          \
    }
-{code:C#}
+```
 This macro is similar to those defined in persistence.h, except that, instead of calling the getter and setter functions in the Registry class, they call a couple of Document methods that wrap those defined in the Registry class. These wrapper methods do two things: They add the file name to the key (converting backslashes to vertical bars in the process), and they handle everything to do with the file type settings. If the type parameter is true, information is saved for file types as well as for individual files. If the type parameter is false, information is only saved for individual files. Examples: Fixed or proportional font is saved for both file types and individual files, while window position is only saved for individual files.
 
 Since the macro generates code to call Document methods, it follows that the macro must be used inside the declaration of the Document class. A corollary is that the generated functions are themselves Document methods.
@@ -303,10 +303,10 @@ Whenever Windows starts, it enumerates all key-value pairs under this key, and e
 
 A naïve (and all too common) use of this facility is to insert a RunOnce command in response to the WM{"_"}ENDSESSION message, e.g.:
 
-{code:C#}
+```C#
 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\
    TextEdit="C:\Program Files\TextEdit\TextEdit.exe C:\Data\test.txt"
-{code:C#}
+```
 This approach has at least two problems: 
 
 # If the system goes down catastrophically, we never see the WM{"_"}ENDSESSION message, and restart doesn’t take place. 
@@ -318,7 +318,7 @@ What TextEdit actually does is the following: When TextEdit starts, it inserts t
 
 It is not a problem if this overwrites an existing entry, as all entries are equal. The code to do this is located in init.cpp, and looks like this:
 
-{code:C#}
+```C#
 LOCAL void initReboot( void ) {
 
    const String strProgram = getModuleFileName();
@@ -326,13 +326,13 @@ LOCAL void initReboot( void ) {
       RUNONCE_PATH, _T( "TextEdit Restart" ),
       _T( "%1 /boot" ), strProgram.c_str() );
 }
-{code:C#}
+```
 The constant RUNONCE{"_"}PATH is defined in setup.h, as follows:
 
-{code:C#}
+```C#
 #define WIN_PATH _T( "Software\\Microsoft\\Windows\\CurrentVersion" )
 #define RUNONCE_PATH   WIN_PATH _T( "\\RunOnce" )
-{code:C#}
+```
 Next, the document local persistent variable Running is set to one. If TextEdit exits in response to WM{"_"}ENDSESSION, it remains one; otherwise, it’s reset to zero. If Windows crashes, the value of Running remains 1, and restart will take place.
 
 When TextEdit is started with the /boot option, it does the following:

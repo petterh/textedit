@@ -43,7 +43,7 @@ InstSub is the simplest working example I can think of; it is far from complete.
 
 **Listing 5: InstSub.rc** (used for all three subclassing examples)
 
-{code:C#}
+```C#
 // InstSub.rc – used for all three subclassing examples
 
 #include <windows.h>
@@ -85,11 +85,11 @@ FONT 8, "MS Sans Serif"
    LTEXT    "&Anything:",-1,7,27,30,8
    EDITTEXT -1,44,25,88,14,ES_AUTOHSCROLL | WS_GROUP
 }
-{code:C#}
+```
 
 **Listing 6: InstSub.cpp**
 
-{code:C#}
+```C#
 #include <windows.h>
 
 #define IDC_NUMBERS 1000
@@ -137,7 +137,7 @@ int APIENTRY WinMain( HINSTANCE hinst, HINSTANCE, LPSTR, int ) {
 
    return DialogBox( hinst, "InstSubDlg" , HWND_DESKTOP, dlgFunc );
 }
-{code:C#}
+```
 
 ## Global Subclassing
 
@@ -151,7 +151,7 @@ The dialog box function no longer handles WM_INITDIALOG. The numeric input edit 
 
 **Listing 7: GlobSub.cpp**
 
-{code:C#}
+```C#
 #include <windows.h>
 
 #define IDC_NUMBERS 1000
@@ -204,7 +204,7 @@ int APIENTRY WinMain( HINSTANCE hinst, HINSTANCE, LPSTR, int ) {
 
    return 0;
 }
-{code:C#}
+```
 
 ## Class Cloning
 
@@ -216,7 +216,7 @@ It isn’t mandatory to change the window function during class cloning. Sometim
 
 **Listing 8: Clone.cpp**
 
-{code:C#}
+```C#
 #include <windows.h>
 
 #define IDC_NUMBERS 1000
@@ -258,7 +258,7 @@ int APIENTRY WinMain( HINSTANCE hinst, HINSTANCE, LPSTR, int ) {
 
    DialogBox( hinst, "CloneDlg", HWND_DESKTOP, dlgFunc );
 }
-{code:C#}
+```
 
 Thus endeth the subclassing tutorial. That’s all there is to it, really, except for various esoteric techniques used to subclass windows in other processes, which I won’t go into. 
 
@@ -294,21 +294,21 @@ If you were to use SetWindowLong, the **{"GWL_USERDATA"}** offset would be the o
 
 According to conventional wisdom, window properties are less efficient than window words. Benchmarking
 
-{code:C#}
+```C#
 GetWindowLong( hwnd, GWL_USERDATA );
-{code:C#}
+```
 
 against
 
-{code:C#}
+```C#
 GetProp( hwnd, “test” ); 
-{code:C#}
+```
 
 verifies this. When I used an atom instead of the string for the property name, however, the tables were turned. Now GetProp was actually faster than GetWindowLong, at least on a Windows NT 4.0 window with a single property. In truth, though, this is a rather moot point – I’ve implemented subclassing using all these techniques, and efficiency has never been a noticeable problem.
 
 One solution to the problem of multiple subclassings is to store the old window function as a property, using a unique property name for each subclassing. With multiple subclassings, this suggests an image of saved window functions sticking out all over the window like pins from a pincushion. While I’ve used this porcupine technique successfully, it does have one disadvantage: the subclassings are isolated from one another, and unhooking must be done in reverse order of subclassing. To remedy this, the InstanceSubclasser maintains a linked list of subclassing descriptors:
 
-{code:C#}
+```C#
 class Node {
 public:
    WNDPROC m_wndProc;
@@ -317,7 +317,7 @@ public:
     Node    *m_pNext;
     ...
 };
-{code:C#}
+```
 
 This allows subclassing and unsubclassing with gay abandon, provided you stick to using InstanceSubclasser. You’re still vulnerable to “foreign” subclassings, though, and no perfect solution exists to deal with this particular problem.
 
