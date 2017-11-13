@@ -272,7 +272,7 @@ It’s in the nature of global subclassing that there is only one old window fun
 
 Curiously, SetClassLong and GetClassLong are both prototyped as returning DWORDs, even though the dwNewLong argument to SetClassLong is prototyped as LONG, i.e., a signed value.
 
-< Listing 9: GlobalSubclasser .h >
+[GlobalSubclasser.h](../GlobalSubclasser.h)\
 [GlobalSubclasser.cpp](../GlobalSubclasser.cpp)
 
 ## General Mechanism for Instance Subclassing

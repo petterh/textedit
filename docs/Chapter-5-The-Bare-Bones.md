@@ -6,7 +6,7 @@
 
 This chapter gives you an overview of the TextEdit application architecture – the skeleton of the application, if you like. But first, this message from our sponsors:
 
-“**Encapsulate what is likely to change.*”
+“**Encapsulate what is likely to change.**”
 
 This is an important object-oriented design principle. (Word’s grammar checker insist that a “design principle” ought to be a “design principal.” This illustrates another principal: If you try to pass your software off as “intelligent,” make sure it’s real smart, or it will appear to be real stupid.) (This, by the way, is nothing compared with what the spell checker of Word 2.0 did to me a few years ago: It insisted that “northwest” should be “northeast.” I don’t usually mind Word correcting my spelling, but I refuse to let it correct my geography!)
 
@@ -88,9 +88,9 @@ int Editor::run( HINSTANCE hinst ) {
 
 Two things here are of particular interest. First, there is a double while loop, although one would be sufficient from a logical point of view. This is done to increase efficiency. Setting up a try block involves considerable overhead, so I want to avoid doing it for every message that’s pumped through the system. With a double loop, the try block is set up once when we start, then once for every exception that makes it this far.
 
-Second, **TranslateAccelerator** is called before **isToolbarDialogMessag**e (which wraps **IsDialogMessage**). This is to ensure that the accelerators work even when the focus is in one of the controls on the toolbar. If I switch the order, accelerators such as Ctrl`+`O (File Open) and Ctrl`+`F (Edit Find) don’t work whenever the focus is in the tab edit field or on the Read Only checkbox.
+Second, **TranslateAccelerator** is called before **isToolbarDialogMessage** (which wraps **IsDialogMessage**). This is to ensure that the accelerators work even when the focus is in one of the controls on the toolbar. If I switch the order, accelerators such as Ctrl+O (File Open) and Ctrl+F (Edit Find) don’t work whenever the focus is in the tab edit field or on the Read Only checkbox.
 
-A side effect of this ordering is that the main window’s clipboard accelerators (Ctrl`+`C, Ctrl`+`X and Ctrl`+`V) take precedence over the tab edit field’s accelerators. If this were an issue, the various command handlers would have to check which window had the keyboard focus before applying their corresponding commands. The whole issue illustrates something that is not a design principle, but merely a sad fact of life: It can be difficult to get smooth interaction if every box is black.
+A side effect of this ordering is that the main window’s clipboard accelerators (Ctrl+C, Ctrl+X and Ctrl+V) take precedence over the tab edit field’s accelerators. If this were an issue, the various command handlers would have to check which window had the keyboard focus before applying their corresponding commands. The whole issue illustrates something that is not a design principle, but merely a sad fact of life: It can be difficult to get smooth interaction if every box is black.
 
 ## The Editor Class
 

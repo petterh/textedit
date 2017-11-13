@@ -6,9 +6,9 @@
 
 I'd like to draw your attention to a user interface bug that runs rampant through the world of Windows applications. It involves the interaction of multi-line edit controls and default push buttons.
 
-In the beginning was the multi-line edit control. Entering multiple lines was cumbersome in those days, as you were required to press Ctrl`+`Enter instead of just Enter. This was especially unfortunate whenever a default pushbutton was around; users would hit Enter to start a new line and promptly lose the whole dialog box (along with their peace of mind).
+In the beginning was the multi-line edit control. Entering multiple lines was cumbersome in those days, as you were required to press Ctrl+Enter instead of just Enter. This was especially unfortunate whenever a default pushbutton was around; users would hit Enter to start a new line and promptly lose the whole dialog box (along with their peace of mind).
 
-This whole Ctrl`+`Enter business was so obscure that many applications added extra text to educate users in proper procedure, i.e., "Hit Ctrl`+`Enter for new line.” Mistakes were nevertheless common, even among experienced users.
+This whole Ctrl+Enter business was so obscure that many applications added extra text to educate users in proper procedure, i.e., "Hit Ctrl+Enter for new line.” Mistakes were nevertheless common, even among experienced users.
 
 Along came Windows 3.1 and the ES_WANTRETURN style, and all was well with the world. Or was it? The problem was now turned on its head; users would type some text and then hit Enter to invoke the default push button. What they got was a new line (along with a fresh set of aggravations).
 
@@ -17,7 +17,7 @@ The old style of interaction was merely bad. The new style was, when used in the
 There are three approaches to fixing the problem:
 
 * Read the user's mind to decide which action is appropriate -- a new line or a button push.
-* Resurrect the Ctrl`+`Enter kludge.
+* Resurrect the Ctrl+Enter kludge.
 * Remove the fat border from the default button whenever a multi-line edit control with the ES_WANTRETURN style has the keyboard focus.
 
 The first solution is beyond the current state of the art. By the time we get around to it, this little problem is most likely irrelevant anyway.
