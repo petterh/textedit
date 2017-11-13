@@ -118,4 +118,4 @@ PRIVATE void onViewSetFont( HWND hwnd ) { // Ctrl+Shift+F
 }
 ```
 
-< Listing 72: FontDlg.cpp >
+[FontDlg.cpp](../FontDlg.cpp)

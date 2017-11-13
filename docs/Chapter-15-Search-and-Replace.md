@@ -39,7 +39,7 @@ At this point, it occurred to me that this problem is not specific to FindDlg, b
 * No header file is associated with this file; it has, in a manner of speaking, no interface. The mere existence of the dlgSubclasser static variable is enough to initialize the subclassing.
 * The subclassing works on all dialogs within TextEdit, including “system” dialogs such as printer properties.
 
-< Listing 64: dlgSubclasser.cpp>
+[dlgSubclasser.cpp](../dlgSubclasser.cpp)
 
 ## Initializing the Dialog
 
@@ -151,4 +151,4 @@ In Figure 32, the user has checked “Replace in Selection.” In this case, Rep
 
 User interaction with the Replace dialog is considerably more complicated than the interaction with the plain Find dialog. In particular, check out the adjustButtons method in FindDlg.cpp; it does considerably more work when the m_isReplace flag is set.
 
-< Listing 65: FindDlg.cpp >
+[FindDlg.cpp](../FindDlg.cpp)

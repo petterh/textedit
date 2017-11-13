@@ -121,7 +121,7 @@ The Win32 API offers an alternative called FormatMessage. This very capable func
 
 The functions defined in formatMessage.cpp wraps FormatMessage in functions that take printf-style variable-length argument lists. One of them takes a resource string ID rather than a string.
 
-< Listing 73: formatMessage.cpp>
+[formatMessage.cpp](../formatMessage.cpp)
 
 ## Initialize the Output String!
 
@@ -188,7 +188,7 @@ If you call **GetLocaleInfo** with **LOCALE_SGROUPING** as the second parameter,
 
 The **formatNumber** function (in **formatNumber.cpp**) takes all this into account when formatting numbers. The one implementation issue worth mentioning is that the string is built backwards, and then reversed at the end. This could lead us astray if a thousand separator string of more than one character came along. To protect against such a potential mishap, the thousands separator string is itself reversed before we start applying it.
 
-< Listing 74: formatNumber.cpp>
+[formatNumber.cpp](../formatNumber.cpp)
 
 By now, you will have figured out that the number 1834597891 is larger than one billion. The TextEdit Properties dialog displays file sizes in two formats, one of which would be 1.8 GB for our example (or 1,8 GB in some parts of the world). This bit of formatting is performed by a Windows function from SHLWAPI called StrFormatByteSize; it is used in PropertiesDlg::setInfo (PropertiesDlg.cpp).
 

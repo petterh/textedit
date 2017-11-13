@@ -51,9 +51,9 @@ For each document type, TextEdit knows whether Edit is the default action, wheth
 
 The FileType class has a member named m_bInclude; the user controls its value through the list box check marks in Figure 40.
 
-< Listing 76: FileType.h>
-< Listing 77: FileType.cpp>
-< Listing 78: InstallDlg1.cpp>
+[FileType.h](../FileType.h)\
+[FileType.cpp](../FileType.cpp)\
+[InstallDlg1.cpp](../InstallDlg1.cpp)
 
 ## Copying Files
 
@@ -136,7 +136,7 @@ Note that the Add/Remove button in Figure 41 has an ellipsis after it, and that 
 
 Both the install function and its inverse, uninstall, can be found in SetupDlg.cpp.
 
-< Listing 79: SetupDlg.cpp>
+[SetupDlg.cpp](../SetupDlg.cpp)
 
 While setup does check the versions of the executables involved, it does no such things with the help files. This is because the help files embedded in the exe file are by definition the ones that belong to that version of the program.
 

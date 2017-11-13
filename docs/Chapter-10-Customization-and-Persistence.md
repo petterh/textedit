@@ -46,8 +46,8 @@ But, of course, there is no such thing as a LOGFONT structure. LOGFONT is a macr
 
 Standard APIs to retrieve the various UI fonts would be appreciated. This could be implemented by adding new parameters to GetStockObject, for example.
 
-< Listing 40: MenuFont.h>
-< Listing 41: MenuFont.cpp>
+[MenuFont.h](../MenuFont.h)\
+[MenuFont.cpp](../MenuFont.cpp)
 
 ## Windows Explorer
 
@@ -197,8 +197,8 @@ Sometimes, though, we need to access information elsewhere in the registry. The 
 #define CPL_SETTINGS _T( "Control Panel\\Desktop\\WindowMetrics" ) 
 ```
 
-< Listing 42: Registry.h>
-< Listing 43: Registry.cpp>
+[Registry.h](../Registry.h)\
+[Registry.cpp](../Registry.cpp)
 
 ## Persistent Variables
 
@@ -259,7 +259,7 @@ Macros such as DEFINE_PERSISTENT_BOOL make it easy to define persistent variable
 
 If I had created this module from scratch today, I would have sidestepped the debugging problem by replacing the macros with templates.
 
-< Listing 44: persistence.h>
+[persistence.h](../persistence.h)
 
 Document Local Persistence
 
@@ -292,8 +292,8 @@ Since the macro generates code to call Document methods, it follows that the mac
 
 MRU means Most Recently Used. The MRU file list is implemented by the MRU class. In addition to managing a persistent file list in the registry, the MRU class also interfaces to the system-wide MRU file list, the one found under Documents in the Start Menu. You add files to this list by calling the SHAddToRecentDocs function.
 
-< Listing 45: MRU.h>
-< Listing 46: MRU.cpp>
+[MRU.h](../MRU.h)\
+[MRU.cpp](../MRU.cpp)
 
 ## Data Sharing Across Instances
 
@@ -361,7 +361,7 @@ The WM_QUERYENDSESSION/WM_ENDSESSION message pair have different behaviors under
 
 I’ve tried to come up with good adjectives to describe this state of affairs (e.g., “weird,” “ridiculous”), but they all strike me as understatements. I’ll leave it as an exercise for the adjectivally inclined reader.
 
-< Listing 47: reboot.cpp>
+[reboot.cpp](../reboot.cpp)
 
 ## Food for Persistent Thought
 

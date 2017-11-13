@@ -38,8 +38,8 @@ The Properties dialog does not apply any changes until you click the Apply butto
 
 If you can’t change a file’s properties – if it’s on a CD-ROM or a write-protected floppy, or if you don’t have write access – everything except the Cancel button is disabled by the onInitDialog method.
 
-< Listing 58: PropertiesDlg.h >
-< Listing 59: PropertiesDlg.cpp >
+[PropertiesDlg.h](../PropertiesDlg.h)\
+[PropertiesDlg.cpp](../PropertiesDlg.cpp)
 
 ## Deleting Files
 
@@ -79,8 +79,8 @@ toggleIcon( IDC_WASTEBASKET, IDC_WASTEBASKETEMPTY, 0 != Button_GetCheck( getDlgI
 
 The icon serves as a visual reinforcement of the setting of the checkbox. In addition to being pretty cool, this is actually useful. The Find dialog uses the same technique.
 
-< Listing 60: DeleteDlg.h >
-< Listing 61: DeleteDlg.cpp >
+[DeleteDlg.h](../DeleteDlg.h)\
+[DeleteDlg.cpp](../DeleteDlg.cpp)
 
 ## The Open File Dialog
 
@@ -128,7 +128,7 @@ As I said, a convoluted business. A custom pattern is formatted with the IDS_CUS
 
 {{   Custom (letter*.txt)}}
 
-< Listing 62: openDlgCommon.cpp >
+[openDlgCommon.cpp](../openDlgCommon.cpp)
 
 ## The Preview Window
 
@@ -144,4 +144,4 @@ One thing is missing from this picture: The hook function is notified only when 
 
 It is possible that the hook function was meant to be a sufficient vehicle for customizing the dialog’s behavior. It doesn’t quite make the grade.
 
-< Listing 63: openFile.cpp >
+[openFile.cpp](../openFile.cpp)

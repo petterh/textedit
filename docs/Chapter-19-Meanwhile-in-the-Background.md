@@ -30,7 +30,7 @@ The Win32 API gives you the **CreateThread** function. You should never use this
 
 In TextEdit, this is wrapped in **beginThread** and **endThread**, defined in threads.h.
 
-< Listing 75: threads.h >
+[threads.h](../threads.h)
 
 ## Communication between Threads
 

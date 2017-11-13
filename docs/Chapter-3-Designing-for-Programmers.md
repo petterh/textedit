@@ -348,8 +348,8 @@ To sum up:
 
 Other examples of self-destructing wrapper classes are FileMapping (defined in FileMapping.h, described in Chapter 12), TemporaryStatusIcon (Statusbar.h) and ClientDC (ClientDC.h). In TextEdit, you will find many more.
 
-< Listing 3: AutoHandle.h>
-< Listing 4: PaintStruct.h>
+[AutoHandle.h](../AutoHandle.h)\
+[PaintStruct.h](../PaintStruct.h)
 
 ## Programming Defensively
 

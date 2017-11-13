@@ -53,7 +53,7 @@ The relationships between these are shown in Figure 5.
 
 The main entry point is defined in **WinMain.cpp**. The **WinMain** function does a small amount of initialization, then sets up the outermost try/catch block of the exception handling onion (a vegetable I shall get back to in the next chapter). Next, it calls the init function, whose job it is to interpret any arguments, possibly produce a Document object and an Editor object, and possibly to create the main window. (The init function is discussed in detail in Chapter 7.) Once the main window is up and running, control is transferred to TextEdit’s main message loop, buried in the **Editor:run** method.
 
-< Listing 15: WinMain.cpp>
+[WinMain.cpp](../WinMain.cpp)
 
 ## The Heart
 
@@ -104,7 +104,7 @@ The Editor class also implements the EditListener interface, mentioned at the st
 
 You can find the declaration of the Editor class (as well as definitions of inline methods and functions) in Listing 16. The implementation is in Editor.cpp on the accompanying disk.
 
-< Listing 16: Editor.h>
+[Editor.h](../Editor.h)
 
 ## The Document Class
 
@@ -116,7 +116,7 @@ Chapter 10 explains how to create persistent variables using the registry. The D
 
 I’ll return to the implementation of the Document class in Chapter 12.
 
-< Listing 17: Document.h>
+[Document.h](../Document.h)
 
 ## The AbstractEditWnd Class
 
@@ -128,7 +128,7 @@ If you wish to use a different editing control, you must a) wrap it in a class d
 
 The rich edit control in ‘plain text mode’ is vastly superior to the standard edit control in most ways. It offers multi-level undo and redo, drag and drop editing and overall better behavior. Its most serious problem is that there is no good way to set the number of spaces to display for each tab stop – it does not understand the EM_SETTABSTOPS message, and the EM_SETPARAFORMAT message is geared towards word processing rather than plain text editing. I’ve found no satisfactory solution to this; as a result, the rich edit version doesn’t give you any control over how tabs are displayed. My only consolation is that Notepad doesn’t do this either.
 
-< Listing 18: AbstractEditWnd.h>
+[AbstractEditWnd.h](../AbstractEditWnd.h)
 
 ## Of Strings and PATHNAMEs
 
@@ -138,7 +138,7 @@ Let’s take a time-out here, to look at some common definitions and data types 
 
 The String type is just my name for the std::string type from the Standard C++ Template Library (STL). It equates to a string or a wstring, depending on whether _UNICODE is defined. The String type is defined in String.h.
 
-< Listing 19: String.h>
+[String.h](../String.h)
 
 ### PATHNAME
 
@@ -197,4 +197,4 @@ C and C++ use the static keyword for several different things. When a variable d
 
 Since the semantics of these uses of static are unrelated, I’ve created the **PRIVATE** macro, which I use for the latter meaning. The **PRIVATE** macro is also defined in **common.h**.
 
-< Listing 20: common.h>
+[common.h](../common.h)

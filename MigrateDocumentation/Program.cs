@@ -116,7 +116,12 @@ namespace MigrateDocumentation
 
                 text = text.Replace("{\"_\"}", "_");
                 Regex regex = new Regex("\\{\"([^}]*)\"\\}");
-                text = regex.Replace(text, "`$1`"); // `$2`
+                text = regex.Replace(text, "`$1`");
+
+                // Code links (replacing listings)
+
+                regex = new Regex("< Listing \\d+: ([^ ]+)\\w*>");
+                text = regex.Replace(text, "[$1](../$1)");
 
                 File.WriteAllText(docFile.FullName, text, Encoding.UTF8);
             }
