@@ -16,7 +16,8 @@ The key attributes of dialog boxes are supplied by the DefDlgProc and IsDialogMe
 
 The dialog box keyboard interface carries out special processing for several keys. It allows you to navigate the input focus between the controls in the dialog, and to generate messages corresponding to certain buttons. The following table is copied from Microsoft’s online documentation; it merits careful study:
 
-|| Key || Action ||
+| Key | Action |
+|-----|--------|
 | Alt+mnemonic | Moves the input focus to the first control (having the WS_TABSTOP style) after the static control containing the given mnemonic. |
 | Down | Moves the input focus to the next control in the group. |
 | Enter |Sends a WM_COMMAND message to the dialog box function. The wParam parameter is set to IDOK or control identifier of the default push button. |

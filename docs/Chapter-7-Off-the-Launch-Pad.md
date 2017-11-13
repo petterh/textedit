@@ -307,25 +307,26 @@ If the **DragQueryFile** func­tion is invoked with the second parameter equal t
 
 TextEdit understands several other switches. Some, such as /min and /max, are con­ven­iences, while others, such as /setup, allows the single executable to func­tion in several com­pletely dif­fe­rent ways. The complete list of command-line switches is summarized in the following table:
 
-|| Option || Explanation ||
-| /boot | Checks the registry for files marked “running,” and starts a TextEdit in­stan­ce for each.  |
-| /edit | Forces use of the standard edit widget rather than the rich edit widget. This switch is only available in debug builds.  |
-| /last | Opens previous file (MRU 1).  |
-| /min | Start TextEdit minimized.  |
-| /max | Start TextEdit maximized.  |
-| /p /print | Print, showing the print dia­log.  |
-| /pt /printto | Print to a specific printer, don’t show the print dia­log.  |
-| /setup | Start the TextEdit installation and maintenance subsystem. A TextEdit installation disk should include either Setup.exe.lnk (a short­cut to “TextEdit.exe /setup”) or a TextEdit executable renamed to setup.exe or install.exe.  |
+| Option | Explanation |
+|--------|-------------|
+| /boot | Checks the registry for files marked “running,” and starts a TextEdit in­stan­ce for each. |
+| /edit | Forces use of the standard edit widget rather than the rich edit widget. This switch is only available in debug builds. |
+| /last | Opens previous file (MRU 1). |
+| /min | Start TextEdit minimized. |
+| /max | Start TextEdit maximized. |
+| /p /print | Print, showing the print dia­log. |
+| /pt /printto | Print to a specific printer, don’t show the print dia­log. |
+| /setup | Start the TextEdit installation and maintenance subsystem. A TextEdit installation disk should include either Setup.exe.lnk (a short­cut to “TextEdit.exe /setup”) or a TextEdit executable renamed to setup.exe or install.exe. |
 
 Should we allow the hyphen to signal command-line switches? The hyphen, or minus sign, is the standard option signal on Unix, and many DOS and Windows pro­g­rams accept it in ad­di­tion to the slash. There is only one hitch—it is per­fectly le­g­itimate to start a file name with a hyphen.
 
-No conflict arises when TextEdit is started from the GUI shell. Any hyphens are certain to be somewhere inside the path name, and so won’t be recognized as the start of a switch. From the command line, however, it is necessary to say some­thing like textedit .\-myFile.txt rather than textedit -myFile.txt. Otherwise, TextEdit gets confused by the myFile switch, which it has never heard of.
+No conflict arises when TextEdit is started from the GUI shell. Any hyphens are certain to be somewhere inside the path name, and so won’t be recognized as the start of a switch. From the command line, however, it is necessary to say some­thing like `textedit .\-myFile.txt` rather than `textedit -myFile.txt`. Otherwise, TextEdit gets confused by the `myFile` switch, which it has never heard of.
 
 To confuse things further, the slash is a per­fectly good separator of path ele­ments. It’s only the internal commands in COMMAND.COM and CMD.EXE that think otherwise; the file system is happy with slashes going either way.
 
 In TextEdit, both the slash and the hyphen signal a switch, but all unrecognized switches are assumed to be file names. In init.cpp, you will find some vestigial code that warns against unrecognized options. I removed that code after writing the above couple of para­graphs, and TextEdit will now happily accept both /myDirectory/-myFile and -myFile as arguments.
 
-This confusion has two drawbacks. A misspelled switch is treated as a file name, and files with option names need some path decoration on the command line (e.g., the file -max must be specified as .\-max or ./-max). Even more confusing, spe­ci­fy­ing textedit \* in a directory that only contains the file -max, will re­sult in the editing of a new file in a maximized win­dow, hardly what was intended. (Spe­ci­fy­ing textedit .⁄\* works, though.)
+This confusion has two drawbacks. A misspelled switch is treated as a file name, and files with option names need some path decoration on the command line (e.g., the file `-max` must be specified as `.\-max` or `./-max`). Even more confusing, spe­ci­fy­ing `textedit *` in a directory that only contains the file `-max`, will re­sult in the editing of a new file in a maximized win­dow, hardly what was intended. (Spe­ci­fy­ing `textedit .⁄*` works, though.)
 
 We live in an imperfect world, and can only do the best we can. These drawbacks are not serious enough to lose sleep over.
 
