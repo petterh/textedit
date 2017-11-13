@@ -26,7 +26,7 @@ TextEdit can be started directly in several ways. After selecting the TextEdit i
 
 The pszCmdLine parameter is now empty. In a situation like this, Notepad lets you edit an “untitled” file, one that exists in memory only. TextEdit, on the other hand, has a con­cep­tual model that supposedly works direct­ly on files—there is no con­cept of a separate memory image. Although this is an illusion, it means that untitled files are out—we must create a suitably named file in a suitable location. This is handled by the createNewFile func­tion in **createNewFile.cpp**.
 
-A user’s default data directory can be retrieved using the **SHGetSpecialFolderLocation** func­tion with the **CSIDL_PERSONAL** parameter. On my machine, this defaults to **C:\WinNT\Profiles\myUserName\Persona**l. Being inside the system directory, this doesn’t strike me as a particularly good place to store user data, so the TextEdit installation pro­g­ram allows users to select a dif­fe­rent default direc­tory. This location is maintained through the Options dia­log.
+A user’s default data directory can be retrieved using the **SHGetSpecialFolderLocation** func­tion with the **CSIDL_PERSONAL** parameter. On my machine, this defaults to **C:\WinNT\Profiles\myUserName\Personal**. Being inside the system directory, this doesn’t strike me as a particularly good place to store user data, so the TextEdit installation pro­g­ram allows users to select a dif­fe­rent default direc­tory. This location is maintained through the Options dia­log.
 
 This changed in Windows 2000. If you wish to edit the file **sample.txt,** you can drag an icon representing the file onto the TextEdit icon. This time, **pszCmdLine** points to the full path of {{sample.txt,}} and TextEdit opens the file. Most sample pro­g­rams handle this straightforward case correctly.
 
@@ -125,15 +125,15 @@ As with the GUI shell, you can pass one or more file names as parameters to Text
 
 (This illustrates one of the great advantages of the GUI paradigm, namely the use of con­straints. Rather than typing a command, you must select it from a menu; rather than typing a file name, you are forced to select it from a list. Typos are no longer possible, and one source of errors is eliminated. The GUI con­straint paradigm also illustrates the best possible form of “error handling:” redesign the app­li­ca­tion so that the source of the error goes away.)
 
-What happens if you type some­thing like “TextEdit `*`.txt”? That depends on the command processor you are using. UNIX command shells expand wildcards auto­mati­cal­ly, re­sulting in a command line of, say, “textedit sample1.txt sample2.txt.” Un­for­tu­nately, neither command.com nor cmd.exe do wildcard expansion, so TextEdit must deal with this on its own.
+What happens if you type some­thing like “TextEdit *.txt”? That depends on the command processor you are using. UNIX command shells expand wildcards auto­mati­cal­ly, re­sulting in a command line of, say, “textedit sample1.txt sample2.txt.” Un­for­tu­nately, neither command.com nor cmd.exe do wildcard expansion, so TextEdit must deal with this on its own.
 
 On the face of it, this would seem to require special treatment of arguments with wildcards, but this isn’t so. In the first place, if you treat sample.txt as a wildcard pat­tern and do a search using FindFileFirst and FindFileNext, you will find exactly one matching file, namely sample.txt. We can, in other words, treat all arguments as wildcard pat­terns without getting into trouble.
 
 Even better, we can sidestep the whole issue by linking with **setargv.obj**, which gives us wildcard expansion for free. (Most compilers come with a similar relocat­able object file, though it might have another name, such as **wildargs.obj**.)
 
-If no files match, the pro­g­ram is passed the exact parameter string as typed, i.e., **“`**`.txt”**.
+If no files match, the pro­g­ram is passed the exact parameter string as typed, i.e., **“**.txt”**.
 
-If you try passing **`**`.txt** to Notepad, it complains that it “cannot open the “`**`.txt” file.” This happens no matter how many files match the pat­tern. Notepad also tells you “to make sure that a disk is in the drive specified,” and the user is left wond­er­ing whether the pro­g­ram has suffered brain damage. Oxygen deprivation, per­haps. The least we can do is to recognize the alleged file name as a wildcard pat­tern, and report that no matching files were found.
+If you try passing **\*.txt** to Notepad, it complains that it “cannot open the “*.txt” file.” This happens no matter how many files match the pat­tern. Notepad also tells you “to make sure that a disk is in the drive specified,” and the user is left wond­er­ing whether the pro­g­ram has suffered brain damage. Oxygen deprivation, per­haps. The least we can do is to recognize the alleged file name as a wildcard pat­tern, and report that no matching files were found.
 
 What about long versus short file names? That doesn’t require any special treat­ment either. The func­tion GetLongPathName converts short names to long names, but if it is fed a long name, it will simply return that name. In other words: all file names—long and short—may safely be passed through GetLongPathName.
 
@@ -196,9 +196,9 @@ Consider the following command line:
 C:\> textedit sample1.txt sample2.txt /p sample3.txt sample4.txt
 ```
 
-Should we print all the files, or only the one im­me­di­ately following the /p switch, or all the files following the /p switch? Or should we disallow the whole command line on grounds of silliness? 
+Should we print all the files, or only the one im­me­di­ately following the /p switch, or all the files following the /p switch? Or should we disallow the whole command line on grounds of silliness?
 
-Handling all possible variations in a reasonable way requires unreasonable con­tor­tions. TextEdit does allow the invocation, by printing all the files. Any other inter­pretation would be needlessly complex, both for the user and the pro­g­ram­mer. 
+Handling all possible variations in a reasonable way requires unreasonable con­tor­tions. TextEdit does allow the invocation, by printing all the files. Any other inter­pretation would be needlessly complex, both for the user and the pro­g­ram­mer.
 
 ## File Not Found
 
@@ -209,7 +209,7 @@ Figure 8: TextEdit can’t find a file.
 You may create a new file or browse for an existing file.
 What if a file doesn’t exist? There are several ways to handle this, and Notepad is quite sensible about it—Notepad asks the user if it should create a new file by the given name. TextEdit extends this a bit: It explains that the file does not exist, and the user is presented with the following choices:
 
-* Create the file as named 
+* Create the file as named
 * Browse for an existing file, or just to get a dif­fe­rent name and location for a new file
 * Exit TextEdit.
 * If the file name contains wildcard characters, the pro­ce­du­re is slightly dif­fe­rent, as you can’t create a file with wildcard characters in the file name. TextEdit explains that no matching files where found, and goes on to explain what a wildcard character actually is.
@@ -244,7 +244,7 @@ Multiple in­stan­ces of the same file on a command line don’t cause problems
 
 ## Command-line Piping
 
-Consider the following command line: 
+Consider the following command line:
 
 ```cmd
 C:\> dir | textedit
@@ -274,7 +274,7 @@ Command-line pipes are only for experts such as thee and me—a beginner won’t
 
 ## Drag and Drop Revisited
 
-So far, we’ve talked of dragging one or more text file icons onto the TextEdit icon. You can also drag a text file icon onto a running in­stan­ce of TextEdit. TextEdit identifies itself as ca­pable of handling the WM_DROPFILES mes­sage by calling DragAcceptFiles during main win­dow creation, so the Explorer will happily send us a WM_DROPFILES mes­sage. In response, TextEdit will open the dropped file in place of the current file.
+So far, we’ve talked of dragging one or more text file icons onto the TextEdit icon. You can also drag a text file icon onto a running in­stan­ce of TextEdit. TextEdit identifies itself as capable of handling the WM_DROPFILES mes­sage by calling DragAcceptFiles during main win­dow creation, so the Explorer will happily send us a WM_DROPFILES mes­sage. In response, TextEdit will open the dropped file in place of the current file.
 
 What should we do if somebody drops multiple files on us? That is actually a some­what thorny problem. For an MDI app­li­ca­tion, it is per­fectly natural to open multiple files, but for an SDI app­li­ca­tion, this would be a distinctly unnatural act.
 
@@ -325,7 +325,7 @@ To confuse things further, the slash is a per­fectly good separator of path ele
 
 In TextEdit, both the slash and the hyphen signal a switch, but all unrecognized switches are assumed to be file names. In init.cpp, you will find some vestigial code that warns against unrecognized options. I removed that code after writing the above couple of para­graphs, and TextEdit will now happily accept both /myDirectory/-myFile and -myFile as arguments.
 
-This confusion has two drawbacks. A misspelled switch is treated as a file name, and files with option names need some path decoration on the command line (e.g., the file -max must be specified as .\-max or ./-max). Even more confusing, spe­ci­fy­ing textedit `**` in a directory that only contains the file -max, will re­sult in the editing of a new file in a maximized win­dow, hardly what was intended. (Spe­ci­fy­ing textedit .⁄`**` works, though.)
+This confusion has two drawbacks. A misspelled switch is treated as a file name, and files with option names need some path decoration on the command line (e.g., the file -max must be specified as .\-max or ./-max). Even more confusing, spe­ci­fy­ing textedit \* in a directory that only contains the file -max, will re­sult in the editing of a new file in a maximized win­dow, hardly what was intended. (Spe­ci­fy­ing textedit .⁄\* works, though.)
 
 We live in an imperfect world, and can only do the best we can. These drawbacks are not serious enough to lose sleep over.
 
@@ -336,3 +336,7 @@ I’ve talked a lot about pszCmdLine in this chapter, but we don’t actually us
 The main func­tion of a console app­li­ca­tion gets its parameters in predigested form, with argc giving the number of arguments, and argv giving the arguments them­selves. This parameter parsing does more than just find all the white space; it also handles quoted arguments correctly. It turns out that argc and argv are accessible from /SUBSYSTEM:WINDOWS pro­g­rams, too, through the global CRT variables __argc and __argv.
 
 The ArgumentList class is in charge of command lines. In ad­di­tion to wrapping access to __argc and __argv, it handles the command line switches (options).
+
+[ArgumentList.h](../ArgumentList.h)\
+[ArgumentList.cpp](../ArgumentList.cpp)\
+[init.cpp](../init.cpp)
