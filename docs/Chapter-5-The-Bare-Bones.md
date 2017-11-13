@@ -1,18 +1,20 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: The Mechanics of Subclassing](Chapter-4-The-Mechanics-of-Subclassing.md) — [Next: Exceptions »](Chapter-6-Exceptions.md)
+
 # Chapter 5: The Bare Bones
 
 This chapter gives you an overview of the TextEdit application architecture – the skeleton of the application, if you like. But first, this message from our sponsors:
 
-**“Encapsulate what is likely to change.”**
+“**Encapsulate what is likely to change.*”
 
 This is an important object-oriented design principle. (Word’s grammar checker insist that a “design principle” ought to be a “design principal.” This illustrates another principal: If you try to pass your software off as “intelligent,” make sure it’s real smart, or it will appear to be real stupid.) (This, by the way, is nothing compared with what the spell checker of Word 2.0 did to me a few years ago: It insisted that “northwest” should be “northeast.” I don’t usually mind Word correcting my spelling, but I refuse to let it correct my geography!)
 
 The temptation is great to encapsulate and generalize everything in sight, but this may be a bad idea. It takes longer to design and implement general, reusable classes than it does to create exactly what you need for your application. The interaction with a generalized class tends to be more complex, leading to more functional code, giving bugs more opportunity to creep in, making the code more difficult to follow and more complex to maintain. You do gain flexibility, but you may never use the bulk of it.
 
-In TextEdit, the editing control is designed to be pluggable. Accordingly, it has a nice and clean interface, as defined by the abstract class **AbstractEditWindow**. Any interaction with the edit control should use that interface. 
+In TextEdit, the editing control is designed to be pluggable. Accordingly, it has a nice and clean interface, as defined by the abstract class **AbstractEditWindow**. Any interaction with the edit control should use that interface.
 
-Such is theory. In practice, the abstract base class implements several of the operations, secure in the knowledge that the actual editing control is either an edit control or a rich edit control. This has the advantage of avoiding duplicate code in the **EditWnd** and **RichEditWnd** classes; it has the disadvantage that it may need changing the moment we introduce a control that doesn’t use, say, **`EN_CHANGE`** notifications. 
+Such is theory. In practice, the abstract base class implements several of the operations, secure in the knowledge that the actual editing control is either an edit control or a rich edit control. This has the advantage of avoiding duplicate code in the **EditWnd** and **RichEditWnd** classes; it has the disadvantage that it may need changing the moment we introduce a control that doesn’t use, say, **`EN_CHANGE`** notifications.
 
 To get notifications from an **AbstractEditWindow**, you must implement the **EditListener** interface. Among other things, the **EditListener** wraps the `EN_**` notifications, so that the listener won’t have to worry about such implementation details:
 
@@ -25,7 +27,8 @@ public:
    virtual void onPosChange( const Point& position ) = 0;
 };
 ```
-A truly general EditListener interface would have a reference to the AbstractEditWindow as a parameter in all the notifications. In TextEdit, the EditListener interface is implemented by the Editor object, which already knows about the only AbstractEditWindow in the application. This parameter is therefore unnecessary, and, being more concerned with overall simplicity than OO purity, I chose to skip it. 
+
+A truly general EditListener interface would have a reference to the AbstractEditWindow as a parameter in all the notifications. In TextEdit, the EditListener interface is implemented by the Editor object, which already knows about the only AbstractEditWindow in the application. This parameter is therefore unnecessary, and, being more concerned with overall simplicity than OO purity, I chose to skip it.
 
 A truly general **AbstractEditWindow** class would allow registration of multiple **EditListeners**. If you are familiar with the Java Abstract Windowing Toolkit (AWT), this should ring a bell. At any rate, TextEdit doesn’t need this, so **AbstractEditWindow** does not provide it.
 
@@ -67,7 +70,7 @@ int Editor::run( HINSTANCE hinst ) {
       try {
          while ( bRun = GetMessage( &msg, 0, 0, 0 ) ) {
             if ( !TranslateAccelerator( m_hwnd, m_hacc, &msg ) &&
-                 !isToolbarDialogMessage( &msg ) ) 
+                 !isToolbarDialogMessage( &msg ) )
             {
                TranslateMessage( &msg );
                DispatchMessage ( &msg );
@@ -82,15 +85,16 @@ int Editor::run( HINSTANCE hinst ) {
    return msg.wParam;
 }
 ```
+
 Two things here are of particular interest. First, there is a double while loop, although one would be sufficient from a logical point of view. This is done to increase efficiency. Setting up a try block involves considerable overhead, so I want to avoid doing it for every message that’s pumped through the system. With a double loop, the try block is set up once when we start, then once for every exception that makes it this far.
 
-Second, **TranslateAccelerator** is called before **isToolbarDialogMessag**e (which wraps **IsDialogMessage**). This is to ensure that the accelerators work even when the focus is in one of the controls on the toolbar. If I switch the order, accelerators such as Ctrl`+`O (File Open) and Ctrl`+`F (Edit Find) don’t work whenever the focus is in the tab edit field or on the Read Only checkbox. 
+Second, **TranslateAccelerator** is called before **isToolbarDialogMessag**e (which wraps **IsDialogMessage**). This is to ensure that the accelerators work even when the focus is in one of the controls on the toolbar. If I switch the order, accelerators such as Ctrl`+`O (File Open) and Ctrl`+`F (Edit Find) don’t work whenever the focus is in the tab edit field or on the Read Only checkbox.
 
-A side effect of this ordering is that the main window’s clipboard accelerators (Ctrl`+`C, Ctrl`+`X and Ctrl`+`V) take precedence over the tab edit field’s accelerators. If this were an issue, the various command handlers would have to check which window had the keyboard focus before applying their corresponding commands. The whole issue illustrates something that is not a design principle, but merely a sad fact of life: It can be difficult to get smooth interaction if every box is black. 
+A side effect of this ordering is that the main window’s clipboard accelerators (Ctrl`+`C, Ctrl`+`X and Ctrl`+`V) take precedence over the tab edit field’s accelerators. If this were an issue, the various command handlers would have to check which window had the keyboard focus before applying their corresponding commands. The whole issue illustrates something that is not a design principle, but merely a sad fact of life: It can be difficult to get smooth interaction if every box is black.
 
 ## The Editor Class
 
-Mapping all the parts of TextEdit to corresponding parts of the human body in a meaningful way is going to be difficult, so I’ll quit while I’m ahead. 
+Mapping all the parts of TextEdit to corresponding parts of the human body in a meaningful way is going to be difficult, so I’ll quit while I’m ahead.
 
 The Editor class lives in close symbiosis with the main window function, and implements much of what the user perceives as commands in the TextEdit user interface. There’s openFile and printFile, save, restoreOriginal and searchAndSelect, and many more. The searchAndSelect function is a front-end to the actual searching machinery, implemented in AbstractEditWnd and its descendants. Searching is a surprisingly complex business; the Editor::searchAndSelect method, for example, is mainly concerned with the not-as-trivial-as-you-would-have-thought task of figuring out whether or not the file was wrapped while searching.
 
@@ -150,19 +154,22 @@ typedef CHAR  PATHNAMEA[ MAX_PATH + 1 ](-MAX_PATH-+-1-);
    typedef PATHNAMEA PATHNAME;
 #endif
 ```
+
 Whenever a PATHNAME (or any other string array) is declared, it is initialized thusly:
 
 ```C++
 PATHNAME szTempPath = { 0 };
 ```
+
 An alternative formulation would be this:
 
 ```C++
 PATHNAME szTempPath = _T( "" );
 ```
+
 The first formulation is preferable, as it is independent of Unicode and ANSI strings, and thus doesn’t require use of the _T macro. Zero is an accommodating constant; it adapts to lvalues of any size.
 
-The PATHNAME type is an imperfect solution to the file name problem. If MAX_PATH changes, as well it might, we must recompile the application. 
+The PATHNAME type is an imperfect solution to the file name problem. If MAX_PATH changes, as well it might, we must recompile the application.
 
 Beware of URLs, which are not subject to the MAX_PATH limit. The wininet.h header file defines the following (arbitrary) constants:
 
@@ -172,19 +179,21 @@ Beware of URLs, which are not subject to the MAX_PATH limit. The wininet.h heade
 #define INTERNET_MAX_URL_LENGTH         (INTERNET_MAX_SCHEME_LENGTH \
                                         + sizeof("://") \
                                         + INTERNET_MAX_PATH_LENGTH)
+```
 
 ### dim
 
 The dim macro is defined in common.h, as follows:
 
-```
-#define dim( x ) (sizeof( x ) / sizeof( ( x )[ 0 ](-0-) ))
 ```C++
+#define dim( x ) (sizeof( x ) / sizeof( ( x )[ 0 ](-0-) ))
+```
+
 It is handy for figuring out the number of elements in an array. TextEdit uses this macro a lot with strings, as this is crucial for Unicode builds. For an ANSI build, the dim of a character array is equal to its sizeof; for a Unicode build, dim is half of its sizeof.
 
-###  PRIVATE
+### PRIVATE
 
-C and C++ use the static keyword for several different things. When a variable declaration is static at function or class scope, or a function declaration is static at class scope, it means that the variable is global (albeit with limited visibility), as opposed to being allocated on the stack or as part of a class instance. When a variable or function declaration is static at file scope, it means that the variable is private to the current compilation unit. 
+C and C++ use the static keyword for several different things. When a variable declaration is static at function or class scope, or a function declaration is static at class scope, it means that the variable is global (albeit with limited visibility), as opposed to being allocated on the stack or as part of a class instance. When a variable or function declaration is static at file scope, it means that the variable is private to the current compilation unit.
 
 Since the semantics of these uses of static are unrelated, I’ve created the **PRIVATE** macro, which I use for the latter meaning. The **PRIVATE** macro is also defined in **common.h**.
 

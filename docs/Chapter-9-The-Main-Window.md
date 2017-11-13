@@ -1,5 +1,7 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: Child Windows](Chapter-8-Child-Windows.md) — [Next: Customization and Persistence »](Chapter-10-Customization-and-Persistence.md)
+
 # Chapter 9: The Main Window
 
 The **mainWndProc** function (in mainwnd.cpp) implements the window function for TextEdit’s main window, and is the central switchboard of TextEdit. To do the switching, it employs the message cracker macros in windowsx.h. Even though mainWndProc contains the big switch statement of traditional window functions, the `HANDLE_MSG` macro delegates each message to an appropriate handler function in a – sort of – type-safe manner. At least the programmer doesn’t need to worry about the parameter packing for the various messages. Furthermore, the macros are portable between Win16 and Win32. This is particularly important for messages such as `WM_COMMAND`, where the parameter packing changed.
@@ -11,7 +13,6 @@ The onCommand handler function is a switchboard within a switchboard. In the sam
 One surprise is the existence of both `ID_EDIT_FINDNEXT`, which is on the menu, and `ID_ACCEL_FINDNEXT`, which is the command sent by the accelerator key F3. Yet both commands map to the onEditFindNext function. How come?
 
 The reason is that the menu command “Find Next” is disabled when no previous search exists. If F3 mapped to `ID_EDIT_FINDNEXT`, this accelerator key would also be disabled. I do want it to do something, though: behave as though `ID_EDIT_FIND` had been selected. This is handled easily enough in onEditFindNext; the whole point of using two command IDs is to avoid disabling the accelerator merely because the menu item is disabled.
-
 
 Some command handlers are pure debug scaffolding: onDivideByZero, onAccessViolation, onOutOfMemory and onStackOverflow. Their only purpose is to exercise the exception handling; they are excluded from release builds.
 
@@ -25,13 +26,14 @@ public:
 };
 
 PRIVATE void onAccessViolation( HWND ) {
-   
+
    TestClass testClass;
 
-   lstrcpy( 0, _T( "uh-oh!" ) ); // No exception 
+   lstrcpy( 0, _T( "uh-oh!" ) ); // No exception
    _tcscpy( 0, _T( "uh-oh!" ) ); // Exception
 }
 ```
+
 My first implementation of onAccessViolation used lstrcpy to force an access violation. This failed though, in the sense that it didn’t fail. The access violation is caught in the bowels of lstrcpy, which just fails quietly. This kind of “error handling” is an abomination; while it certainly protects the program from crashing, it also protects the programmer from noticing what is certain to be a bug in the program. It certainly doesn’t protect the program from working incorrectly.
 
 ## The Clipboard User Interface
@@ -55,11 +57,13 @@ At any rate, mainwnd.cpp has a static variable `s_hwndNextClipboardViewer` to do
 ```C++
 s_hwndNextClipboardViewer = SetClipboardViewer( hwnd );
 ```
+
 The window is unhooked from the chain again in onDestroy:
 
 ```C++
 ChangeClipboardChain( hwnd, s_hwndNextClipboardViewer );
 ```
+
 Once registered as a clipboard viewer, the window receives `WM_DRAWCLIPBOARD` messages whenever the clipboard contents change:
 
 ```C++
@@ -71,29 +75,31 @@ PRIVATE void onDrawClipboard( HWND hwnd ) {
    enablePaste( hwnd );
 }
 ```
+
 The **enablePaste** function is responsible for actually enabling and disabling the paste command. Its implementation is trivial; the trick lies in calling it at the right time. The onDrawClipboard function takes care of this.
 
 The hairiest part of clipboard viewerhood is handling someone else’s unhooking from the chain. If the window just below us in the chain – `s_hwndNextClipboardViewer` – is bailing out, we must update the `s_hwndNextClipboardViewer` variable with the next window down the chain. If not, we just forward the `WM_CHANGECBCHAIN` message to `s_hwndNextClipboardViewer`:
 
 ```C++
 PRIVATE void onChangeCBChain(
-	HWND hwnd, HWND hwndRemove, HWND hwndNext ) 
+    HWND hwnd, HWND hwndRemove, HWND hwndNext )
 {
    if ( s_hwndNextClipboardViewer == hwndRemove ) {
       s_hwndNextClipboardViewer = hwndNext;
    } else {
-      FORWARD_WM_CHANGECBCHAIN( s_hwndNextClipboardViewer, 
+      FORWARD_WM_CHANGECBCHAIN( s_hwndNextClipboardViewer,
          hwndRemove, hwndNext, SNDMSG );
    }
 }
 ```
+
 An interesting experiment is to remove the forwarding of `WM_DRAWCLIPBOARD`, then start the clipboard viewer, then start TextEdit. The clipboard viewer is now essentially blind to changes of the clipboard contents! As I said, the design of the clipboard viewer chain is asking for trouble.
 
 ## Persistence in the Main Window
 
 TextEdit stores information about the position and size of the window used to edit a given file. That way, we can restore the window to the same position and size the next time that file is edited. The Editor::saveState method is responsible for – you guessed it – saving the state.
 
-Many applications save state information of one kind or another, and a common approach is to save the state when the application exits. If the application (or the whole system) crashes, the state information is, unfortunately, lost. 
+Many applications save state information of one kind or another, and a common approach is to save the state when the application exits. If the application (or the whole system) crashes, the state information is, unfortunately, lost.
 
 TextEdit saves state information for the window whenever said state information has changed. When that happens, we get `WM_SIZE`, `WM_MOVE` or `WM_SYSCOMMAND` messages. The natural thing to do would be to call saveState in response to these messages, but with full-window dragging, this can slow things down so much that the dragging gets noticeably more jerky. To avoid this problem, we start a half-second timer instead, and call saveState in response to the firing of the timer. The timer is reset on every new state-changing message, so state is only saved when the user stops dragging the window or pauses for more than half a second.
 
@@ -107,9 +113,9 @@ Chapter 10 explains how to create persistent variables using the registry. The D
 
 To support file drag and drop, a window must do three things:
 
-# Call DragAcceptFiles( hwnd, TRUE ) at startup time
-# Call DragAcceptFiles( hwnd, FALSE ) at destruction time
-# Handle the `WM_DROPFILES` message.
+* Call DragAcceptFiles( hwnd, TRUE ) at startup time
+* Call DragAcceptFiles( hwnd, FALSE ) at destruction time
+* Handle the `WM_DROPFILES` message.
 
 Handling the message is a matter of calling DragQueryFile (perhaps several times), then calling DragFinish. Since TextEdit is an SDI application, we must settle the question of how to handle dropping of multiple files – we obviously can’t open them all in the same application instance. TextEdit solves this in a manner similar to how it opens multiple files on the command line: It takes the first file for itself, and sends the rest to startInstance:
 
@@ -135,7 +141,7 @@ PRIVATE void onDropFiles( HWND hwnd, HDROP hdrop ) {
 
 ## Menu Management
 
-TextEdit handles two messages that properly fall under the heading of menu management: `WM_INITMENU` and `WM_MENUSELECT`. 
+TextEdit handles two messages that properly fall under the heading of menu management: `WM_INITMENU` and `WM_MENUSELECT`.
 
 The `WM_INITMENU` message is sent just before a menu drops down, and is intended to let you adjust menu items – enabling, disabling, checking and unchecking are typical chores. Since drop-down menus aren’t visible all the time, it is sufficient to do this just before the menu opens, and usually easier, too. The toolbar is more of a problem. It is always visible, and demands immediate gratification.
 
@@ -164,7 +170,7 @@ Different instances of TextEdit communicate using the `WM_APP` message. During s
 
 ## Changing User Settings
 
-Windows broadcasts `WM_SYSCOLORCHANGE` or `WM_SETTINGCHANGE` messages whenever the user changes the customization of the Windows GUI. Handling `WM_SYSCOLORCHANGE` is straightforward; `WM_SETTINGCHANGE` is more complex. The language may have changed, so the menu bar must be redrawn. Font sizes may have changed; this may require recalculating the layout. The status bar uses the currently defined menu font (see the MenuFont class), and the toolbar uses large icons if the size of the menu font is above a certain threshold. 
+Windows broadcasts `WM_SYSCOLORCHANGE` or `WM_SETTINGCHANGE` messages whenever the user changes the customization of the Windows GUI. Handling `WM_SYSCOLORCHANGE` is straightforward; `WM_SETTINGCHANGE` is more complex. The language may have changed, so the menu bar must be redrawn. Font sizes may have changed; this may require recalculating the layout. The status bar uses the currently defined menu font (see the MenuFont class), and the toolbar uses large icons if the size of the menu font is above a certain threshold.
 
 Many applications, such as the Windows Explorer, don’t change the font in the status bar to reflect changes in the user’s preferences. I find this rather strange.
 

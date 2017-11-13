@@ -28,4 +28,5 @@ I'm posting an entire book here, in the hope that this will provide sufficient d
 ![](Home-pisw.jpg)
 
 The logo, by the way, was made with [Microsoft Expression Design 2.](http://www.microsoft.com/expression/products/Overview.aspx?key=design)
+
 [Further info about me.](http://petterhesselberg.com/)

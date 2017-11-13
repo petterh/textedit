@@ -1,5 +1,7 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: Designing for Programmers](Chapter-3-Designing-for-Programmers.md) — [Next: The Bare Bones »](Chapter-5-The-Bare-Bones.md)
+
 # Chapter 4: The Mechanics of Subclassing
 
 In an ideal world, at least for C++ programmers, Windows would be C++ throughout. Subclassing a window would be a matter of subclassing a C++ class, creating a window would be a matter of invoking the window’s constructor, message handling would be a matter of overriding virtual functions.
@@ -12,7 +14,7 @@ Window subclassing is subversion, pure and simple. When you subclass a window, y
 
 There are many reasons for subclassing. The most obvious reason is that you want to modify the behavior of existing windows, as I do in this chapter. Less obvious, perhaps, is subclassing in order to listen in on the message traffic. A toolbar might subclass its parent, for example, in order to listen for WM_SIZE messages. The TextEdit toolbar subclasses the main TextEdit window for this reason, and to let it catch its own notification messages. This makes it more of a self-contained widget.
 
-The ToolTip control will subclass its parent if you ask it to, in order to spy on its mouse messages. This saves your window from having to forward all mouse messages to the ToolTip window. 
+The ToolTip control will subclass its parent if you ask it to, in order to spy on its mouse messages. This saves your window from having to forward all mouse messages to the ToolTip window.
 
 Subclassing comes in several variants: Instance subclassing (a.k.a. local subclassing), global subclassing and class cloning (a.k.a. superclassing).
 
@@ -28,8 +30,8 @@ When a dialog’s **WM_INITDIALOG** message handler is invoked, all the edit con
 
 Building the InstSub example is a two-step process:
 
-# rc InstSub.rc
-# cl InstSub.cpp InstSub.res user32.lib
+* rc InstSub.rc
+* cl InstSub.cpp InstSub.res user32.lib
 
 In spite of its overwhelming simplicity, InstSub illustrates several points:
 
@@ -79,7 +81,7 @@ CAPTION "Class Cloning"
 FONT 8, "MS Sans Serif"
 {
    LTEXT    "&Numbers:",-1,7,9,31,8
-   CONTROL  "",IDC_NUMBERS,"NumericEdit", 
+   CONTROL  "",IDC_NUMBERS,"NumericEdit",
             WS_BORDER | WS_TABSTOP | ES_AUTOHSCROLL | WS_GROUP,
             44,7,88,14
    LTEXT    "&Anything:",-1,7,27,30,8
@@ -96,8 +98,8 @@ FONT 8, "MS Sans Serif"
 
 static WNDPROC s_savedEditWndProc;
 
-static LRESULT CALLBACK newEditWndProc( 
-   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) 
+static LRESULT CALLBACK newEditWndProc(
+   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
    switch ( msg ) {
    case WM_CHAR:
@@ -111,17 +113,17 @@ static LRESULT CALLBACK newEditWndProc(
       break;
    }
 
-   return CallWindowProc( 
+   return CallWindowProc(
       s_savedEditWndProc, hwnd, msg, wParam, lParam );
 }
 
-static BOOL CALLBACK dlgFunc( 
-   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) 
+static BOOL CALLBACK dlgFunc(
+   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
    switch ( msg ) {
    case WM_INITDIALOG:
-      s_savedEditWndProc = (WNDPROC) SetWindowLong( 
-         GetDlgItem( hwnd, IDC_NUMBERS ), 
+      s_savedEditWndProc = (WNDPROC) SetWindowLong(
+         GetDlgItem( hwnd, IDC_NUMBERS ),
          GWL_WNDPROC, (LONG) newEditWndProc );
       break;
    case WM_COMMAND:
@@ -141,7 +143,7 @@ int APIENTRY WinMain( HINSTANCE hinst, HINSTANCE, LPSTR, int ) {
 
 ## Global Subclassing
 
-**Global subclassing** means changing elements of a window class structure using SetClassLong. In the GlobSub sample, we replace the window function. A new window’s window function is initialized from the class structure when the window is created. Accordingly, existing windows are unaffected by global subclassing, but all new windows of that particular class are affected. 
+**Global subclassing** means changing elements of a window class structure using SetClassLong. In the GlobSub sample, we replace the window function. A new window’s window function is initialized from the class structure when the window is created. Accordingly, existing windows are unaffected by global subclassing, but all new windows of that particular class are affected.
 
 The GlobSub example in Listing 7 uses the same resource file as the InstSub example.
 
@@ -158,8 +160,8 @@ The dialog box function no longer handles WM_INITDIALOG. The numeric input edit 
 
 static WNDPROC s_savedEditWndProc;
 
-static LRESULT CALLBACK newEditWndProc( 
-   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) 
+static LRESULT CALLBACK newEditWndProc(
+   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
    switch ( msg ) {
    case WM_CHAR:
@@ -169,12 +171,12 @@ static LRESULT CALLBACK newEditWndProc(
       break;
    }
 
-   return CallWindowProc( 
+   return CallWindowProc(
       s_savedEditWndProc, hwnd, msg, wParam, lParam );
 }
 
-static BOOL CALLBACK dlgFunc( 
-   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) 
+static BOOL CALLBACK dlgFunc(
+   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
    if ( WM_COMMAND == msg && HIWORD( wParam ) == BN_CLICKED ) {
       EndDialog( hwnd, 0 );
@@ -184,9 +186,9 @@ static BOOL CALLBACK dlgFunc(
 
 int APIENTRY WinMain( HINSTANCE hinst, HINSTANCE, LPSTR, int ) {
 
-   HWND hwndEdit = CreateWindow( "edit", "", 
+   HWND hwndEdit = CreateWindow( "edit", "",
       WS_POPUP, 0, 0, 0, 0, HWND_DESKTOP, (HMENU) 0, hinst, 0 );
-   s_savedEditWndProc = (WNDPROC) SetClassLong( 
+   s_savedEditWndProc = (WNDPROC) SetClassLong(
       hwndEdit, GCL_WNDPROC, (LONG) newEditWndProc );
    DestroyWindow( hwndEdit );
 
@@ -197,7 +199,7 @@ int APIENTRY WinMain( HINSTANCE hinst, HINSTANCE, LPSTR, int ) {
    };
    GetOpenFileName( &openFileName );
 
-   hwndEdit = CreateWindow( "edit", "", 
+   hwndEdit = CreateWindow( "edit", "",
       WS_POPUP, 0, 0, 0, 0, HWND_DESKTOP, (HMENU) 0, hinst, 0 );
    SetClassLong( hwndEdit, GCL_WNDPROC, (LONG) s_savedEditWndProc );
    DestroyWindow( hwndEdit );
@@ -208,7 +210,7 @@ int APIENTRY WinMain( HINSTANCE hinst, HINSTANCE, LPSTR, int ) {
 
 ## Class Cloning
 
-**Class cloning** means to register a new window class based on an existing class. Functionally, it is a variant of global subclassing, but since you must register the cloned class under a new name, you have some control over which windows are subclassed. The Clone example clones the edit control to create a class named NumericEdit. In the resource file, I explicitly set the control class of the numeric entry field to NumericEdit rather than edit (see Listing 5). 
+**Class cloning** means to register a new window class based on an existing class. Functionally, it is a variant of global subclassing, but since you must register the cloned class under a new name, you have some control over which windows are subclassed. The Clone example clones the edit control to create a class named NumericEdit. In the resource file, I explicitly set the control class of the numeric entry field to NumericEdit rather than edit (see Listing 5).
 
 If we fail to register a class named NumericEdit before instantiating the dialog box, said dialog box will fail to load, and the DialogBox function will return -1. (This is the default behavior, which can be overridden by applying the **`DS_NOFAILCREATE`** dialog style.)
 
@@ -223,8 +225,8 @@ It isn’t mandatory to change the window function during class cloning. Sometim
 
 static WNDPROC s_savedEditWndProc;
 
-static LRESULT CALLBACK newEditWndProc( 
-   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) 
+static LRESULT CALLBACK newEditWndProc(
+   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
    switch ( msg ) {
    case WM_CHAR:
@@ -234,12 +236,12 @@ static LRESULT CALLBACK newEditWndProc(
       break;
    }
 
-   return CallWindowProc( 
+   return CallWindowProc(
       s_savedEditWndProc, hwnd, msg, wParam, lParam );
 }
 
-static BOOL CALLBACK dlgFunc( 
-   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) 
+static BOOL CALLBACK dlgFunc(
+   HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
    if ( WM_COMMAND == msg && HIWORD( wParam ) == BN_CLICKED ) {
       EndDialog( hwnd, 0 );
@@ -260,7 +262,7 @@ int APIENTRY WinMain( HINSTANCE hinst, HINSTANCE, LPSTR, int ) {
 }
 ```
 
-Thus endeth the subclassing tutorial. That’s all there is to it, really, except for various esoteric techniques used to subclass windows in other processes, which I won’t go into. 
+Thus endeth the subclassing tutorial. That’s all there is to it, really, except for various esoteric techniques used to subclass windows in other processes, which I won’t go into.
 
 The next section presents the code that TextEdit uses to accomplish instance and global subclassing. The code uses other classes that I haven’t described yet. For now, I’ll just use the String and Exception classes without further ado; I’ll go into more detail about them in Chapters [5](Chapter-5-The-Bare-Bones.md) and [6](Chapter-6-Exceptions.md).
 
@@ -275,7 +277,7 @@ Curiously, SetClassLong and GetClassLong are both prototyped as returning DWORDs
 
 ## General Mechanism for Instance Subclassing
 
-The biggest problem with the InstSub example was the static storage of the old window function. A subclassing function that applies yellow backgrounds, for example, could conceivably be used both for edit controls and list boxes. Then you’d have to store two different pointers to two old window functions – rather difficult to do in a single static variable, and even if you used two, how would you know them apart? In a general solution, the pointer to the old window function must somehow be associated with the window handle itself. 
+The biggest problem with the InstSub example was the static storage of the old window function. A subclassing function that applies yellow backgrounds, for example, could conceivably be used both for edit controls and list boxes. Then you’d have to store two different pointers to two old window functions – rather difficult to do in a single static variable, and even if you used two, how would you know them apart? In a general solution, the pointer to the old window function must somehow be associated with the window handle itself.
 
 In a general solution, other properties are desirable as well:
 
@@ -301,7 +303,7 @@ GetWindowLong( hwnd, GWL_USERDATA );
 against
 
 ```C++
-GetProp( hwnd, “test” ); 
+GetProp( hwnd, “test” );
 ```
 
 verifies this. When I used an atom instead of the string for the property name, however, the tables were turned. Now GetProp was actually faster than GetWindowLong, at least on a Windows NT 4.0 window with a single property. In truth, though, this is a rather moot point – I’ve implemented subclassing using all these techniques, and efficiency has never been a noticeable problem.
@@ -321,9 +323,9 @@ public:
 
 This allows subclassing and unsubclassing with gay abandon, provided you stick to using InstanceSubclasser. You’re still vulnerable to “foreign” subclassings, though, and no perfect solution exists to deal with this particular problem.
 
-The head of the list can now be attached to the window using a single window property, or it can be maintained in a static table. 
+The head of the list can now be attached to the window using a single window property, or it can be maintained in a static table.
 
-One advantage of using static storage is encapsulation – window properties are exposed to the rest of the world, and it is within the realm of possibility that some Bad Person will steal our property. Another advantage is that we won’t leak window properties if something gets screwed up. One example of a screw-up is when somebody else subclasses after us, then fails to get out of the way before WM_DESTROY or WM_NCDESTROY. 
+One advantage of using static storage is encapsulation – window properties are exposed to the rest of the world, and it is within the realm of possibility that some Bad Person will steal our property. Another advantage is that we won’t leak window properties if something gets screwed up. One example of a screw-up is when somebody else subclasses after us, then fails to get out of the way before WM_DESTROY or WM_NCDESTROY.
 
 In spite of the above, InstanceSubclasser uses a window property to store the head of the subclassing list. Perhaps this is only old habit on my part, but it feels more “right” in some sense.
 
@@ -350,10 +352,10 @@ As I mentioned at the start of this chapter, creating a C++ wrapper for a HWND i
 * The process of destroying a window is unrelated to the C++ destructor. You can ask Windows to destroy a HWND for you, but you can’t, in general, invoke a C++ destructor from the WM_DESTROY handler. The C++ object must be able to exist without an attached HWND.
 * You must deal with system-defined windows such as controls. If you don’t use any of those, you can create your own little OO world, but you will also throw away many of the benefits of using Windows in the first place. In such a universe, there would be only one window function in the traditional Windows sense.
 
-Mapping a C++ object to a HWND is trivial; all you have to do is include a HWND member variable in the class definition. Going in the opposite direction, from a HWND to a C++ object, you have the same options that we had with InstanceSubclasser: Some kind of static storage, window words or window properties. 
+Mapping a C++ object to a HWND is trivial; all you have to do is include a HWND member variable in the class definition. Going in the opposite direction, from a HWND to a C++ object, you have the same options that we had with InstanceSubclasser: Some kind of static storage, window words or window properties.
 
 (Actually, there is another option: You can dynamically generate a code stub that calls a member function, then install this code stub as the window function. Microsoft’s Active Template Library (ATL) uses a mechanism based on this elegant principle. The solution’s main drawback is that it is necessarily processor-dependent. As a curious side effect, all window instances have different window functions, even if they are of the same class.)
- 
+
 Microsoft Foundation Classes (MFC) maintains a mapping table between HWNDs and CWnds. Something like this is probably necessary, given that MFC attempts to hide the HWND completely. If you call CWnd::FromHandle, for example, you receive a pointer to a CWnd object. The function searches the mapping table, and if it finds the HWND, it returns the address of the corresponding CWnd object. If not, it creates a new CWnd object for you. Since you don’t know whence it came, you a) cannot delete it, and b) cannot store it for later use. MFC itself keeps track of which CWnds are temporary and deletes them on idle cycles. This is either weird and wonderful, or it’s just weird; take your pick.
 
 The main problem with global mapping tables is something else, though. If you maintain a single global table, you need to provide thread-safe access, with the overhead that entails. If you use Thread Local Storage (TLS) to maintain one table per thread, as MFC does, you run into problems if you share CWnd objects between threads.

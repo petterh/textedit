@@ -1,5 +1,7 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: File Management](Chapter-13-About-Dialogs.md) — [Next: Search and Replace »](Chapter-15-Search-and-Replace.md)
+
 # Chapter 14: File Management
 
 File management in the context of TextEdit is the management of a single file. It includes the ability to change file attributes such as the read-only flag, it includes renaming and repositioning of the file, and it includes deleting the file (and, incidentally, closing TextEdit).
@@ -26,13 +28,13 @@ The Move/Rename dialog allows you to change the file name as well as the file lo
 
 You can change the file attributes Read Only, Hidden, Archive and Compressed; the System attribute is read-only. I followed Windows Explorer’s lead in this; presumably, Microsoft’s designers felt that the average user shouldn’t mess with such things. Maybe so.
 
-The Compressed attribute is different from the others: A “traditional” file attribute is just a flag in the file’s directory entry, to be set or cleared using SetFileAttributes (see modifyAttribs in fileUtils.cpp). Compression, on the other hand, actually mangles the file’s contents. To compress or uncompress a file, you must use the DeviceIoControl function (see compressFile in fileUtils.cpp). 
+The Compressed attribute is different from the others: A “traditional” file attribute is just a flag in the file’s directory entry, to be set or cleared using SetFileAttributes (see modifyAttribs in fileUtils.cpp). Compression, on the other hand, actually mangles the file’s contents. To compress or uncompress a file, you must use the DeviceIoControl function (see compressFile in fileUtils.cpp).
 
 Compression of individual files is not supported on all file systems. In particular, it is not supported on FAT volumes. The Compressed check box should be enabled only if the underlying file system supports compression; this can be determined by the GetVolumeInformation function (see supportsCompression in fileUtils.cpp).
 
 The Unicode and CR/LF “attributes” are even more different from the others, as they aren’t properties of the file system at all, but functions of the file’s contents. Changing these quasi-properties set or clear appropriate flags in the Document class; these flags determine how the file is saved.
 
-The Properties dialog does not apply any changes until you click the Apply button or the OK button. Both of these invoke the applyChanges method in PropertiesDlg. In addition to applying changes, this method forwards an ID_COMMAND_PROPSCHANGED command to the parent window, which allows the main window to change whatever UI elements need changing – the file name displayed in the window title, read-only status and so forth. 
+The Properties dialog does not apply any changes until you click the Apply button or the OK button. Both of these invoke the applyChanges method in PropertiesDlg. In addition to applying changes, this method forwards an ID_COMMAND_PROPSCHANGED command to the parent window, which allows the main window to change whatever UI elements need changing – the file name displayed in the window title, read-only status and so forth.
 
 If you can’t change a file’s properties – if it’s on a CD-ROM or a write-protected floppy, or if you don’t have write access – everything except the Cancel button is disabled by the onInitDialog method.
 
@@ -88,7 +90,7 @@ The Open File and Save File common dialogs are little Explorers in their own rig
 
 **Figure 20: The Open File Dialog.** The extra controls on the right come from the dialog template IDD_PREVIEW_CHILD.
 
-You change the look of most common dialogs by specifying a resource template that replaces the default dialog. The Open and Save dialogs are exceptions; you specify, instead, the template of a child dialog that is added to the system-supplied dialog. The template must have the WS_CHILD style bit set, and it should include a static control with the ID stc32. This is a placeholder for the system-supplied dialog, and tells GetOpenFileName and GetSaveFileName how to place the child dialog in relation to predefined controls. Figure 21 shows the child dialog (IDD_PREVIEW_CHILD); its relationship to Figure 20 should be clear. 
+You change the look of most common dialogs by specifying a resource template that replaces the default dialog. The Open and Save dialogs are exceptions; you specify, instead, the template of a child dialog that is added to the system-supplied dialog. The template must have the WS_CHILD style bit set, and it should include a static control with the ID stc32. This is a placeholder for the system-supplied dialog, and tells GetOpenFileName and GetSaveFileName how to place the child dialog in relation to predefined controls. Figure 21 shows the child dialog (IDD_PREVIEW_CHILD); its relationship to Figure 20 should be clear.
 
 ![](Chapter-14-File-Management-Figure21.bmp)
 
@@ -100,7 +102,7 @@ You change the look of most common dialogs by specifying a resource template tha
 
 The file openDlgCommon.cpp defines everything the Open and Save dialogs have in common. Aside from fixing the problem described in the sidebar “Open File Common Dialog Bug,” the code here is mostly concerned with handling filter strings – the strings that go into the combo box labeled “File Type” in Figure 20. As we shall see, this is a rather convoluted business.
 
-The lpstrFilter member of the OPENFILENAME structure points to a string defining the predefined filter entries. (“Predefined?” I hear you ask. Well, there is a member named lpstrCustomFilter as well, which I’ll get back to in a moment.) Each combo box entry is defined by two strings – the text that appears in the drop-down list, and the corresponding wildcard pattern. Each of these sub-strings is null-terminated. For example: 
+The lpstrFilter member of the OPENFILENAME structure points to a string defining the predefined filter entries. (“Predefined?” I hear you ask. Well, there is a member named lpstrCustomFilter as well, which I’ll get back to in a moment.) Each combo box entry is defined by two strings – the text that appears in the drop-down list, and the corresponding wildcard pattern. Each of these sub-strings is null-terminated. For example:
 
 {{   Batch Files\0**.bat;**.cmd\0}}
 
@@ -114,13 +116,13 @@ There is a problem with this: The filter strings are stored in a string table re
 
 {{   Batch Files|**.bat;**.cmd|All Files|**.**|}}
 
-The bars are translated to nulls in the getFilterList function. 
+The bars are translated to nulls in the getFilterList function.
 
 So much for lpstrFilter. Another member of OPENFILENAME, nFilterIndex, determines which combo box entry is selected. You can set it before opening the dialog; after the dialog has closed, nFilterIndex reflects any changes the used may have made.
 
 This index is not zero-based, but one-based. This has to do with the lpstrCustomFilter member of OPENFILENAME. Before opening the dialog, I point this to a buffer (szCustomFilter) and supply the length of that buffer in the nMaxCustFilter member. Now, if the user types a wild-card pattern (e.g., “letter**.txt”) rather than selecting one from the drop-down, szCustomFilter will reflect this after the dialog has closed. By saving the contents of szCustomFilter, we can add “letter**.txt” to the drop-down list the next time the dialog is invoked. That’s why nFilterIndex is not zero-based; zero means “select the custom filter supplied in lpstrCustomFilter.”
 
-To complicate things even more, TextEdit checks to see if the custom pattern matches one of the predefined patterns; if so, the index of the predefined pattern is saved, rather than zero. 
+To complicate things even more, TextEdit checks to see if the custom pattern matches one of the predefined patterns; if so, the index of the predefined pattern is saved, rather than zero.
 
 As I said, a convoluted business. A custom pattern is formatted with the IDS_CUSTOM string, which gives us file type entries like this:
 
@@ -138,7 +140,7 @@ To begin with, I customize the behavior of the dialog by pointing lpfnHook to op
 
 To get the currently selected file, the updatePreview function sends a CDM_GETFILEPATH message to the Open dialog. If the file is a link, this message returns the unresolved link name rather than the file the link references, so updatePreview must call resolveName. If I have a valid file name at this point, I display the head of the file and update the little icon in the upper right corner; if not, the variable s_bValid is set to false. This variable is checked in the WM_CTLCOLORSTATIC handler, so that the preview window gets a gray background when the file name is invalid.
 
-One thing is missing from this picture: The hook function is notified only when the file name changes as a result of selection in the list of files; it is not notified when the file name changes as a result of typing in the file name field. To catch those EN`_*` notifications, it is necessary to subclass the Open dialog itself. 
+One thing is missing from this picture: The hook function is notified only when the file name changes as a result of selection in the list of files; it is not notified when the file name changes as a result of typing in the file name field. To catch those EN`_*` notifications, it is necessary to subclass the Open dialog itself.
 
 It is possible that the hook function was meant to be a sufficient vehicle for customizing the dialog’s behavior. It doesn’t quite make the grade.
 

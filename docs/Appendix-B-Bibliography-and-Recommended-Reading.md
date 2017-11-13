@@ -1,8 +1,8 @@
-﻿# Programming Industrial Strength Windows
+﻿### Programming Industrial Strength Windows
 
 [« Previous: TextEdit Command Index](Appendix-A-TextEdit-Command-Index.md)
 
-## Appendix B: Bibliography and Recommended Reading
+# Appendix B: Bibliography and Recommended Reading
 
  _2008 update: Some of these recommendations are a bit outdated. I'll update this page when I get some spare time.
 
@@ -35,7 +35,7 @@ Much of this book concern pitfalls in pre-ANSI C, which does date it a bit. It s
 The following (perfectly portable) expression gives a flavor of the book; it evaluates to the hexadecimal character corresponding to x:
 
 ```C++
-"0123456789ABCDEF" [ x & 0xf ](-x-&-0xf-)
+"0123456789ABCDEF" [ x & 0xf ]
 ```
 
 ### Steve Maguire: Writing Solid Code. Microsoft Press 1994
@@ -56,9 +56,9 @@ This magazine is devoted to evangelizing the plethora of hot, new technologies t
 
 I maintain an army of random monkeys that bang away at my keyboard when I’m not using it. One of them came up with this:
 
-Programming Windows is simple
-When Petzold is at your side,
-To smooth over every pimple
+Programming Windows is simple\
+When Petzold is at your side,\
+To smooth over every pimple\
 And polish your program’s hide.
 
 I can’t improve on that; I only want to add that my 1996 edition is not the latest Petzold. The latest Petzold is much heavier than mine, and requires an industrial-strength wheelbarrow just to get it home from the bookstore.

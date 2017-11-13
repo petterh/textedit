@@ -1,12 +1,14 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: Meanwhile, in the Background](Chapter-19-Meanwhile-in-the-Background.md) — [Next: The End of the Road »](Chapter-21-The-End-of-the-Road.md)
+
 # Chapter 20: Setup, and Down Again
 
-Installation and setup of TextEdit is less of a chore than installation and setup of, say, Microsoft Office. TextEdit is distributed as a single file, rather than umpteen zillion. Still, a number of issues must be dealt with, including version control, registry entries, shortcuts to the application and how to uninstall cleanly. 
+Installation and setup of TextEdit is less of a chore than installation and setup of, say, Microsoft Office. TextEdit is distributed as a single file, rather than umpteen zillion. Still, a number of issues must be dealt with, including version control, registry entries, shortcuts to the application and how to uninstall cleanly.
 
-There are many ways to install programs under Windows, including manual file copying, batch files, various Windows APIs and the Windows 98/Windows 2000 installer. There is also a large number of installation-creating products that help you automate the process. 
+There are many ways to install programs under Windows, including manual file copying, batch files, various Windows APIs and the Windows 98/Windows 2000 installer. There is also a large number of installation-creating products that help you automate the process.
 
-The TextEdit installation is hand coded, mainly because I want to show you some of what’s happening behind the scenes. 
+The TextEdit installation is hand coded, mainly because I want to show you some of what’s happening behind the scenes.
 
 In its installation incarnation, TextEdit looks like Figure 39 when it starts.
 
@@ -23,11 +25,11 @@ Installation leaves traces in the registry, under the key **`HKEY_LOCAL_MACHINE\
 
 To start setup automatically on insertion of a CD, create a file named autorun.inf on the CD, with the following contents:
 
-{{
-[autorun](autorun) 
+```ini
+[autorun]
 open=setup.exe
-icon=setup.exe,5 
-}}
+icon=setup.exe,5
+```
 
 The first thing the setup dialog does is check for a previous installation. If it finds one, it compares the version number of the installed file with that of the running executable. If the installed file is newer than the running executable, the m_isOlderThanPrevious member of SetupDlg is set to true, and the Cancel button of Figure 39 is made the default button. If the user nevertheless clicks the Install button, a warning pops up.
 
@@ -84,17 +86,19 @@ IDR_HLP_FILE FILE DISCARDABLE "Help\\TextEdit.hlp"
 The copyResource function in SetupDlg.cpp uses the resource access API to copy a resource from the executable into a file. After you execute the following code, pData points to the first byte of TEXTEDIT.HLP:
 
 ```C++
-HRSRC hrsrc = FindResource( 
+HRSRC hrsrc = FindResource(
    0, MAKEINTRESOURCE( IDR_HLP_FILE ), _T( "FILE" ) );
 HGLOBAL hRes = LoadResource( 0, hrsrc );
 LPVOID pData = LockResource( hRes );
 ```
+
 When you’re done with pData, the following code frees up the resource:
 
 ```C++
 UnlockResource( hrsrc );
 FreeResource( hrsrc );
 ```
+
 …or does it? According to the documentation, UnlockResource is deprecated in Win32. Its definition bears this out – it’s a macro that simply evaluates its argument. A dummy, in other words.
 
 According to the documentation, FreeResource is also obsolete. In this case, however, the header file (winbase.h) serves up a function prototype rather than a dummy macro, so the obsolescence is less obvious. The documentation goes on to say that, in the case of accelerator tables, bitmaps, cursors, icons and menus, you should call the corresponding destructor function (DestroyAcceleratorTable, DeleteObject, DestroyCursor, DestroyIcon and DestroyMenu) when you’re done with them.
@@ -119,14 +123,14 @@ The currently recommended approach is to use the Add/Remove Programs applet in t
 
 Getting TextEdit into the list of removable programs is easy; we just have to add two entries to the registry, as follows:
 
-Under the key 
+Under the key
 
-{{
+```
 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\
    Windows\CurrentVersion\Uninstall
-}}
+```
 
-we create a new key for our application. It happens to be named TextEdit, but it doesn’t really matter what it’s called, it just needs to be unique. The name displayed in the list in Figure 41 is taken from one of the values under that key, named DisplayName. The other value is named UninstallString, and should contain the uninstall command: <program-path>\TextEdit.exe /setup.
+we create a new key for our application. It happens to be named TextEdit, but it doesn’t really matter what it’s called, it just needs to be unique. The name displayed in the list in Figure 41 is taken from one of the values under that key, named DisplayName. The other value is named UninstallString, and should contain the uninstall command: \<program-path\>\TextEdit.exe /setup.
 
 Note that the Add/Remove button in Figure 41 has an ellipsis after it, and that the text above the list includes “…remove a program or modify its installed components.” This means that uninstall may not barge ahead with its job; the least it must do is to ask the user if she really wants to do this potentially horrible thing. I once tried to modify the way a program was set up by clicking the Add/Remove button. The program softly and silently vanished away, and I got very upset. Believe me, you don’t want to put your users through such a painful ordeal.
 
@@ -143,4 +147,3 @@ In Chapter 2, I told you that the best user interfaces are invisible. Anything t
 In truth, SetupDlg violates that principle. I admit it; I dragged in those animations because they are cool, not because they serve any essential purpose. If these operations really were time-consuming, it would be a different matter, but they’re not – I had to put in extra Sleep statements to give the user time to see the animations!
 
 Under normal circumstances, I would have thrown out the extravaganzas. Given the time I spent fiddling with this, though, I felt it would be a shame to keep the results from my readers. If you need to do time-consuming stuff, this code may come in handy.
-

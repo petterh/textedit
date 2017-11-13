@@ -1,19 +1,20 @@
 ﻿### Programming Industrial Strength Windows
+
 [Next: The Road Ahead »](Chapter-1-The-Road-Ahead.md)
+
 # Introduction
 
-**“Error handling has been omitted for clarity.”**
+“**Error handling has been omitted for clarity.**”
 
 Too many times have I read that sentence in a programming book or article. Not that there’s anything inherently wrong with this; simplification is a legitimate teaching device. The problem is that the literature is terribly one-sided – it’s a rare gem that says, “error handling has been included to show how it’s done.” Many programmers never learn how to handle errors and anomalies. Even more chilling, some never realize that the issue exists. The results are all around us: robustness and reliability are rarely considered defining characteristics of software.
 
 This book gives you an understanding of what it takes to build industrial strength software – software that works reliably and robustly, software that doesn’t get between the user and his task. It will not bestow software nirvana upon you; indeed, no book ever could. That unattainable state of grace can only be approached through experience; the most a book can do is to help you get the right rather than the wrong kind of experience. My highest hope is that the book will inspire you to _care_ – about your users, about your profession and about getting the details right.
 
-
-The word _fragmentation_ is descriptive of much current computer literature. Many books use minimalist examples to illustrate various APIs and subsystems, and rarely draw things together into a coherent whole. Again, this is not necessarily a Bad Thing; many excellent books use this approach. 
+The word _fragmentation_ is descriptive of much current computer literature. Many books use minimalist examples to illustrate various APIs and subsystems, and rarely draw things together into a coherent whole. Again, this is not necessarily a Bad Thing; many excellent books use this approach.
 
 Unfortunately, it is not enough. When you assemble those fragments to create a full-blown application, their interaction gives rise to an exponential increase in complexity, and a myriad of details must be considered. This aspect of software construction is rarely covered, and the literature is left with a hole large enough to drive a truck-full of bugs through. Sadly, bugs and inconsistencies often are considered defining characteristics of computer software.
 
-In this book I’ve taken a more holistic approach: I built it around the development of a single application called TextEdit. I did this with a considerable amount of trepidation, though – TextEdit doesn’t have years of field-testing under its belt, so I worry that it will fail to work correctly. 
+In this book I’ve taken a more holistic approach: I built it around the development of a single application called TextEdit. I did this with a considerable amount of trepidation, though – TextEdit doesn’t have years of field-testing under its belt, so I worry that it will fail to work correctly.
 
 One purpose of the book is to induce the same feeling of uneasiness in you. Anything that can go wrong will most certainly do so, one time or another; so preaches the Gospel according to Murphy. In software development, this often translates as “whatever users can do, some user will do,” one time or another. Many developers suffer a failure of the imagination when confronted by this simple law of nature. In one application I tried recently, a numeric input field commendably refused to accept anything but digits. It did not object, however, when I _pasted_ non-digits, realizing too late that it was in mortal danger: “Run-time error 13!” it cried, and expired.
 
@@ -21,17 +22,15 @@ This kind of glitch is not necessarily dishonorable; we all make mistakes. But l
 
 Creating excellent software is difficult. No matter how hard you try, you will sometimes fail. The only sin is lack of trying; you owe it to yourself, as well as your users, to give it your best shot.
 
-
 Usability comes in chunks of different granularity. On a high level, you have issues such as the overall conceptual model – the Unified File Model versus the current standard model, for example, which I’ll cover in Chapter 2. On a lower level, you have issues such as where to place the widgets in a dialog box and how to label them. This level gets the most attention in Web design, for example. On the detail level, you have a huge number of issues concerning efficient “flow,” i.e., smooth interaction. This concept is virtually unknown in Web design. Using default buttons correctly is one aspect of this that I’ll return to several times throughout the book.
 
 Efficient flow of information ought to receive much more consideration during software design, but the current state of the World Wide Web is proof that it rarely receives any consideration at all. Does the user really need that animated deodorant on his desk, or would your development effort be better spent ensuring that the user can get his work done efficiently and effectively, or that his data are never lost?
 
-
-The book is divided into two parts of unequal size. Part I is called Background, and does not concern itself much with TextEdit, but with general guiding principles for the design and implementation of computer programs. Part II is called Foreground, and is the largest by far. It is mostly concerned with the implementation details of TextEdit. 
+The book is divided into two parts of unequal size. Part I is called Background, and does not concern itself much with TextEdit, but with general guiding principles for the design and implementation of computer programs. Part II is called Foreground, and is the largest by far. It is mostly concerned with the implementation details of TextEdit.
 
 ## Who Should Read This Book?
 
-If you are a programmer with some knowledge of C++ and some Windows experience, this book is for you. If you don’t know what a C++ class is, or if you have never heard of **WinMain** or window functions, you should read some introductory material first. This book doesn't cover the basics. 
+If you are a programmer with some knowledge of C++ and some Windows experience, this book is for you. If you don’t know what a C++ class is, or if you have never heard of **WinMain** or window functions, you should read some introductory material first. This book doesn't cover the basics.
 
 It does, however, cover many aspects of application design, target platform and implementation language selection, usability issues and a myriad implementation details, including error handling and recovery, installation, internationalization and registry handling. Along the way, I touch upon enough programming issues to make this book interesting for programmers at many levels of experience. Both neophytes and experienced Windows programmers will find things of interest here.
 
@@ -50,6 +49,7 @@ if ( x == y )
    ++x;
    --y;
 ```
+
 I wowed that this bug would never bite me again, and it hasn’t. Yet.
 
 **When comparing for equality, I always put the constant (if any) on the left-hand side.** In the past, I’ve been caught more than once by unintended assignments:
@@ -59,6 +59,7 @@ if ( variable = CONSTANT ) {
    ...
 }
 ```
+
 If you switch variable and CONSTANT, the assignment above generates a compilation error, as CONSTANT is not an l-value.
 
 What these examples have in common is that they prevent bugs. Some aspects of coding style are matters of preference – it’s unimportant whether you indent your code with three or four spaces. If you do not indent your code at all, however, it matters a great deal, since such formatting fails to reflect the logical structure of the program.
@@ -69,9 +70,7 @@ All function and method names start with a lower-case character. This is a resul
 
 For a deeper discussion of coding styles, I recommend Steve McConnel’s Code Complete. In particular, pay attention to the way he clearly formulates goals for a set of coding conventions. For example, the code should clearly reflect the logical structure of the program, it should be readable, it should be maintainable (not necessarily the same thing), and it should prevent bugs.
 
-
 When I refer to a _method_, I invariably mean a non-static member function of some class. Everything else is a function.
-
 
 TextEdit was developed using version 6 of Microsoft Visual C++. While the text reflects that fact on occasion, the book is meant to be compiler-independent. In particular, it is not a book about Visual C++.
 

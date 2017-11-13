@@ -1,5 +1,7 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: File Management](Chapter-14-File-Management.md) — [Next: Printing »](Chapter-16-Printing.md)
+
 # Chapter 15: Search and Replace
 
 Windows offers a common dialog for straight searching and for search and replace. I have a strong dislike for this dialog. I dislike the modelessness of it, I dislike the simple edit field for the search string, and I dislike the dim-witted way it paints a default border on a disabled button (see Figure 22). Above all, I dislike the API, which is an invitation to spread related functionality around all the dark corners of a program.
@@ -53,11 +55,11 @@ As for all other dialogs, Dialog::dispatchDlgMsg takes care of the initial place
 
 ## Persistence
 
-FindDlg has a memory. We’ve already seen how it remembers its position; it also remembers the ten most recently used search strings, the status of the “Match whole word only” and “Match case” checkboxes, and the search direction (up or down). 
+FindDlg has a memory. We’ve already seen how it remembers its position; it also remembers the ten most recently used search strings, the status of the “Match whole word only” and “Match case” checkboxes, and the search direction (up or down).
 
 The list of recently used search strings is read from the registry by the loadStrings method and saved to the registry by the saveStrings method. This “historical combobox” has a close kinship with the list of recently used files discussed in [Chapter 10](Chapter-10-Customization-and-Persistence.md), but is actually simpler in its implementation. How so? In addition to being a GUI component, a drop-down list box (or any list box, for that matter) can also be thought of as part of your data structure. Not only can you put strings into it; you can get them out again as well. Here’s another design principle:
 
-**“Don’t duplicate data storage.”**
+“**Don’t duplicate data storage.**”
 
 If your program maintains a list of strings, and a list box maintains a putatively identical list of strings, it is, for one thing, wasteful. (This not an issue in our case, but sometimes it is.) More important than waste is that dual storage affords inconsistencies an opportunity to creep in. If you make a habit out of violating this principle, it will turn around and bite you, sooner rather than later.
 

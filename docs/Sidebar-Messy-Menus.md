@@ -1,10 +1,12 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Back: The Main Window](Chapter-9-The-Main-Window.md)
+
 ## Sidebar:  Messy Menus
 
-The keyboard interface to the menu has its problems. Hold down the Alt key, press F, and the File menu pops up (or rolls down, whichever you prefer). Don’t let go of that Alt key yet; look instead at the line that says “Properties… Alt`+`Enter.” 
+The keyboard interface to the menu has its problems. Hold down the Alt key, press F, and the File menu pops up (or rolls down, whichever you prefer). Don’t let go of that Alt key yet; look instead at the line that says “Properties… Alt`+`Enter.”
 
-Now imagine the neophyte with his Alt key down, looking at Figure 11 (either half) and trying to get to File Properties: 
+Now imagine the neophyte with his Alt key down, looking at Figure 11 (either half) and trying to get to File Properties:
 
 “OK, I have the Alt key down already, after doing Alt`+`F. All I have to do now is press Enter, lets see…damn! What happened? Why did I get a new file?”
 
@@ -22,7 +24,7 @@ To align the accelerator descriptions in a column at the right-hand side of the 
 
 An alternative is to replace \t with \a in the resource script. This aligns all the text that follows it flush right on the menu, as shown in the right-hand part of Figure 11. This menu is much more efficient in its use of pixels than the left-hand example, achieved at the cost of destroying the alignment of the accelerator descriptions.
 
-I would dearly have loved to have the best of both worlds: the space efficiency of the right-hand variant with the alignment of the left-hand variant. 
+I would dearly have loved to have the best of both worlds: the space efficiency of the right-hand variant with the alignment of the left-hand variant.
 
 Microsoft, écoutez-vous?
 

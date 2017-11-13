@@ -1,5 +1,7 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: Printing](Chapter-16-Printing.md) — [Next: Going Abroad »](Chapter-18-Going-Abroad.md)
+
 # Chapter 17: Changing Fonts
 
 TextEdit allows the user to select one proportional font and one fixed-width font. These selections are global across all instances of TextEdit, but it is quick to switch between proportional and fixed-width font, and the selected font is retained for individual files and for file types.
@@ -21,7 +23,8 @@ At any rate, I ended up putting font selection into the Options dialog (see Figu
 Changing the looks of the common Font Selection dialog is a matter of creating a replacement dialog template, an approach quite different from that used with the Open and Save dialogs. The standard template supplied by Microsoft is shown in Listing 71, FONT.DLG; TextEdit’s dialog template (IDD_FONT) is based on this. All I did was hide some unneeded controls and change the size of the sample display to fully utilize the vacated space.
 
 **Listing 72: FONT.DLG**
-{{
+
+```
 /*++
 Copyright (c) 1990-1997,  Microsoft Corporation  All rights reserved.
 Module Name:
@@ -76,7 +79,7 @@ BEGIN
                  CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL | 
                  CBS_HASSTRINGS | WS_BORDER | WS_VSCROLL | WS_TABSTOP
 END
-}}
+```
 
 Note the script selection combo box in the dialog. This means that we must save the lfCharSet member of the LOGFONT structure between invocations. With Unicode, this doesn’t matter, but with ANSI, it does. More about this in Chapter 18.
 

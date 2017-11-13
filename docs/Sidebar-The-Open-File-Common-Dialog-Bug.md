@@ -1,14 +1,16 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Back: File Management](Chapter-14-File-Management.md)
+
 ## Sidebar: The Open File Common Dialog Bug
 
 The Win32 Open File common dialog has a curious bug – at least it does under Windows NT 4.0. It is not even close to being a showstopper, but it is nevertheless a bug. To manifest the bug, do the following:
 
-# Start the Control Panel Display applet, and select the Appearance tab. Select the standard Windows color scheme, and click the Apply button.
-# Start Notepad and select the File Open command. 
-# Without closing Notepad’s Open File dialog box, go back to the Display applet, select the High Contrast Black color scheme and click the Apply button again. 
+* Start the Control Panel Display applet, and select the Appearance tab. Select the standard Windows color scheme, and click the Apply button.
+* Start Notepad and select the File Open command.
+* Without closing Notepad’s Open File dialog box, go back to the Display applet, select the High Contrast Black color scheme and click the Apply button again.
 
-The expected result is for the file list in the Open File dialog to take on the characteristics of the High Contrast Black color scheme, namely a black background with white, boldface text. The background, however, remains white. The font remains black, and its boldness does not increase noticeably. 
+The expected result is for the file list in the Open File dialog to take on the characteristics of the High Contrast Black color scheme, namely a black background with white, boldface text. The background, however, remains white. The font remains black, and its boldness does not increase noticeably.
 
 To verify that this is indeed a bug, and not just some weird feature, close Notepad’s Open File dialog and open it again to verify that it has now taken on the expected look.
 
@@ -20,4 +22,4 @@ When the color scheme changes, Windows broadcasts a WM_SYSCOLORCHANGE message to
 
 What about the font change? When the font changes, Windows broadcasts a WM_SETTINGCHANGE (formerly WM_WININICHANGE) message to all top-level windows. Again, the Open File dialog receives the message, but fails to pass it on. The documentation for WM_SETTINGCHANGE does not mention common controls, but if you fail to pass on the message, the font does not change.
 
-To solve the problem, it is not enough to add a hook function to the Open File dialog. Since WM_SYSCOLORCHANGE messages and WM_WININICHANGE messages aren’t sent to the hook function, we must subclass the dialog itself. An Instansubclasser called s_commonDlgSubclasser, defined in openDlgCommon.cpp, is applied when the hook function receives the CDN_INITDONE notification, and ensures that the list view gets the required messages.
+To solve the problem, it is not enough to add a hook function to the Open File dialog. Since WM_SYSCOLORCHANGE messages and WM_WININICHANGE messages aren’t sent to the hook function, we must subclass the dialog itself. An InstanceSubclasser called s_commonDlgSubclasser, defined in openDlgCommon.cpp, is applied when the hook function receives the CDN_INITDONE notification, and ensures that the list view gets the required messages.

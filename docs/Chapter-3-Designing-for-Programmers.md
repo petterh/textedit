@@ -1,8 +1,10 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: Designing for Users](Chapter-2-Designing-for-Users.md) — [Next: The Mechanics of Subclassing »](Chapter-4-The-Mechanics-of-Subclassing.md)
+
 # Chapter 3: Designing for Programmers
 
-In the previous chapter, I discussed software usability from the user’s point of view. Programmers are users, too, albeit with a different worldview. Programmers, including yourself, are users of your source code. 
+In the previous chapter, I discussed software usability from the user’s point of view. Programmers are users, too, albeit with a different worldview. Programmers, including yourself, are users of your source code.
 
 Is your source code usable? How easily can I extend your program, how easy are your APIs to use – correctly? Do your APIs encourage robust programming, or do they actively court programming mistakes? Do you remember what you did two years ago? Two months ago? I know I don’t.
 
@@ -12,7 +14,7 @@ This chapter examines a few issues that help make programmers’ lives easier; m
 
 A guiding principle is a general rule to guide design decisions; it usually includes the rationale behind the rule. We already encountered a few guiding principles in the previous chapter, and you’ll find guiding principles for programming scattered through this book. They’re all formatted like this one:
 
-**“Let the compiler catch the bugs.”**
+“**Let the compiler catch the bugs.**”
 
 This means compiling at the highest warning level available. It means defining STRICT before including any Windows header files. It means avoiding casts when you can (which is not all that often, in Windows programming). It means using little tricks such as putting the constant first in all comparisons. Consider this code fragment:
 
@@ -41,7 +43,7 @@ if ( hdc = GetDC( hwnd ) ) {
 }
 ```
 
-Don’t do it! The last time I was burned by an assignment in a comparison was in 1996. It cost me five hours of debugging, all of them unnecessary, and I vowed that it would never happen again. 
+Don’t do it! The last time I was burned by an assignment in a comparison was in 1996. It cost me five hours of debugging, all of them unnecessary, and I vowed that it would never happen again.
 
 If you absolutely _must_ do the assignment on the fly, this formulation generates equivalent code on any decent compiler:
 
@@ -68,29 +70,27 @@ The one place where an assignment in a comparison is defensible is in the contro
 
 ## Getting Your Priorities Straight
 
-What is most important in your current programming project? Should the program be as fast as possible? As small as possible? Does it have to be portable? 
+What is most important in your current programming project? Should the program be as fast as possible? As small as possible? Does it have to be portable?
 
 The answers to these and related questions vary from project to project, and, indeed, from module to module and from function to function. You will, however, do well to consider the questions up front, and come up with a prioritized list of what’s important. Steve Maguire discusses this in his book Writing Solid Code. Experience shows that nobody can satisfy all requirements at the same time, which makes conscious prioritization all the more important.
 
-Item	Definition
-Correctness	The code works correctly. This item might seem superfluous, but experience tells me something else. Too often, I’ve seen programmers more concerned with speed than correctness.
-Size	This does not refer to the number of source code lines, but to the total size of compiled code. It may also include run-time memory usage and overhead imposed by non-functional data such as strings used internally in the program.
-Speed	This includes both execution speed (as measured by CPU usage) and perceived responsiveness from the user’s point of view. These are not necessarily the same.
-A guideline is to make the code fast enough, but not to waste time making it faster than that. If you need to sort 5 records, choose bubble sort. If you are sorting a million records, choose Quicksort.
-Speed bottlenecks are rarely obvious. Before you decide that an operation or a subsystem needs optimization, try to get hard data on where the real bottleneck is.
-Robustness	Tolerance towards erroneous input and other error conditions. This does not mean that a program or routine should accept garbage, but that it should handle it gracefully. 
-Safety	Choose the implementation that you are most likely to develop without bugs. Bubble sort is safer than Quicksort, but Quicksort is faster than bubble sort. Tradeoffs between speed and safety are common.
-Testability	A program should be easy to test.
-Maintainability	Code that is easy to maintain typically has several characteristics: 
-•	It is easy to read and understand.
-•	It is well encapsulated. This allows changes (updates or fixes) to be made with some confidence that it won’t blow up something else.
-•	Documentation, including comments in the code, is in agreement with the code.
-Reusability	This can mean class or function reuse in the same project, or it can mean preparing for reuse in later projects. Designing for reuse typically has an overhead of around 50%, split among additional design time (particularly finding good generalizations), additional documentation requirements and additional testing. 
+| Item | Definition |
+|------|------------|
+| Correctness | The code works correctly. This item might seem superfluous, but experience tells me something else. Too often, I’ve seen programmers more concerned with speed than correctness. |
+| Size | This does not refer to the number of source code lines, but to the total size of compiled code. It may also include run-time memory usage and overhead imposed by non-functional data such as strings used internally in the program. |
+| Speed | This includes both execution speed (as measured by CPU usage) and perceived responsiveness from the user’s point of view. These are not necessarily the same.<br/>A guideline is to make the code fast enough, but not to waste time making it faster than that. If you need to sort 5 records, choose bubble sort. If you are sorting a million records, choose Quicksort.<br/>Speed bottlenecks are rarely obvious. Before you decide that an operation or a subsystem needs optimization, try to get hard data on where the real bottleneck is. |
+| Robustness | Tolerance towards erroneous input and other error conditions. This does not mean that a program or routine should accept garbage, but that it should handle it gracefully. |
+| Safety | Choose the implementation that you are most likely to develop without bugs. Bubble sort is safer than Quicksort, but Quicksort is faster than bubble sort. Tradeoffs between speed and safety are common. |
+| Testability | A program should be easy to test. |
+| Maintainability | Code that is easy to maintain typically has several characteristics: <br/>- It is easy to read and understand.<br/>- It is well encapsulated. This allows changes (updates or fixes) to be made with some confidence that it won’t blow up something else.<br/>- Documentation, including comments in the code, is in agreement with the code.
+| Reusability | This can mean class or function reuse in the same project, or it can mean preparing for reuse in later projects. Designing for reuse typically has an overhead of around 50%, split among additional design time (particularly finding good generalizations), additional documentation requirements and additional testing. |
+
 A good compromise is often just to choose a design that does not preclude reuse. The best tool for this is known as encapsulation.
 
 ## Portability
 
-The code is reusable across platforms. Coding for portability may entail 
+The code is reusable across platforms. Coding for portability may entail
+
 * Using a cross-platform library
 * Using a subset of a language or library that is common and consistent across platforms
 * Isolating platform dependencies (see os.cpp).
@@ -210,7 +210,7 @@ Destructors are intimately connected to C++ exception handling, a topic I’ll r
 
 What if a destructor throws an exception? If this happens during stack unwinding, as well it might, the program dies horribly. Accordingly, the following design principle is really an ironclad rule that you should never break if you can possibly help it:
 
-**“Don’t throw exceptions from destructors.”**
+“**Don’t throw exceptions from destructors.**”
 
 ## Automatic Pointers
 
@@ -232,8 +232,8 @@ String Window::getWindowText( void ) const {
 
 If the program follows the nominal execution path, this code works correctly. Problems appear when things begin to fail, though. The statements marked x1, x2 and x3 may throw exceptions:
 
-* x1 will throw a memory exception if the allocation fails. This is not a problem, since there is nothing to clean up. 
-* x3 invokes the String copy constructor, which, depending on the definition of the String class, may throw an exception for a variety of reasons. This is not a problem either, since we’ve already cleaned up by deleting the memory that pszWindowText points to. 
+* x1 will throw a memory exception if the allocation fails. This is not a problem, since there is nothing to clean up.
+* x3 invokes the String copy constructor, which, depending on the definition of the String class, may throw an exception for a variety of reasons. This is not a problem either, since we’ve already cleaned up by deleting the memory that pszWindowText points to.
 * x2 also invokes a String constructor, and this time we do have a problem. If the constructor throws an exception, we never get to delete the memory that pszWindowText points to.
 
 In this example, the problem results in a “mere” memory leak. Sometimes it is much worse.
@@ -340,11 +340,11 @@ typedef AutoStringA AutoString;
 
 The problem addressed by AutoPtr and AutoArray is not limited to memory; it applies to other resources as well – file handles, display contexts, network connections, et cetera ad nauseam. I include two examples here: The AutoHandle class wraps a Win32 HANDLE, while the PaintStruct class wraps – you guessed it – a PAINTSTRUCT (or, rather, the sandwich-layer calls to BeginPaint and EndPaint that wrap the use of the PAINTSTRUCT). Such wrappers are usually trivial to implement.
 
-To sum up: 
+To sum up:
 
-* The wrappers are a programming convenience, since you save the close/free/cleanup statement – the bottom layer of the sandwich. 
-* They help make the code more robust, since you cannot forget to free the resource in question. 
-* Most importantly, they make the wrapped resource exception-safe. 
+* The wrappers are a programming convenience, since you save the close/free/cleanup statement – the bottom layer of the sandwich.
+* They help make the code more robust, since you cannot forget to free the resource in question.
+* Most importantly, they make the wrapped resource exception-safe.
 
 Other examples of self-destructing wrapper classes are FileMapping (defined in FileMapping.h, described in Chapter 12), TemporaryStatusIcon (Statusbar.h) and ClientDC (ClientDC.h). In TextEdit, you will find many more.
 
@@ -377,7 +377,7 @@ Some details of the internal HWND structure can be inferred, though, as they def
 
 A window instance is created from a template called a window class. The “class” name is significant; it suggests that the original designers at least thought they were doing something object-oriented. Were they?
 
-Encapsulation: You can store private data with a window in several ways. When you register a new window class, you can specify that additional bytes should be allocated for each window instance, tacked on to the end of the HWND structure. Since those extra bytes must be accessed by special API calls in 32-bit chunks, the facility is somewhat cumbersome to use and hardly what you would call an abstract data type. Its redeeming feature is that you can use these extra DWORDs to store pointers to heap-allocated structures. 
+Encapsulation: You can store private data with a window in several ways. When you register a new window class, you can specify that additional bytes should be allocated for each window instance, tacked on to the end of the HWND structure. Since those extra bytes must be accessed by special API calls in 32-bit chunks, the facility is somewhat cumbersome to use and hardly what you would call an abstract data type. Its redeeming feature is that you can use these extra DWORDs to store pointers to heap-allocated structures.
 
 In addition, you can store data as window properties; this is a more dynamic method that doesn’t require you to reserve extra words in the HWND structure. This makes it especially suitable for use with windows of classes that you don’t control.
 
@@ -386,25 +386,26 @@ Inheritance: One of the members of the HWND structure is the address of the call
 Windows even has a primordial base object. As Java and Smalltalk have their respective Object classes, Windows has the DefWindowProc. The following program demonstrates this:
 
 ```C++
-int WINAPI WinMain( 
-   HINSTANCE hinst, HINSTANCE, LPTSTR, int ) 
+int WINAPI WinMain(
+   HINSTANCE hinst, HINSTANCE, LPTSTR, int )
 {
    WNDCLASS wndClass = {
-      0, DefWindowProc, 0, 0, hinst, 
+      0, DefWindowProc, 0, 0, hinst,
       0, 0, 0, 0, "Object",
    };
    RegisterClass( &wndClass );
-   HWND hwnd = CreateWindow( "Object", "Object", 
-      WS_OVERLAPPEDWINDOW | WS_VISIBLE, 
+   HWND hwnd = CreateWindow( "Object", "Object",
+      WS_OVERLAPPEDWINDOW | WS_VISIBLE,
       10, 10, 200, 100, HWND_DESKTOP, 0, hinst, 0 );
 
    MSG msg;
-   while ( GetMessage( &msg, 0, 0, 0 ) ) { 
+   while ( GetMessage( &msg, 0, 0, 0 ) ) {
       DispatchMessage( &msg );
    }
    return 0;
 }
 ```
+
 The resulting window lacks even the sense to paint its own client area, but it does have a title bar, and it responds correctly to resizing, maximizing and minimizing (see Figure 3).
 
 ![](Chapter-3-Designing-for-Programmers-Figure3.bmp)
@@ -421,10 +422,9 @@ Polymorphism: This is really at the heart of windows programming, since everythi
 
 The answer to our question is a resounding yes; Windows programming is indeed object-oriented programming. The bad news is that the mechanics of Windows programming is totally out of whack with any object-oriented programming language. You need to do all the plumbing manually, and this is so cumbersome as to obliterate many of the benefits of the object-orientation. In particular, all message parameters are stuffed into the WPARAM and LPARAM parameters to the window function, and the packing and unpacking of parameters is a nasty business that the word “type-safe” does not even begin to describe.
 
-_Programming Windows is easy,_
-_Provided you do the right cast._
-_Of course, this technique is sleazy,_
+_Programming Windows is easy,_\
+_Provided you do the right cast._\
+_Of course, this technique is sleazy,_\
 _It’s really a blast from the past._
 
 In the next couple of chapters, we’ll look at ways to deal with this.
-

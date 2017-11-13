@@ -1,5 +1,7 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: Introduction](Introduction.md) — [Next: Designing for Users »](Chapter-2-Designing-for-Users.md)
+
 # Chapter 1: The Road Ahead
 
 This book is the story of a Windows application. I considered several alternatives for this application, and eventually landed on TextEdit, a Notepad replacement with a twist in the usability department. This chapter explains the how, the why and the wherefore.
@@ -18,11 +20,11 @@ I’ve seen Notepad described as “anemic,” and that is apt. For example:
 * Notepad lacks standard accelerator keys. (This has been fixed in the Notepad version delivered with Windows 98 and Windows 2000, but it sure didn’t used to be)
 * Notepad uses the standard edit control, a widget that’s really beginning to show its age.
 
-Notepad was never meant to be anything but a simple text editor, but I still feel that a couple of the roughest edges could have been filed off. 
+Notepad was never meant to be anything but a simple text editor, but I still feel that a couple of the roughest edges could have been filed off.
 
 Is there anything good to say about Notepad? Simple though it is, it is at least reliable, and has never failed me in all the years I’ve been exposed to the thing. It also handles Unicode gracefully.
 
-The most important reason why I want to replace Notepad is more fundamental: The entire conceptual model that Notepad presents to the end user is faulty. Admittedly, Notepad shares this problem with most current software, so I’m being a bit unfair, picking on Notepad like this. 
+The most important reason why I want to replace Notepad is more fundamental: The entire conceptual model that Notepad presents to the end user is faulty. Admittedly, Notepad shares this problem with most current software, so I’m being a bit unfair, picking on Notepad like this.
 
 I’ll get back to that particular problem in the next chapter.
 
@@ -48,17 +50,16 @@ Choosing C++ over C is a no-brainer. Even if you don’t use a single object-ori
 
 See also the discussion of MFC below.
 
-
 Visual Basic is a truly amazing piece of software; it certainly amazed me the first time I saw it. Nevertheless, I’ve found it to be of limited use in my work. Here are some of the reasons:
 
-* The language is too limiting. Object orientation really is a benefit, and Visual Basic does not offer it, advertising to the contrary. 
+* The language is too limiting. Object orientation really is a benefit, and Visual Basic does not offer it, advertising to the contrary.
 * You’re too shielded from the Windows API. Visual Basic “forms” are a peculiar variant of windows, a law unto themselves.
 * Software distribution gets complicated, since you have to distribute the VB runtime as well as your application.
 * Performance is an issue. In a given case, this may or may not be a problem. Some, however, seem to think that performance issues are no longer critical, since computers are getting faster and faster.
 
-This kind of thinking implies that we will do the same things with software next year as we did last year, and that simply isn’t so. I’m writing this book on a laptop computer. It has a 300MHz Pentium II processor, 128MB of RAM and a 6.3GB hard disk. It was a high-end machine when I got it; now I suppose it’s barely midrange, although it continues to serve me well. 
+This kind of thinking implies that we will do the same things with software next year as we did last year, and that simply isn’t so. I’m writing this book on a laptop computer. It has a 300MHz Pentium II processor, 128MB of RAM and a 6.3GB hard disk. It was a high-end machine when I got it; now I suppose it’s barely midrange, although it continues to serve me well.
 
-Yet Microsoft Word takes longer to start from my hard disk than did WordStar from a floppy on a Z80 I once owned (sometime back in the early Pleistocene). The point is that Word does enormously much more for me than WordStar ever did. “Slow” may be “fast enough” sometimes, but with real speed, you can design totally different UI paradigms. 
+Yet Microsoft Word takes longer to start from my hard disk than did WordStar from a floppy on a Z80 I once owned (sometime back in the early Pleistocene). The point is that Word does enormously much more for me than WordStar ever did. “Slow” may be “fast enough” sometimes, but with real speed, you can design totally different UI paradigms.
 
 One project I was once involved in had a window with a list of items on the left-hand side and details about the selected item on the right-hand side. Whenever a new item was selected on the left, details would appear on the right. This is a common paradigm; the problem in this project was that retrieving the detail involved heavy network operations and could take up to one minute, during which the application was completely unresponsive. The solution was to forego automatic updating, and instead add an explicit Update button to the window. A different UI paradigm.
 
@@ -66,18 +67,17 @@ The Windows Explorer is somewhat more clever about updating its right-hand pane.
 
 The TextEdit Open File dialog uses this technique to update the preview window, as we shall see in Chapter 14.
 
-* Visual Basic is easy to learn and to use. 
+* Visual Basic is easy to learn and to use.
 
 This is, of course, used as an argument in favor of Visual Basic, but there is a down side to it: Even beginners can get something up and running very quickly. In the ensuing adrenaline rush, they run with the ball, adding functionality and cool doodads right and left. Being beginners, they do this with neither discipline nor structure, in an environment that allows you to spread your code all over the place, or rather under each button. Sooner than you would have thought possible, you have an unmaintainable mess.
 
 A few years ago, I was on a project where we wrote the hard parts in C, using VB as glue to stick all the parts together. Most of the programmers were inexperienced, you see, so the management felt that this was the best way. It did (of course) turn on us with a vengeance. VB’s ease of use does not turn amateurs into professional programmers; it is no substitute for actual knowledge and experience.
 
+The Java language definition is superb in spots, but it does have holes. One hole is the lack of destructors. Garbage collection is fine, but what about objects that encapsulate files, network connections, window handles or other system resources? You’re forced to create methods for explicit destruction, and miss the beauty of C++ stack unwinding. Another hole is the lack of a preprocessor. I know that this lack is a result of a conscious decision, and I even understand the rationale behind it; I merely happen to disagree. You don’t deny grown men beef merely because it’s unfit food for babies.
 
-The Java language definition is superb in spots, but it does have holes. One hole is the lack of destructors. Garbage collection is fine, but what about objects that encapsulate files, network connections, window handles or other system resources? You’re forced to create methods for explicit destruction, and miss the beauty of C++ stack unwinding. Another hole is the lack of a preprocessor. I know that this lack is a result of a conscious decision, and I even understand the rationale behind it; I merely happen to disagree. You don’t deny grown men beef merely because it’s unfit food for babies. 
+In spite of these and other holes (lack of const, for example), Java is a well-designed language with, I believe, a substantial role to play. Java still suffers – badly – from the immaturity of the tools and libraries surrounding it, and the marketing wars and quasi-political power struggles don’t help any. Those are not unique to Java, though.
 
-In spite of these and other holes (lack of const, for example), Java is a well-designed language with, I believe, a substantial role to play. Java still suffers – badly – from the immaturity of the tools and libraries surrounding it, and the marketing wars and quasi-political power struggles don’t help any. Those are not unique to Java, though. 
-
-In truth, there is no “best programming language,” and you’d do well not to get religious on this issue. (That’s my prerogative.) Choose the tool best suited to the job at hand. 
+In truth, there is no “best programming language,” and you’d do well not to get religious on this issue. (That’s my prerogative.) Choose the tool best suited to the job at hand.
 
 I do believe that C++ is the best general-purpose programming language in widespread use available to the professional programmer. It is also the most difficult to learn and to use, which is why I emphasized “professional.” Java may yet threaten it, at least in some areas. Java’s design more or less eliminates several notorious classes of errors, including pointer arithmetic and memory management. This helps reduce the cost of software development, and, in most companies, it is difficult to argue with the bottom line.
 

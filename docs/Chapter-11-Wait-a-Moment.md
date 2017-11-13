@@ -1,5 +1,7 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: Customization and Persistence](Chapter-10-Customization-and-Persistence.md) — [Next: File I/O »](Chapter-12-File-I-O.md)
+
 # Chapter 11: Wait a Moment
 
 Before I get into potentially time-consuming operations such as File I/O and printing, I’ll digress into the subject of the wait cursor. I’ll describe a problem with the typical implementation, and discuss enhancements to the standard hourglass.
@@ -13,13 +15,14 @@ const HCURSOR hcurSave = SetCursor( LoadCursor( 0, IDC_WAIT ) );
 // Restore old cursor:
 SetCursor( hcurSave );
 ```
+
 SetCursor returns a handle to the previous cursor; this suggests such usage. Most Windows books I’ve seen do the above, and the MFC class CWaitCursor encapsulates the same functionality.  
 
 What’s wrong with this picture? Consider the following sequence of events:
 
-# When the lengthy operation starts, the cursor is an IDC_ARROW, a fact remembered by hcurSave.
-# During the operation, the user moves the mouse, and the hourglass cursor comes to rest on a split bar.
-# The operation ends, and the cursor is changed back to an arrow.
+* When the lengthy operation starts, the cursor is an IDC_ARROW, a fact remembered by hcurSave.
+* During the operation, the user moves the mouse, and the hourglass cursor comes to rest on a split bar.
+* The operation ends, and the cursor is changed back to an arrow.
 
 The problem is that the cursor isn't supposed to be an arrow when it’s on the split bar. As soon as the mouse pointer is moved, things will be dandy again, but in the meantime, there’s this tiny crack in the smooth surface of illusion we strive to create for our users.  
 
@@ -32,6 +35,7 @@ SetCursor( LoadCursor( 0, IDC_WAIT ) );
 // Restore normal cursor:
 InvalidateCursor();
 ```
+
 The implementation of InvalidateCursor is simple:
 
 ```C++
@@ -41,9 +45,10 @@ void InvalidateCursor ( void ) {
    SetCursorPos( pt.x, pt.y );
 }
 ```
-This moves the cursor to its current location (i.e., the cursor does not actually move anywhere), forcing a WM_SETCURSOR message in the process. Doing it this way is a lot simpler than synthesizing and dispatching a WM_SETCURSOR message. 
 
-GetCursorPos and SetCursorPos have changed somewhat during the migration from Win16 to Win32. In Win16, these were void functions; in Win32, they each return TRUE for success and FALSE for failure. As is its wont, however, Microsoft’s documentation is vague about possible causes of failure. 
+This moves the cursor to its current location (i.e., the cursor does not actually move anywhere), forcing a WM_SETCURSOR message in the process. Doing it this way is a lot simpler than synthesizing and dispatching a WM_SETCURSOR message.
+
+GetCursorPos and SetCursorPos have changed somewhat during the migration from Win16 to Win32. In Win16, these were void functions; in Win32, they each return TRUE for success and FALSE for failure. As is its wont, however, Microsoft’s documentation is vague about possible causes of failure.
 
 An improved implementation of MFC’s CWaitCursor class might have the following declaration:
 
@@ -55,6 +60,7 @@ public:
    void restore();
 };
 ```
+
 The constructor and the restore method are both trivial; the interesting part is the destructor:
 
 ```C++
@@ -68,7 +74,7 @@ void WaitCursor::restore() {
 
 /**
  * Forces a WM_SETCURSOR message.
- */ 
+ */
 WaitCursor::~WaitCursor() {
    POINT pt; // Screen coordinates!
 
@@ -96,16 +102,14 @@ It obviously wouldn’t do to steal Microsoft’s cursors and ship them with Tex
 ```C++
 #define CURSOR_PATH _T( "Cursors\\" )
 
-
 PRIVATE inline HCURSOR loadCursor( LPCTSTR pszName ) {
-  return static_cast< HCURSOR >( LoadImage( 0, pszName, 
-     IMAGE_CURSOR, 0, 0, 
+  return static_cast< HCURSOR >( LoadImage( 0, pszName,
+     IMAGE_CURSOR, 0, 0,
      LR_DEFAULTSIZE | LR_DEFAULTCOLOR | LR_LOADFROMFILE ) );
 }
 
-
 /*
-* If we don't call AttachThreadInput, SetCursor has 
+* If we don't call AttachThreadInput, SetCursor has
 * no effect when called from the worker thread.
 */
 inline void WaitCursor::_attachThreadInput( bool bAttach ) const {
@@ -113,7 +117,6 @@ inline void WaitCursor::_attachThreadInput( bool bAttach ) const {
   verify( AttachThreadInput( 
      GetCurrentThreadId(), _dwParentThreadId, bAttach ) );
 }
-
 
 void WaitCursor::_threadFunc( void ) const {
 
@@ -128,7 +131,6 @@ void WaitCursor::_threadFunc( void ) const {
   assert( (DWORD) -1 != dwRet );
 }
 
-
 DWORD WINAPI WaitCursor::_threadFunc( void *pData ) {
 
   const WaitCursor *pThis = 
@@ -137,7 +139,6 @@ DWORD WINAPI WaitCursor::_threadFunc( void *pData ) {
   pThis->_threadFunc();
   return 0;
 }
-
 
 void WaitCursor::_finishThread( void ) {
 
@@ -159,7 +160,6 @@ void WaitCursor::_finishThread( void ) {
   }
 }
 
-
 void WaitCursor::_restore( void ) const {
 
   // Actually, 0 is an acceptable value for SetCursor,
@@ -167,7 +167,6 @@ void WaitCursor::_restore( void ) const {
   assert( 0 != _hcur );
   SetCursor( _hcur );
 }
-
 
 HCURSOR WaitCursor::_loadCursor( LPCTSTR pszName ) {
 
@@ -186,7 +185,7 @@ HCURSOR WaitCursor::_loadCursor( LPCTSTR pszName ) {
         PATHNAME szCursorPath = { 0 };
         _tmakepath( szCursorPath, 0, szWindowsDirectory, 
            strCursor.c_str() , 0 );
-        
+
         // Sample szCursorPath = "C:\\WINNT\\Cursors\\load.ani"
         return loadCursor( szCursorPath );
      }
@@ -194,7 +193,6 @@ HCURSOR WaitCursor::_loadCursor( LPCTSTR pszName ) {
 
   return 0;
 }
-
 
 /**
 * The constructor attempts to load the named cursor.
@@ -221,7 +219,6 @@ WaitCursor::WaitCursor( LPCTSTR pszName, int nTimeIn )
   }
 }
 
- 
 WaitCursor::~WaitCursor() throw() {
   _finishThread();
   assert( 0 != _hcur );
@@ -230,9 +227,9 @@ WaitCursor::~WaitCursor() throw() {
      DestroyCursor( _hcur );
   }
   reset_pointer( _hcur );
- 
+
   POINT pt; // Screen coordinates.
- 
+
   // SetCursorPos forces a WM_SETCURSOR message.
   if ( !GetCursorPos( &pt ) ) {
      trace( _T( "GetCursorPos failed!" ) );
@@ -243,7 +240,6 @@ WaitCursor::~WaitCursor() throw() {
   }
 }
 
- 
 void WaitCursor::restore( void ) {
   _finishThread();
   _restore();

@@ -1,5 +1,7 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: File I/O](Chapter-12-File-I-O.md) — [Next: File Management »](Chapter-14-File-Management.md)
+
 # Chapter 13: About Dialogs
 
 The logical continuation of the TextEdit story is really Chapter 13, File Management. That subject, however, involves dialog boxes. Let’s ease into the subject of dialog boxes through some easy ones, such as the About dialog and the Options dialog (and defer file management to [Chapter 14](Chapter-14-File-Management.md)).
@@ -26,13 +28,13 @@ The dialog box keyboard interface carries out special processing for several key
 | Tab | Moves the input focus to the next control that has the WS_TABSTOP style. |
 | Up | Moves the input focus to the previous control in the group. |
 
-Note in particular what this table says about the Enter and Escape keys: They send IDOK and IDCANCEL commands, respectively, but there is no requirement that controls with IDOK or IDCANCEL IDs exist. 
+Note in particular what this table says about the Enter and Escape keys: They send IDOK and IDCANCEL commands, respectively, but there is no requirement that controls with IDOK or IDCANCEL IDs exist.
 
-Controls – windows that are meant to be children of dialog windows – must fulfill certain criteria to be good dialog citizens. They should understand window styles such as WS_TABSTOP and they should respond intelligently to message such as WM_GETDLGCODE. If they have a keyboard interface, they should provide a visible indication of keyboard focus. 
+Controls – windows that are meant to be children of dialog windows – must fulfill certain criteria to be good dialog citizens. They should understand window styles such as WS_TABSTOP and they should respond intelligently to message such as WM_GETDLGCODE. If they have a keyboard interface, they should provide a visible indication of keyboard focus.
 
 ## The Dialog class
 
-The Dialog class is a dialog-wrapping subclass of the Window class described in Chapter 4. But a dialog function is not the same as a window function. DefDlgProc is the default window function for dialogs; DefDlgProc, in turn, calls the user-defined dialog function (if and when it feels like it). The dialog function returns a BOOL rather than an LRESULT; the DlgProc and dispatchDlgMsg virtual methods are in charge of this. 
+The Dialog class is a dialog-wrapping subclass of the Window class described in Chapter 4. But a dialog function is not the same as a window function. DefDlgProc is the default window function for dialogs; DefDlgProc, in turn, calls the user-defined dialog function (if and when it feels like it). The dialog function returns a BOOL rather than an LRESULT; the DlgProc and dispatchDlgMsg virtual methods are in charge of this.
 
 To handle dialog commands, you should override onDlgCommand rather than onCommand. The first is called from the dialog function, while the latter is called from the window function. Given that the Dialog class subclasses DefDlgProc by virtue of being a Window, you can override anything you like, of course, but do keep this difference in mind.
 
@@ -49,17 +51,17 @@ TextEdit dialog positions are persistent, although only within a single session.
 ```C++
 typedef std::map< int, Point > PointMap;
 PRIVATE PointMap thePointMap;
- 
+
 void savePosition( HWND hwnd, int id ) {
    Rect rc = getWindowRectInParent( hwnd );
    thePointMap[ id ](-id-) = Point( rc.left, rc.top );
 }
- 
-void restorePosition( HWND hwnd, int id ) {  
+
+void restorePosition( HWND hwnd, int id ) {
    centerDialog( hwnd );
    PointMap::iterator iter = thePointMap.find( id );
    if ( thePointMap.end() != iter) {
-      MapWindowPoints( 
+      MapWindowPoints(
          GetParent( hwnd ), HWND_DESKTOP, &iter->second, 1 );
       moveWindow( hwnd, iter->second.x, iter->second.y );
    }
@@ -86,7 +88,7 @@ The only possible interaction is to dismiss the dialog, which is why I call it s
 
 **Figure 15: The About Dialog.** Some STATIC widgets have been subjected to a WM_SETFONT message, while others have been subclassed.
 
-If you look at the dialog box in Figure 15, you’ll note several different fonts. In the case of the program title and version, this is a simple matter of creating the desired font, then sending a WM_SETFONT message to the control. This is done using the SetWindowFont macro defined in windowsx.h. 
+If you look at the dialog box in Figure 15, you’ll note several different fonts. In the case of the program title and version, this is a simple matter of creating the desired font, then sending a WM_SETFONT message to the control. This is done using the SetWindowFont macro defined in windowsx.h.
 
 More interesting is the boldfacing of individual words in the IDC_COMMENTS and IDC_COMMERCIAL controls. This is done by subclassing normal static controls. In onInitDialog, you’ll find a pair of calls to subclassHTML, which is all it takes to accomplish this. Except, of course, for writing the subclassHTML function itself, and accompanying paraphernalia. This is described in the sidebar entitled “[The HTML Static Control](Sidebar-The-HTML-Static-Control.md).”
 
@@ -105,8 +107,8 @@ The Options dialog box looks like this:
 It is a little bit more complex, interaction-wise, than the About dialog. AboutDlg can get along with just the default onDlgCommand method defined in the Dialog base class, whereas OptionsDlg needs its own:
 
 ```C++
-void OptionsDlg::onDlgCommand( 
-   int id, HWND hwndCtl, UINT codeNotify ) 
+void OptionsDlg::onDlgCommand(
+   int id, HWND hwndCtl, UINT codeNotify )
 {
    switch ( id ) {
    case IDC_CHANGE_FIXED_FONT:
@@ -126,7 +128,7 @@ void OptionsDlg::onDlgCommand(
    case IDOK:
    case IDCANCEL:
       exitLanguageComboBox( *this );
-      setShowDeleteDialog( 
+      setShowDeleteDialog(
          0 != Button_GetCheck( getDlgItem( IDC_SHOWDELETEDIALOG ) ) );
       setDocumentPath( getDlgItemText( IDC_DOC_PATH ).c_str() );
       verify( EndDialog( *this, id ) );
@@ -137,9 +139,9 @@ void OptionsDlg::onDlgCommand(
 
 ## Enter with Care
 
-The BUTTON window class supports a style bit named BS_DEFPUSHBUTTON. This draws the button with a heavy black border, indicating that it is the default button, and that you can activate it by pressing the Enter key. 
+The BUTTON window class supports a style bit named BS_DEFPUSHBUTTON. This draws the button with a heavy black border, indicating that it is the default button, and that you can activate it by pressing the Enter key.
 
-The black border is just a visual clue; the functional aspects of the default button come from the dialog window class and the IsDialogMessage function. The dialog box has its own concept of a default button, which you can set using the DM_SETDEFID message. When a dialog receives this message, it may send WM_GETDLGCODE and BM_SETSTYLE to the indicated button as well as to the current default button. 
+The black border is just a visual clue; the functional aspects of the default button come from the dialog window class and the IsDialogMessage function. The dialog box has its own concept of a default button, which you can set using the DM_SETDEFID message. When a dialog receives this message, it may send WM_GETDLGCODE and BM_SETSTYLE to the indicated button as well as to the current default button.
 
 This is less straightforward than it sounds. In particular, problems abound whenever you dynamically enable and disable buttons, or when you change the default button. Consider this code fragment from the onDlgCommand method of PropertiesDlg (described in Chapter 14):
 

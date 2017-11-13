@@ -1,5 +1,7 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: Search and Replace](Chapter-15-Search-and-Replace.md) — [Next: Changing Fonts »](Chapter-17-Changing-Fonts.md)
+
 # Chapter 16: Printing
 
 In one sense, printing under Windows is similar to displaying stuff on the screen: You use GDI commands to draw text and graphics in a display context. You don’t obtain (or release) a printer display context the same way you obtain a screen display context, but once you have that display context, you use the same familiar set of GDI functions. 
@@ -24,6 +26,7 @@ typedef struct tagDEVNAMES {
    WORD wDefault;
 } DEVNAMES;
 ```
+
 The documentation fails to mention whether the strings should be ANSI or Unicode; testing reveals them to be LPTSTRs.
 
 < Listing 66: devMode.cpp >
@@ -67,11 +70,10 @@ The printing switches give rise to another complication: What if the file in que
 
 Actual printing is done by the print method in the Document class. It calculates the printable area from the margins and printer device context metrics, then goes into a loop where it calls printSingleCopy for each requested copy. As usual, a couple of the classes involved have exception safety as their sole purpose: PrinterDC and PrinterDoc.
 
-The printSingleCopy method loops on getLine, retrieving lines one by one until it runs out of lines. Each physical line may be broken any number of times if it is too wide to fit on a single line; this occurs no matter what the WordWrap setting is. A new page, including a page header, is emitted whenever necessary. 
+The printSingleCopy method loops on getLine, retrieving lines one by one until it runs out of lines. Each physical line may be broken any number of times if it is too wide to fit on a single line; this occurs no matter what the WordWrap setting is. A new page, including a page header, is emitted whenever necessary.
 
 The font used for printing is created by the createPrintFont method in the Document class. It is the same font used for display, scaled to (approximately) the same physical size.
 
 The pageHeader method is responsible for rendering the page header.
 
 < Listing 70: print.cpp >
-

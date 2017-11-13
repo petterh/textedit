@@ -1,10 +1,12 @@
 ﻿### Programming Industrial Strength Windows
+
 [« Previous: The Main Window](Chapter-9-The-Main-Window.md) — [Next: Wait a Moment »](Chapter-11-Wait-a-Moment.md)
+
 # Chapter 10: Customization and Persistence
 
 Customization and persistence are closely linked. If J. Random Hacker’s customization settings aren’t preserved between sessions, she’ll lose interest very quickly.
 
-This chapter discussed TextEdit customization, and how it uses the Windows registry to store persistent data. 
+This chapter discussed TextEdit customization, and how it uses the Windows registry to store persistent data.
 
 ## Customizing Windows
 
@@ -37,9 +39,10 @@ The description of a UI font is stored in the registry as a blob. The menu font 
 ```C++
 HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics\MenuFont
 ```
+
 (BLOB is an acronym for a Binary Large OBject. Whether this blob deserves the adjective “large” is another matter.) This blob turns out to be a LOGFONT structure, and it can be used to instantiate a GDI object of the HFONT persuasion.
 
-But, of course, there is no such thing as a LOGFONT structure. LOGFONT is a macro that evaluates to either LOGFONTA or LOGFONTW, depending on whether the preprocessor symbol UNICODE is defined. It turns out that the blob is a LOGFONTW under Windows NT. Under Windows 95, it’s a LOGFONTA – almost. The first five members of the LOGFONTA structure are defined as LONG in wingdi.h; in the Windows 95 registry blob, they are shorts, as defined in the LOGFONTWIN95REG structure in MenuFont.cpp. 
+But, of course, there is no such thing as a LOGFONT structure. LOGFONT is a macro that evaluates to either LOGFONTA or LOGFONTW, depending on whether the preprocessor symbol UNICODE is defined. It turns out that the blob is a LOGFONTW under Windows NT. Under Windows 95, it’s a LOGFONTA – almost. The first five members of the LOGFONTA structure are defined as LONG in wingdi.h; in the Windows 95 registry blob, they are shorts, as defined in the LOGFONTWIN95REG structure in MenuFont.cpp.
 
 Standard APIs to retrieve the various UI fonts would be appreciated. This could be implemented by adding new parameters to GetStockObject, for example.
 
@@ -54,10 +57,10 @@ The Windows Explorer, too, allows itself to be customized, and some of these cus
 
 **Figure 13: Customizing the Windows Explorer.** Some of these settings are useful to applications; unfortunately, there aren’t always documented ways to retrieve them.
 
-Figure 13 shows the View tab on the Explorer’s Option dialog. The list has two entries that TextEdit uses: 
+Figure 13 shows the View tab on the Explorer’s Option dialog. The list has two entries that TextEdit uses:
 
-# Display the full path in the title bar
-# Hide file extensions for known file types
+* Display the full path in the title bar
+* Hide file extensions for known file types
 
 To get the file name to display in the title bar, TextEdit calls the GetWindowTitle function. This function takes care of the second point, but not the first. In fact, TextEdit never displays the full path in the title bar, as I’ve found no documented way of detecting this setting.
 
@@ -69,7 +72,7 @@ The ramifications of the Regional Settings Control Panel applet will be explored
 
 ## Customizing TextEdit
 
-TextEdit doesn’t have a lot of explicit customization. You can hide or show the tool bar and status bars, and the View/Options dialog lets you change the proportional and fixed fonts. Then there’s the behavior on File Delete; this function may or may not display a dialog box. 
+TextEdit doesn’t have a lot of explicit customization. You can hide or show the tool bar and status bars, and the View/Options dialog lets you change the proportional and fixed fonts. Then there’s the behavior on File Delete; this function may or may not display a dialog box.
 
 At this point, note one of the little conveniences that TextEdit offers: The Delete dialog can be turned off at the point where you are in the thick of things – in the Delete dialog itself. Note, also, that the Delete dialog tells you how to turn it back on, should you choose to turn it off. For obvious reasons, you can’t do this in the Delete dialog.
 
@@ -99,7 +102,7 @@ HKEY_CURRENT_USER\Software\Andersen Consulting\TextEdit\
     Text Document\
       FixedFont:         REG_DWORD (bool)
       WordWrap:          REG_DWORD (bool)
-    <more file types>\
+    \<more file types\>\
       FixedFont:         REG_DWORD (bool)
       Tabs:              REG_DWORD (bool)
       WordWrap:          REG_DWORD (bool)
@@ -114,7 +117,7 @@ HKEY_CURRENT_USER\Software\Andersen Consulting\TextEdit\
       Width:             REG_DWORD (number)
       WindowState:       REG_DWORD (number)
       WordWrap:          REG_DWORD (bool)
-    <more files>\
+    \<more files\>\
       FixedFont:         REG_DWORD (bool)
       Height:            REG_DWORD (number)
       Left:              REG_DWORD (number)
@@ -173,19 +176,20 @@ This may seem like a large amount of complex information to shuffle in and out o
 
 ## The Registry Interface
 
-TextEdit’s interface to the Windows registry is layered as follows: 
+TextEdit’s interface to the Windows registry is layered as follows:
 
-# At the bottom, we have the Windows registry API, which is quite low-level and cumbersome to use. 
-# The Registry class encapsulates the registry API, and is a lot more convenient to use. The Registry class doesn’t know the meaning of the data it shuffles around.
-# The file persistence.h defines a set of macros for defining “persistent variables.” Instead of having a global variable named FilterIndex, you get a pair of functions, getFilterIndex and setFilterIndex. (Similar macros exist in the Document class, allowing document-local persistence, e.g., whether a specific file was maximized the last time it was open.)
-# Finally, we’re getting to the functional layer, which has application-level meaning. Using the macros in persistence.h, we can define persistent variables galore. 
+* At the bottom, we have the Windows registry API, which is quite low-level and cumbersome to use. 
+* The Registry class encapsulates the registry API, and is a lot more convenient to use. The Registry class doesn’t know the meaning of the data it shuffles around.
+* The file persistence.h defines a set of macros for defining “persistent variables.” Instead of having a global variable named FilterIndex, you get a pair of functions, getFilterIndex and setFilterIndex. (Similar macros exist in the Document class, allowing document-local persistence, e.g., whether a specific file was maximized the last time it was open.)
+* Finally, we’re getting to the functional layer, which has application-level meaning. Using the macros in persistence.h, we can define persistent variables galore. 
 
 Using this scheme has one great advantage over the more common method of saving all persistent information at the end of a session: If TextEdit crashes, changes to the settings are nevertheless retained.
 
 Let’s go back to level two for a moment, and look at the Registry class. This is a wrapper for a set of static functions; you can’t instantiate a Registry object. In addition to being a high-level interface to the registry API, the Registry class performs one additional service: It decorates the key names so that we end up in the right sub-tree in the registry. Thus, "Search" becomes:
-{{
+```
 "Software\Andersen Consulting\TextEdit\Search"
-}}
+```
+
 Sometimes, though, we need to access information elsewhere in the registry. The following strings are recognized; if either is present, the key is retained as is:
 
 ```C++
@@ -211,11 +215,13 @@ Let’s study one of the macros in persistence.h, DEFINE_PERSISTENT_BOOL, to see
          _T( section ), _T( #name ), bValue );         \
    }
 ```
+
 One use of the macro is this:
 
 ```C++
 DEFINE_PERSISTENT_BOOL( "Search", MatchCase );
 ```
+
 This expands to:
 
 ```C++
@@ -228,23 +234,28 @@ This expands to:
          _T( "Search" ), _T( MatchCase ), bValue );
    }
 ```
+
 The macros for integers and strings are similar in structure. One deserves special mention: DEFINE_PERSISTENT_STRING_EX allows indexed persistent variables. After the declaration of 
 
 ```C++
 DEFINE_PERSISTENT_STRING_EX( "Search", Pattern );
 ```
+
 I can write
 
 ```C++
 setPattern( 1, _T( "someString" );
 ```
+
 and end up with the following registry entry:
-{{
+
+```
 Software\Andersen Consulting\TextEdit\Search\Pattern1=someString
-}}
+```
+
 Most of the persistent variables are used across several modules, and therefore defined in persistence.h. Those that are used only by a single module are defined in that module, to reduce visibility.
 
-Macros such as DEFINE_PERSISTENT_BOOL make it easy to define persistent variables – imagine coding all those getters and setters by hand! The down side is that the code is difficult to debug because multiple code lines are compressed into a single source line. You should always start with a hand-coded function, and only start using the code-generating macros when that function is fully debugged. 
+Macros such as DEFINE_PERSISTENT_BOOL make it easy to define persistent variables – imagine coding all those getters and setters by hand! The down side is that the code is difficult to debug because multiple code lines are compressed into a single source line. You should always start with a hand-coded function, and only start using the code-generating macros when that function is fully debugged.
 
 If I had created this module from scratch today, I would have sidestepped the debugging problem by replacing the macros with templates.
 
@@ -254,10 +265,10 @@ Document Local Persistence
 
 As an example of how document-local persistence works, consider how TextEdit initializes word wrapping when you load the file C:\Data\test.txt:
 
-# Start with the system default value, which for word wrapping is zero.
-# Check the file type of C:\Data\test.txt, and determine that this file is of type Text Document.
-# If the registry entry Software\Andersen Consulting\TextEdit\File Types\Text Document\WordWrap exists, use its value; otherwise keep the current one.
-# If the registry entry Software\Andersen Consulting\TextEdit\Files\C:|Data|test.txt\WordWrap exists, use its value; otherwise keep the current one.
+* Start with the system default value, which for word wrapping is zero.
+* Check the file type of C:\Data\test.txt, and determine that this file is of type Text Document.
+* If the registry entry Software\Andersen Consulting\TextEdit\File Types\Text Document\WordWrap exists, use its value; otherwise keep the current one.
+* If the registry entry Software\Andersen Consulting\TextEdit\Files\C:|Data|test.txt\WordWrap exists, use its value; otherwise keep the current one.
 
 If you change the word wrapping while editing C:\Data\test.txt, both these registry entries will be updated, and the new value will apply to new files of type Text Document, as well as any such file that doesn’t have an explicit word wrap setting. It gets an explicit setting only if you change the setting while editing the file.
 
@@ -272,6 +283,7 @@ Document local persistence is implemented through macros defined in Document.h. 
       setPersistentInt( _T( #name ), nValue, type );          \
    }
 ```
+
 This macro is similar to those defined in persistence.h, except that, instead of calling the getter and setter functions in the Registry class, they call a couple of Document methods that wrap those defined in the Registry class. These wrapper methods do two things: They add the file name to the key (converting backslashes to vertical bars in the process), and they handle everything to do with the file type settings. If the type parameter is true, information is saved for file types as well as for individual files. If the type parameter is false, information is only saved for individual files. Examples: Fixed or proportional font is saved for both file types and individual files, while window position is only saved for individual files.
 
 Since the macro generates code to call Document methods, it follows that the macro must be used inside the declaration of the Document class. A corollary is that the generated functions are themselves Document methods.
@@ -307,10 +319,11 @@ A naïve (and all too common) use of this facility is to insert a RunOnce comman
 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\
    TextEdit="C:\Program Files\TextEdit\TextEdit.exe C:\Data\test.txt"
 ```
-This approach has at least two problems: 
 
-# If the system goes down catastrophically, we never see the WM_ENDSESSION message, and restart doesn’t take place. 
-# If multiple instances of TextEdit were running, they would have to ensure that each had a unique name. This is possible, of course, but it is certainly extra work.
+This approach has at least two problems:
+
+* If the system goes down catastrophically, we never see the WM_ENDSESSION message, and restart doesn’t take place. 
+* If multiple instances of TextEdit were running, they would have to ensure that each had a unique name. This is possible, of course, but it is certainly extra work.
 
 What TextEdit actually does is the following: When TextEdit starts, it inserts the following under the RunOnce key:
 
@@ -327,22 +340,24 @@ LOCAL void initReboot( void ) {
       _T( "%1 /boot" ), strProgram.c_str() );
 }
 ```
+
 The constant RUNONCE_PATH is defined in setup.h, as follows:
 
 ```C++
 #define WIN_PATH _T( "Software\\Microsoft\\Windows\\CurrentVersion" )
 #define RUNONCE_PATH   WIN_PATH _T( "\\RunOnce" )
 ```
+
 Next, the document local persistent variable Running is set to one. If TextEdit exits in response to WM_ENDSESSION, it remains one; otherwise, it’s reset to zero. If Windows crashes, the value of Running remains 1, and restart will take place.
 
 When TextEdit is started with the /boot option, it does the following:
 
-# It iterates over all the TextEdit files in the registry and invokes TextEdit anew for any files with Running=1. 
-# It purges the registry file list of any files that are no longer in the MRU list. If we didn’t do this occasionally, the registry would fill up. Note, though, that the MRU list contains more files than are shown in the File menu, so settings for an individual file last for a while after the file falls off the edge of the MRU menu.
+* It iterates over all the TextEdit files in the registry and invokes TextEdit anew for any files with Running=1. 
+* It purges the registry file list of any files that are no longer in the MRU list. If we didn’t do this occasionally, the registry would fill up. Note, though, that the MRU list contains more files than are shown in the File menu, so settings for an individual file last for a while after the file falls off the edge of the MRU menu.
 
 Then it exits. Windows removes all RunOnce entries after executing them. If you don’t start any new TextEdit instances this Windows session, no new reboot entry will be added, and there will be no restart.
 
-The WM_QUERYENDSESSION/WM_ENDSESSION message pair have different behaviors under Windows 9x and Windows NT. Under Windows 9x, after each application responds with TRUE to the WM_QUERYENDSESSION message, they receive the WM_ENDSESSION message and are terminated. Under Windows NT, if you reply TRUE to WM_QUERYENDSESSION, you immediately receive WM_ENDSESSION and are terminated, even though other applications may still respond with FALSE to WM_QUERYENDSESSION. 
+The WM_QUERYENDSESSION/WM_ENDSESSION message pair have different behaviors under Windows 9x and Windows NT. Under Windows 9x, after each application responds with TRUE to the WM_QUERYENDSESSION message, they receive the WM_ENDSESSION message and are terminated. Under Windows NT, if you reply TRUE to WM_QUERYENDSESSION, you immediately receive WM_ENDSESSION and are terminated, even though other applications may still respond with FALSE to WM_QUERYENDSESSION.
 
 I’ve tried to come up with good adjectives to describe this state of affairs (e.g., “weird,” “ridiculous”), but they all strike me as understatements. I’ll leave it as an exercise for the adjectivally inclined reader.
 
@@ -367,9 +382,11 @@ TextEdit must work even with the FAT file system, which means that per-file info
 Per-file information can be stored in another file, alongside the document file. This is more visible to the end user than I like, and, if the per-file information includes older versions, creates problems on floppies. If you save both the file and its backup on the same disk, the useful capacity is halved. If you do supply versioning support, it is probably wise to give the user some control over it, as the impact on disk space may be significant.
 
 If you’re going to store per-application information on disk, create an application-specific directory under the directory that getSpecialFolderLocation( CSIDL_APPDATA ) would retrieve. If TextEdit used this approach, application data might be stored in this location:
-{{
+
+```
 C:\WINNT\Profiles\<username>\Application Data\TextEdit
-}}
-TextEdit stores information about individual files for as long as they remain in the extended MRU list. Other possibilities include setting a time limit on that kind of meta-information, or using a combination of the two. 
+```
+
+TextEdit stores information about individual files for as long as they remain in the extended MRU list. Other possibilities include setting a time limit on that kind of meta-information, or using a combination of the two.
 
 These few paragraphs just scratch the surface of the persistence question. They don’t provide a full answer, but I hope they encourage you to think carefully about persistence.
