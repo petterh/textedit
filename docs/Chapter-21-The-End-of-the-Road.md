@@ -42,7 +42,7 @@ Let me close with some thoughts and ideas on how TextEdit could be improved. Thi
 * Track changes (view differences between current file and another)
 * A “goto line number” command-line parameter, allowing integration with other programs in the form of links. Additional parameters are possible. Implementing OLE Automation is a thought, although not entirely a happy-making one
 * Initialize different default font and tab setting for different types of source code documents. Most people will usually view source code will a fixed font, for example; assembly listings traditionally require eight spaces per tab
-* File names are handled sloppily. If the value of MAX{"_"}PATH ever grows, we’ll have to recompile. A more bullet-proof solution would be to inspect the volume
+* File names are handled sloppily. If the value of MAX_PATH ever grows, we’ll have to recompile. A more bullet-proof solution would be to inspect the volume
 * Event log integration on Windows NT
 * Single process, multiple UI threads, rather than one process for each instance
 * More robust setup. TextEdit makes some assumptions about its environment that may sometimes be wrong

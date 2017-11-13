@@ -83,7 +83,7 @@ namespace MigrateDocumentation
                 }
 
                 sb.Append(text.Substring(pos));
-                string newText = sb.ToString();
+                text = sb.ToString();
 
                 // Code snippets
 
@@ -93,14 +93,14 @@ namespace MigrateDocumentation
                 while (true)
                 {
                     int prev = pos;
-                    pos = newText.IndexOf(CSharpTag, pos, StringComparison.InvariantCulture);
+                    pos = text.IndexOf(CSharpTag, pos, StringComparison.InvariantCulture);
                     if (pos < 0)
                     {
-                        sb.Append(newText.Substring(prev));
+                        sb.Append(text.Substring(prev));
                         break;
                     }
 
-                    sb.Append(newText.Substring(prev, pos - prev)).Append("```");
+                    sb.Append(text.Substring(prev, pos - prev)).Append("```");
                     if (opening)
                     {
                         sb.Append("C++");
@@ -110,8 +110,15 @@ namespace MigrateDocumentation
                     pos += CSharpTag.Length;
                 }
 
-                newText = sb.ToString();
-                File.WriteAllText(docFile.FullName, newText, Encoding.UTF8);
+                text = sb.ToString();
+
+                // Stuff wrapped in braces
+
+                text = text.Replace("{\"_\"}", "_");
+                Regex regex = new Regex("\\{\"([^}]*)\"\\}");
+                text = regex.Replace(text, "`$1`"); // `$2`
+
+                File.WriteAllText(docFile.FullName, text, Encoding.UTF8);
             }
         }
 

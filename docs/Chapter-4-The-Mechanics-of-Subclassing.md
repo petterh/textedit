@@ -33,9 +33,9 @@ Building the InstSub example is a two-step process:
 
 In spite of its overwhelming simplicity, InstSub illustrates several points:
 
-* The actual subclassing is performed in the **{"WM_INITDIALOG"}** handler, by calling **SetWindowLong** with the **{"GWL_WNDPROC"}** parameter. (It is more convenient to use the **SubclassWindow** macro defined in **windowsx.h**, but in this example, I want to expose everything.)
-* The address of the old window function is stored in the static variable **{"s_savedEditWndProc"}**. This works well enough in this simple example, and will work as long as you subclass a single control, or a set of identical controls with identical subclassing histories. Real life is usually less accommodating – perhaps the controls are of different classes, or perhaps one of them was already subclassed by somebody else.
-* The invocation of the old window function is done through **CallWindowProc**. Don’t call **{"s_savedEditWndProc"}** directly; it may not be a function address! This happens under Windows NT if you subclass a Unicode window with a non-Unicode window function or vice versa. In such cases, the system must translate the parameters of text-related messages, and the alleged window function is actually a pointer to some black-box data structure cooked up by SetWindowLong.
+* The actual subclassing is performed in the **`WM_INITDIALOG`** handler, by calling **SetWindowLong** with the **`GWL_WNDPROC`** parameter. (It is more convenient to use the **SubclassWindow** macro defined in **windowsx.h**, but in this example, I want to expose everything.)
+* The address of the old window function is stored in the static variable **`s_savedEditWndProc`**. This works well enough in this simple example, and will work as long as you subclass a single control, or a set of identical controls with identical subclassing histories. Real life is usually less accommodating – perhaps the controls are of different classes, or perhaps one of them was already subclassed by somebody else.
+* The invocation of the old window function is done through **CallWindowProc**. Don’t call **`s_savedEditWndProc`** directly; it may not be a function address! This happens under Windows NT if you subclass a Unicode window with a non-Unicode window function or vice versa. In such cases, the system must translate the parameters of text-related messages, and the alleged window function is actually a pointer to some black-box data structure cooked up by SetWindowLong.
 * This point has nothing to do with subclassing, but it is nevertheless worth noting: Even though the sample dialog has no buttons, the Enter and Escape keys still serve up WM_COMMAND messages with IDs IDOK and IDCANCEL, respectively. Starting in Chapter13, I’ll have more to say about dialog boxes and the dialog keyboard interface.
 * Final point –newEditWndProc is simpleminded. It fulfills the goal of allowing only numeric input, but in so doing, it disables accelerators such as Ctrl-C and Ctrl-Z.
 
@@ -210,7 +210,7 @@ int APIENTRY WinMain( HINSTANCE hinst, HINSTANCE, LPSTR, int ) {
 
 **Class cloning** means to register a new window class based on an existing class. Functionally, it is a variant of global subclassing, but since you must register the cloned class under a new name, you have some control over which windows are subclassed. The Clone example clones the edit control to create a class named NumericEdit. In the resource file, I explicitly set the control class of the numeric entry field to NumericEdit rather than edit (see Listing 5). 
 
-If we fail to register a class named NumericEdit before instantiating the dialog box, said dialog box will fail to load, and the DialogBox function will return -1. (This is the default behavior, which can be overridden by applying the **{"DS_NOFAILCREATE"}** dialog style.)
+If we fail to register a class named NumericEdit before instantiating the dialog box, said dialog box will fail to load, and the DialogBox function will return -1. (This is the default behavior, which can be overridden by applying the **`DS_NOFAILCREATE`** dialog style.)
 
 It isn’t mandatory to change the window function during class cloning. Sometimes you clone a class just to change the class style bits.
 
@@ -290,7 +290,7 @@ Another problem with InstSub is that it unsubclasses unconditionally. If somebod
 
 Data can be associated with windows in two basic ways: You can maintain a static list of associations (array, linked list, binary tree, hash table, post-it notes, engraved stone tablets) or you can associate the data with the window itself (using either window properties or SetWindowLong).
 
-If you were to use SetWindowLong, the **{"GWL_USERDATA"}** offset would be the only possible choice, given the requirement to subclass windows under somebody else’s control. This might be OK within a single application, but hardly in a generally reusable library. True, you could reinstate the old value of **{"GWL_USERDATA"}** before calling window functions down the chain, but you would have no defense against subclasssings above you in the chain, or against application programmers ignorant of this little implementation detail using **{"GWL_USERDATA"}** for their own purposes.
+If you were to use SetWindowLong, the **`GWL_USERDATA`** offset would be the only possible choice, given the requirement to subclass windows under somebody else’s control. This might be OK within a single application, but hardly in a generally reusable library. True, you could reinstate the old value of **`GWL_USERDATA`** before calling window functions down the chain, but you would have no defense against subclasssings above you in the chain, or against application programmers ignorant of this little implementation detail using **`GWL_USERDATA`** for their own purposes.
 
 According to conventional wisdom, window properties are less efficient than window words. Benchmarking
 

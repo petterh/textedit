@@ -46,7 +46,7 @@ STRINGTABLE DISCARDABLE
 }
 }}
 
-What happens if you call loadString( IDS{"_"}VERSION )? If you’re running Windows NT, the current thread locale decides. The current thread locale, in turn, is by default initialized to the user locale selected in the Regional Settings Control Panel applet. If you’re running Windows 95, the system default locale decides – Windows 95 does not support thread locales or user locales.
+What happens if you call loadString( IDS_VERSION )? If you’re running Windows NT, the current thread locale decides. The current thread locale, in turn, is by default initialized to the user locale selected in the Regional Settings Control Panel applet. If you’re running Windows 95, the system default locale decides – Windows 95 does not support thread locales or user locales.
 
 If a resource doesn’t exist in the desired language, the system has several fallback positions. The search order is as follows:
 
@@ -56,9 +56,9 @@ If a resource doesn’t exist in the desired language, the system has several fa
 # English
 # Any 
 
-If the current locale is French, the loadString example returns the US English resource, according to rule 4 above. If the current locale is Norwegian Nynorsk (rather than Norwegian Bokmål), the example returns the Norwegian resource, since there’s a match in the primary language, and rule 2 applies. If there were only one string table resource, tagged with LANG{"_"}_SWAHILI, you would get the Swahili string no matter what the current locale (rule 5).
+If the current locale is French, the loadString example returns the US English resource, according to rule 4 above. If the current locale is Norwegian Nynorsk (rather than Norwegian Bokmål), the example returns the Norwegian resource, since there’s a match in the primary language, and rule 2 applies. If there were only one string table resource, tagged with LANG__SWAHILI, you would get the Swahili string no matter what the current locale (rule 5).
 
-Windows NT allows you to change the user default language on the fly from the Control Panel. If this happens, a WM{"_"}SETTINGCHANGE message is broadcast, allowing us to change the application’s language on the fly. The main window’s onSettingChange function, in mainwnd.cpp, contains the following code fragment:
+Windows NT allows you to change the user default language on the fly from the Control Panel. If this happens, a WM_SETTINGCHANGE message is broadcast, allowing us to change the application’s language on the fly. The main window’s onSettingChange function, in mainwnd.cpp, contains the following code fragment:
 
 ```C++
 // Switch languages, if indicated:
@@ -148,7 +148,7 @@ String __cdecl formatMessage( const String& strFmt, ... ) {
 ```
 It promptly blew up. It took me a long debugging session to figure out what the problem was; can you see it?
 
-The culprit is the application of the va{"_"}start macro to a reference. The strFmt reference argument is actually a pointer to a String object, but there’s no way to get the address of the pointer value. The address operator retrieves the address of the strFmt String object, while va{"_"}start needs the address of the pointer to the strFmt object that is actually passed on the stack. The compiler can’t catch this, of course, and the va{"_"}list gets screwed up something horribly.
+The culprit is the application of the va_start macro to a reference. The strFmt reference argument is actually a pointer to a String object, but there’s no way to get the address of the pointer value. The address operator retrieves the address of the strFmt String object, while va_start needs the address of the pointer to the strFmt object that is actually passed on the stack. The compiler can’t catch this, of course, and the va_list gets screwed up something horribly.
 
 Solving the problem was then a simple trade-off between efficiency (an LPCTSTR parameter) and readability at the point of call (a String parameter). For TextEdit, I chose readability, and changed formatMessage to this:
 
@@ -165,13 +165,13 @@ Consider the number 1834597891. This is a nice, big number, and difficult to gra
 
 The easy way to format a number for display is to use printf( "%d", 1834597891 ), which gives the result you just saw. What we want is 1,834,597,891 – perhaps. In the US, the comma is used to separate groups of thousands; in Europe, it is more common to use a period (1.834.597.891), reserving the comma for the decimal point. In Norway, we like to use spaces instead, and to really confuse the issue, some locations don’t even group by thousands, or even by the same number of digits for each group.
 
-To find out what the correct format is, we have the GetLocaleInfo function to help us. If you call it with LOCALE{"_"}STHOUSAND as the second parameter, it will return a string containing the thousands separator. For example, if you’re using the US locale, this code snippet will set szThousandSep to “,”:
+To find out what the correct format is, we have the GetLocaleInfo function to help us. If you call it with LOCALE_STHOUSAND as the second parameter, it will return a string containing the thousands separator. For example, if you’re using the US locale, this code snippet will set szThousandSep to “,”:
 
 ```C++
 TCHAR szThousandSep[ 10 ](-10-) = { 0 };
 GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_STHOUSAND,  szThousandSep, dim( szThousandSep ) ) );
 ```
-If you call **GetLocaleInfo** with **LOCALE{"_"}SGROUPING** as the second parameter, it will return a string describing how you should group the digits. The grouping string contains digits separated by semicolons; the final digit should be zero. As soon as the zero has been reached, the last group size given should be repeated ad infinitum. A couple of examples will make this clear: "3;0" specifies groups of three digits, while "3;2;0" specifies one group of three digits, then groups of two from there on. 
+If you call **GetLocaleInfo** with **LOCALE_SGROUPING** as the second parameter, it will return a string describing how you should group the digits. The grouping string contains digits separated by semicolons; the final digit should be zero. As soon as the zero has been reached, the last group size given should be repeated ad infinitum. A couple of examples will make this clear: "3;0" specifies groups of three digits, while "3;2;0" specifies one group of three digits, then groups of two from there on. 
 
 The **formatNumber** function (in **formatNumber.cpp**) takes all this into account when formatting numbers. The one implementation issue worth mentioning is that the string is built backwards, and then reversed at the end. This could lead us astray if a thousand separator string of more than one character came along. To protect against such a potential mishap, the thousands separator string is itself reversed before we start applying it.
 
@@ -277,4 +277,4 @@ LOCALE_IPAPERSIZE
 }}
 Whew! This is not a reference book, but I couldn’t resist throwing in that list, just to give you a flavor of what software translation can entail. All this, and we haven’t even begun to consider the implications of different cultural conventions!
 
-(Did you notice LOCALE{"_"}SMONTHNAME13, by the way? No, it’s not a misprint.)
+(Did you notice LOCALE_SMONTHNAME13, by the way? No, it’s not a misprint.)

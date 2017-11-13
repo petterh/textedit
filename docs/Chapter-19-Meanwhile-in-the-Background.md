@@ -24,7 +24,7 @@ Keeping the KISS principle (Keep It Simple, Stupid!) in mind, I ended up with no
 
 ## Starting Threads
 
-The Win32 API gives you the **CreateThread** function. You should never use this function directly if you make calls to the C runtime library from multiple threads. Instead, you should use the CRT functions **{"_beginthread"}** or **{"_beginthreadex"}**. This allocates resources for the CRT on a per-thread basis, ensuring that different threads don’t trample each other’s data. The **strtok** function is a good example of a problem function: Since it must retain state between invocations, each thread needs its own storage for this.
+The Win32 API gives you the **CreateThread** function. You should never use this function directly if you make calls to the C runtime library from multiple threads. Instead, you should use the CRT functions **`_beginthread`** or **`_beginthreadex`**. This allocates resources for the CRT on a per-thread basis, ensuring that different threads don’t trample each other’s data. The **strtok** function is a good example of a problem function: Since it must retain state between invocations, each thread needs its own storage for this.
 
 In TextEdit, this is wrapped in **beginThread** and **endThread**, defined in threads.h.
 

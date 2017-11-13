@@ -12,11 +12,11 @@ The Document class handles all file I/O. The interface to the Document class was
 
 ## Drive Type
 
-To begin with, all the Document constructor knows is the file name. The file is passed through getLongFileName before it is assigned to the m{"_"}strFileName member. Next, getDriveType figures out what kind of drive the file resides on. Actually, all we care about is whether the file resides on a CD-ROM or a floppy. If it’s on a CD-ROM, it’s obviously a read-only file; if it’s on a floppy, the floppy may be write-protected. In addition, the auto-save interval is much larger for floppies, since it needs to be spun up before we can access the disk (see Editor::getAutoSaveTime).
+To begin with, all the Document constructor knows is the file name. The file is passed through getLongFileName before it is assigned to the m_strFileName member. Next, getDriveType figures out what kind of drive the file resides on. Actually, all we care about is whether the file resides on a CD-ROM or a floppy. If it’s on a CD-ROM, it’s obviously a read-only file; if it’s on a floppy, the floppy may be write-protected. In addition, the auto-save interval is much larger for floppies, since it needs to be spun up before we can access the disk (see Editor::getAutoSaveTime).
 
-The getDriveType function is a wrapper for the Windows function GetDriveType. If fed a UNC file name, this function returns DRIVE{"_"}NO{"_"}ROOT{"_"}DIR, for some curious reason.
+The getDriveType function is a wrapper for the Windows function GetDriveType. If fed a UNC file name, this function returns DRIVE_NO_ROOT_DIR, for some curious reason.
 
-Figuring out whether a floppy is write-protected is less straightforward than you might think. The only way I know is to attempt to create a file. If this fails with an error code of ERROR{"_"}WRITE{"_"}PROTECT, the floppy is write-protected. Merely opening a file for writing is insufficient, as this succeeds even on a write-protected floppy. You don’t get an error until you actually try to write to the file. 
+Figuring out whether a floppy is write-protected is less straightforward than you might think. The only way I know is to attempt to create a file. If this fails with an error code of ERROR_WRITE_PROTECT, the floppy is write-protected. Merely opening a file for writing is insufficient, as this succeeds even on a write-protected floppy. You don’t get an error until you actually try to write to the file. 
 
 Here is the isWriteProtectedDisk function from fileUtils.cpp:
 
@@ -51,15 +51,15 @@ The SetErrorMode function controls who handles certain types of serious errors �
 
 The Document::openFile method takes care of actually opening the file. To begin with, it tries to open the file in read/write mode. If that doesn’t give us a valid file handle, it’s time to listen to what GetLastError has to tell us. 
 
-If the error code is ERROR{"_"}INVALID{"_"}NAME, the likely explanation is that the file name contains wild cards. If a wild card pattern makes it this far, it’s because no files matched the pattern. The openFile method displays a message box to that effect, then uses the openFile function (not the Document method of the same name) to let the user select a different file (or create a new one). If the user clicks OK, it tries to open the new file, otherwise it throws a CancelException. 
+If the error code is ERROR_INVALID_NAME, the likely explanation is that the file name contains wild cards. If a wild card pattern makes it this far, it’s because no files matched the pattern. The openFile method displays a message box to that effect, then uses the openFile function (not the Document method of the same name) to let the user select a different file (or create a new one). If the user clicks OK, it tries to open the new file, otherwise it throws a CancelException. 
 
 That message box, by the way, could be dispensed with, since the explanation could just as well have been presented as part of the Open File dialog. Next version, for sure.
 
-If we still don’t have a valid file handle, and the error code is ERROR{"_"}FILE{"_"}NOT{"_"}FOUND, we try to append the default extension and open the file again. If the new error code is different from ERROR{"_"}FILE{"_"}NOT{"_"}FOUND, the file name with extension replaces the old file name. (A more advanced approach would be to try different extensions in turn, e.g., first .txt, then .cpp, and so on.)
+If we still don’t have a valid file handle, and the error code is ERROR_FILE_NOT_FOUND, we try to append the default extension and open the file again. If the new error code is different from ERROR_FILE_NOT_FOUND, the file name with extension replaces the old file name. (A more advanced approach would be to try different extensions in turn, e.g., first .txt, then .cpp, and so on.)
 
-If we still don’t have a valid file handle, and the error code is ERROR{"_"}ACCESS{"_"}DENIED or ERROR{"_"}SHARING{"_"}VIOLATION, we try to open the file in read-only mode.
+If we still don’t have a valid file handle, and the error code is ERROR_ACCESS_DENIED or ERROR_SHARING_VIOLATION, we try to open the file in read-only mode.
 
-If we still don’t have a valid file handle, and the error code is ERROR{"_"}FILE{"_"}NOT{"_"}FOUND, we call the getNewFile function to invoke FileNotFoundDlg, depicted in Figure 8.
+If we still don’t have a valid file handle, and the error code is ERROR_FILE_NOT_FOUND, we call the getNewFile function to invoke FileNotFoundDlg, depicted in Figure 8.
 
 If we still don’t have a valid file handle, we give up, and throw a WinException.
 
@@ -143,7 +143,7 @@ As you can see, the code is considerably more complex. I wrote the first version
 
 There was a similar problem in the inbound converter – my first implementation used the String::insert operator to insert carriage returns, as this made for simple and obvious code. Unfortunately, the performance penalty I had to pay for this convenience was too high.
 
-The inbound converter does one more thing – it detects and changes null characters. If any such are found (and changed), the m{"_"}bBinary member of Document is set, allowing us to warn the user (in onCreate in mainwnd.cpp).
+The inbound converter does one more thing – it detects and changes null characters. If any such are found (and changed), the m_bBinary member of Document is set, allowing us to warn the user (in onCreate in mainwnd.cpp).
 
 ## Saving
 

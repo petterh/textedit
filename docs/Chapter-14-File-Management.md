@@ -32,7 +32,7 @@ Compression of individual files is not supported on all file systems. In particu
 
 The Unicode and CR/LF “attributes” are even more different from the others, as they aren’t properties of the file system at all, but functions of the file’s contents. Changing these quasi-properties set or clear appropriate flags in the Document class; these flags determine how the file is saved.
 
-The Properties dialog does not apply any changes until you click the Apply button or the OK button. Both of these invoke the applyChanges method in PropertiesDlg. In addition to applying changes, this method forwards an ID{"_"}COMMAND{"_"}PROPSCHANGED command to the parent window, which allows the main window to change whatever UI elements need changing – the file name displayed in the window title, read-only status and so forth. 
+The Properties dialog does not apply any changes until you click the Apply button or the OK button. Both of these invoke the applyChanges method in PropertiesDlg. In addition to applying changes, this method forwards an ID_COMMAND_PROPSCHANGED command to the parent window, which allows the main window to change whatever UI elements need changing – the file name displayed in the window title, read-only status and so forth. 
 
 If you can’t change a file’s properties – if it’s on a CD-ROM or a write-protected floppy, or if you don’t have write access – everything except the Cancel button is disabled by the onInitDialog method.
 
@@ -65,7 +65,7 @@ setMenuItemText( hmenu, ID_FILE_DELETE, _T( "%1" ), strDeleteFile.c_str() );
 
 This code fragment checks to see if an ellipsis is present; if so, the ellipsis is removed. If the dialog is to be shown, the ellipsis is appended again. That way, it doesn’t matter whether the original menu string contained an ellipsis.
 
-Document::deleteFile physically deletes the file, and removes the file name from the MRU list as well (see Listing 52 in Chapter 12). It does not use the DeleteFile function, but relies instead on SHFileOperation. This lets us send the file to the trash can, if the user so desires, just by specifying the FOF{"_"}ALLOWUNDO flag. Furthermore, SHFileOperation takes care of the additional confirmation dialog, if any – it follows the user’s Explorer settings.
+Document::deleteFile physically deletes the file, and removes the file name from the MRU list as well (see Listing 52 in Chapter 12). It does not use the DeleteFile function, but relies instead on SHFileOperation. This lets us send the file to the trash can, if the user so desires, just by specifying the FOF_ALLOWUNDO flag. Furthermore, SHFileOperation takes care of the additional confirmation dialog, if any – it follows the user’s Explorer settings.
 
 One of the parameters to SHFileOperation is a pointer to an SHFILEOPSTRUCT. The pFrom member of this structure is actually a list of null-terminated file names; the list itself must be doubly null-terminated. (This is an error-prone approach to an API – it did burn me, at least. QED.)
 
@@ -86,9 +86,9 @@ The Open File and Save File common dialogs are little Explorers in their own rig
 
 ![](Chapter-14-File-Management-Figure20.bmp)
 
-**Figure 20: The Open File Dialog.** The extra controls on the right come from the dialog template IDD{"_"}PREVIEW{"_"}CHILD.
+**Figure 20: The Open File Dialog.** The extra controls on the right come from the dialog template IDD_PREVIEW_CHILD.
 
-You change the look of most common dialogs by specifying a resource template that replaces the default dialog. The Open and Save dialogs are exceptions; you specify, instead, the template of a child dialog that is added to the system-supplied dialog. The template must have the WS{"_"}CHILD style bit set, and it should include a static control with the ID stc32. This is a placeholder for the system-supplied dialog, and tells GetOpenFileName and GetSaveFileName how to place the child dialog in relation to predefined controls. Figure 21 shows the child dialog (IDD{"_"}PREVIEW{"_"}CHILD); its relationship to Figure 20 should be clear. 
+You change the look of most common dialogs by specifying a resource template that replaces the default dialog. The Open and Save dialogs are exceptions; you specify, instead, the template of a child dialog that is added to the system-supplied dialog. The template must have the WS_CHILD style bit set, and it should include a static control with the ID stc32. This is a placeholder for the system-supplied dialog, and tells GetOpenFileName and GetSaveFileName how to place the child dialog in relation to predefined controls. Figure 21 shows the child dialog (IDD_PREVIEW_CHILD); its relationship to Figure 20 should be clear. 
 
 ![](Chapter-14-File-Management-Figure21.bmp)
 
@@ -110,7 +110,7 @@ To get multiple entries, you just string several of these together, e.g.:
 
 A final null terminates the whole assemblage, so that there are two nulls at the end.
 
-There is a problem with this: The filter strings are stored in a string table resource (IDS{"_"}FILEFILTERS), so that the UI texts may be translated without recompiling the program. Since the null terminator is just that, a terminator, handling strings with embedded nulls is inconvenient. To get around this, the text in the string table uses vertical bars rather than nulls; part of the IDS{"_"}FILEFILTERS string table entry looks like this:
+There is a problem with this: The filter strings are stored in a string table resource (IDS_FILEFILTERS), so that the UI texts may be translated without recompiling the program. Since the null terminator is just that, a terminator, handling strings with embedded nulls is inconvenient. To get around this, the text in the string table uses vertical bars rather than nulls; part of the IDS_FILEFILTERS string table entry looks like this:
 
 {{   Batch Files|**.bat;**.cmd|All Files|**.**|}}
 
@@ -122,7 +122,7 @@ This index is not zero-based, but one-based. This has to do with the lpstrCustom
 
 To complicate things even more, TextEdit checks to see if the custom pattern matches one of the predefined patterns; if so, the index of the predefined pattern is saved, rather than zero. 
 
-As I said, a convoluted business. A custom pattern is formatted with the IDS{"_"}CUSTOM string, which gives us file type entries like this:
+As I said, a convoluted business. A custom pattern is formatted with the IDS_CUSTOM string, which gives us file type entries like this:
 
 {{   Custom (letter*.txt)}}
 
@@ -130,15 +130,15 @@ As I said, a convoluted business. A custom pattern is formatted with the IDS{"_"
 
 ## The Preview Window
 
-Showing the preview window in the dialog of Figure 20 is simplicity itself. I set the lpTemplateName member of OPENFILENAME to IDD{"_"}PREVIEW{"_"}CHILD and the hInstance member to TextEdit’s module handle, and voila! I have a preview window.
+Showing the preview window in the dialog of Figure 20 is simplicity itself. I set the lpTemplateName member of OPENFILENAME to IDD_PREVIEW_CHILD and the hInstance member to TextEdit’s module handle, and voila! I have a preview window.
 
 Looks aren’t everything, though. A preview window without a preview is useless; the preview window needs to know what is happening elsewhere in the dialog.
 
-To begin with, I customize the behavior of the dialog by pointing lpfnHook to openFileHookProc. This lets the common dialog send WM{"_"}NOTIFY messages to notify TextEdit of various happenings, with codes such as CDN{"_"}INITDONE, CDN{"_"}FILEOK, CDN{"_"}SELCHANGE, CDN{"_"}FOLDERCHANGE and CDN{"_"}TYPECHANGE. The latter three indicate that the selected file may have changed; they result in a call to the updatePreview function. (Not directly, mind you; I start a timer that, when it fires, calls updatePreview. This is to avoid repeated updates of the preview window when the user is using the arrow keys to zoom through a list of files.)
+To begin with, I customize the behavior of the dialog by pointing lpfnHook to openFileHookProc. This lets the common dialog send WM_NOTIFY messages to notify TextEdit of various happenings, with codes such as CDN_INITDONE, CDN_FILEOK, CDN_SELCHANGE, CDN_FOLDERCHANGE and CDN_TYPECHANGE. The latter three indicate that the selected file may have changed; they result in a call to the updatePreview function. (Not directly, mind you; I start a timer that, when it fires, calls updatePreview. This is to avoid repeated updates of the preview window when the user is using the arrow keys to zoom through a list of files.)
 
-To get the currently selected file, the updatePreview function sends a CDM{"_"}GETFILEPATH message to the Open dialog. If the file is a link, this message returns the unresolved link name rather than the file the link references, so updatePreview must call resolveName. If I have a valid file name at this point, I display the head of the file and update the little icon in the upper right corner; if not, the variable s{"_"}bValid is set to false. This variable is checked in the WM{"_"}CTLCOLORSTATIC handler, so that the preview window gets a gray background when the file name is invalid.
+To get the currently selected file, the updatePreview function sends a CDM_GETFILEPATH message to the Open dialog. If the file is a link, this message returns the unresolved link name rather than the file the link references, so updatePreview must call resolveName. If I have a valid file name at this point, I display the head of the file and update the little icon in the upper right corner; if not, the variable s_bValid is set to false. This variable is checked in the WM_CTLCOLORSTATIC handler, so that the preview window gets a gray background when the file name is invalid.
 
-One thing is missing from this picture: The hook function is notified only when the file name changes as a result of selection in the list of files; it is not notified when the file name changes as a result of typing in the file name field. To catch those EN{"_*"} notifications, it is necessary to subclass the Open dialog itself. 
+One thing is missing from this picture: The hook function is notified only when the file name changes as a result of selection in the list of files; it is not notified when the file name changes as a result of typing in the file name field. To catch those EN`_*` notifications, it is necessary to subclass the Open dialog itself. 
 
 It is possible that the hook function was meant to be a sufficient vehicle for customizing the dialog’s behavior. It doesn’t quite make the grade.
 

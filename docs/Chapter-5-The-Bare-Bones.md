@@ -12,9 +12,9 @@ The temptation is great to encapsulate and generalize everything in sight, but t
 
 In TextEdit, the editing control is designed to be pluggable. Accordingly, it has a nice and clean interface, as defined by the abstract class **AbstractEditWindow**. Any interaction with the edit control should use that interface. 
 
-Such is theory. In practice, the abstract base class implements several of the operations, secure in the knowledge that the actual editing control is either an edit control or a rich edit control. This has the advantage of avoiding duplicate code in the **EditWnd** and **RichEditWnd** classes; it has the disadvantage that it may need changing the moment we introduce a control that doesn’t use, say, **{"EN_CHANGE"}** notifications. 
+Such is theory. In practice, the abstract base class implements several of the operations, secure in the knowledge that the actual editing control is either an edit control or a rich edit control. This has the advantage of avoiding duplicate code in the **EditWnd** and **RichEditWnd** classes; it has the disadvantage that it may need changing the moment we introduce a control that doesn’t use, say, **`EN_CHANGE`** notifications. 
 
-To get notifications from an **AbstractEditWindow**, you must implement the **EditListener** interface. Among other things, the **EditListener** wraps the {"EN_**"} notifications, so that the listener won’t have to worry about such implementation details:
+To get notifications from an **AbstractEditWindow**, you must implement the **EditListener** interface. Among other things, the **EditListener** wraps the `EN_**` notifications, so that the listener won’t have to worry about such implementation details:
 
 ```C++
 class EditListener {
@@ -84,9 +84,9 @@ int Editor::run( HINSTANCE hinst ) {
 ```
 Two things here are of particular interest. First, there is a double while loop, although one would be sufficient from a logical point of view. This is done to increase efficiency. Setting up a try block involves considerable overhead, so I want to avoid doing it for every message that’s pumped through the system. With a double loop, the try block is set up once when we start, then once for every exception that makes it this far.
 
-Second, **TranslateAccelerator** is called before **isToolbarDialogMessag**e (which wraps **IsDialogMessage**). This is to ensure that the accelerators work even when the focus is in one of the controls on the toolbar. If I switch the order, accelerators such as Ctrl{"+"}O (File Open) and Ctrl{"+"}F (Edit Find) don’t work whenever the focus is in the tab edit field or on the Read Only checkbox. 
+Second, **TranslateAccelerator** is called before **isToolbarDialogMessag**e (which wraps **IsDialogMessage**). This is to ensure that the accelerators work even when the focus is in one of the controls on the toolbar. If I switch the order, accelerators such as Ctrl`+`O (File Open) and Ctrl`+`F (Edit Find) don’t work whenever the focus is in the tab edit field or on the Read Only checkbox. 
 
-A side effect of this ordering is that the main window’s clipboard accelerators (Ctrl{"+"}C, Ctrl{"+"}X and Ctrl{"+"}V) take precedence over the tab edit field’s accelerators. If this were an issue, the various command handlers would have to check which window had the keyboard focus before applying their corresponding commands. The whole issue illustrates something that is not a design principle, but merely a sad fact of life: It can be difficult to get smooth interaction if every box is black. 
+A side effect of this ordering is that the main window’s clipboard accelerators (Ctrl`+`C, Ctrl`+`X and Ctrl`+`V) take precedence over the tab edit field’s accelerators. If this were an issue, the various command handlers would have to check which window had the keyboard focus before applying their corresponding commands. The whole issue illustrates something that is not a design principle, but merely a sad fact of life: It can be difficult to get smooth interaction if every box is black. 
 
 ## The Editor Class
 

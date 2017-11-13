@@ -17,7 +17,7 @@ SetCursor returns a handle to the previous cursor; this suggests such usage. Mos
 
 What’s wrong with this picture? Consider the following sequence of events:
 
-# When the lengthy operation starts, the cursor is an IDC{"_"}ARROW, a fact remembered by hcurSave.
+# When the lengthy operation starts, the cursor is an IDC_ARROW, a fact remembered by hcurSave.
 # During the operation, the user moves the mouse, and the hourglass cursor comes to rest on a split bar.
 # The operation ends, and the cursor is changed back to an arrow.
 
@@ -41,7 +41,7 @@ void InvalidateCursor ( void ) {
    SetCursorPos( pt.x, pt.y );
 }
 ```
-This moves the cursor to its current location (i.e., the cursor does not actually move anywhere), forcing a WM{"_"}SETCURSOR message in the process. Doing it this way is a lot simpler than synthesizing and dispatching a WM{"_"}SETCURSOR message. 
+This moves the cursor to its current location (i.e., the cursor does not actually move anywhere), forcing a WM_SETCURSOR message in the process. Doing it this way is a lot simpler than synthesizing and dispatching a WM_SETCURSOR message. 
 
 GetCursorPos and SetCursorPos have changed somewhat during the migration from Win16 to Win32. In Win16, these were void functions; in Win32, they each return TRUE for success and FALSE for failure. As is its wont, however, Microsoft’s documentation is vague about possible causes of failure. 
 

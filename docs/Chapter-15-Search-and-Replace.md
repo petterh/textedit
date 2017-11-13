@@ -28,9 +28,9 @@ The default button, labeled Find Next, is enabled whenever the edit field contai
 
 There is one additional complication: What if the drop-down list is open? If the user hits return at this point, the list closes, but the default button action is not invoked. It is, in other words, unacceptable for the Find Next button to have a default border while the drop-down list is showing, no matter how many characters are in the text field.
 
-One solution to this user interface glitch would be to catch the Enter key and actually invoke the default button immediately after closing the drop-down list. I discarded this solution for two reasons: In the first place, the implementation is more convoluted than you might think at first glance – handling CNB{"_"}CLOSEUP is not enough. (Can you see why?) In the second place, most drop-down lists don’t behave like that (although some do), so it would have introduced a quite unnecessary user interface inconsistency.
+One solution to this user interface glitch would be to catch the Enter key and actually invoke the default button immediately after closing the drop-down list. I discarded this solution for two reasons: In the first place, the implementation is more convoluted than you might think at first glance – handling CNB_CLOSEUP is not enough. (Can you see why?) In the second place, most drop-down lists don’t behave like that (although some do), so it would have introduced a quite unnecessary user interface inconsistency.
 
-Actually implementing this functionality was more of a puzzle than I had expected, chiefly because the combobox notifications are peculiar. The CBN{"_"}DROPDOWN notification is sent before the list opens, while its opposite number, the CBN{"_"}CLOSEUP notification, is sent after the list has closed. In other words, the list is always closed at notification time. This precludes an elegant, common solution for all cases, in which I wouldn’t care whether the message was CBN{"_"}DROPDOWN or CBN{"_"}CLOSEUP. Instead, I would just ask the combobox by sending it the CB{"_"}GETDROPPEDSTATE message (using the ComboBox{"_"}GetDroppedState macro from windowsx.h).
+Actually implementing this functionality was more of a puzzle than I had expected, chiefly because the combobox notifications are peculiar. The CBN_DROPDOWN notification is sent before the list opens, while its opposite number, the CBN_CLOSEUP notification, is sent after the list has closed. In other words, the list is always closed at notification time. This precludes an elegant, common solution for all cases, in which I wouldn’t care whether the message was CBN_DROPDOWN or CBN_CLOSEUP. Instead, I would just ask the combobox by sending it the CB_GETDROPPEDSTATE message (using the ComboBox_GetDroppedState macro from windowsx.h).
 
 At this point, it occurred to me that this problem is not specific to FindDlg, but completely general. I removed all this code from FindDlg, and instead used global subclassing (as described in [Chapter 4](Chapter-4-The-Mechanics-of-Subclassing.md)) to subclass the dialog window class. The result is in dlgSubclasser.cpp, and has a couple of interesting properties:
 
@@ -63,7 +63,7 @@ If your program maintains a list of strings, and a list box maintains a putative
 
 The historical combobox is simpler than the MRU file list simply because I do not duplicate data storage. The drop-down list, in its role as a respected member of the TextEdit data structure, takes care of the strings for us.
 
-One final detail, while I’m on the subject of the combobox: The CB{"_"}FINDSTRINGEXACT message, which checks the strings in the drop-down list to find, if possible, an exact match, is not case-sensitive. I built the function findStringExact on top of CB{"_"}FINDSTRINGEXACT (or rather, on top of the ComboBox{"_"}FindStringExact macro) to get case sensitivity.
+One final detail, while I’m on the subject of the combobox: The CB_FINDSTRINGEXACT message, which checks the strings in the drop-down list to find, if possible, an exact match, is not case-sensitive. I built the function findStringExact on top of CB_FINDSTRINGEXACT (or rather, on top of the ComboBox_FindStringExact macro) to get case sensitivity.
 
 ## Text Not Found
 
@@ -97,9 +97,9 @@ This kind of thing is nice for programmers, but usually less so for end users. T
 
 ## Replacing Text
 
-FindDlg handles both search and replace. These functions use different dialog templates, but the same dialog function. To differentiate between the two modes, FindDlg has a flag named m{"_"}isReplace.
+FindDlg handles both search and replace. These functions use different dialog templates, but the same dialog function. To differentiate between the two modes, FindDlg has a flag named m_isReplace.
 
-I decided to use the same dialog function for these two dialogs on the assumption that there was considerable functional overlap. While this is true, it may still have been a mistake; the Replace dialog is much more complex than the Find dialog, particularly in terms of user interaction. The code in FindDlg.cpp is littered with if ( m{"_"}isReplace ) conditionals, and this is unfortunate.
+I decided to use the same dialog function for these two dialogs on the assumption that there was considerable functional overlap. While this is true, it may still have been a mistake; the Replace dialog is much more complex than the Find dialog, particularly in terms of user interaction. The code in FindDlg.cpp is littered with if ( m_isReplace ) conditionals, and this is unfortunate.
 
 ## The Visual C++ Replace Dialog
 
@@ -147,6 +147,6 @@ In Figure 32, the user has checked “Replace in Selection.” In this case, Rep
 
 **Figure 32: The TextEdit Replace dialog with “Replace in Selection” selected**. Replace All is the only possible action.
 
-User interaction with the Replace dialog is considerably more complicated than the interaction with the plain Find dialog. In particular, check out the adjustButtons method in FindDlg.cpp; it does considerably more work when the m{"_"}isReplace flag is set.
+User interaction with the Replace dialog is considerably more complicated than the interaction with the plain Find dialog. In particular, check out the adjustButtons method in FindDlg.cpp; it does considerably more work when the m_isReplace flag is set.
 
 < Listing 65: FindDlg.cpp >

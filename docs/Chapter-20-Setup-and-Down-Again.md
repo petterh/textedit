@@ -19,7 +19,7 @@ Here are two ways to let TextEdit know that it should be an installer rather tha
 * Start TextEdit with the /setup switch
 * Rename the executable to setup.exe or install.exe
 
-Installation leaves traces in the registry, under the key **{"HKEY_LOCAL_MACHINE\Software\Andersen Consulting\TextEdit\InstallPath"}**. TextEdit checks this registry key each time it starts. If nothing is there, it runs setup. If something is there, and TextEdit was started without arguments, it compares version numbers. If the running instance is newer than the installed instance, TextEdit asks the user whether an upgrade is in order. This is all handled by the isSetup function in init.cpp.
+Installation leaves traces in the registry, under the key **`HKEY_LOCAL_MACHINE\Software\Andersen Consulting\TextEdit\InstallPath`**. TextEdit checks this registry key each time it starts. If nothing is there, it runs setup. If something is there, and TextEdit was started without arguments, it compares version numbers. If the running instance is newer than the installed instance, TextEdit asks the user whether an upgrade is in order. This is all handled by the isSetup function in init.cpp.
 
 To start setup automatically on insertion of a CD, create a file named autorun.inf on the CD, with the following contents:
 
@@ -29,7 +29,7 @@ open=setup.exe
 icon=setup.exe,5 
 }}
 
-The first thing the setup dialog does is check for a previous installation. If it finds one, it compares the version number of the installed file with that of the running executable. If the installed file is newer than the running executable, the m{"_"}isOlderThanPrevious member of SetupDlg is set to true, and the Cancel button of Figure 39 is made the default button. If the user nevertheless clicks the Install button, a warning pops up.
+The first thing the setup dialog does is check for a previous installation. If it finds one, it compares the version number of the installed file with that of the running executable. If the installed file is newer than the running executable, the m_isOlderThanPrevious member of SetupDlg is set to true, and the Cancel button of Figure 39 is made the default button. If the user nevertheless clicks the Install button, a warning pops up.
 
 ## Installation
 
@@ -41,13 +41,13 @@ Invoking the Install button in Figure 39 starts the installation. The first step
 
 The customization dialog lets you customize the installation by overriding the default values for data directory and program directory, and by selecting the file types that TextEdit should be associated with. It also lets you select the UI language (if you’re running under Windows NT); both the language and the data directory settings can be changed later through the Options dialog.
 
-The FileType class handles everything related to file types. Each FileType instance describes one class of files, and the array FileType::sm{"_"}aFileType lists all file types we know about.
+The FileType class handles everything related to file types. Each FileType instance describes one class of files, and the array FileType::sm_aFileType lists all file types we know about.
 
 Three standard actions are usually associated with data files: Open (the default action), Edit and Print. These appear on the context menu when the data file is right-clicked in the explorer. Not all action/file type combinations are created equal, though. For a text document, Open means the same as Edit. For a batch file, Open means Execute. For an HTML document, Open means view it in a browser, and Edit probably means to edit it in a WYSIWYG HTML editor such as the Microsoft FrontPage editor.
 
 For each document type, TextEdit knows whether Edit is the default action, whether Edit means “edit the source” and whether TextEdit should handle printing. In the cases where a program other than TextEdit is the natural choice for any of these actions, as is the case with HTML files, we simply add a new command to the context menu, “Edit with TextEdit.”
 
-The FileType class has a member named m{"_"}bInclude; the user controls its value through the list box check marks in Figure 40.
+The FileType class has a member named m_bInclude; the user controls its value through the list box check marks in Figure 40.
 
 < Listing 76: FileType.h>
 < Listing 77: FileType.cpp>

@@ -55,11 +55,11 @@ You invoke the standard print dialog by calling PrintDlg with a pointer to a sui
 
 When you are certain of running under Windows 2000, you may use PrintDlgEx instead, which gives you extended functionality.
 
-The print dialog is special in that it may be the sole manifestation of TextEdit; this happens if TextEdit is started with the /p switch. If so, the WM{"_"}INITDIALOG handler adds the file’s title to the dialog title.
+The print dialog is special in that it may be the sole manifestation of TextEdit; this happens if TextEdit is started with the /p switch. If so, the WM_INITDIALOG handler adds the file’s title to the dialog title.
 
 The “Selection” radio button must be disabled if no text is selected. Obviously, no text is ever selected when TextEdit is invoked with one of the printer switches.
 
-The printing switches give rise to another complication: What if the file in question is already open in another instance of TextEdit? This is handled in activateOldInstance, which activates the old instance, then sends it an ID{"_"}FILE{"_"}PRINT command. This approach is the reason why the parent window of the Print Common dialog is GetLastActivePopup( m{"_"}hwndMain ) rather than plain m{"_"}hwndMain. There’s always the chance that a dialog box is open in the running instance. Two modal dialog boxes parented to the same window is not merely asking for trouble, but insisting on trouble. Only one of them will have a keyboard interface, and as soon as one is killed, the parent is again enabled, with the remaining dialog displaying a distinctly modeless behavior. Better, then, to parent the print dialog to the existing dialog.
+The printing switches give rise to another complication: What if the file in question is already open in another instance of TextEdit? This is handled in activateOldInstance, which activates the old instance, then sends it an ID_FILE_PRINT command. This approach is the reason why the parent window of the Print Common dialog is GetLastActivePopup( m_hwndMain ) rather than plain m_hwndMain. There’s always the chance that a dialog box is open in the running instance. Two modal dialog boxes parented to the same window is not merely asking for trouble, but insisting on trouble. Only one of them will have a keyboard interface, and as soon as one is killed, the parent is again enabled, with the remaining dialog displaying a distinctly modeless behavior. Better, then, to parent the print dialog to the existing dialog.
 
 < Listing 69: printFile.cpp >
 

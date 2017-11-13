@@ -24,7 +24,7 @@ Why? Among the standard schemes in Figure 12 are some with high contrast and lar
 
 ## Noticing the Changes
 
-Clicking the OK button in Figure 12 may result in two different messages being broadcast: WM{"_"}SETTINGCHANGE and WM{"_"}SYSCOLORCHANGE. TextEdit has message handlers for these in mainwnd.cpp (as shown in Chapter 9).
+Clicking the OK button in Figure 12 may result in two different messages being broadcast: WM_SETTINGCHANGE and WM_SYSCOLORCHANGE. TextEdit has message handlers for these in mainwnd.cpp (as shown in Chapter 9).
 
 The onSysColorChange function just passes the message on to all the child windows. They don’t all need it, but all the common controls do, including tool bars and status bars. Passing it to everybody is the simplest way of ensuring that those that need it get it.
 
@@ -35,7 +35,7 @@ The onSettingChange function is more complex. The language may have changed, fon
 The description of a UI font is stored in the registry as a blob. The menu font is stored under the following key:
 
 ```C++
-HKEY{"_"}CURRENT{"_"}USER\Control Panel\Desktop\WindowMetrics\MenuFont
+HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics\MenuFont
 ```
 (BLOB is an acronym for a Binary Large OBject. Whether this blob deserves the adjective “large” is another matter.) This blob turns out to be a LOGFONT structure, and it can be used to instantiate a GDI object of the HFONT persuasion.
 
@@ -61,7 +61,7 @@ Figure 13 shows the View tab on the Explorer’s Option dialog. The list has two
 
 To get the file name to display in the title bar, TextEdit calls the GetWindowTitle function. This function takes care of the second point, but not the first. In fact, TextEdit never displays the full path in the title bar, as I’ve found no documented way of detecting this setting.
 
-If you click the OK button in Figure 13, the Explorer broadcasts a WM{"_"}SETTINGCHANGE message The onSettingChange handler is simpleminded, and refreshes everything that might conceivably have changed.
+If you click the OK button in Figure 13, the Explorer broadcasts a WM_SETTINGCHANGE message The onSettingChange handler is simpleminded, and refreshes everything that might conceivably have changed.
 
 ## Regional Settings
 
@@ -198,7 +198,7 @@ Sometimes, though, we need to access information elsewhere in the registry. The 
 
 ## Persistent Variables
 
-Let’s study one of the macros in persistence.h, DEFINE{"_"}PERSISTENT{"_"}BOOL, to see how it works:
+Let’s study one of the macros in persistence.h, DEFINE_PERSISTENT_BOOL, to see how it works:
 
 ```C++
 #define DEFINE_PERSISTENT_BOOL( section, name )        \
@@ -228,7 +228,7 @@ This expands to:
          _T( "Search" ), _T( MatchCase ), bValue );
    }
 ```
-The macros for integers and strings are similar in structure. One deserves special mention: DEFINE{"_"}PERSISTENT{"_"}STRING{"_"}EX allows indexed persistent variables. After the declaration of 
+The macros for integers and strings are similar in structure. One deserves special mention: DEFINE_PERSISTENT_STRING_EX allows indexed persistent variables. After the declaration of 
 
 ```C++
 DEFINE_PERSISTENT_STRING_EX( "Search", Pattern );
@@ -244,7 +244,7 @@ Software\Andersen Consulting\TextEdit\Search\Pattern1=someString
 }}
 Most of the persistent variables are used across several modules, and therefore defined in persistence.h. Those that are used only by a single module are defined in that module, to reduce visibility.
 
-Macros such as DEFINE{"_"}PERSISTENT{"_"}BOOL make it easy to define persistent variables – imagine coding all those getters and setters by hand! The down side is that the code is difficult to debug because multiple code lines are compressed into a single source line. You should always start with a hand-coded function, and only start using the code-generating macros when that function is fully debugged. 
+Macros such as DEFINE_PERSISTENT_BOOL make it easy to define persistent variables – imagine coding all those getters and setters by hand! The down side is that the code is difficult to debug because multiple code lines are compressed into a single source line. You should always start with a hand-coded function, and only start using the code-generating macros when that function is fully debugged. 
 
 If I had created this module from scratch today, I would have sidestepped the debugging problem by replacing the macros with templates.
 
@@ -301,7 +301,7 @@ HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce
 }}
 Whenever Windows starts, it enumerates all key-value pairs under this key, and executes all the values as commands. The Windows Explorer uses this feature to restore all the Explorer windows.
 
-A naïve (and all too common) use of this facility is to insert a RunOnce command in response to the WM{"_"}ENDSESSION message, e.g.:
+A naïve (and all too common) use of this facility is to insert a RunOnce command in response to the WM_ENDSESSION message, e.g.:
 
 ```C++
 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\
@@ -309,7 +309,7 @@ HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\
 ```
 This approach has at least two problems: 
 
-# If the system goes down catastrophically, we never see the WM{"_"}ENDSESSION message, and restart doesn’t take place. 
+# If the system goes down catastrophically, we never see the WM_ENDSESSION message, and restart doesn’t take place. 
 # If multiple instances of TextEdit were running, they would have to ensure that each had a unique name. This is possible, of course, but it is certainly extra work.
 
 What TextEdit actually does is the following: When TextEdit starts, it inserts the following under the RunOnce key:
@@ -327,13 +327,13 @@ LOCAL void initReboot( void ) {
       _T( "%1 /boot" ), strProgram.c_str() );
 }
 ```
-The constant RUNONCE{"_"}PATH is defined in setup.h, as follows:
+The constant RUNONCE_PATH is defined in setup.h, as follows:
 
 ```C++
 #define WIN_PATH _T( "Software\\Microsoft\\Windows\\CurrentVersion" )
 #define RUNONCE_PATH   WIN_PATH _T( "\\RunOnce" )
 ```
-Next, the document local persistent variable Running is set to one. If TextEdit exits in response to WM{"_"}ENDSESSION, it remains one; otherwise, it’s reset to zero. If Windows crashes, the value of Running remains 1, and restart will take place.
+Next, the document local persistent variable Running is set to one. If TextEdit exits in response to WM_ENDSESSION, it remains one; otherwise, it’s reset to zero. If Windows crashes, the value of Running remains 1, and restart will take place.
 
 When TextEdit is started with the /boot option, it does the following:
 
@@ -342,7 +342,7 @@ When TextEdit is started with the /boot option, it does the following:
 
 Then it exits. Windows removes all RunOnce entries after executing them. If you don’t start any new TextEdit instances this Windows session, no new reboot entry will be added, and there will be no restart.
 
-The WM{"_"}QUERYENDSESSION/WM{"_"}ENDSESSION message pair have different behaviors under Windows 9x and Windows NT. Under Windows 9x, after each application responds with TRUE to the WM{"_"}QUERYENDSESSION message, they receive the WM{"_"}ENDSESSION message and are terminated. Under Windows NT, if you reply TRUE to WM{"_"}QUERYENDSESSION, you immediately receive WM{"_"}ENDSESSION and are terminated, even though other applications may still respond with FALSE to WM{"_"}QUERYENDSESSION. 
+The WM_QUERYENDSESSION/WM_ENDSESSION message pair have different behaviors under Windows 9x and Windows NT. Under Windows 9x, after each application responds with TRUE to the WM_QUERYENDSESSION message, they receive the WM_ENDSESSION message and are terminated. Under Windows NT, if you reply TRUE to WM_QUERYENDSESSION, you immediately receive WM_ENDSESSION and are terminated, even though other applications may still respond with FALSE to WM_QUERYENDSESSION. 
 
 I’ve tried to come up with good adjectives to describe this state of affairs (e.g., “weird,” “ridiculous”), but they all strike me as understatements. I’ll leave it as an exercise for the adjectivally inclined reader.
 
@@ -366,7 +366,7 @@ TextEdit must work even with the FAT file system, which means that per-file info
 
 Per-file information can be stored in another file, alongside the document file. This is more visible to the end user than I like, and, if the per-file information includes older versions, creates problems on floppies. If you save both the file and its backup on the same disk, the useful capacity is halved. If you do supply versioning support, it is probably wise to give the user some control over it, as the impact on disk space may be significant.
 
-If you’re going to store per-application information on disk, create an application-specific directory under the directory that getSpecialFolderLocation( CSIDL{"_"}APPDATA ) would retrieve. If TextEdit used this approach, application data might be stored in this location:
+If you’re going to store per-application information on disk, create an application-specific directory under the directory that getSpecialFolderLocation( CSIDL_APPDATA ) would retrieve. If TextEdit used this approach, application data might be stored in this location:
 {{
 C:\WINNT\Profiles\<username>\Application Data\TextEdit
 }}

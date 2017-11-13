@@ -25,7 +25,7 @@ TextEdit has more windows than these, though. Dialog boxes and their controls ar
 
 ## Window Creation
 
-The main window is created in the init function in init.cpp. The main window’s {"WM_CREATE"} handler, onCreate, is responsible for creating the Editor object, which in turn creates the toolbar and the status bar. I shall have more to say about the main window in the next chapter, and I talked about the AbstractEditWndProc in the previous chapter. For now, let’s concentrate on the tool bar and the status bar.
+The main window is created in the init function in init.cpp. The main window’s `WM_CREATE` handler, onCreate, is responsible for creating the Editor object, which in turn creates the toolbar and the status bar. I shall have more to say about the main window in the next chapter, and I talked about the AbstractEditWndProc in the previous chapter. For now, let’s concentrate on the tool bar and the status bar.
 
 ## The Tool Bar
 
@@ -42,7 +42,7 @@ void Editor::refreshToolbar( void ) {
 ```
 In other words, the old toolbar is deleted, and a new toolbar is created in its place.
 
-The tool bar’s tool tips come in two different flavors. We get tool tips for the buttons just by adding the {"TBSTYLE_TOOLTIPS"} style bit, but tool tips for the child controls must be added the hard way – control by control. The Toolbar constructor sends itself a {"TB_GETTOOLTIPS"} message to get hold of the tool tip window, then sends the tool tip a {"TTM_ADDTOOL"} message for each child:
+The tool bar’s tool tips come in two different flavors. We get tool tips for the buttons just by adding the `TBSTYLE_TOOLTIPS` style bit, but tool tips for the child controls must be added the hard way – control by control. The Toolbar constructor sends itself a `TB_GETTOOLTIPS` message to get hold of the tool tip window, then sends the tool tip a `TTM_ADDTOOL` message for each child:
 
 ```C++
 HWND hwndToolTip = 
@@ -63,21 +63,21 @@ if ( IsWindow( hwndToolTip ) ) {
    }
 }
 ```
-The onGetDispInfo method handles the {"TTN_GETDISPINFO"} notification, which the tool tip sends to get the text to display. The child windows require a separate test for each, while the buttons are handled in a generic manner. The loadToolTip function (in utils.cpp) is a simple wrapper around loadString (also in utils.cpp). If the string contains a carriage return, everything up to and including the CR is deleted. (Everything in front of the CR is used to display the menu help text in the status bar.)
+The onGetDispInfo method handles the `TTN_GETDISPINFO` notification, which the tool tip sends to get the text to display. The child windows require a separate test for each, while the buttons are handled in a generic manner. The loadToolTip function (in utils.cpp) is a simple wrapper around loadString (also in utils.cpp). If the string contains a carriage return, everything up to and including the CR is deleted. (Everything in front of the CR is used to display the menu help text in the status bar.)
 
 The **Toolbar** module defines two instance subclassings: 
 
-* The edit control (containing the number of spaces per tab) is subclassed to pass page up and page down keys through to the edit window, to change the return value from the {"WM_GETDLGCODE"} message and to set and reset the status bar prompt in response to the {"WM_SETFOCUS"} and {"WM_KILLFOCUS"} messages.
-* The parent window is subclassed to intercept {"WM_SIZE"} and {"WM_NOTIFY"} messages. This could have been handled in the main window, of course, but by doing it this way, all code pertinent to the toolbar is kept in one class.
+* The edit control (containing the number of spaces per tab) is subclassed to pass page up and page down keys through to the edit window, to change the return value from the `WM_GETDLGCODE` message and to set and reset the status bar prompt in response to the `WM_SETFOCUS` and `WM_KILLFOCUS` messages.
+* The parent window is subclassed to intercept `WM_SIZE` and `WM_NOTIFY` messages. This could have been handled in the main window, of course, but by doing it this way, all code pertinent to the toolbar is kept in one class.
 
-The final item of interest is the adjust method, which calculates the position of the child windows. Like all such calculations, it is rather hairy, and also rather boring. Note that the final item in the toolbar’s TBBUTTON array is a separator with the identifier {"ID_TABPLACEHOLDER"}; it exists only so that we can figure out where the buttons end.
+The final item of interest is the adjust method, which calculates the position of the child windows. Like all such calculations, it is rather hairy, and also rather boring. Note that the final item in the toolbar’s TBBUTTON array is a separator with the identifier `ID_TABPLACEHOLDER`; it exists only so that we can figure out where the buttons end.
 
 < Listing 32: Toolbar.h>
 < Listing 33: Toolbar.cpp>
 
 ## The Status Bar
 
-The status bar is a window of class {"msctls_statusbar32"}, implemented in COMCTL32.DLL and wrapped by the StatusBar class, a subclass of the Window class. The status bar has no children; instead, it has four panes, identified by the enumeration Statusbar::StatusBarParts:
+The status bar is a window of class `msctls_statusbar32`, implemented in COMCTL32.DLL and wrapped by the StatusBar class, a subclass of the Window class. The status bar has no children; instead, it has four panes, identified by the enumeration Statusbar::StatusBarParts:
 
 ```C++
 enum StatusBarParts {
@@ -91,9 +91,9 @@ enum StatusBarParts {
 
 Most of the **Statusbar** class is devoted to providing convenient ways of setting texts and icons in the various panes.
 
-Like the tool bar, the status bar subclasses the main window to intercept messages. The status bar is interested in {"WM_SIZE"} and {"WM_DRAWITEM"}. (Subclassing a window to listen in on the message traffic is different from MFC’s message reflection mechanism, but the result is similar – improved encapsulation.)
+Like the tool bar, the status bar subclasses the main window to intercept messages. The status bar is interested in `WM_SIZE` and `WM_DRAWITEM`. (Subclassing a window to listen in on the message traffic is different from MFC’s message reflection mechanism, but the result is similar – improved encapsulation.)
 
-The first pane is **{"SBT_OWNERDRAW"}**, because I want to display rich text in the pane, and because I want to highlight some messages. The **paintHTML** function (in HTML.cpp) handles both; I’ll get back to the details in [Chapter 13](Chapter-13-About-Dialogs.md).
+The first pane is **`SBT_OWNERDRAW`**, because I want to display rich text in the pane, and because I want to highlight some messages. The **paintHTML** function (in HTML.cpp) handles both; I’ll get back to the details in [Chapter 13](Chapter-13-About-Dialogs.md).
 
 The final item of interest is the recalcParts method, which (re-) calculates the sizes of the status bar panes in response to size changes in the main window. This is necessary because the first pane is the one that stretches.
 

@@ -15,20 +15,20 @@ The key attributes of dialog boxes are supplied by the DefDlgProc and IsDialogMe
 The dialog box keyboard interface carries out special processing for several keys. It allows you to navigate the input focus between the controls in the dialog, and to generate messages corresponding to certain buttons. The following table is copied from Microsoft’s online documentation; it merits careful study:
 
 || Key || Action ||
-| Alt{"+"}mnemonic | Moves the input focus to the first control (having the WS{"_"}TABSTOP style) after the static control containing the given mnemonic. |
+| Alt`+`mnemonic | Moves the input focus to the first control (having the WS_TABSTOP style) after the static control containing the given mnemonic. |
 | Down | Moves the input focus to the next control in the group. |
-| Enter |Sends a WM{"_"}COMMAND message to the dialog box function. The wParam parameter is set to IDOK or control identifier of the default push button. |
-| Esc |Sends a WM{"_"}COMMAND message to the dialog box function. The wParam parameter is set to IDCANCEL. |
+| Enter |Sends a WM_COMMAND message to the dialog box function. The wParam parameter is set to IDOK or control identifier of the default push button. |
+| Esc |Sends a WM_COMMAND message to the dialog box function. The wParam parameter is set to IDCANCEL. |
 | Left | Moves the input focus to the previous control in the group. |
-| Mnemonic | Moves the input focus to the first control (having the WS{"_"}TABSTOP style) after the static control containing the given mnemonic. |
+| Mnemonic | Moves the input focus to the first control (having the WS_TABSTOP style) after the static control containing the given mnemonic. |
 | Right | Moves the input focus to the next control in the group. |
-| Shift{"+"}tab | Moves the input focus to the previous control that has the WS{"_"}TABSTOP style. |
-| Tab | Moves the input focus to the next control that has the WS{"_"}TABSTOP style. |
+| Shift`+`tab | Moves the input focus to the previous control that has the WS_TABSTOP style. |
+| Tab | Moves the input focus to the next control that has the WS_TABSTOP style. |
 | Up | Moves the input focus to the previous control in the group. |
 
 Note in particular what this table says about the Enter and Escape keys: They send IDOK and IDCANCEL commands, respectively, but there is no requirement that controls with IDOK or IDCANCEL IDs exist. 
 
-Controls – windows that are meant to be children of dialog windows – must fulfill certain criteria to be good dialog citizens. They should understand window styles such as WS{"_"}TABSTOP and they should respond intelligently to message such as WM{"_"}GETDLGCODE. If they have a keyboard interface, they should provide a visible indication of keyboard focus. 
+Controls – windows that are meant to be children of dialog windows – must fulfill certain criteria to be good dialog citizens. They should understand window styles such as WS_TABSTOP and they should respond intelligently to message such as WM_GETDLGCODE. If they have a keyboard interface, they should provide a visible indication of keyboard focus. 
 
 ## The Dialog class
 
@@ -42,7 +42,7 @@ If a dialog box blows up, the parent window may remain disabled even though the 
 
 ## Positioning the Dialog
 
-The positioning of a dialog is a somewhat tortuous process. When dispatchDlgMsg handles the WM{"_"}INITDIALOG message, it starts by centering the dialog in relation to the TextEdit window. (The DS{"_"}CENTER window style, by the way, would center the dialog in the screen’s working area, which is not what I want.) This is the default position for any TextEdit dialog. But consider – if our old friend Jane ever moves a dialog, it’s because she thinks it looks better in the new spot. Wouldn’t it be nice if TextEdit could remember this, and, the next time the dialog is invoked, place it in the same spot?
+The positioning of a dialog is a somewhat tortuous process. When dispatchDlgMsg handles the WM_INITDIALOG message, it starts by centering the dialog in relation to the TextEdit window. (The DS_CENTER window style, by the way, would center the dialog in the screen’s working area, which is not what I want.) This is the default position for any TextEdit dialog. But consider – if our old friend Jane ever moves a dialog, it’s because she thinks it looks better in the new spot. Wouldn’t it be nice if TextEdit could remember this, and, the next time the dialog is invoked, place it in the same spot?
 
 TextEdit dialog positions are persistent, although only within a single session. Positioning is handled by a pair of functions defined in winUtils.cpp, along with the static variable thePointMap:
 
@@ -84,11 +84,11 @@ The only possible interaction is to dismiss the dialog, which is why I call it s
 
 ![](Chapter-13-About-Dialogs-Figure15.bmp)
 
-**Figure 15: The About Dialog.** Some STATIC widgets have been subjected to a WM{"_"}SETFONT message, while others have been subclassed.
+**Figure 15: The About Dialog.** Some STATIC widgets have been subjected to a WM_SETFONT message, while others have been subclassed.
 
-If you look at the dialog box in Figure 15, you’ll note several different fonts. In the case of the program title and version, this is a simple matter of creating the desired font, then sending a WM{"_"}SETFONT message to the control. This is done using the SetWindowFont macro defined in windowsx.h. 
+If you look at the dialog box in Figure 15, you’ll note several different fonts. In the case of the program title and version, this is a simple matter of creating the desired font, then sending a WM_SETFONT message to the control. This is done using the SetWindowFont macro defined in windowsx.h. 
 
-More interesting is the boldfacing of individual words in the IDC{"_"}COMMENTS and IDC{"_"}COMMERCIAL controls. This is done by subclassing normal static controls. In onInitDialog, you’ll find a pair of calls to subclassHTML, which is all it takes to accomplish this. Except, of course, for writing the subclassHTML function itself, and accompanying paraphernalia. This is described in the sidebar entitled “[The HTML Static Control](Sidebar-The-HTML-Static-Control.md).”
+More interesting is the boldfacing of individual words in the IDC_COMMENTS and IDC_COMMERCIAL controls. This is done by subclassing normal static controls. In onInitDialog, you’ll find a pair of calls to subclassHTML, which is all it takes to accomplish this. Except, of course, for writing the subclassHTML function itself, and accompanying paraphernalia. This is described in the sidebar entitled “[The HTML Static Control](Sidebar-The-HTML-Static-Control.md).”
 
 < Listing 55: AboutDlg.cpp >
 < Listing 56: HTML.h>
@@ -137,9 +137,9 @@ void OptionsDlg::onDlgCommand(
 
 ## Enter with Care
 
-The BUTTON window class supports a style bit named BS{"_"}DEFPUSHBUTTON. This draws the button with a heavy black border, indicating that it is the default button, and that you can activate it by pressing the Enter key. 
+The BUTTON window class supports a style bit named BS_DEFPUSHBUTTON. This draws the button with a heavy black border, indicating that it is the default button, and that you can activate it by pressing the Enter key. 
 
-The black border is just a visual clue; the functional aspects of the default button come from the dialog window class and the IsDialogMessage function. The dialog box has its own concept of a default button, which you can set using the DM{"_"}SETDEFID message. When a dialog receives this message, it may send WM{"_"}GETDLGCODE and BM{"_"}SETSTYLE to the indicated button as well as to the current default button. 
+The black border is just a visual clue; the functional aspects of the default button come from the dialog window class and the IsDialogMessage function. The dialog box has its own concept of a default button, which you can set using the DM_SETDEFID message. When a dialog receives this message, it may send WM_GETDLGCODE and BM_SETSTYLE to the indicated button as well as to the current default button. 
 
 This is less straightforward than it sounds. In particular, problems abound whenever you dynamically enable and disable buttons, or when you change the default button. Consider this code fragment from the onDlgCommand method of PropertiesDlg (described in Chapter 14):
 
@@ -162,9 +162,9 @@ case IDC_APPLY:
 }
 ```
 
-What happens if we disable the IDC{"_"}APPLY button, but omit the gotoDlgItem( IDOK ) line? We lose the keyboard interface, that’s what, and all keys simply go beep in the night. Furthermore, the Property dialog’s Apply button retains its default border, even when disabled.
+What happens if we disable the IDC_APPLY button, but omit the gotoDlgItem( IDOK ) line? We lose the keyboard interface, that’s what, and all keys simply go beep in the night. Furthermore, the Property dialog’s Apply button retains its default border, even when disabled.
 
-One of the possible flag parameters to the MessageBox function is MB{"_"}NOFOCUS, which ensures that no button has the initial focus. This is useful if you want to protect the MessageBox against accidental dismissal. To create a really obnoxious dialog box, let it respond to all WM{"_"}COMMAND messages with SetFocus( 0 ).
+One of the possible flag parameters to the MessageBox function is MB_NOFOCUS, which ensures that no button has the initial focus. This is useful if you want to protect the MessageBox against accidental dismissal. To create a really obnoxious dialog box, let it respond to all WM_COMMAND messages with SetFocus( 0 ).
 
 The most complex examples of dialog interaction that TextEdit has to offer are the Find and Replace dialogs, described in [Chapter 15](Chapter-15-Search-and-Replace.md).
 

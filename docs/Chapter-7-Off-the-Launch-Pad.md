@@ -112,15 +112,15 @@ As with the GUI shell, you can pass one or more file names as parameters to Text
 
 (This illustrates one of the great advantages of the GUI paradigm, namely the use of con­straints. Rather than typing a command, you must select it from a menu; rather than typing a file name, you are forced to select it from a list. Typos are no longer possible, and one source of errors is eliminated. The GUI con­straint paradigm also illustrates the best possible form of “error handling:” redesign the app­li­ca­tion so that the source of the error goes away.) 
 
-What happens if you type some­thing like “TextEdit {"*"}.txt”? That depends on the command processor you are using. UNIX command shells expand wildcards auto­mati­cal­ly, re­sulting in a command line of, say, “textedit sample1.txt sample2.txt.” Un­for­tu­nately, neither command.com nor cmd.exe do wildcard expansion, so TextEdit must deal with this on its own. 
+What happens if you type some­thing like “TextEdit `*`.txt”? That depends on the command processor you are using. UNIX command shells expand wildcards auto­mati­cal­ly, re­sulting in a command line of, say, “textedit sample1.txt sample2.txt.” Un­for­tu­nately, neither command.com nor cmd.exe do wildcard expansion, so TextEdit must deal with this on its own. 
 
 On the face of it, this would seem to require special treatment of arguments with wildcards, but this isn’t so. In the first place, if you treat sample.txt as a wildcard pat­tern and do a search using FindFileFirst and FindFileNext, you will find exactly one matching file, namely sample.txt. We can, in other words, treat all arguments as wildcard pat­terns without getting into trouble. 
 
 Even better, we can sidestep the whole issue by linking with **setargv.obj**, which gives us wildcard expansion for free. (Most compilers come with a similar relocat­able object file, though it might have another name, such as **wildargs.obj**.)
 
-If no files match, the pro­g­ram is passed the exact parameter string as typed, i.e., **“{"**"}.txt”**. 
+If no files match, the pro­g­ram is passed the exact parameter string as typed, i.e., **“`**`.txt”**. 
 
-If you try passing **{"**"}.txt** to Notepad, it complains that it “cannot open the “{"**"}.txt” file.” This happens no matter how many files match the pat­tern. Notepad also tells you “to make sure that a disk is in the drive specified,” and the user is left wond­er­ing whether the pro­g­ram has suffered brain damage. Oxygen deprivation, per­haps. The least we can do is to recognize the alleged file name as a wildcard pat­tern, and report that no matching files were found. 
+If you try passing **`**`.txt** to Notepad, it complains that it “cannot open the “`**`.txt” file.” This happens no matter how many files match the pat­tern. Notepad also tells you “to make sure that a disk is in the drive specified,” and the user is left wond­er­ing whether the pro­g­ram has suffered brain damage. Oxygen deprivation, per­haps. The least we can do is to recognize the alleged file name as a wildcard pat­tern, and report that no matching files were found. 
 
 What about long versus short file names? That doesn’t require any special treat­ment either. The func­tion GetLongPathName converts short names to long names, but if it is fed a long name, it will simply return that name. In other words: all file names—long and short—may safely be passed through GetLongPathName. 
 
@@ -298,7 +298,7 @@ To confuse things further, the slash is a per­fectly good separator of path ele
 
 In TextEdit, both the slash and the hyphen signal a switch, but all unrecognized switches are assumed to be file names. In init.cpp, you will find some vestigial code that warns against unrecognized options. I removed that code after writing the above couple of para­graphs, and TextEdit will now happily accept both /myDirectory/-myFile and -myFile as arguments. 
 
-This confusion has two drawbacks. A misspelled switch is treated as a file name, and files with option names need some path decoration on the command line (e.g., the file -max must be specified as .\-max or ./-max). Even more confusing, spe­ci­fy­ing textedit {"**"} in a directory that only contains the file -max, will re­sult in the editing of a new file in a maximized win­dow, hardly what was intended. (Spe­ci­fy­ing textedit .⁄{"**"} works, though.) 
+This confusion has two drawbacks. A misspelled switch is treated as a file name, and files with option names need some path decoration on the command line (e.g., the file -max must be specified as .\-max or ./-max). Even more confusing, spe­ci­fy­ing textedit `**` in a directory that only contains the file -max, will re­sult in the editing of a new file in a maximized win­dow, hardly what was intended. (Spe­ci­fy­ing textedit .⁄`**` works, though.) 
 
 We live in an imperfect world, and can only do the best we can. These drawbacks are not serious enough to lose sleep over. 
 

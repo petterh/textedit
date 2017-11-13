@@ -2,13 +2,13 @@
 [« Back: The Main Window](Chapter-9-The-Main-Window.md)
 ## Sidebar:  Messy Menus
 
-The keyboard interface to the menu has its problems. Hold down the Alt key, press F, and the File menu pops up (or rolls down, whichever you prefer). Don’t let go of that Alt key yet; look instead at the line that says “Properties… Alt{"+"}Enter.” 
+The keyboard interface to the menu has its problems. Hold down the Alt key, press F, and the File menu pops up (or rolls down, whichever you prefer). Don’t let go of that Alt key yet; look instead at the line that says “Properties… Alt`+`Enter.” 
 
 Now imagine the neophyte with his Alt key down, looking at Figure 11 (either half) and trying to get to File Properties: 
 
-“OK, I have the Alt key down already, after doing Alt{"+"}F. All I have to do now is press Enter, lets see…damn! What happened? Why did I get a new file?”
+“OK, I have the Alt key down already, after doing Alt`+`F. All I have to do now is press Enter, lets see…damn! What happened? Why did I get a new file?”
 
-Or imagine him, the Alt key now released, still looking at Figure 11, pressing Ctrl{"+"}O for all he’s worth, and still no Open dialog is forthcoming.
+Or imagine him, the Alt key now released, still looking at Figure 11, pressing Ctrl`+`O for all he’s worth, and still no Open dialog is forthcoming.
 
 Microsoft, are you listening?
 
