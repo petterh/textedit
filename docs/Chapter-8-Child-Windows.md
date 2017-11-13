@@ -6,7 +6,7 @@
 
 The TextEdit main windows is a standard SDI (Single Document Interface) application window with optional tool– and status bars, and a big, fat text editing window in the middle.
 
-![](Chapter-8-Child-Windows-Figure10.bmp)
+![TextEdit](Chapter-8-Child-Windows-Figure10.bmp)
 
 **Figure 10: TextEdit in Action, with eight of its nine windows visible.**
 

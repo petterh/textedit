@@ -47,7 +47,7 @@ The core of TextEdit consists of one window function and three C++ classes. Ther
 
 The relationships between these are shown in Figure 5.
 
-![](Chapter-5-The-Bare-Bones-Figure5.bmp)
+![Application Architecture](Chapter-5-The-Bare-Bones-Figure5.bmp)
 
 **Figure 5: Application Architecture Overview.**
 
@@ -145,8 +145,8 @@ The String type is just my name for the std::string type from the Standard C++ T
 A PATHNAME is a character array of length MAX_PATH. It is defined in common.h, as follows:
 
 ```C++
-typedef WCHAR PATHNAMEW[ MAX_PATH + 1 ](-MAX_PATH-+-1-);
-typedef CHAR  PATHNAMEA[ MAX_PATH + 1 ](-MAX_PATH-+-1-);
+typedef WCHAR PATHNAMEW[ MAX_PATH + 1 ];
+typedef CHAR  PATHNAMEA[ MAX_PATH + 1 ];
 
 #ifdef UNICODE
    typedef PATHNAMEW PATHNAME;
@@ -186,7 +186,7 @@ Beware of URLs, which are not subject to the MAX_PATH limit. The wininet.h heade
 The dim macro is defined in common.h, as follows:
 
 ```C++
-#define dim( x ) (sizeof( x ) / sizeof( ( x )[ 0 ](-0-) ))
+#define dim( x ) (sizeof( x ) / sizeof( ( x )[ 0 ] ))
 ```
 
 It is handy for figuring out the number of elements in an array. TextEdit uses this macro a lot with strings, as this is crucial for Unicode builds. For an ANSI build, the dim of a character array is equal to its sizeof; for a Unicode build, dim is half of its sizeof.

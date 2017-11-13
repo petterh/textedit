@@ -6,19 +6,19 @@
 
 Even though I’m running the US edition of Windows NT 4 Workstation, I can nevertheless create files with Greek names; my file system is NTFS, so file names are Unicode. The question is – can I display those file names? The answer is – it depends.
 
-![](Chapter-18-Going-Abroad-Figure36.bmp)
+![Greek File.log](Chapter-18-Going-Abroad-Figure36.bmp)
 
 **Figure 36: Γρεεκ Φιλε.log (Greek File.log – English written using the Greek alphabet. An even Greeker file name would be Εκθεσι Ελληνικον.log.)** The file name is Unicode, the program is Unicode and the Unicode title font contains the required Greek characters.
 
 Figure 36 shows a screen from a Unicode build of TextEdit, using a font (Tahoma) that contains the Greek Unicode characters (0x0370–0x03cf). In Figure 37, I’ve switched to MS Sans Serif, which does not, and the Greek characters can’t be displayed. A default character – a black rectangle – is displayed instead. It would be a different matter if Greek were installed as the system default language. In that case, a different code page of MS Sans Serif would be installed, and character codes between 128 and 255 would be used to display the Greek characters, even though the file name characters are actually from the Greek Unicode page. The Unicode character code for upper-case alpha, for example, is 0x0391; it obviously can’t be represented in an 8-bit code.
 
-![](Chapter-18-Going-Abroad-Figure37.bmp)
+![A Truly Greek File Name](Chapter-18-Going-Abroad-Figure37.bmp)
 
 **Figure 37: A Truly Greek File Name.** (Apologies to all Greeks. This is Chinese to you, of course.). In this case, the problem lies with the MS Sans Serif font.
 
 Figure 38 shows a Tahoma menu. Note item 2, a beautiful rendition of a Greek file name. Even more interesting are items 5 and 6, leftovers from an ANSI build. They show how difficult life can be for an ANSI application on a Unicode file system. The WideCharToMultiByte function has mapped the Gamma, Epsilon and Phi characters with a modicum of success. The rest were deemed untranslatable, and thus replaced by the default character. Since I didn’t specify a default character, the default default character was used, and, since this doubly default character is a question mark, the file name is more than merely wrong: The question mark is a wild-card character, so the file name is illegal.
 
-![](Chapter-18-Going-Abroad-Figure38.bmp)
+![Tahoma Menu in Unicode Build](Chapter-18-Going-Abroad-Figure38.bmp)
 
 **Figure 38: Tahoma Menu in Unicode Build.** Items five and six show how badly Unicode-to-ANSI translations can screw things up.
 
@@ -128,7 +128,7 @@ The functions defined in formatMessage.cpp wraps FormatMessage in functions that
 The formatMessageV function is the real workhorse. It defines text buffer that FormatMessage will fill:
 
 ```C++
-TCHAR sz[ MAX_LENGTH ](-MAX_LENGTH-) = { 0 };
+TCHAR sz[ MAX_LENGTH ] = { 0 };
 ```
 
 Note that this initializes the buffer to an empty string. All string declarations in TextEdit are initialized in the same manner, but in this case, it is particularly important: If the format specification string is empty, FormatMessage does nothing to the output string – it does not even empty it. If it were uninitialized, the best that could happen would be the return of a garbage string. As for the worst that could happen, the sky is the limit: If the uninitialized array doesn’t contain a terminator somewhere, the String constructor (called when the function returns) will continue to read beyond the end of the array.
@@ -180,7 +180,7 @@ The easy way to format a number for display is to use printf( "%d", 1834597891 )
 To find out what the correct format is, we have the GetLocaleInfo function to help us. If you call it with LOCALE_STHOUSAND as the second parameter, it will return a string containing the thousands separator. For example, if you’re using the US locale, this code snippet will set szThousandSep to “,”:
 
 ```C++
-TCHAR szThousandSep[ 10 ](-10-) = { 0 };
+TCHAR szThousandSep[ 10 ] = { 0 };
 GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_STHOUSAND,  szThousandSep, dim( szThousandSep ) ) );
 ```
 
@@ -206,10 +206,10 @@ PRIVATE String formatFileTime( const FILETIME& ft ) {
    SYSTEMTIME st;
    verify( FileTimeToSystemTime( &local, &st ) );
 
-   TCHAR szTime[ 100 ](-100-) = { 0 };
+   TCHAR szTime[ 100 ] = { 0 };
    GetTimeFormat( LOCALE_USER_DEFAULT, 0, &st, 0, szTime, dim( szTime ) );
 
-   TCHAR szDate[ 100 ](-100-) = { 0 };
+   TCHAR szDate[ 100 ] = { 0 };
    GetDateFormat( LOCALE_USER_DEFAULT, DATE_LONGDATE, &st, 0, szDate, dim( szDate ) );
 
    return formatMessage( _T( "%1 %2" ), szDate, szTime );

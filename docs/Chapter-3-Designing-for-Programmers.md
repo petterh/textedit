@@ -173,7 +173,7 @@ The assert macro is defined in the standard header file assert.h; the verify mac
 
 ## Constantly on Guard
 
-The !const! keyword is as underused as the assert macro. When the const keyword modifies a variable, it says that the value of that variable may not be changed:
+The `const` keyword is as underused as the assert macro. When the const keyword modifies a variable, it says that the value of that variable may not be changed:
 
 ```C++
 const int i = 5;
@@ -222,8 +222,8 @@ Consider the **getWindowText** method from the **Window** class, which we’ll l
 String Window::getWindowText( void ) const {
 
    const int nLength = GetWindowTextLength( *this );
-   LPTSTR pszWindowText = new TCHAR[ nLength  1 ](-nLength--1-);    //x1
-   GetWindowText( *this, pszWindowText, nLength  1 );
+   LPTSTR pszWindowText = new TCHAR[ nLength + 1 ];    //x1
+   GetWindowText( *this, pszWindowText, nLength + 1 );
    const String strWindowText( pszWindowText );        //x2
    delete[]() pszWindowText;
    return strWindowText;                               //x3
@@ -245,10 +245,10 @@ One way of handling such situations is to catch the exception, do whatever clean
 ```C++
 String Window::getWindowText( void ) const {
    const int nLength = GetWindowTextLength( *this );
-   LPTSTR pszWindowText = new TCHAR[ nLength  1 ](-nLength--1-);
+   LPTSTR pszWindowText = new TCHAR[ nLength + 1 ];
    String strWindowText;
    try {
-      GetWindowText( *this, pszWindowText, nLength  1 );
+      GetWindowText( *this, pszWindowText, nLength + 1 );
       strWindowText.assign( pszWindowText );
    }
    catch ( ... ) {
@@ -298,7 +298,7 @@ private:
    T *m_ptr;
 
 public:
-   explicit AutoArray( int n ) throw() : m_ptr( new T[ n ](-n-) ) {
+   explicit AutoArray( int n ) throw() : m_ptr( new T[ n ] ) {
       assert( 0 != m_ptr );
    }
    explicit AutoArray( T *_ptr = 0 ) throw() : m_ptr( _ptr ) {
@@ -309,7 +309,7 @@ public:
    }
    void alloc( int n ) {
       assert( 0 == m_ptr );
-      m_ptr = new T[ n ](-n-);
+      m_ptr = new T[ n ];
    }
    T ** operator &() {
       return &m_ptr;

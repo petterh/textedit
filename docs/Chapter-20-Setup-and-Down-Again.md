@@ -12,7 +12,7 @@ The TextEdit installation is hand coded, mainly because I want to show you some 
 
 In its installation incarnation, TextEdit looks like Figure 39 when it starts.
 
-![](Chapter-20-Setup-and-Down-Again-Figure39.bmp)
+![Setup](Chapter-20-Setup-and-Down-Again-Figure39.bmp)
 
 **Figure 39: TextEdit Setup in Action.** This is the standard TextEdit executable, started with the **/setup** switch.
 
@@ -37,9 +37,9 @@ The first thing the setup dialog does is check for a previous installation. If i
 
 Invoking the Install button in Figure 39 starts the installation. The first step is customization, handled by InstallDlg1, as shown in Figure 40.
 
-![](Chapter-20-Setup-and-Down-Again-Figure40.bmp)
+![The Installation Dialog](Chapter-20-Setup-and-Down-Again-Figure40.bmp)
 
-**Figure 40: The Installation dialog.** The check marks in the list are communicated back to SetupDlg through the FileType class.
+**Figure 40: The Installation Dialog.** The check marks in the list are communicated back to SetupDlg through the FileType class.
 
 The customization dialog lets you customize the installation by overriding the default values for data directory and program directory, and by selecting the file types that TextEdit should be associated with. It also lets you select the UI language (if you’re running under Windows NT); both the language and the data directory settings can be changed later through the Options dialog.
 
@@ -117,7 +117,7 @@ The user does not know about the /setup switch. How, then, does she invoke unins
 
 The currently recommended approach is to use the Add/Remove Programs applet in the Control Panel (see Figure 41). The title of this dialog is passing strange, by the way – why “Properties?” And, when the keyboard focus is in the list of removable software, why isn’t the Add/Remove button the default button?
 
-![](Chapter-20-Setup-and-Down-Again-Figure41.bmp)
+![The Add/Remove Programs Control Panel Applet](Chapter-20-Setup-and-Down-Again-Figure41.bmp)
 
 **Figure 41: The Add/Remove Programs Control Panel Applet.** Given that the keyboard focus is in the list, why isn’t the Add/Remove button the default? Eh?
 

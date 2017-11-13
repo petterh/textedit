@@ -300,7 +300,7 @@ String getError( const String& strDescr, DWORD dwErr ) {
   reset_pointer( pszMsgBuf );
 
 #ifdef _DEBUG
-  strError += formatMessage( _T( " [%1!u!](%1!u!)" ), dwErr );
+  strError += formatMessage( _T( " [%1!u!]" ), dwErr );
 #endif
 
   return strError;
@@ -373,7 +373,7 @@ String CommonDialogException::getDescr( void ) const {
   static struct {
      DWORD   dwErr;
      LPCTSTR pszErr;
-  } const aErrorTable[]() = {
+  } const aErrorTable[] = {
      { CDERR_FINDRESFAILURE , _T( "Unable to find resource"   ) },
      { CDERR_NOHINSTANCE    , _T( "No HINSTANCE"              ) },
      { CDERR_INITIALIZATION , _T( "Initialization error"      ) },
@@ -391,8 +391,8 @@ String CommonDialogException::getDescr( void ) const {
   };
 
   for ( int iErr = 0; iErr < dim( aErrorTable ); ++iErr ) {
-     if ( aErrorTable[ iErr ](-iErr-).dwErr == m_dwErr ) {
-        return aErrorTable[ iErr ](-iErr-).pszErr; //*** METHOD EXIT POINT
+     if ( aErrorTable[ iErr ].dwErr == m_dwErr ) {
+        return aErrorTable[ iErr ].pszErr; //*** METHOD EXIT POINT
      }
   }
 
@@ -424,7 +424,7 @@ void throwException( const String& strDescr, DWORD dwErr ) {
 C++ programs usually call operator new rather than malloc. Behind the scenes, though, the typical operator new implementation calls malloc to actually allocate memory; malloc, in turn, may call on the operating system for help. At any rate, while the C++ standard mandates that an exception be thrown on failure, Microsoft’s compiler returns a null pointer if the allocation request fails. As a result, much code is littered with checks such as this:
 
 ```C++
-LPTSTR pszMyString = new TCHAR[ MAX_PATH ](-MAX_PATH-);
+LPTSTR pszMyString = new TCHAR[ MAX_PATH ];
 if ( 0 == pszMyString ) {
    // handle error
 }
@@ -554,7 +554,7 @@ PRIVATE int __cdecl allocation_failure( size_t size ) {
   // Calling trace here is not a good idea, 
   // as we may be operating on limited resources.
   // Call OutputDebugString directly instead.
-  static TCHAR szMsg[ 30 ](-30-) = { 0 };
+  static TCHAR szMsg[ 30 ] = { 0 };
   wsprintf( szMsg, _T( "allocation_failure: %d\n" ), size );
   OutputDebugString( szMsg );
 #endif

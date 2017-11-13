@@ -54,7 +54,7 @@ PRIVATE PointMap thePointMap;
 
 void savePosition( HWND hwnd, int id ) {
    Rect rc = getWindowRectInParent( hwnd );
-   thePointMap[ id ](-id-) = Point( rc.left, rc.top );
+   thePointMap[ id ] = Point( rc.left, rc.top );
 }
 
 void restorePosition( HWND hwnd, int id ) {
@@ -84,7 +84,7 @@ The “About TextEdit” dialog box is about as simple as they come. The only co
 
 The only possible interaction is to dismiss the dialog, which is why I call it simple in spite of the rather extensive initialization.
 
-![](Chapter-13-About-Dialogs-Figure15.bmp)
+![The About Dialog](Chapter-13-About-Dialogs-Figure15.bmp)
 
 **Figure 15: The About Dialog.** Some STATIC widgets have been subjected to a WM_SETFONT message, while others have been subclassed.
 
@@ -100,7 +100,7 @@ More interesting is the boldfacing of individual words in the IDC_COMMENTS and I
 
 The Options dialog box looks like this:
 
-![](Chapter-13-About-Dialogs-Figure16.bmp)
+![The Options Dialog](Chapter-13-About-Dialogs-Figure16.bmp)
 
 **Figure 16: The Options Dialog.** The icons on the left are illustrative only; they do not reflect state in any way.
 

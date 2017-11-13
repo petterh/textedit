@@ -16,7 +16,7 @@ Before we look at TextEdit-specific customization, let’s look at some of the t
 
 Figure 12 shows the Appearance tab of the Display Control Panel applet. This dialog allows you to change colors, fonts and various metrics such as border widths.
 
-![](Chapter-10-Customization-and-Persistence-Figure12.bmp)
+![The Appearance tab of the Display Control Panel applet](Chapter-10-Customization-and-Persistence-Figure12.bmp)
 
 **Figure 12: Customizing the Appearance of Windows.** Check out GetSystemMetrics and GetSysColor before deciding on colors, fonts and metrics for your application.
 
@@ -53,7 +53,7 @@ Standard APIs to retrieve the various UI fonts would be appreciated. This could 
 
 The Windows Explorer, too, allows itself to be customized, and some of these customizations afflict – er, affect – TextEdit.
 
-![](Chapter-10-Customization-and-Persistence-Figure13.bmp)
+![Windows Explorer customizations](Chapter-10-Customization-and-Persistence-Figure13.bmp)
 
 **Figure 13: Customizing the Windows Explorer.** Some of these settings are useful to applications; unfortunately, there aren’t always documented ways to retrieve them.
 

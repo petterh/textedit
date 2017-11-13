@@ -8,7 +8,7 @@ TextEdit allows the user to select one proportional font and one fixed-width fon
 
 The TextEdit Font Dialog is an example of implementation problems overpowering user requirements, a problem I talked about in Chapter 2. My original plan called for a single dialog for font customization, looking something like Figure 35:
 
-![](Chapter-17-Changing-Fonts-Figure35.bmp)
+![Font Dialog](Chapter-17-Changing-Fonts-Figure35.bmp)
 
 **Figure 35: The Font dialog that never was.** Is there a bug in WM_CHOOSEFONT_SETLOGFONT, or am I all thumbs?
 

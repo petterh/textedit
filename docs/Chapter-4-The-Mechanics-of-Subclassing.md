@@ -24,7 +24,7 @@ Subclassing comes in several variants: Instance subclassing (a.k.a. local subcla
 
 When a dialog’s **WM_INITDIALOG** message handler is invoked, all the edit controls exist already. The InstSub program is a complete example of instance subclassing an edit control to create a numeric input field. The resulting dialog is depicted in Figure 4:
 
-![](Chapter-4-The-Mechanics-of-Subclassing-Figure4.bmp)
+![The Mechanics of Subclassing](Chapter-4-The-Mechanics-of-Subclassing-Figure4.bmp)
 
 **Figure 4: Instance Subclassing in Action.** The upper edit field accepts only digits.
 

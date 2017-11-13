@@ -36,7 +36,7 @@ Here is another guiding principle:
 
 “**Don’t bother the user unnecessarily!**”
 
-Alan Cooper uses the term excise to describe dialogs, message boxes, window movements and other things that do not contribute to the user’s goal (which, as I have already mentioned, is to accomplish a task, not to play with your software). Often enough, error messages are there for the programmer’s convenience rather than the user’s. Perhaps you should redesign the application to handle the error gracefully and invisibly, or perhaps you should redesign the conceptual model to make the “error” go away.
+Alan Cooper uses the term _excise_ to describe dialogs, message boxes, window movements and other things that do not contribute to the user’s goal (which, as I have already mentioned, is to accomplish a task, not to play with your software). Often enough, error messages are there for the programmer’s convenience rather than the user’s. Perhaps you should redesign the application to handle the error gracefully and invisibly, or perhaps you should redesign the conceptual model to make the “error” go away.
 
 When you type commands in a console window, for example, there’s always the possibility that you will mistype a file name. The resulting error must be handled somehow; I’m not suggesting that you pretend everything is fine when in fact it is not. If, on the other hand, you must select a file name from a list of available files, the possibility of mistyping goes away.
 
@@ -44,7 +44,7 @@ Some message boxes are just plain unnecessary. TextEdit uses the status bar to d
 
 The status bar has one big problem in this role: Most people don’t pay it much attention. To remedy this problem, TextEdit’s status bar displays highlighted text whenever it has something substantial to say (as shown in Figure 1).
 
-![](Chapter-2-Designing-for-Users-Figure1.bmp)
+![Status bar with message](Chapter-2-Designing-for-Users-Figure1.bmp)
 
 **Figure 1: Status bar with a message.** Highlighting makes the user pay attention.
 
@@ -67,7 +67,7 @@ First, you need to know the following about TextEdit:
 
 If the user opens the properties dialog, changes the file extension from .txt to .cpp and clicks the Apply button, the icon on the dialog should change (see Figure 2). In addition, the textual type description should change, the dialog title should change, and the time stamp of last file access should change.
 
-![](Chapter-2-Designing-for-Users-Figure2.bmp)
+![File type icons](Chapter-2-Designing-for-Users-Figure2.bmp)
 
 **Figure 2: TextEdit displays different icons for different file types.**
 
@@ -103,7 +103,7 @@ After you’ve sucked this well dry, switch attitudes again. Users, no matter ho
 
 (The attitudes described in the previous two paragraphs are extremes. The trick is to balance them just so.)
 
-Truly interesting findings may suggest a total redesign. This will never happen towards the end of a project. A pervasive change at a late stage is horrendously expensive, whereas a pervasive change in the early design phase is dirt-cheap. Start usability testing as early as possible; you can pin down the conceptual model and basic functionality from a paper prototype. Later, you can use a succession of electronic versions to hone details.
+Truly interesting findings may suggest a total redesign. This will never happen towards the end of a project. A pervasive change at a late stage is horrendously expensive, whereas a pervasive change in the early design phase is dirt cheap. Start usability testing as early as possible; you can pin down the conceptual model and basic functionality from a paper prototype. Later, you can use a succession of electronic versions to hone details.
 
 Whatever else you do, don’t make a slip of the tongue and say “user testing” instead of “usability testing.” You’re testing the user interface, not the user, and if you don’t make this difference clear to your test subjects, before you know it you won’t have any.
 

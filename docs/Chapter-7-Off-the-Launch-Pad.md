@@ -36,7 +36,7 @@ You can also drag multiple files onto the TextEdit icon. This is where it starts
 c:\sample1.txt c:\sample2.txt
 ```
 
-![](Chapter-7-Off-the-Launch-Pad-Figure6.bmp)
+![Notepad](Chapter-7-Off-the-Launch-Pad-Figure6.bmp)
 
 **Figure 6: Notepad in Action.**
 
@@ -51,7 +51,7 @@ The problem here appears to be the second colon, which makes the file name synta
 notepad sample1.txt sample2.txt
 ```
 
-![](Chapter-7-Off-the-Launch-Pad-Figure7.bmp)
+![Notepad](Chapter-7-Off-the-Launch-Pad-Figure7.bmp)
 
 **Figure 7: Notepad in Action again.**
 
@@ -71,7 +71,7 @@ There’s another difference: If you drag text files onto the TextEdit icon, the
 If you Open a bunch of text files, the file names sent to TextEdit are in their long form. Since long file names may contain spaces, each file name must be enclosed in double quotes. If not, TextEdit will assume that there are multiple file names on the command line. The shell does not put on the quotes for you; you have to specify this in the registry entries, e.g.:
 
 ```ini
-[HKEY_CLASSES_ROOT\txtfile\shell\open\command](HKEY_CLASSES_ROOT_txtfile_shell_open_command)
+[HKEY_CLASSES_ROOT\txtfile\shell\open\command]
 @="\"C:\\Program Files\\TextEdit\\TextEdit.exe\" \"%1\""
 ```
 
@@ -202,7 +202,7 @@ Handling all possible variations in a reasonable way requires unreasonable con­
 
 ## File Not Found
 
-![](Chapter-7-Off-the-Launch-Pad-Figure8.bmp)
+![File Not Found](Chapter-7-Off-the-Launch-Pad-Figure8.bmp)
 
 Figure 8: TextEdit can’t find a file.
 
@@ -214,7 +214,7 @@ What if a file doesn’t exist? There are several ways to handle this, and Notep
 * Exit TextEdit.
 * If the file name contains wildcard characters, the pro­ce­du­re is slightly dif­fe­rent, as you can’t create a file with wildcard characters in the file name. TextEdit explains that no matching files where found, and goes on to explain what a wildcard character actually is.
 
-![](Chapter-7-Off-the-Launch-Pad-Figure9.bmp)
+![No files matching wildcard](Chapter-7-Off-the-Launch-Pad-Figure9.bmp)
 
 **Figure 9: No files match a wild­card pat­tern.**
 

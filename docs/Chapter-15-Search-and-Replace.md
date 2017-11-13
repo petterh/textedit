@@ -6,13 +6,13 @@
 
 Windows offers a common dialog for straight searching and for search and replace. I have a strong dislike for this dialog. I dislike the modelessness of it, I dislike the simple edit field for the search string, and I dislike the dim-witted way it paints a default border on a disabled button (see Figure 22). Above all, I dislike the API, which is an invitation to spread related functionality around all the dark corners of a program.
 
-![](Chapter-15-Search-and-Replace-Figure22.bmp)
+![The Common Find Dialog](Chapter-15-Search-and-Replace-Figure22.bmp)
 
 **Figure 22: The Common Find Dialog.** Note the disabled default button, and cringe.
 
 Given such strong feelings, you won’t be surprised when I tell you that TextEdit doesn’t use the common dialog for search and replace. You can see TextEdit’s Find dialog, implemented by the class FindDlg, in Figure 23. It looks quite similar to the common dialog, but there are differences more than skin deep.
 
-![](Chapter-15-Search-and-Replace-Figure23.bmp)
+![The TextEdit Find Dialog](Chapter-15-Search-and-Replace-Figure23.bmp)
 
 **Figure 23: The TextEdit Find Dialog.** Although the presence of the drop-down list is the most obvious difference from the previous dialog, some of the less obvious differences are much more important.
 
@@ -71,21 +71,21 @@ One final detail, while I’m on the subject of the combobox: The CB_FINDSTRINGE
 
 When Notepad fails to find the text you’re searching for, it displays a message box, as depicted in Figure 24. Notepad is in good company using a message box for this; others include Word for Windows (Figure 25) and Visual C++ (Figure 26).
 
-![](Chapter-15-Search-and-Replace-Figure24.bmp)
+![Notepad Find Failure](Chapter-15-Search-and-Replace-Figure24.bmp)
 
 **Figure 24: Notepad didn’t find “Glory Hallelujah!”**
 
-![](Chapter-15-Search-and-Replace-Figure25.bmp)
+![Word Find Failure](Chapter-15-Search-and-Replace-Figure25.bmp)
 
 **Figure 25: Microsoft Word fails to find “Glory Hallelujah!”** The message box doesn’t tell you what Word failed to find.
 
-![](Chapter-15-Search-and-Replace-Figure26.bmp)
+![Visual C++ Find Failure](Chapter-15-Search-and-Replace-Figure26.bmp)
 
 **Figure 26: Visual C++ fares no better.**
 
 These message boxes are perfect examples of what Alan Cooper terms _excise_, user interface elements that contribute nothing towards fulfilling the user’s goals. If a message box were the only way the program could possibly communicate the failure of the search, we would have to accept this excise as necessary. It isn’t, though. TextEdit displays the information in the search dialog itself, as depicted in Figure 27.
 
-![](Chapter-15-Search-and-Replace-Figure27.bmp)
+![TextEdit Find Failure](Chapter-15-Search-and-Replace-Figure27.bmp)
 
 *Figure 27: Glory be! TextEdit can’t find “Glory Hallelujah!” either.
 
@@ -107,13 +107,13 @@ I decided to use the same dialog function for these two dialogs on the assumptio
 
 Before I describe the TextEdit Replace dialog, I’d like to discuss its counterpart in Visual C++. I investigated this dialog quite thoroughly in preparation for my own design, and was left with a surreal feeling of having visited a Salvador Dali landscape, where the normal laws of logic don’t apply.
 
-![](Chapter-15-Search-and-Replace-Figure28.bmp)
+![Visual C++ Replace Dialog](Chapter-15-Search-and-Replace-Figure28.bmp)
 
 **Figure 28: The Visual C++ Replace dialog without “iString” selected in the text window.** Since “iString” is not selected, Find Next is the default. No replacement is even possible, and if you click on Replace, it will do a Find Next, in spite of its label.
 
 Figure 28 shows the VC++ Replace dialog in action. At this point, the Find Next button is the default button, and no text is selected in the editor. If I hit return, the first occurrence of “iString” will be selected in the editor, and the Replace button becomes the default button, as depicted in Figure 29.
 
-![](Chapter-15-Search-and-Replace-Figure29.bmp)
+![Visual C++ Replace Dialog](Chapter-15-Search-and-Replace-Figure29.bmp)
 
 **Figure 29: The Visual C++ Replace dialog with “iString” selected in the text window.** The Replace button is now the default.
 
@@ -133,19 +133,19 @@ The TextEdit Replace dialog is shown in Figure 30. It bears a passing resemblanc
 
 In Figure 30, the text “Pocket” is not selected in the editor. Thus, no replacement is possible, and the Replace button is disabled.
 
-![](Chapter-15-Search-and-Replace-Figure30.bmp)
+![TextEdit Replace Dialog](Chapter-15-Search-and-Replace-Figure30.bmp)
 
 **Figure 30: The TextEdit Replace dialog without “Pocket” selected in the edit widget.** In contrast to the Visual C++ dialog in Figure 28, the Replace button is disabled.
 
 In Figure 31, the user has hit Find Next, and the text “Pocket” has been selected in the editor. The Replace button has been enabled, and it has become the default button as well. The TextEdit Replace button, by the way, has an implicit Find Next built into it, just like Visual C++. Since we now have a selection, the “Replace in Selection” radio button has been enabled.
 
-![](Chapter-15-Search-and-Replace-Figure31.bmp)
+![TextEdit Replace Dialog](Chapter-15-Search-and-Replace-Figure31.bmp)
 
 **Figure 31: The TextEdit Replace dialog with “Pocket” selected in the edit widget.** Its behavior now equals that of the Visual C++ dialog in Figure 29.
 
 In Figure 32, the user has checked “Replace in Selection.” In this case, Replace All is the only available action.
 
-![](Chapter-15-Search-and-Replace-Figure32.bmp)
+![TextEdit Replace Dialog](Chapter-15-Search-and-Replace-Figure32.bmp)
 
 **Figure 32: The TextEdit Replace dialog with “Replace in Selection” selected**. Replace All is the only possible action.
 

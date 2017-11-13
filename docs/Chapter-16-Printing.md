@@ -38,7 +38,7 @@ TextEdit uses the standard common dialog for page setup. The setupPage function 
 
 You invoke the standard page setup dialog by calling PageSetupDlg with a pointer to a suitably initialized PAGESETUPDLG as its lone parameter. The result looks like Figure 33.
 
-![](Chapter-16-Printing-Figure32.bmp)
+![Page Setup Dialog](Chapter-16-Printing-Figure32.bmp)
 
 **Figure 33: The Page Setup Dialog Box.**
 
@@ -52,7 +52,7 @@ TextEdit uses the standard common dialog for printing. The printFile function is
 
 You invoke the standard print dialog by calling PrintDlg with a pointer to a suitably initialized PRINTDLG as its lone parameter. The result looks like Figure 34.
 
-![](Chapter-16-Printing-Figure32.bmp)
+![Print Dialog](Chapter-16-Printing-Figure32.bmp)
 
 **Figure 34: The Print Dialog Box.**
 

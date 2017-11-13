@@ -14,13 +14,13 @@ TextEdit also manages properties such as “Unicode.” TextEdit detects whether
 
 The Properties dialog displays information about the currently loaded file: File name, location, file type, file size, time stamps, file attributes, Unicode and line separators. The layout of this dialog is similar to the Windows Explorer’s Properties dialog (see Figure 17).
 
-![](Chapter-14-File-Management-Figure17.bmp)
+![The Properties Dialog](Chapter-14-File-Management-Figure17.bmp)
 
 **Figure 17: The Properties Dialog.** It is similar to the Exlorer’s corresponding dialog.
 
 The dialog lets you change some of the attributes displayed in the dialog. You can change the file name on the fly, by typing a different name in the File Name field. To move the file to a different location, you must press the Move buttons to invoke a second dialog box (Figure 18); the Location field is read-only. This offloads everything to do with directories onto a common dialog designed for the purpose, and avoids issues of how to handle non-existent directories, invalid path names and so forth. A better solution would be one that allowed both approaches.
 
-![](Chapter-14-File-Management-Figure18.bmp)
+![Move or Rename File Dialog](Chapter-14-File-Management-Figure18.bmp)
 
 **Figure 18: Move or Rename File Dialog.** This is really a Save As dialog, with extra information on the top.
 
@@ -47,7 +47,7 @@ TextEdit’s Delete command deletes the current file. Since the unified file mod
 
 The Delete command may or may not open the confirmation dialog shown in Figure 19. The ShowDeleteDialog registry variable defined in persistence.h controls this. The user, in turn, controls the registry variable. You can turn it off by unchecking the lower checkbox in Figure 19 (the one labeled “Show this dialog the next time you delete a file”). For obvious reasons, you can’t turn it back on using the same checkbox. To prevent the user from getting lost, the dialog explains how you can turn it back on. (Note how the functional part of the “confirm file delete” confirmation dialog stops at the horizontal line – what’s below is concerned with management of the dialog itself, and has nothing to do with deleting files.)
 
-![](Chapter-14-File-Management-Figure19.bmp)
+![The Delete file Dialog](Chapter-14-File-Management-Figure19.bmp)
 
 **Figure 19: The Delete File Dialog.** The upper icon is static and helps identify the dialog; the trash can icon is dynamic and changes according to the setting of its corresponding checkbox.
 
@@ -86,13 +86,13 @@ The icon serves as a visual reinforcement of the setting of the checkbox. In add
 
 The Open File and Save File common dialogs are little Explorers in their own right. Figure 20 shows TextEdit’s Open File dialog in action. As you can see, it has four extra controls – one static label, one edit control used to show a preview of the selected file, one icon to show the type of the selected file and one checkbox that lets you open the file in a new window.
 
-![](Chapter-14-File-Management-Figure20.bmp)
+![The Open File Dialog](Chapter-14-File-Management-Figure20.bmp)
 
 **Figure 20: The Open File Dialog.** The extra controls on the right come from the dialog template IDD_PREVIEW_CHILD.
 
 You change the look of most common dialogs by specifying a resource template that replaces the default dialog. The Open and Save dialogs are exceptions; you specify, instead, the template of a child dialog that is added to the system-supplied dialog. The template must have the WS_CHILD style bit set, and it should include a static control with the ID stc32. This is a placeholder for the system-supplied dialog, and tells GetOpenFileName and GetSaveFileName how to place the child dialog in relation to predefined controls. Figure 21 shows the child dialog (IDD_PREVIEW_CHILD); its relationship to Figure 20 should be clear.
 
-![](Chapter-14-File-Management-Figure21.bmp)
+![The Open File Child Dialog](Chapter-14-File-Management-Figure21.bmp)
 
 **Figure 21: The Open File Child Dialog.** The STATIC control labeled stc32 is a placeholder for the standard contents of the Open File dialog.
 
