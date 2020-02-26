@@ -394,7 +394,7 @@ PRIVATE void onChangeCBChain(
 
 PRIVATE BOOL onQueryEndSession( HWND hwnd ) {
 
-   Editor *pEditor = getEditor( hwnd );;
+   Editor *pEditor = getEditor( hwnd );
    pEditor->saveState();
    return pEditor->saveIfNecessary();
 }

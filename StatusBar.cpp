@@ -279,14 +279,16 @@ void Statusbar::setFileType( const bool isUnicode ) {
 
 void Statusbar::setIcon( int nIndex ) {
 
-   const int nResource = MenuFont::isLarge() ? 121: 120;
-   const HINSTANCE hinst = GetModuleHandle( _T( "COMCTL32" ) );
-   const HIMAGELIST hImageList = ImageList_LoadImage( hinst, 
-      MAKEINTRESOURCE( nResource ), 
-      0, 0, CLR_DEFAULT, IMAGE_BITMAP, 
-      LR_DEFAULTSIZE | LR_LOADMAP3DCOLORS );
-   setIcon( hImageList, nIndex );
-   verify( ImageList_Destroy( hImageList ) );
+   const int nResource = MenuFont::isLarge() ? 121 : 120;
+   const HINSTANCE hinst = GetModuleHandle(_T("COMCTL32"));
+   const HIMAGELIST hImageList = ImageList_LoadImage(hinst,
+      MAKEINTRESOURCE(nResource),
+      0, 0, CLR_DEFAULT, IMAGE_BITMAP,
+      LR_DEFAULTSIZE | LR_LOADMAP3DCOLORS);
+   setIcon(hImageList, nIndex);
+   if (0 != hImageList) {
+      verify(ImageList_Destroy(hImageList));
+   }
 }
 
 
