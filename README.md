@@ -31,6 +31,6 @@ The logo was made with [Microsoft Expression Design 2.](http://www.microsoft.com
 
 ## Getting started
 
-* [Install Visual Studio](https://www.visualstudio.com/downloads/)
+* [Install Visual Studio](https://www.visualstudio.com/downloads/) (The free community edition is sufficient.)
 * [Install WiX](http://wixtoolset.org/)
 * Clone this project
