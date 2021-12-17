@@ -228,7 +228,7 @@ Editor *init( LPCTSTR pszCmdLine, int nShow ) {
    // Better not do this *before* calling reboot, or we'll loop:
    initReboot();
 
-   if ( isSetup( &argumentList ) ) {
+   if ( !argumentList.hasOption(_T("ignore-setup")) && isSetup( &argumentList ) ) {
       const bool bSilent = argumentList.hasOption( _T( "silent" ) );
       setup( bSilent );
       return nullptr;
