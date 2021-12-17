@@ -23,7 +23,7 @@ namespace MigrateDocumentation
 
             // Rename files
 
-            IEnumerable<FileInfo> docFiles = docsFolder.GetFiles().ToList();
+            IEnumerable<FileInfo> docFiles = docsFolder.GetFiles();
             foreach (FileInfo docFile in docFiles)
             {
                 string oldName = docFile.Name;
