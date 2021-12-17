@@ -43,7 +43,6 @@ bool modifyAttribs( const String& strFile, DWORD dwAdd, DWORD dwRemove = 0 );
 String getLongPathName( const String& strShort );
 void copyFile( HANDLE hSrc, HANDLE hDst, DWORD *pdwBytes = 0 );
 bool delayedRemove( const String& strPath );
-bool extractStream( const String& strPath, String *pstrBase, String *pstrStream );
 DWORD getClusterSize( const String& strPath );
 void addPathSeparator( String *pPath );
 String& appendPathComponent( String *pPath, LPCTSTR component );

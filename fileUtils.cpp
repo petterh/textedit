@@ -149,30 +149,6 @@ bool delayedRemove( const String& strPath ) {
     return 0 != MoveFileEx(strPath.c_str(), 0, MOVEFILE_DELAY_UNTIL_REBOOT);
 }
 
-/**
- * Parses a stream name, if one exists:
- * "C:\Streams\demo.txt:MyStream" 
- *    -> "C:\Streams\demo.txt" and "MyStream"
- */
-bool extractStream(const String& strPath, String *pstrBase, String *pstrStream)
-{
-   assert( isGoodPtr( pstrBase ) );
-   assert( isGoodPtr( pstrStream ) );
-
-   // Assume no stream component:
-   *pstrBase = strPath;
-
-   int nColon = strPath.find( _T( ':' ), 2 );
-   if ( nColon < 2 ) {
-      return false;
-   }
-
-   pstrBase->assign( strPath, 0, nColon );
-   pstrStream->assign( strPath, nColon + 1, strPath.length() );
-
-   return true;
-}
-
 String getRootDir( const String& strPath ) {
 
    PATHNAME szRootDir = { 0 };
