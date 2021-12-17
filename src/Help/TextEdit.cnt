@@ -1,0 +1,26 @@
+:Base TextEdit.hlp>proc
+:Title TextEdit
+1 Key Information
+2 What is TextEdit?=IDH_WHAT_IS_TEXTEDIT
+2 The Differences Between TextEdit and Notepad=IDH_DIFFERENCES_FROM_NOTEPAD
+2 Notes to Developers=IDH_BETA_TESTING
+1 Reference Information
+2 Using the Keyboard=IDH_USING_THE_KEYBOARD
+2 Menu Commands
+3 The File Menu=IDS_FILE_MENU
+3 The Edit Menu=IDS_EDIT_MENU
+3 The Search Menu=IDS_FIND_MENU
+3 The View Menu=IDS_VIEW_MENU
+3 The Help Menu=IDS_HELP_MENU
+2 Dialog Reference
+3 The Open Dialog=IDD_PREVIEW_CHILD
+3 The Properties Dialog=IDD_PROPERTIES
+3 The Page Setup Dialog=IDD_PAGE_SETUP
+3 The Print Dialog=IDD_PRINT
+3 The Delete Dialog=IDD_DELETE
+3 The Find Dialog=IDD_EDITFIND
+3 The Replace Dialog=IDD_EDITREPLACE
+3 The Options Dialog=IDD_OPTIONS
+3 The About TextEdit Dialog=IDD_ABOUT
+2 Technical Reference
+3 File Types and Converesions=IDH_CONVERSIONS
