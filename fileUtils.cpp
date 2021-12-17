@@ -161,7 +161,6 @@ bool extractStream(const String& strPath, String *pstrBase, String *pstrStream)
 
    // Assume no stream component:
    *pstrBase = strPath;
-   pstrStream->empty();
 
    int nColon = strPath.find( _T( ':' ), 2 );
    if ( nColon < 2 ) {
