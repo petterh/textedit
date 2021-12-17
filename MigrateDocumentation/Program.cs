@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml;
-using System.Xml.Linq;
 
 namespace MigrateDocumentation
 {
@@ -28,15 +25,14 @@ namespace MigrateDocumentation
             {
                 string oldName = docFile.Name;
                 string newName = TransformName(oldName);
+
                 if (oldName != newName)
                 {
                     Console.WriteLine($"{oldName} -> {newName}");
                     File.Move(oldName, newName);
                 }
 
-                int dot = newName.LastIndexOf('.');
-                string key = newName.Substring(dot) == ".md" ? newName.Substring(0, dot) : newName;
-                nameToFile.Add(key, newName);
+                nameToFile.Add(KeyFromName(newName), newName);
             }
 
             // Fixup links and code snippets
@@ -64,7 +60,8 @@ namespace MigrateDocumentation
                     string innerValue = match.Value.Substring(1, match.Length - 2);
                     string link = innerValue;
                     string newName = TransformName(link);
-                    if (nameToFile.TryGetValue(newName, out var fileName))
+
+                    if (nameToFile.TryGetValue(KeyFromName(newName), out var fileName))
                     {
                         Console.WriteLine(fileName);
                         sb.Append(fileName).Append(')');
@@ -72,9 +69,16 @@ namespace MigrateDocumentation
                     else
                     {
                         ConsoleColor color = Console.ForegroundColor;
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine(newName);
-                        Console.ForegroundColor = color;
+                        try
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine(newName);
+                        }
+                        finally
+                        {
+                            Console.ForegroundColor = color;
+                        }
+
                         sb.Append(innerValue).Append(')');
                     }
 
@@ -125,6 +129,12 @@ namespace MigrateDocumentation
 
                 File.WriteAllText(docFile.FullName, text, Encoding.UTF8);
             }
+        }
+
+        private static string KeyFromName(string name)
+        {
+            int dot = name.LastIndexOf('.');
+            return dot > 0 && name.Substring(dot) == ".md" ? name.Substring(0, dot) : name;
         }
 
         private static string TransformName(string oldName)
