@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cmath>
-#include "../../string.h"
+#include "../../src/string.h"
 
 class TestResult;
 

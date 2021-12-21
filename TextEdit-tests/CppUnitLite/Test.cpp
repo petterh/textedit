@@ -1,4 +1,4 @@
-#include "..\..\precomp.h"
+#include "../../src/precomp.h"
 #include "CppUnitLite.h"
 
 

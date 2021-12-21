@@ -1,77 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\AboutDlg.cpp" />
-    <ClCompile Include="..\AbstractEditWnd.cpp" />
-    <ClCompile Include="..\activateOldInstance.cpp" />
-    <ClCompile Include="..\addAtom.cpp" />
-    <ClCompile Include="..\ArgumentList.cpp" />
-    <ClCompile Include="..\ComSupport.cpp" />
-    <ClCompile Include="..\createNewFile.cpp" />
-    <ClCompile Include="..\DeleteDlg.cpp" />
-    <ClCompile Include="..\devMode.cpp" />
-    <ClCompile Include="..\devNames.cpp" />
-    <ClCompile Include="..\Dialog.cpp" />
-    <ClCompile Include="..\dlgSubclasser.cpp" />
-    <ClCompile Include="..\Document.cpp" />
-    <ClCompile Include="..\Editor.cpp" />
-    <ClCompile Include="..\EditWnd.cpp" />
-    <ClCompile Include="..\EditWordBreakProc.cpp" />
-    <ClCompile Include="..\Exception.cpp" />
-    <ClCompile Include="..\exeContainsLanguageResources.cpp" />
-    <ClCompile Include="..\FileMapping.cpp" />
-    <ClCompile Include="..\FileNotFoundDlg.cpp" />
-    <ClCompile Include="..\FileType.cpp" />
-    <ClCompile Include="..\fileUtils.cpp" />
-    <ClCompile Include="..\FindDlg.cpp" />
-    <ClCompile Include="..\FontDlg.cpp" />
-    <ClCompile Include="..\formatMessage.cpp" />
-    <ClCompile Include="..\formatNumber.cpp" />
-    <ClCompile Include="..\getLongPathName.cpp" />
-    <ClCompile Include="..\GlobalSubclasser.cpp" />
-    <ClCompile Include="..\handlers.cpp" />
-    <ClCompile Include="..\help.cpp" />
-    <ClCompile Include="..\HTML.cpp" />
-    <ClCompile Include="..\init.cpp" />
-    <ClCompile Include="..\InstallDlg1.cpp" />
-    <ClCompile Include="..\InstanceSubclasser.cpp" />
-    <ClCompile Include="..\language.cpp" />
-    <ClCompile Include="..\link.cpp" />
-    <ClCompile Include="..\mainwnd.cpp" />
-    <ClCompile Include="..\MenuFont.cpp" />
-    <ClCompile Include="..\menuUtils.cpp" />
-    <ClCompile Include="..\MRU.cpp" />
-    <ClCompile Include="..\openDlgCommon.cpp" />
-    <ClCompile Include="..\openFileDlg.cpp" />
-    <ClCompile Include="..\OptionsDlg.cpp" />
-    <ClCompile Include="..\os.cpp" />
-    <ClCompile Include="..\precomp.cpp" />
-    <ClCompile Include="..\print.cpp" />
-    <ClCompile Include="..\printFile.cpp" />
-    <ClCompile Include="..\PropertiesDlg.cpp" />
-    <ClCompile Include="..\reboot.cpp" />
-    <ClCompile Include="..\Registry.cpp" />
-    <ClCompile Include="..\RegRename.cpp" />
-    <ClCompile Include="..\resolveName.cpp" />
-    <ClCompile Include="..\RichEditWnd.cpp" />
-    <ClCompile Include="..\saveFile.cpp" />
-    <ClCompile Include="..\search.cpp" />
-    <ClCompile Include="..\setup.cpp" />
-    <ClCompile Include="..\SetupDlg.cpp" />
-    <ClCompile Include="..\setupPage.cpp" />
-    <ClCompile Include="..\startInstance.cpp" />
-    <ClCompile Include="..\StatusBar.cpp" />
-    <ClCompile Include="..\Toolbar.cpp" />
-    <ClCompile Include="..\trace.cpp" />
-    <ClCompile Include="..\utils.cpp" />
-    <ClCompile Include="..\VersionInfo.cpp" />
-    <ClCompile Include="..\WaitCursor.cpp" />
-    <ClCompile Include="..\Window.cpp" />
-    <ClCompile Include="..\winUtils.cpp" />
-    <ClCompile Include="..\combobug.c" />
-    <ClCompile Include="..\themes.c" />
-    <ClCompile Include="..\wdjsub.c" />
-    <ClCompile Include="..\wnd_snap.c" />
     <ClCompile Include="fileUtilsTest.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
@@ -96,6 +25,219 @@
     <ClCompile Include="SafeStringTest.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\AboutDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AbstractEditWnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\activateOldInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\addAtom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ArgumentList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ComSupport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\createNewFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DeleteDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\devMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\devNames.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Dialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\dlgSubclasser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Document.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Editor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EditWnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EditWordBreakProc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Exception.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\exeContainsLanguageResources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FileMapping.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FileNotFoundDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FileType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\fileUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FindDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FontDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\formatMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\formatNumber.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\getLongPathName.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GlobalSubclasser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\handlers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\help.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HTML.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\init.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\InstallDlg1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\InstanceSubclasser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\language.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\link.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mainwnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MenuFont.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\menuUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MRU.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\openDlgCommon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\openFileDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\OptionsDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\os.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\precomp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\print.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\printFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PropertiesDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\reboot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Registry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RegRename.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\resolveName.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RichEditWnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\saveFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SetupDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\setupPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\startInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\StatusBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Toolbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\trace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VersionInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WaitCursor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\winUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\combobug.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\themes.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wdjsub.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_snap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CppUnitLite\CppUnitLite.h">
@@ -115,6 +257,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
     <Filter Include="Tests">
       <UniqueIdentifier>{226ad4a5-de8d-4016-9e7c-8f8c0c33e16d}</UniqueIdentifier>
     </Filter>

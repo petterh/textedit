@@ -1,6 +1,6 @@
-#include "..\precomp.h"
-#include "..\fileUtils.h"
-#include "CppUnitLite\CppUnitLite.h"
+#include "../src/precomp.h"
+#include "../src/fileUtils.h"
+#include "CppUnitLite/CppUnitLite.h"
 
 TEST(_tcscpy_s, SafeStrings) {
 
