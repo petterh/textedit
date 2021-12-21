@@ -1,6 +1,6 @@
-#include "..\precomp.h"
-#include "..\formatNumber.h"
-#include "CppUnitLite\CppUnitLite.h"
+#include "../src/precomp.h"
+#include "../src/formatNumber.h"
+#include "CppUnitLite/CppUnitLite.h"
 
 TEST( formatNumber, execution ) {
 

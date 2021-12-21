@@ -1,5 +1,5 @@
-#include "..\precomp.h"
-#include "..\fileUtils.h"
+#include "../src/precomp.h"
+#include "../src/fileUtils.h"
 #include "CppUnitLite\CppUnitLite.h"
 
 TEST(isPathSeparator, fileUtils) {
