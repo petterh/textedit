@@ -1,4 +1,6 @@
-# textedit
+# TextEdit
+
+[![GitHub Workflow Status](https://github.com/petterh/textedit/actions/workflows/msbuild.yml/badge.svg)](https://github.com/petterh/textedit/actions/workflows/msbuild.yml)
 
 TextEdit is a text editor, written in C++ to the raw Win32 API. It illustrates how to fit together all the myriad bits and pieces that make a robust Windows application a, well, robust Windows application.
 
