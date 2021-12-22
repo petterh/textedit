@@ -12,17 +12,17 @@ TextEdit also manages properties such as “Unicode.” TextEdit detects whether
 
 ## File Properties
 
-The Properties dialog displays information about the currently loaded file: File name, location, file type, file size, time stamps, file attributes, Unicode and line separators. The layout of this dialog is similar to the Windows Explorer’s Properties dialog (see Figure 17).
+The Properties dialog displays information about the currently loaded file: File name, location, file type, file size, time stamps, file attributes, Unicode and line separators. The layout of this dialog is similar to the Windows Explorer’s Properties dialog (see Figure&nbsp;17).
 
 ![The Properties Dialog](Chapter-14-File-Management-Figure17.bmp)
 
-**Figure 17: The Properties Dialog.** It is similar to the Exlorer’s corresponding dialog.
+**Figure&nbsp;17: The Properties Dialog.** It is similar to the Exlorer’s corresponding dialog.
 
-The dialog lets you change some of the attributes displayed in the dialog. You can change the file name on the fly, by typing a different name in the File Name field. To move the file to a different location, you must press the Move buttons to invoke a second dialog box (Figure 18); the Location field is read-only. This offloads everything to do with directories onto a common dialog designed for the purpose, and avoids issues of how to handle non-existent directories, invalid path names and so forth. A better solution would be one that allowed both approaches.
+The dialog lets you change some of the attributes displayed in the dialog. You can change the file name on the fly, by typing a different name in the File Name field. To move the file to a different location, you must press the Move buttons to invoke a second dialog box (Figure&nbsp;18); the Location field is read-only. This offloads everything to do with directories onto a common dialog designed for the purpose, and avoids issues of how to handle non-existent directories, invalid path names and so forth. A better solution would be one that allowed both approaches.
 
 ![Move or Rename File Dialog](Chapter-14-File-Management-Figure18.bmp)
 
-**Figure 18: Move or Rename File Dialog.** This is really a Save As dialog, with extra information on the top.
+**Figure&nbsp;18: Move or Rename File Dialog.** This is really a Save As dialog, with extra information on the top.
 
 The Move/Rename dialog allows you to change the file name as well as the file location – it’s a “Save As…” dialog. The same dialog is available directly from the File menu (for improved visibility), and a variation is used in Document::save: if TextEdit is unable to write to the original file, it uses this dialog to get a new name and location (see Chapter 12).
 
@@ -45,11 +45,11 @@ If you can’t change a file’s properties – if it’s on a CD-ROM or a write
 
 TextEdit’s Delete command deletes the current file. Since the unified file model requires a file in order for TextEdit to run, the command closes TextEdit as well.
 
-The Delete command may or may not open the confirmation dialog shown in Figure 19. The ShowDeleteDialog registry variable defined in persistence.h controls this. The user, in turn, controls the registry variable. You can turn it off by unchecking the lower checkbox in Figure 19 (the one labeled “Show this dialog the next time you delete a file”). For obvious reasons, you can’t turn it back on using the same checkbox. To prevent the user from getting lost, the dialog explains how you can turn it back on. (Note how the functional part of the “confirm file delete” confirmation dialog stops at the horizontal line – what’s below is concerned with management of the dialog itself, and has nothing to do with deleting files.)
+The Delete command may or may not open the confirmation dialog shown in Figure&nbsp;19. The ShowDeleteDialog registry variable defined in persistence.h controls this. The user, in turn, controls the registry variable. You can turn it off by unchecking the lower checkbox in Figure&nbsp;19 (the one labeled “Show this dialog the next time you delete a file”). For obvious reasons, you can’t turn it back on using the same checkbox. To prevent the user from getting lost, the dialog explains how you can turn it back on. (Note how the functional part of the “confirm file delete” confirmation dialog stops at the horizontal line – what’s below is concerned with management of the dialog itself, and has nothing to do with deleting files.)
 
 ![The Delete file Dialog](Chapter-14-File-Management-Figure19.bmp)
 
-**Figure 19: The Delete File Dialog.** The upper icon is static and helps identify the dialog; the trash can icon is dynamic and changes according to the setting of its corresponding checkbox.
+**Figure&nbsp;19: The Delete File Dialog.** The upper icon is static and helps identify the dialog; the trash can icon is dynamic and changes according to the setting of its corresponding checkbox.
 
 A menu command should have a trailing ellipsis if it invokes a dialog box; otherwise not. The onInitMenu message handler (in mainwnd.h) handles this by altering the menu text depending on the setting of ShowDeleteDialog, as follows:
 
@@ -71,7 +71,7 @@ Document::deleteFile physically deletes the file, and removes the file name from
 
 One of the parameters to SHFileOperation is a pointer to an SHFILEOPSTRUCT. The pFrom member of this structure is actually a list of null-terminated file names; the list itself must be doubly null-terminated. (This is an error-prone approach to an API – it did burn me, at least. QED.)
 
-The trash can icon in Figure 19 is really two icons – one icon showing a full trash can, another icon showing an empty one. Only one of them is visible at a time, though; this is toggled whenever the user checks or unchecks the “Put file in trash can” checkbox:
+The trash can icon in Figure&nbsp;19 is really two icons – one icon showing a full trash can, another icon showing an empty one. Only one of them is visible at a time, though; this is toggled whenever the user checks or unchecks the “Put file in trash can” checkbox:
 
 ```C++
 toggleIcon( IDC_WASTEBASKET, IDC_WASTEBASKETEMPTY, 0 != Button_GetCheck( getDlgItem( IDC_TRASHCAN ) ) );
@@ -84,23 +84,23 @@ The icon serves as a visual reinforcement of the setting of the checkbox. In add
 
 ## The Open File Dialog
 
-The Open File and Save File common dialogs are little Explorers in their own right. Figure 20 shows TextEdit’s Open File dialog in action. As you can see, it has four extra controls – one static label, one edit control used to show a preview of the selected file, one icon to show the type of the selected file and one checkbox that lets you open the file in a new window.
+The Open File and Save File common dialogs are little Explorers in their own right. Figure&nbsp;20 shows TextEdit’s Open File dialog in action. As you can see, it has four extra controls – one static label, one edit control used to show a preview of the selected file, one icon to show the type of the selected file and one checkbox that lets you open the file in a new window.
 
 ![The Open File Dialog](Chapter-14-File-Management-Figure20.bmp)
 
-**Figure 20: The Open File Dialog.** The extra controls on the right come from the dialog template IDD_PREVIEW_CHILD.
+**Figure&nbsp;20: The Open File Dialog.** The extra controls on the right come from the dialog template IDD_PREVIEW_CHILD.
 
-You change the look of most common dialogs by specifying a resource template that replaces the default dialog. The Open and Save dialogs are exceptions; you specify, instead, the template of a child dialog that is added to the system-supplied dialog. The template must have the WS_CHILD style bit set, and it should include a static control with the ID stc32. This is a placeholder for the system-supplied dialog, and tells GetOpenFileName and GetSaveFileName how to place the child dialog in relation to predefined controls. Figure 21 shows the child dialog (IDD_PREVIEW_CHILD); its relationship to Figure 20 should be clear.
+You change the look of most common dialogs by specifying a resource template that replaces the default dialog. The Open and Save dialogs are exceptions; you specify, instead, the template of a child dialog that is added to the system-supplied dialog. The template must have the WS_CHILD style bit set, and it should include a static control with the ID stc32. This is a placeholder for the system-supplied dialog, and tells GetOpenFileName and GetSaveFileName how to place the child dialog in relation to predefined controls. Figure&nbsp;21 shows the child dialog (IDD_PREVIEW_CHILD); its relationship to Figure&nbsp;20 should be clear.
 
 ![The Open File Child Dialog](Chapter-14-File-Management-Figure21.bmp)
 
-**Figure 21: The Open File Child Dialog.** The STATIC control labeled stc32 is a placeholder for the standard contents of the Open File dialog.
+**Figure&nbsp;21: The Open File Child Dialog.** The STATIC control labeled stc32 is a placeholder for the standard contents of the Open File dialog.
 
 [Sidebar: The Open File Common Dialog Bug](Sidebar-The-Open-File-Common-Dialog-Bug.md)
 
 ## Filter Strings
 
-The file openDlgCommon.cpp defines everything the Open and Save dialogs have in common. Aside from fixing the problem described in the sidebar “Open File Common Dialog Bug,” the code here is mostly concerned with handling filter strings – the strings that go into the combo box labeled “File Type” in Figure 20. As we shall see, this is a rather convoluted business.
+The file openDlgCommon.cpp defines everything the Open and Save dialogs have in common. Aside from fixing the problem described in the sidebar “Open File Common Dialog Bug,” the code here is mostly concerned with handling filter strings – the strings that go into the combo box labeled “File Type” in Figure&nbsp;20. As we shall see, this is a rather convoluted business.
 
 The lpstrFilter member of the OPENFILENAME structure points to a string defining the predefined filter entries. (“Predefined?” I hear you ask. Well, there is a member named lpstrCustomFilter as well, which I’ll get back to in a moment.) Each combo box entry is defined by two strings – the text that appears in the drop-down list, and the corresponding wildcard pattern. Each of these sub-strings is null-terminated. For example:
 
@@ -132,7 +132,7 @@ As I said, a convoluted business. A custom pattern is formatted with the IDS_CUS
 
 ## The Preview Window
 
-Showing the preview window in the dialog of Figure 20 is simplicity itself. I set the lpTemplateName member of OPENFILENAME to IDD_PREVIEW_CHILD and the hInstance member to TextEdit’s module handle, and voila! I have a preview window.
+Showing the preview window in the dialog of Figure&nbsp;20 is simplicity itself. I set the lpTemplateName member of OPENFILENAME to IDD_PREVIEW_CHILD and the hInstance member to TextEdit’s module handle, and voila! I have a preview window.
 
 Looks aren’t everything, though. A preview window without a preview is useless; the preview window needs to know what is happening elsewhere in the dialog.
 

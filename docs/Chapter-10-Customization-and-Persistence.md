@@ -14,19 +14,19 @@ Before we look at TextEdit-specific customization, let’s look at some of the t
 
 ## Color Schemes and Window Metrics
 
-Figure 12 shows the Appearance tab of the Display Control Panel applet. This dialog allows you to change colors, fonts and various metrics such as border widths.
+Figure&nbsp;12 shows the Appearance tab of the Display Control Panel applet. This dialog allows you to change colors, fonts and various metrics such as border widths.
 
 ![The Appearance tab of the Display Control Panel applet](Chapter-10-Customization-and-Persistence-Figure12.bmp)
 
-**Figure 12: Customizing the Appearance of Windows.** Check out GetSystemMetrics and GetSysColor before deciding on colors, fonts and metrics for your application.
+**Figure&nbsp;12: Customizing the Appearance of Windows.** Check out GetSystemMetrics and GetSysColor before deciding on colors, fonts and metrics for your application.
 
 If the user changes the font for the active window title, we don’t have to do anything; this is handled behind the scenes. If, however, the user changes the menu font, it does matter, because TextEdit uses the menu font for the status bar.
 
-Why? Among the standard schemes in Figure 12 are some with high contrast and large fonts. When Jane Random Hacker chooses such a scheme, it’s for a reason – perhaps her eyesight is weak, or perhaps she needs to see the monitor from the back of the room. If the status bar font remained small in the face of such a change, it would be invisible. Many applications, and, indeed, parts of Windows itself, don’t handle this well. The menu font may be 48 points, but everything else remains at eight points, unreadable to Jane. Even TextEdit is delinquent in this respect; the main window may be well behaved, but the dialogs don’t change. This afflicts all applications I’ve seen, and it may have something to do with the lack of any global default dialog font. One possibility might be to use the message font, which is customizable.
+Why? Among the standard schemes in Figure&nbsp;12 are some with high contrast and large fonts. When Jane Random Hacker chooses such a scheme, it’s for a reason – perhaps her eyesight is weak, or perhaps she needs to see the monitor from the back of the room. If the status bar font remained small in the face of such a change, it would be invisible. Many applications, and, indeed, parts of Windows itself, don’t handle this well. The menu font may be 48 points, but everything else remains at eight points, unreadable to Jane. Even TextEdit is delinquent in this respect; the main window may be well behaved, but the dialogs don’t change. This afflicts all applications I’ve seen, and it may have something to do with the lack of any global default dialog font. One possibility might be to use the message font, which is customizable.
 
 ## Noticing the Changes
 
-Clicking the OK button in Figure 12 may result in two different messages being broadcast: WM_SETTINGCHANGE and WM_SYSCOLORCHANGE. TextEdit has message handlers for these in mainwnd.cpp (as shown in Chapter 9).
+Clicking the OK button in Figure&nbsp;12 may result in two different messages being broadcast: WM_SETTINGCHANGE and WM_SYSCOLORCHANGE. TextEdit has message handlers for these in mainwnd.cpp (as shown in Chapter 9).
 
 The onSysColorChange function just passes the message on to all the child windows. They don’t all need it, but all the common controls do, including tool bars and status bars. Passing it to everybody is the simplest way of ensuring that those that need it get it.
 
@@ -55,16 +55,16 @@ The Windows Explorer, too, allows itself to be customized, and some of these cus
 
 ![Windows Explorer customizations](Chapter-10-Customization-and-Persistence-Figure13.bmp)
 
-**Figure 13: Customizing the Windows Explorer.** Some of these settings are useful to applications; unfortunately, there aren’t always documented ways to retrieve them.
+**Figure&nbsp;13: Customizing the Windows Explorer.** Some of these settings are useful to applications; unfortunately, there aren’t always documented ways to retrieve them.
 
-Figure 13 shows the View tab on the Explorer’s Option dialog. The list has two entries that TextEdit uses:
+Figure&nbsp;13 shows the View tab on the Explorer’s Option dialog. The list has two entries that TextEdit uses:
 
 * Display the full path in the title bar
 * Hide file extensions for known file types
 
 To get the file name to display in the title bar, TextEdit calls the GetWindowTitle function. This function takes care of the second point, but not the first. In fact, TextEdit never displays the full path in the title bar, as I’ve found no documented way of detecting this setting.
 
-If you click the OK button in Figure 13, the Explorer broadcasts a WM_SETTINGCHANGE message The onSettingChange handler is simpleminded, and refreshes everything that might conceivably have changed.
+If you click the OK button in Figure&nbsp;13, the Explorer broadcasts a WM_SETTINGCHANGE message The onSettingChange handler is simpleminded, and refreshes everything that might conceivably have changed.
 
 ## Regional Settings
 
@@ -178,10 +178,10 @@ This may seem like a large amount of complex information to shuffle in and out o
 
 TextEdit’s interface to the Windows registry is layered as follows:
 
-* At the bottom, we have the Windows registry API, which is quite low-level and cumbersome to use. 
+* At the bottom, we have the Windows registry API, which is quite low-level and cumbersome to use.
 * The Registry class encapsulates the registry API, and is a lot more convenient to use. The Registry class doesn’t know the meaning of the data it shuffles around.
 * The file persistence.h defines a set of macros for defining “persistent variables.” Instead of having a global variable named FilterIndex, you get a pair of functions, getFilterIndex and setFilterIndex. (Similar macros exist in the Document class, allowing document-local persistence, e.g., whether a specific file was maximized the last time it was open.)
-* Finally, we’re getting to the functional layer, which has application-level meaning. Using the macros in persistence.h, we can define persistent variables galore. 
+* Finally, we’re getting to the functional layer, which has application-level meaning. Using the macros in persistence.h, we can define persistent variables galore.
 
 Using this scheme has one great advantage over the more common method of saving all persistent information at the end of a session: If TextEdit crashes, changes to the settings are nevertheless retained.
 
@@ -194,7 +194,7 @@ Sometimes, though, we need to access information elsewhere in the registry. The 
 
 ```C++
 #define WIN_SETTINGS _T( "Microsoft\\Windows\\CurrentVersion" )
-#define CPL_SETTINGS _T( "Control Panel\\Desktop\\WindowMetrics" ) 
+#define CPL_SETTINGS _T( "Control Panel\\Desktop\\WindowMetrics" )
 ```
 
 [Registry.h](../Registry.h)\
@@ -227,15 +227,15 @@ This expands to:
 ```C++
    inline bool getMatchCase( void ) {
       return 0 != Registry::getInt( HKEY_CURRENT_USER,
-         _T( "Search" ), _T( MatchCase ), 0 ); 
+         _T( "Search" ), _T( MatchCase ), 0 );
    };
    inline void setMatchCase( bool bValue ) {
-      Registry::setInt( HKEY_CURRENT_USER, 
+      Registry::setInt( HKEY_CURRENT_USER,
          _T( "Search" ), _T( MatchCase ), bValue );
    }
 ```
 
-The macros for integers and strings are similar in structure. One deserves special mention: DEFINE_PERSISTENT_STRING_EX allows indexed persistent variables. After the declaration of 
+The macros for integers and strings are similar in structure. One deserves special mention: DEFINE_PERSISTENT_STRING_EX allows indexed persistent variables. After the declaration of
 
 ```C++
 DEFINE_PERSISTENT_STRING_EX( "Search", Pattern );
@@ -322,7 +322,7 @@ HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\
 
 This approach has at least two problems:
 
-* If the system goes down catastrophically, we never see the WM_ENDSESSION message, and restart doesn’t take place. 
+* If the system goes down catastrophically, we never see the WM_ENDSESSION message, and restart doesn’t take place.
 * If multiple instances of TextEdit were running, they would have to ensure that each had a unique name. This is possible, of course, but it is certainly extra work.
 
 What TextEdit actually does is the following: When TextEdit starts, it inserts the following under the RunOnce key:
@@ -352,7 +352,7 @@ Next, the document local persistent variable Running is set to one. If TextEdit 
 
 When TextEdit is started with the /boot option, it does the following:
 
-* It iterates over all the TextEdit files in the registry and invokes TextEdit anew for any files with Running=1. 
+* It iterates over all the TextEdit files in the registry and invokes TextEdit anew for any files with Running=1.
 * It purges the registry file list of any files that are no longer in the MRU list. If we didn’t do this occasionally, the registry would fill up. Note, though, that the MRU list contains more files than are shown in the File menu, so settings for an individual file last for a while after the file falls off the edge of the MRU menu.
 
 Then it exits. Windows removes all RunOnce entries after executing them. If you don’t start any new TextEdit instances this Windows session, no new reboot entry will be added, and there will be no restart.

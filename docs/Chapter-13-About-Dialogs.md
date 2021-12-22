@@ -87,9 +87,9 @@ The only possible interaction is to dismiss the dialog, which is why I call it s
 
 ![The About Dialog](Chapter-13-About-Dialogs-Figure15.bmp)
 
-**Figure 15: The About Dialog.** Some STATIC widgets have been subjected to a WM_SETFONT message, while others have been subclassed.
+**Figure&nbsp;15: The About Dialog.** Some STATIC widgets have been subjected to a WM_SETFONT message, while others have been subclassed.
 
-If you look at the dialog box in Figure 15, you’ll note several different fonts. In the case of the program title and version, this is a simple matter of creating the desired font, then sending a WM_SETFONT message to the control. This is done using the SetWindowFont macro defined in windowsx.h.
+If you look at the dialog box in Figure&nbsp;15, you’ll note several different fonts. In the case of the program title and version, this is a simple matter of creating the desired font, then sending a WM_SETFONT message to the control. This is done using the SetWindowFont macro defined in windowsx.h.
 
 More interesting is the boldfacing of individual words in the IDC_COMMENTS and IDC_COMMERCIAL controls. This is done by subclassing normal static controls. In onInitDialog, you’ll find a pair of calls to subclassHTML, which is all it takes to accomplish this. Except, of course, for writing the subclassHTML function itself, and accompanying paraphernalia. This is described in the sidebar entitled “[The HTML Static Control](Sidebar-The-HTML-Static-Control.md).”
 
@@ -103,7 +103,7 @@ The Options dialog box looks like this:
 
 ![The Options Dialog](Chapter-13-About-Dialogs-Figure16.bmp)
 
-**Figure 16: The Options Dialog.** The icons on the left are illustrative only; they do not reflect state in any way.
+**Figure&nbsp;16: The Options Dialog.** The icons on the left are illustrative only; they do not reflect state in any way.
 
 It is a little bit more complex, interaction-wise, than the About dialog. AboutDlg can get along with just the default onDlgCommand method defined in the Dialog base class, whereas OptionsDlg needs its own:
 

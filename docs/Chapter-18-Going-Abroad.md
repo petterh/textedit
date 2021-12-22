@@ -8,21 +8,21 @@ Even though I’m running the US edition of Windows NT 4 Workstation, I can neve
 
 ![Greek File.log](Chapter-18-Going-Abroad-Figure36.bmp)
 
-**Figure 36: Γρεεκ Φιλε.log (Greek File.log – English written using the Greek alphabet. An even Greeker file name would be Εκθεσι Ελληνικον.log.)** The file name is Unicode, the program is Unicode and the Unicode title font contains the required Greek characters.
+**Figure&nbsp;36: Γρεεκ Φιλε.log (Greek File.log – English written using the Greek alphabet. An even Greeker file name would be Εκθεσι Ελληνικον.log.)** The file name is Unicode, the program is Unicode and the Unicode title font contains the required Greek characters.
 
-Figure 36 shows a screen from a Unicode build of TextEdit, using a font (Tahoma) that contains the Greek Unicode characters (0x0370–0x03cf). In Figure 37, I’ve switched to MS Sans Serif, which does not, and the Greek characters can’t be displayed. A default character – a black rectangle – is displayed instead. It would be a different matter if Greek were installed as the system default language. In that case, a different code page of MS Sans Serif would be installed, and character codes between 128 and 255 would be used to display the Greek characters, even though the file name characters are actually from the Greek Unicode page. The Unicode character code for upper-case alpha, for example, is 0x0391; it obviously can’t be represented in an 8-bit code.
+Figure&nbsp;36 shows a screen from a Unicode build of TextEdit, using a font (Tahoma) that contains the Greek Unicode characters (0x0370–0x03cf). In Figure&nbsp;37, I’ve switched to MS Sans Serif, which does not, and the Greek characters can’t be displayed. A default character – a black rectangle – is displayed instead. It would be a different matter if Greek were installed as the system default language. In that case, a different code page of MS Sans Serif would be installed, and character codes between 128 and 255 would be used to display the Greek characters, even though the file name characters are actually from the Greek Unicode page. The Unicode character code for upper-case alpha, for example, is 0x0391; it obviously can’t be represented in an 8-bit code.
 
 ![A Truly Greek File Name](Chapter-18-Going-Abroad-Figure37.bmp)
 
-**Figure 37: A Truly Greek File Name.** (Apologies to all Greeks. This is Chinese to you, of course.). In this case, the problem lies with the MS Sans Serif font.
+**Figure&nbsp;37: A Truly Greek File Name.** (Apologies to all Greeks. This is Chinese to you, of course.). In this case, the problem lies with the MS Sans Serif font.
 
-Figure 38 shows a Tahoma menu. Note item 2, a beautiful rendition of a Greek file name. Even more interesting are items 5 and 6, leftovers from an ANSI build. They show how difficult life can be for an ANSI application on a Unicode file system. The WideCharToMultiByte function has mapped the Gamma, Epsilon and Phi characters with a modicum of success. The rest were deemed untranslatable, and thus replaced by the default character. Since I didn’t specify a default character, the default default character was used, and, since this doubly default character is a question mark, the file name is more than merely wrong: The question mark is a wild-card character, so the file name is illegal.
+Figure&nbsp;38 shows a Tahoma menu. Note item 2, a beautiful rendition of a Greek file name. Even more interesting are items 5 and 6, leftovers from an ANSI build. They show how difficult life can be for an ANSI application on a Unicode file system. The WideCharToMultiByte function has mapped the Gamma, Epsilon and Phi characters with a modicum of success. The rest were deemed untranslatable, and thus replaced by the default character. Since I didn’t specify a default character, the default default character was used, and, since this doubly default character is a question mark, the file name is more than merely wrong: The question mark is a wild-card character, so the file name is illegal.
 
 ![Tahoma Menu in Unicode Build](Chapter-18-Going-Abroad-Figure38.bmp)
 
-**Figure 38: Tahoma Menu in Unicode Build.** Items five and six show how badly Unicode-to-ANSI translations can screw things up.
+**Figure&nbsp;38: Tahoma Menu in Unicode Build.** Items five and six show how badly Unicode-to-ANSI translations can screw things up.
 
-The moral is that Windows NT is a Unicode system to the core, and best served by Unicode applications using Unicode fonts. The problem with that, though, is that we’d all like to create a single executable to run under both Windows 9x and Windows NT. ANSI applications on NT run into the “G?ee? F??e” problem from Figure 38, and creating a Unicode application that runs well on Windows 9x is a major undertaking – you must build an architectural layer that wraps all string-related APIs. The getPathFromIDList set of functions in utils.cpp gives you an idea about what this entails.
+The moral is that Windows NT is a Unicode system to the core, and best served by Unicode applications using Unicode fonts. The problem with that, though, is that we’d all like to create a single executable to run under both Windows 9x and Windows NT. ANSI applications on NT run into the “G?ee? F??e” problem from Figure&nbsp;38, and creating a Unicode application that runs well on Windows 9x is a major undertaking – you must build an architectural layer that wraps all string-related APIs. The getPathFromIDList set of functions in utils.cpp gives you an idea about what this entails.
 
 ## Resource Files
 
@@ -40,7 +40,7 @@ STRINGTABLE DISCARDABLE
 }
 
 LANGUAGE LANG_NORWEGIAN, SUBLANG_NORWEGIAN_BOKMAL
-STRINGTABLE DISCARDABLE 
+STRINGTABLE DISCARDABLE
 {
    IDS_VERSION          "Versjon:"
    ...
@@ -56,7 +56,7 @@ If a resource doesn’t exist in the desired language, the system has several fa
 * Primary language/any sublanguage
 * Language neutral
 * English
-* Any 
+* Any
 
 If the current locale is French, the loadString example returns the US English resource, according to rule 4 above. If the current locale is Norwegian Nynorsk (rather than Norwegian Bokmål), the example returns the Norwegian resource, since there’s a match in the primary language, and rule 2 applies. If there were only one string table resource, tagged with LANG__SWAHILI, you would get the Swahili string no matter what the current locale (rule 5).
 
@@ -184,7 +184,7 @@ TCHAR szThousandSep[ 10 ] = { 0 };
 GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_STHOUSAND,  szThousandSep, dim( szThousandSep ) ) );
 ```
 
-If you call **GetLocaleInfo** with **LOCALE_SGROUPING** as the second parameter, it will return a string describing how you should group the digits. The grouping string contains digits separated by semicolons; the final digit should be zero. As soon as the zero has been reached, the last group size given should be repeated ad infinitum. A couple of examples will make this clear: "3;0" specifies groups of three digits, while "3;2;0" specifies one group of three digits, then groups of two from there on. 
+If you call **GetLocaleInfo** with **LOCALE_SGROUPING** as the second parameter, it will return a string describing how you should group the digits. The grouping string contains digits separated by semicolons; the final digit should be zero. As soon as the zero has been reached, the last group size given should be repeated ad infinitum. A couple of examples will make this clear: "3;0" specifies groups of three digits, while "3;2;0" specifies one group of three digits, then groups of two from there on.
 
 The **formatNumber** function (in **formatNumber.cpp**) takes all this into account when formatting numbers. The one implementation issue worth mentioning is that the string is built backwards, and then reversed at the end. This could lead us astray if a thousand separator string of more than one character came along. To protect against such a potential mishap, the thousands separator string is itself reversed before we start applying it.
 

@@ -42,11 +42,11 @@ When you type commands in a console window, for example, there’s always the po
 
 Some message boxes are just plain unnecessary. TextEdit uses the status bar to display messages; this makes for a more conversational and relaxed style of interaction. (If the user has chosen to hide the status bar, TextEdit may display a message box as a last resort.)
 
-The status bar has one big problem in this role: Most people don’t pay it much attention. To remedy this problem, TextEdit’s status bar displays highlighted text whenever it has something substantial to say (as shown in Figure 1).
+The status bar has one big problem in this role: Most people don’t pay it much attention. To remedy this problem, TextEdit’s status bar displays highlighted text whenever it has something substantial to say (as shown in Figure&nbsp;1).
 
 ![Status bar with message](Chapter-2-Designing-for-Users-Figure1.bmp)
 
-**Figure 1: Status bar with a message.** Highlighting makes the user pay attention.
+**Figure&nbsp;1: Status bar with a message.** Highlighting makes the user pay attention.
 
 In [Chapter 15](Chapter-15-Search-and-Replace.md), I’ll show you how to do away with message boxes in connection with search and replace.
 
@@ -65,11 +65,11 @@ First, you need to know the following about TextEdit:
 * Although TextEdit doesn’t have a Save As command, you can change the file name, including the extension, from the File menu or from the Properties dialog box.
 * TextEdit displays the icon that belongs with the file type, rather than an application-specific icon. This, I feel, is in a quite document-centric spirit.
 
-If the user opens the properties dialog, changes the file extension from .txt to .cpp and clicks the Apply button, the icon on the dialog should change (see Figure 2). In addition, the textual type description should change, the dialog title should change, and the time stamp of last file access should change.
+If the user opens the properties dialog, changes the file extension from .txt to .cpp and clicks the Apply button, the icon on the dialog should change (see Figure&nbsp;2). In addition, the textual type description should change, the dialog title should change, and the time stamp of last file access should change.
 
 ![File type icons](Chapter-2-Designing-for-Users-Figure2.bmp)
 
-**Figure 2: TextEdit displays different icons for different file types.**
+**Figure&nbsp;2: TextEdit displays different icons for different file types.**
 
 This may seem simple and obvious, perhaps, but that’s just because “everything that’s known is obvious.” The average application – and the Windows desktop itself – has many, many such minor glitches. To minimize them, you must use your imagination.
 

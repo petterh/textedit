@@ -4,7 +4,7 @@
 
 # Chapter 16: Printing
 
-In one sense, printing under Windows is similar to displaying stuff on the screen: You use GDI commands to draw text and graphics in a display context. You don’t obtain (or release) a printer display context the same way you obtain a screen display context, but once you have that display context, you use the same familiar set of GDI functions. 
+In one sense, printing under Windows is similar to displaying stuff on the screen: You use GDI commands to draw text and graphics in a display context. You don’t obtain (or release) a printer display context the same way you obtain a screen display context, but once you have that display context, you use the same familiar set of GDI functions.
 
 In another sense, printing under Windows is different from displaying stuff on the screen. Even if we disregard, for a moment, the task of obtaining the printer display context, we still have to deal with pagination, margins, headers and footers, nothing of which applies to the screen. Besides, the edit window does the screen rendering for TextEdit in any case. On the printer, we have to render the text ourselves. (Actually, the rich edit control does understand something about printing, even though TextEdit doesn’t use this capability. The poor edit control, however, doesn’t understand much of anything.)
 
@@ -36,11 +36,11 @@ The documentation fails to mention whether the strings should be ANSI or Unicode
 
 TextEdit uses the standard common dialog for page setup. The setupPage function is defined in setupPage.cpp. The Page Setup dialog is closely related to the Print dialog; the values set during page setup are typically used during printing.
 
-You invoke the standard page setup dialog by calling PageSetupDlg with a pointer to a suitably initialized PAGESETUPDLG as its lone parameter. The result looks like Figure 33.
+You invoke the standard page setup dialog by calling PageSetupDlg with a pointer to a suitably initialized PAGESETUPDLG as its lone parameter. The result looks like Figure&nbsp;33.
 
 ![Page Setup Dialog](Chapter-16-Printing-Figure32.bmp)
 
-**Figure 33: The Page Setup Dialog Box.**
+**Figure&nbsp;33: The Page Setup Dialog Box.**
 
 The common page setup dialog provides for no less than two hook functions: the PageSetupHook and the PagePaintHook. The code in setupPage.cpp uses both, though the PagePaintHook is a dummy included only to show how it’s done. The default page is good enough for TextEdit, but if I were writing a graphics editor, I might implement custom rendering of the sample page.
 
@@ -50,11 +50,11 @@ The common page setup dialog provides for no less than two hook functions: the P
 
 TextEdit uses the standard common dialog for printing. The printFile function is defined in printFile.cpp. The Print dialog is closely related to the Page Setup dialog; the values set during page setup are typically used during printing.
 
-You invoke the standard print dialog by calling PrintDlg with a pointer to a suitably initialized PRINTDLG as its lone parameter. The result looks like Figure 34.
+You invoke the standard print dialog by calling PrintDlg with a pointer to a suitably initialized PRINTDLG as its lone parameter. The result looks like Figure&nbsp;34.
 
 ![Print Dialog](Chapter-16-Printing-Figure32.bmp)
 
-**Figure 34: The Print Dialog Box.**
+**Figure&nbsp;34: The Print Dialog Box.**
 
 When you are certain of running under Windows 2000, you may use PrintDlgEx instead, which gives you extended functionality.
 

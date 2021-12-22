@@ -4,7 +4,7 @@
 
 # Chapter 7: Off the Launch Pad
 
-As with skinning a cat, there is more than one way to start a Win32 app­li­ca­t­ion. There are GUI ways and there are console ways; some of them have to do with shell integration, a con­cept that is also touched in [Chapter 20, Setup](Chapter-20-Setup-and-Down-Again.md). 
+As with skinning a cat, there is more than one way to start a Win32 app­li­ca­t­ion. There are GUI ways and there are console ways; some of them have to do with shell integration, a con­cept that is also touched in [Chapter 20, Setup](Chapter-20-Setup-and-Down-Again.md).
 
 **Listing 24: Exploring the Command Line**
 
@@ -20,7 +20,7 @@ The starting of an app­li­ca­tion has two sides—the outside and the inside.
 
 ## Click, Drag and Drop
 
-In the following, I assume that the GUI shell is the Windows Explorer. While other shells are certainly possible, they’d better deliver similar func­tion­ali­ty if they want to survive in the market place. 
+In the following, I assume that the GUI shell is the Windows Explorer. While other shells are certainly possible, they’d better deliver similar func­tion­ali­ty if they want to survive in the market place.
 
 TextEdit can be started directly in several ways. After selecting the TextEdit icon, you can double-click, right-click and select Open from the context menu, or hit the Enter key. The re­sult is in any case that the shell calls CreateProcess, and eventually TextEdit’s WinMain is invoked.
 
@@ -38,12 +38,12 @@ c:\sample1.txt c:\sample2.txt
 
 ![Notepad](Chapter-7-Off-the-Launch-Pad-Figure6.bmp)
 
-**Figure 6: Notepad in Action.**
+**Figure&nbsp;6: Notepad in Action.**
 
 Parsing two consecutive file names as one doesn’t always work.
 Now what? Since TextEdit is an SDI app­li­ca­tion, we can only open one file per in­stan­ce. Unless you want to get bizarre, the only answer is to start more TextEdit in­stan­ces. The primary in­stan­ce of TextEdit (the one invoked by the shell) parses the parameter list and takes the first file name for its own. Then it starts a new in­stan­ce of itself, passing the remaining file name parameters to the new in­stan­ce. This starts a cascade of recursive invocations that bot­toms out when the final in­stan­ce gets but one file name, poor thing.
 
-Notepad treats the whole command line as a single file name, which may lead to the problem shown in Figure 6.
+Notepad treats the whole command line as a single file name, which may lead to the problem shown in Figure&nbsp;6.
 
 The problem here appears to be the second colon, which makes the file name syntactically invalid. Try it from the command line, omitting the offending syntax:
 
@@ -53,7 +53,7 @@ notepad sample1.txt sample2.txt
 
 ![Notepad](Chapter-7-Off-the-Launch-Pad-Figure7.bmp)
 
-**Figure 7: Notepad in Action again.**
+**Figure&nbsp;7: Notepad in Action again.**
 
 Two consecutive file names constitute a valid file name, but the file does not exist.
 This mes­sage box may not look too bright, but Notepad’s strategy actually turns out fine if you for­get to quote a file name containing spaces. TextEdit also tries this approach before considering each argument as a separate file name.
@@ -87,7 +87,7 @@ The shell also supports printing. If the right entries are set in the registry, 
 
 It is our responsibility to recognize the /p switch and to act appropriately.
 
-Alternatively, you can drag sample.txt to a printer icon. This re­sults in a printto command, which is a little more complicated—it is taken as an order to use a specific printer, rather than the default printer. The printto command has the following gen­e­ral form: 
+Alternatively, you can drag sample.txt to a printer icon. This re­sults in a printto command, which is a little more complicated—it is taken as an order to use a specific printer, rather than the default printer. The printto command has the following gen­e­ral form:
 
 ```cmd
 /pt <file_name> <printer_name> <driver_name> <port_name>
@@ -204,7 +204,7 @@ Handling all possible variations in a reasonable way requires unreasonable con­
 
 ![File Not Found](Chapter-7-Off-the-Launch-Pad-Figure8.bmp)
 
-Figure 8: TextEdit can’t find a file.
+Figure&nbsp;8: TextEdit can’t find a file.
 
 You may create a new file or browse for an existing file.
 What if a file doesn’t exist? There are several ways to handle this, and Notepad is quite sensible about it—Notepad asks the user if it should create a new file by the given name. TextEdit extends this a bit: It explains that the file does not exist, and the user is presented with the following choices:
@@ -216,7 +216,7 @@ What if a file doesn’t exist? There are several ways to handle this, and Notep
 
 ![No files matching wildcard](Chapter-7-Off-the-Launch-Pad-Figure9.bmp)
 
-**Figure 9: No files match a wild­card pat­tern.**
+**Figure&nbsp;9: No files match a wild­card pat­tern.**
 
 Since some users will be unfamiliar with wildcards, the mes­sage box explains the con­cept. The explanation is not so intrusive as to bother power users.
 From there, the choices are as above, except that creating the file as named is obviously out of the question.

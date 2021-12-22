@@ -116,11 +116,11 @@ These two versions are functionally equivalent, but the first is easier to debug
 
 ## Global Variables Considered Harmful
 
-Global Variables Are Bad. We all learned that on our mothers’ knees. TextEdit has no global variables, although it has several that are “global” to a single compilation unit. 
+Global Variables Are Bad. We all learned that on our mothers’ knees. TextEdit has no global variables, although it has several that are “global” to a single compilation unit.
 
 A common strategy to avoid global variables is to create a structure containing all global data, create an instance of that structure at some point, and pass the structure to all functions requiring access to the globals.
 
-This cure is worse than the disease; you still have fairly uncontrolled access to the variables, and additional parameters to boot. It helps to keep in mind why global variables are bad: It’s because they break encapsulation. 
+This cure is worse than the disease; you still have fairly uncontrolled access to the variables, and additional parameters to boot. It helps to keep in mind why global variables are bad: It’s because they break encapsulation.
 
 ## Assert Your Sanity
 
@@ -146,7 +146,7 @@ bool isWindowsNT( void ) {
    OSVERSIONINFO osvi = { sizeof osvi };
    assert( 0 == offsetof( OSVERSIONINFO, dwOSVersionInfoSize ) );
 
-   return GetVersionEx( &osvi ) && 
+   return GetVersionEx( &osvi ) &&
       VER_PLATFORM_WIN32_NT == osvi.dwPlatformId;
 }
 ```
@@ -194,7 +194,7 @@ The lack of const is a shortcoming of the Java programming language. Java does h
 
 There are really two types of constness. There’s the strict language-lawyer interpretation, and there’s conceptual constness. Consider an object that tries to be smart: A polygon object with a getArea method might, in the interest of optimization, cache the results from the area calculation, storing the result in the private instance variable m_area. Thus, getArea will immediately return the value of m_area when it believes this to be valid; otherwise, it will perform the calculation and update the cache variable for later use.
 
-What happens if you call getArea on a const polygon object? A violation of strict constness, is what happens, and the compiler will object strongly to the updating of m_area. To get around this, declare m_area to be mutable. This lets you assign a value to it even from a method declared const. 
+What happens if you call getArea on a const polygon object? A violation of strict constness, is what happens, and the compiler will object strongly to the updating of m_area. To get around this, declare m_area to be mutable. This lets you assign a value to it even from a method declared const.
 
 The const_cast is another way of getting around this sort of thing. TextEdit uses this to get around parameters in the Windows API that should have been declared const, but aren’t.
 
@@ -262,7 +262,7 @@ String Window::getWindowText( void ) const {
 
 While this works correctly, it is verbose and difficult to read. Even worse, the clean-up code is duplicated, a guarantee for maintenance headaches. (Java has the edge on C++ when it comes to exception handling semantics; it allows a finally clause that is executed both during the normal flow of control and after an exception has been thrown.)
 
-A better solution is to wrap the pointer to the heap-allocated memory in an object, making it a smart pointer. The essential part of a smart pointer class is its destructor, which (in simple cases) deletes the pointer that it wraps. (More complex cases may involve, say, reference counting.) 
+A better solution is to wrap the pointer to the heap-allocated memory in an object, making it a smart pointer. The essential part of a smart pointer class is its destructor, which (in simple cases) deletes the pointer that it wraps. (More complex cases may involve, say, reference counting.)
 
 ```C++
 String Window::getWindowText( void ) const {
@@ -406,11 +406,11 @@ int WINAPI WinMain(
 }
 ```
 
-The resulting window lacks even the sense to paint its own client area, but it does have a title bar, and it responds correctly to resizing, maximizing and minimizing (see Figure 3).
+The resulting window lacks even the sense to paint its own client area, but it does have a title bar, and it responds correctly to resizing, maximizing and minimizing (see Figure&nbsp;3).
 
 ![](Chapter-3-Designing-for-Programmers-Figure3.bmp)
 
-**Figure 3: The DefWindowProc window, with its client area full of garbage.**
+**Figure&nbsp;3: The DefWindowProc window, with its client area full of garbage.**
 
 Only one thing is missing for this to be an almost perfectly well behaved window: Even though DefWindowProc handles WM_CLOSE by calling DestroyWindow, neither the WM_CLOSE handler nor the WM_DESTROY handler calls PostQuitMessage. After the window has been destroyed, the application hangs forever on GetMessage. (It couldn’t be otherwise, of course, or all applications would close shop every time one of its windows was destroyed.)
 

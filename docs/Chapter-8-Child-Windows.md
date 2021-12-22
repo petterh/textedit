@@ -8,9 +8,9 @@ The TextEdit main windows is a standard SDI (Single Document Interface) applicat
 
 ![TextEdit](Chapter-8-Child-Windows-Figure10.bmp)
 
-**Figure 10: TextEdit in Action, with eight of its nine windows visible.**
+**Figure&nbsp;10: TextEdit in Action, with eight of its nine windows visible.**
 
-How many windows do you count in Figure 10? There are nine of them, eight of which are arranged in the following hierarchy:
+How many windows do you count in Figure&nbsp;10? There are nine of them, eight of which are arranged in the following hierarchy:
 
 ```
 The main application window
@@ -23,7 +23,7 @@ The main application window
    The status bar
 ```
 
-The ninth window is the toolbar’s ToolTip window, which was not present when the picture in Figure 10 was taken. The individual bitmaps on the toolbar are not windows; neither are the panes on the status bar. The scroll bars are part of the non-client area of the editing window. If this were OS/2 presentation manager, the scroll bars would be windows in their own right. Since this is Windows, they are not.
+The ninth window is the toolbar’s ToolTip window, which was not present when the picture in Figure&nbsp;10 was taken. The individual bitmaps on the toolbar are not windows; neither are the panes on the status bar. The scroll bars are part of the non-client area of the editing window. If this were OS/2 presentation manager, the scroll bars would be windows in their own right. Since this is Windows, they are not.
 
 TextEdit has more windows than these, though. Dialog boxes and their controls are windows too, and I’ll have more to say about them later, starting in [Chapter 13](Chapter-13-About-Dialogs.md).
 

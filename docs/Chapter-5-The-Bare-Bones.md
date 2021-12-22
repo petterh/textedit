@@ -45,11 +45,11 @@ The core of TextEdit consists of one window function and three C++ classes. Ther
 * The Document class, which handles disk files
 * The AbstractEditWnd class, which wraps the editing widget.
 
-The relationships between these are shown in Figure 5.
+The relationships between these are shown in Figure&nbsp;5.
 
 ![Application Architecture](Chapter-5-The-Bare-Bones-Figure5.bmp)
 
-**Figure 5: Application Architecture Overview.**
+**Figure&nbsp;5: Application Architecture Overview.**
 
 The main entry point is defined in **WinMain.cpp**. The **WinMain** function does a small amount of initialization, then sets up the outermost try/catch block of the exception handling onion (a vegetable I shall get back to in the next chapter). Next, it calls the init function, whose job it is to interpret any arguments, possibly produce a Document object and an Editor object, and possibly to create the main window. (The init function is discussed in detail in Chapter 7.) Once the main window is up and running, control is transferred to TextEdit’s main message loop, buried in the **Editor:run** method.
 
