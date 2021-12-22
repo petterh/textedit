@@ -6,5 +6,5 @@ int _tmain()
     TestResult tr;
     TestRegistry::runAllTests(tr);
 
-    return 0;
+    return tr.getSuccess() ? 0 : 1;
 }

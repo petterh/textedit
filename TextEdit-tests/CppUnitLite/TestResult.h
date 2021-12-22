@@ -12,4 +12,7 @@ public:
 
 private:
 	int				failureCount;
+
+public:
+	inline bool getSuccess() { return failureCount == 0; }
 };
