@@ -2,7 +2,7 @@
 
 TextEdit is a text editor, written in C++ to the raw Win32 API. It illustrates how to fit together all the myriad bits and pieces that make a robust Windows application a, well, robust Windows application.
 
-It was originally written as the companion program to my book Programming Industrial Strength Windows (2000); I've occasionally fiddled with it in the years since then. Now that it has a home on CodePlex I'll probably continue fiddling, even though my everyday focus has moved to .NET: Technology changes more easily than design principles. And it sure beats NotePad.
+It was originally written as the companion program to my book Programming Industrial Strength Windows (2000); I've occasionally fiddled with it in the years since then. Now that it has a home on ~~CodePlex~~ GitHub I'll probably continue fiddling, even though my everyday focus has moved to .NET: Technology changes more easily than design principles. And it sure beats NotePad.
 
 TextEdit demonstrates a number of things:
 

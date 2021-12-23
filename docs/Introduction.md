@@ -74,7 +74,7 @@ When I refer to a _method_, I invariably mean a non-static member function of so
 
 TextEdit was developed using version 6 of Microsoft Visual C++. While the text reflects that fact on occasion, the book is meant to be compiler-independent. In particular, it is not a book about Visual C++.
 
-| References to source code availability removed from text; they're irrelevant on CodePlex. |
+| References to source code availability removed from text; they're irrelevant on ~~CodePlex~~ GitHub. |
 
 ## Acknowledgements
 
