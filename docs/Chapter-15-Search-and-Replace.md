@@ -2,19 +2,19 @@
 
 [« Previous: File Management](Chapter-14-File-Management.md) — [Next: Printing »](Chapter-16-Printing.md)
 
-# Chapter 15: Search and Replace
+# Chapter&nbsp;15: Search and Replace
 
-Windows offers a common dialog for straight searching and for search and replace. I have a strong dislike for this dialog. I dislike the modelessness of it, I dislike the simple edit field for the search string, and I dislike the dim-witted way it paints a default border on a disabled button (see Figure 22). Above all, I dislike the API, which is an invitation to spread related functionality around all the dark corners of a program.
+Windows offers a common dialog for straight searching and for search and replace. I have a strong dislike for this dialog. I dislike the modelessness of it, I dislike the simple edit field for the search string, and I dislike the dim-witted way it paints a default border on a disabled button (see Figure&nbsp;22). Above all, I dislike the API, which is an invitation to spread related functionality around all the dark corners of a program.
 
 ![The Common Find Dialog](Chapter-15-Search-and-Replace-Figure22.bmp)
 
-**Figure 22: The Common Find Dialog.** Note the disabled default button, and cringe.
+**Figure&nbsp;22: The Common Find Dialog.** Note the disabled default button, and cringe.
 
-Given such strong feelings, you won’t be surprised when I tell you that TextEdit doesn’t use the common dialog for search and replace. You can see TextEdit’s Find dialog, implemented by the class FindDlg, in Figure 23. It looks quite similar to the common dialog, but there are differences more than skin deep.
+Given such strong feelings, you won’t be surprised when I tell you that TextEdit doesn’t use the common dialog for search and replace. You can see TextEdit’s Find dialog, implemented by the class FindDlg, in Figure&nbsp;23. It looks quite similar to the common dialog, but there are differences more than skin deep.
 
 ![The TextEdit Find Dialog](Chapter-15-Search-and-Replace-Figure23.bmp)
 
-**Figure 23: The TextEdit Find Dialog.** Although the presence of the drop-down list is the most obvious difference from the previous dialog, some of the less obvious differences are much more important.
+**Figure&nbsp;23: The TextEdit Find Dialog.** Although the presence of the drop-down list is the most obvious difference from the previous dialog, some of the less obvious differences are much more important.
 
 FindDlg is modal. A modal dialog can only search for one string, whereas a modeless dialog can repeat a search any number of times before you close the dialog. To overcome this limitation, TextEdit has a Find Next command that repeats the last search. To make the existence of this command obvious, it is mentioned rather prominently on the face of the dialog.
 
@@ -34,12 +34,12 @@ One solution to this user interface glitch would be to catch the Enter key and a
 
 Actually implementing this functionality was more of a puzzle than I had expected, chiefly because the combobox notifications are peculiar. The CBN_DROPDOWN notification is sent before the list opens, while its opposite number, the CBN_CLOSEUP notification, is sent after the list has closed. In other words, the list is always closed at notification time. This precludes an elegant, common solution for all cases, in which I wouldn’t care whether the message was CBN_DROPDOWN or CBN_CLOSEUP. Instead, I would just ask the combobox by sending it the CB_GETDROPPEDSTATE message (using the ComboBox_GetDroppedState macro from windowsx.h).
 
-At this point, it occurred to me that this problem is not specific to FindDlg, but completely general. I removed all this code from FindDlg, and instead used global subclassing (as described in [Chapter 4](Chapter-4-The-Mechanics-of-Subclassing.md)) to subclass the dialog window class. The result is in dlgSubclasser.cpp, and has a couple of interesting properties:
+At this point, it occurred to me that this problem is not specific to FindDlg, but completely general. I removed all this code from FindDlg, and instead used global subclassing (as described in [Chapter&nbsp;4](Chapter-4-The-Mechanics-of-Subclassing.md)) to subclass the dialog window class. The result is in dlgSubclasser.cpp, and has a couple of interesting properties:
 
 * No header file is associated with this file; it has, in a manner of speaking, no interface. The mere existence of the dlgSubclasser static variable is enough to initialize the subclassing.
 * The subclassing works on all dialogs within TextEdit, including “system” dialogs such as printer properties.
 
-[dlgSubclasser.cpp](../dlgSubclasser.cpp)
+[dlgSubclasser.cpp](../src/dlgSubclasser.cpp)
 
 ## Initializing the Dialog
 
@@ -57,7 +57,7 @@ As for all other dialogs, Dialog::dispatchDlgMsg takes care of the initial place
 
 FindDlg has a memory. We’ve already seen how it remembers its position; it also remembers the ten most recently used search strings, the status of the “Match whole word only” and “Match case” checkboxes, and the search direction (up or down).
 
-The list of recently used search strings is read from the registry by the loadStrings method and saved to the registry by the saveStrings method. This “historical combobox” has a close kinship with the list of recently used files discussed in [Chapter 10](Chapter-10-Customization-and-Persistence.md), but is actually simpler in its implementation. How so? In addition to being a GUI component, a drop-down list box (or any list box, for that matter) can also be thought of as part of your data structure. Not only can you put strings into it; you can get them out again as well. Here’s another design principle:
+The list of recently used search strings is read from the registry by the loadStrings method and saved to the registry by the saveStrings method. This “historical combobox” has a close kinship with the list of recently used files discussed in [Chapter&nbsp;10](Chapter-10-Customization-and-Persistence.md), but is actually simpler in its implementation. How so? In addition to being a GUI component, a drop-down list box (or any list box, for that matter) can also be thought of as part of your data structure. Not only can you put strings into it; you can get them out again as well. Here’s another design principle:
 
 “**Don’t duplicate data storage.**”
 
@@ -69,25 +69,25 @@ One final detail, while I’m on the subject of the combobox: The CB_FINDSTRINGE
 
 ## Text Not Found
 
-When Notepad fails to find the text you’re searching for, it displays a message box, as depicted in Figure 24. Notepad is in good company using a message box for this; others include Word for Windows (Figure 25) and Visual C++ (Figure 26).
+When Notepad fails to find the text you’re searching for, it displays a message box, as depicted in Figure&nbsp;24. Notepad is in good company using a message box for this; others include Word for Windows (Figure&nbsp;25) and Visual C++ (Figure&nbsp;26).
 
 ![Notepad Find Failure](Chapter-15-Search-and-Replace-Figure24.bmp)
 
-**Figure 24: Notepad didn’t find “Glory Hallelujah!”**
+**Figure&nbsp;24: Notepad didn’t find “Glory Hallelujah!”**
 
 ![Word Find Failure](Chapter-15-Search-and-Replace-Figure25.bmp)
 
-**Figure 25: Microsoft Word fails to find “Glory Hallelujah!”** The message box doesn’t tell you what Word failed to find.
+**Figure&nbsp;25: Microsoft Word fails to find “Glory Hallelujah!”** The message box doesn’t tell you what Word failed to find.
 
 ![Visual C++ Find Failure](Chapter-15-Search-and-Replace-Figure26.bmp)
 
-**Figure 26: Visual C++ fares no better.**
+**Figure&nbsp;26: Visual C++ fares no better.**
 
-These message boxes are perfect examples of what Alan Cooper terms _excise_, user interface elements that contribute nothing towards fulfilling the user’s goals. If a message box were the only way the program could possibly communicate the failure of the search, we would have to accept this excise as necessary. It isn’t, though. TextEdit displays the information in the search dialog itself, as depicted in Figure 27.
+These message boxes are perfect examples of what Alan Cooper terms _excise_, user interface elements that contribute nothing towards fulfilling the user’s goals. If a message box were the only way the program could possibly communicate the failure of the search, we would have to accept this excise as necessary. It isn’t, though. TextEdit displays the information in the search dialog itself, as depicted in Figure&nbsp;27.
 
 ![TextEdit Find Failure](Chapter-15-Search-and-Replace-Figure27.bmp)
 
-*Figure 27: Glory be! TextEdit can’t find “Glory Hallelujah!” either.
+*Figure&nbsp;27: Glory be! TextEdit can’t find “Glory Hallelujah!” either.
 
 This little trick saves the user one action – keystroke or mouse click – every time some text is not found. Over the course of a long lifetime, this sort of thing adds up.
 
@@ -109,19 +109,19 @@ Before I describe the TextEdit Replace dialog, I’d like to discuss its counter
 
 ![Visual C++ Replace Dialog](Chapter-15-Search-and-Replace-Figure28.bmp)
 
-**Figure 28: The Visual C++ Replace dialog without “iString” selected in the text window.** Since “iString” is not selected, Find Next is the default. No replacement is even possible, and if you click on Replace, it will do a Find Next, in spite of its label.
+**Figure&nbsp;28: The Visual C++ Replace dialog without “iString” selected in the text window.** Since “iString” is not selected, Find Next is the default. No replacement is even possible, and if you click on Replace, it will do a Find Next, in spite of its label.
 
-Figure 28 shows the VC++ Replace dialog in action. At this point, the Find Next button is the default button, and no text is selected in the editor. If I hit return, the first occurrence of “iString” will be selected in the editor, and the Replace button becomes the default button, as depicted in Figure 29.
+Figure&nbsp;28 shows the VC++ Replace dialog in action. At this point, the Find Next button is the default button, and no text is selected in the editor. If I hit return, the first occurrence of “iString” will be selected in the editor, and the Replace button becomes the default button, as depicted in Figure&nbsp;29.
 
 ![Visual C++ Replace Dialog](Chapter-15-Search-and-Replace-Figure29.bmp)
 
-**Figure 29: The Visual C++ Replace dialog with “iString” selected in the text window.** The Replace button is now the default.
+**Figure&nbsp;29: The Visual C++ Replace dialog with “iString” selected in the text window.** The Replace button is now the default.
 
-So far, so good. But consider: No replacement is ever performed unless text matching the “Find what” field is selected in the editor. Nevertheless, the Replace button was enabled back in Figure 28, where no text was selected in the editor. What, then, does the Replace button do when it doesn’t replace anything? Answer: It is equivalent to the Find Next button! True, the Replace button has an implicit Find Next built into it when it actually performs a replacement, but I balk at clicking Replace to perform Find Next, and nothing else.
+So far, so good. But consider: No replacement is ever performed unless text matching the “Find what” field is selected in the editor. Nevertheless, the Replace button was enabled back in Figure&nbsp;28, where no text was selected in the editor. What, then, does the Replace button do when it doesn’t replace anything? Answer: It is equivalent to the Find Next button! True, the Replace button has an implicit Find Next built into it when it actually performs a replacement, but I balk at clicking Replace to perform Find Next, and nothing else.
 
 Even stranger, if I delete the text in the Find what field, all three buttons (Find Next, Replace and Replace All) remain enabled. I can’t for the life of me figure out what meaningful actions the buttons could possibly perform, and, as it turns out, none of them do anything whatsoever.
 
-This contrasts with the VC++ Find dialog, where the Find Next button is disabled when I delete the text in the Find what field. Here, on the other hand, the Find Next button retains its default looks even when disabled, exactly as Notepad’s corresponding button did in Figure 22.
+This contrasts with the VC++ Find dialog, where the Find Next button is disabled when I delete the text in the Find what field. Here, on the other hand, the Find Next button retains its default looks even when disabled, exactly as Notepad’s corresponding button did in Figure&nbsp;22.
 
 It’s a common convention to change the text of a dialog’s Cancel button to “Close” whenever a change has been made that can’t be reversed from within the dialog. (There are those, including Alan Cooper, that maintain that this is Bad. I have mislaid my guru’s license and decline to comment.) The VC++ Replace dialog changes the button caption to “Close” after performing a replacement, which is reasonable. It also changes the button caption to “Close” after performing a search, even though the text is unchanged! What were they thinking?
 
@@ -129,26 +129,26 @@ All that said, I must nevertheless admit that I’ve never had difficulties with
 
 ## The TextEdit Replace Dialog
 
-The TextEdit Replace dialog is shown in Figure 30. It bears a passing resemblance to the C++ Replace dialog; in particular, all the push buttons are identical.
+The TextEdit Replace dialog is shown in Figure&nbsp;30. It bears a passing resemblance to the C++ Replace dialog; in particular, all the push buttons are identical.
 
-In Figure 30, the text “Pocket” is not selected in the editor. Thus, no replacement is possible, and the Replace button is disabled.
+In Figure&nbsp;30, the text “Pocket” is not selected in the editor. Thus, no replacement is possible, and the Replace button is disabled.
 
 ![TextEdit Replace Dialog](Chapter-15-Search-and-Replace-Figure30.bmp)
 
-**Figure 30: The TextEdit Replace dialog without “Pocket” selected in the edit widget.** In contrast to the Visual C++ dialog in Figure 28, the Replace button is disabled.
+**Figure&nbsp;30: The TextEdit Replace dialog without “Pocket” selected in the edit widget.** In contrast to the Visual C++ dialog in Figure&nbsp;28, the Replace button is disabled.
 
-In Figure 31, the user has hit Find Next, and the text “Pocket” has been selected in the editor. The Replace button has been enabled, and it has become the default button as well. The TextEdit Replace button, by the way, has an implicit Find Next built into it, just like Visual C++. Since we now have a selection, the “Replace in Selection” radio button has been enabled.
+In Figure&nbsp;31, the user has hit Find Next, and the text “Pocket” has been selected in the editor. The Replace button has been enabled, and it has become the default button as well. The TextEdit Replace button, by the way, has an implicit Find Next built into it, just like Visual C++. Since we now have a selection, the “Replace in Selection” radio button has been enabled.
 
 ![TextEdit Replace Dialog](Chapter-15-Search-and-Replace-Figure31.bmp)
 
-**Figure 31: The TextEdit Replace dialog with “Pocket” selected in the edit widget.** Its behavior now equals that of the Visual C++ dialog in Figure 29.
+**Figure&nbsp;31: The TextEdit Replace dialog with “Pocket” selected in the edit widget.** Its behavior now equals that of the Visual C++ dialog in Figure&nbsp;29.
 
-In Figure 32, the user has checked “Replace in Selection.” In this case, Replace All is the only available action.
+In Figure&nbsp;32, the user has checked “Replace in Selection.” In this case, Replace All is the only available action.
 
 ![TextEdit Replace Dialog](Chapter-15-Search-and-Replace-Figure32.bmp)
 
-**Figure 32: The TextEdit Replace dialog with “Replace in Selection” selected**. Replace All is the only possible action.
+**Figure&nbsp;32: The TextEdit Replace dialog with “Replace in Selection” selected**. Replace All is the only possible action.
 
 User interaction with the Replace dialog is considerably more complicated than the interaction with the plain Find dialog. In particular, check out the adjustButtons method in FindDlg.cpp; it does considerably more work when the m_isReplace flag is set.
 
-[FindDlg.cpp](../FindDlg.cpp)
+[FindDlg.cpp](../src/FindDlg.cpp)

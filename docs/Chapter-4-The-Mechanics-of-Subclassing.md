@@ -2,7 +2,7 @@
 
 [« Previous: Designing for Programmers](Chapter-3-Designing-for-Programmers.md) — [Next: The Bare Bones »](Chapter-5-The-Bare-Bones.md)
 
-# Chapter 4: The Mechanics of Subclassing
+# Chapter&nbsp;4: The Mechanics of Subclassing
 
 In an ideal world, at least for C++ programmers, Windows would be C++ throughout. Subclassing a window would be a matter of subclassing a C++ class, creating a window would be a matter of invoking the window’s constructor, message handling would be a matter of overriding virtual functions.
 
@@ -22,11 +22,11 @@ Subclassing comes in several variants: Instance subclassing (a.k.a. local subcla
 
 **Instance subclassing** means to replace the window function of an existing window. A typical example is the subclassing of a specific edit control in a dialog box – to filter out illegal characters, perhaps. This used to be a popular technique for creating numeric input fields before the advent of the ES_NUMBER window style.
 
-When a dialog’s **WM_INITDIALOG** message handler is invoked, all the edit controls exist already. The InstSub program is a complete example of instance subclassing an edit control to create a numeric input field. The resulting dialog is depicted in Figure 4:
+When a dialog’s **WM_INITDIALOG** message handler is invoked, all the edit controls exist already. The InstSub program is a complete example of instance subclassing an edit control to create a numeric input field. The resulting dialog is depicted in Figure&nbsp;4:
 
 ![The Mechanics of Subclassing](Chapter-4-The-Mechanics-of-Subclassing-Figure4.bmp)
 
-**Figure 4: Instance Subclassing in Action.** The upper edit field accepts only digits.
+**Figure&nbsp;4: Instance Subclassing in Action.** The upper edit field accepts only digits.
 
 Building the InstSub example is a two-step process:
 
@@ -272,8 +272,8 @@ It’s in the nature of global subclassing that there is only one old window fun
 
 Curiously, SetClassLong and GetClassLong are both prototyped as returning DWORDs, even though the dwNewLong argument to SetClassLong is prototyped as LONG, i.e., a signed value.
 
-[GlobalSubclasser.h](../GlobalSubclasser.h)\
-[GlobalSubclasser.cpp](../GlobalSubclasser.cpp)
+[GlobalSubclasser.h](../src/GlobalSubclasser.h)\
+[GlobalSubclasser.cpp](../src/GlobalSubclasser.cpp)
 
 ## General Mechanism for Instance Subclassing
 
@@ -337,8 +337,8 @@ The tool tip doesn’t unhook at all, as far as I can tell, and thus blocks ever
 
 Sadly, there is no way to create a subclassing scheme that’s guaranteed to work under all circumstances. InstanceSubclasser covers 99% of what you’ll ever need, though.
 
-[InstanceSubclasser.h](../InstanceSubclasser.h)\
-[InstanceSubclasser.cpp](../InstanceSubclasser.cpp)
+[InstanceSubclasser.h](../src/InstanceSubclasser.h)\
+[InstanceSubclasser.cpp](../src/InstanceSubclasser.cpp)
 
 ## The Window Class: Wrapping the HWND
 
@@ -368,5 +368,5 @@ The set of messages selected for the virtual function treatment is rather arbitr
 
 The Window class defines default handlers for all messages, either through the virtual methods or through the dispatch method. These invariably pass the messages on to the original window function.
 
-[Window.h](../Window.h)\
-[Window.cpp](../Window.cpp)
+[Window.h](../src/Window.h)\
+[Window.cpp](../src/Window.cpp)

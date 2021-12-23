@@ -2,7 +2,7 @@
 
 [« Previous: Child Windows](Chapter-8-Child-Windows.md) — [Next: Customization and Persistence »](Chapter-10-Customization-and-Persistence.md)
 
-# Chapter 9: The Main Window
+# Chapter&nbsp;9: The Main Window
 
 The **mainWndProc** function (in mainwnd.cpp) implements the window function for TextEdit’s main window, and is the central switchboard of TextEdit. To do the switching, it employs the message cracker macros in windowsx.h. Even though mainWndProc contains the big switch statement of traditional window functions, the `HANDLE_MSG` macro delegates each message to an appropriate handler function in a – sort of – type-safe manner. At least the programmer doesn’t need to worry about the parameter packing for the various messages. Furthermore, the macros are portable between Win16 and Win32. This is particularly important for messages such as `WM_COMMAND`, where the parameter packing changed.
 
@@ -107,7 +107,7 @@ Why, I hear you ask, not use `WM_EXITSIZEMOVE` instead of this timer nonsense? T
 
 A final detail about full-window dragging: This can cause unsightly flashing of the caret in the edit window. To avoid this, the caret is hidden in response to `WM_ENTERSIZEMOVE` and shown again in response to `WM_EXITSIZEMOVE`. The problem noted above doesn’t apply; when you move or size the window, both `WM_ENTERSIZEMOVE` and `WM_EXITSIZEMOVE` are sent.
 
-Chapter 10 explains how to create persistent variables using the registry. The Document class allows you to create persistent variables on a per-document basis. Window position and window size, for example, are both stored per document.
+Chapter&nbsp;10 explains how to create persistent variables using the registry. The Document class allows you to create persistent variables on a per-document basis. Window position and window size, for example, are both stored per document.
 
 ## Drag and Drop
 
@@ -159,8 +159,8 @@ The Editor class has two helper functions that produce menu description strings.
 
 The menuUtils module defines utility functions for use with menus and menu items. For the most part, these are simple wrappers for Windows functions. The only exception is containsMenuItem, which checks whether a menu or any of its submenus contains a command with a given ID.
 
-[menuUtils.h](../menuUtils.h)\
-[menuUtils.cpp](../menuUtils.cpp)
+[menuUtils.h](../src/menuUtils.h)\
+[menuUtils.cpp](../src/menuUtils.cpp)
 
 [Sidebar: Messy Menus, Accelerator Alignment](Sidebar-Messy-Menus.md)
 
@@ -188,5 +188,5 @@ The main window’s reference to the Editor object is stored as a window long. T
 
 Given the handle to the main window, the getEditor function retrieves the corresponding Editor object.
 
-[mainwnd.h](../mainwnd.h)\
-[mainwnd.cpp](../mainwnd.cpp)
+[mainwnd.h](../src/mainwnd.h)\
+[mainwnd.cpp](../src/mainwnd.cpp)

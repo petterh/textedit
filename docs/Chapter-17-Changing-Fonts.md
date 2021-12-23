@@ -2,21 +2,21 @@
 
 [« Previous: Printing](Chapter-16-Printing.md) — [Next: Going Abroad »](Chapter-18-Going-Abroad.md)
 
-# Chapter 17: Changing Fonts
+# Chapter&nbsp;17: Changing Fonts
 
 TextEdit allows the user to select one proportional font and one fixed-width font. These selections are global across all instances of TextEdit, but it is quick to switch between proportional and fixed-width font, and the selected font is retained for individual files and for file types.
 
-The TextEdit Font Dialog is an example of implementation problems overpowering user requirements, a problem I talked about in Chapter 2. My original plan called for a single dialog for font customization, looking something like Figure 35:
+The TextEdit Font Dialog is an example of implementation problems overpowering user requirements, a problem I talked about in Chapter&nbsp;2. My original plan called for a single dialog for font customization, looking something like Figure&nbsp;35:
 
 ![Font Dialog](Chapter-17-Changing-Fonts-Figure35.bmp)
 
-**Figure 35: The Font dialog that never was.** Is there a bug in WM_CHOOSEFONT_SETLOGFONT, or am I all thumbs?
+**Figure&nbsp;35: The Font dialog that never was.** Is there a bug in WM_CHOOSEFONT_SETLOGFONT, or am I all thumbs?
 
-Figure 35 is based on the Font common dialog; I merely added a tab control. I figured that judicious use of the WM_CHOOSEFONT_SETLOGFONT and WM_CHOOSEFONT_GETLOGFONT messages in response to tab clicks would serve to change the dialog’s contents appropriately.
+Figure&nbsp;35 is based on the Font common dialog; I merely added a tab control. I figured that judicious use of the WM_CHOOSEFONT_SETLOGFONT and WM_CHOOSEFONT_GETLOGFONT messages in response to tab clicks would serve to change the dialog’s contents appropriately.
 
-This solution would have been ever so much nicer than having two separate dialogs, but it never happened. The catch? WM_CHOOSEFONT_SETLOGFONT does not, as near as I can figure out, work. To realize the design in Figure 35, I would’ve had to implement a font selection dialog from scratch. While this is certainly possible, it is considerably more work than customizing a common dialog. Besides, it’s best to stick with common dialogs whenever possible. If you don’t, the release of the next Windows version may leave you in the dust. 
+This solution would have been ever so much nicer than having two separate dialogs, but it never happened. The catch? WM_CHOOSEFONT_SETLOGFONT does not, as near as I can figure out, work. To realize the design in Figure&nbsp;35, I would’ve had to implement a font selection dialog from scratch. While this is certainly possible, it is considerably more work than customizing a common dialog. Besides, it’s best to stick with common dialogs whenever possible. If you don’t, the release of the next Windows version may leave you in the dust.
 
-At any rate, I ended up putting font selection into the Options dialog (see Figure 16), with a font selection dialog box available from two different push buttons. The font selection dialogs are also available by double clicking on the Fixed Font or Proportional Font buttons in the tool bar, or through the Ctrl+Shift+F accelerator.
+At any rate, I ended up putting font selection into the Options dialog (see Figure&nbsp;16), with a font selection dialog box available from two different push buttons. The font selection dialogs are also available by double clicking on the Fixed Font or Proportional Font buttons in the tool bar, or through the Ctrl+Shift+F accelerator.
 
 ## Subclassing the Font Common Dialog
 
@@ -46,8 +46,8 @@ CAPTION "Font"
 FONT 8, "MS Shell Dlg"
 BEGIN
    LTEXT         "&Font:", stc1, 7, 7, 40, 9
-   COMBOBOX      cmb1, 7, 16, 98, 76, CBS_SIMPLE | 
-                 CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | 
+   COMBOBOX      cmb1, 7, 16, 98, 76, CBS_SIMPLE |
+                 CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL |
                  WS_TABSTOP | CBS_HASSTRINGS |
                  CBS_OWNERDRAWFIXED | CBS_DISABLENOSCROLL
    LTEXT         "Font st&yle:", stc2, 110, 7, 44, 9
@@ -66,22 +66,22 @@ BEGIN
    AUTOCHECKBOX  "&Underline", chx2, 13, 123, 51, 10
    LTEXT         "&Color:", stc4, 13, 136, 30, 9
    COMBOBOX      cmb4, 13, 146, 82, 100,
-                 CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | 
+                 CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED |
                  CBS_AUTOHSCROLL | CBS_HASSTRINGS | WS_BORDER |
                  WS_VSCROLL | WS_TABSTOP
    GROUPBOX      "Sample", grp2, 110, 97, 94, 43, WS_GROUP
    CTEXT         "AaBbYyZz", stc5, 118, 111, 77, 23,
                  SS_NOPREFIX | NOT WS_VISIBLE
-   LTEXT         "", stc6, 7, 176, 196, 20, SS_NOPREFIX | 
+   LTEXT         "", stc6, 7, 176, 196, 20, SS_NOPREFIX |
                  NOT WS_GROUP
    LTEXT         "Sc&ript:", stc7, 110, 147, 30, 9
    COMBOBOX      cmb5, 110, 157, 94, 30, CBS_DROPDOWNLIST |
-                 CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL | 
+                 CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL |
                  CBS_HASSTRINGS | WS_BORDER | WS_VSCROLL | WS_TABSTOP
 END
 ```
 
-Note the script selection combo box in the dialog. This means that we must save the lfCharSet member of the LOGFONT structure between invocations. With Unicode, this doesn’t matter, but with ANSI, it does. More about this in Chapter 18.
+Note the script selection combo box in the dialog. This means that we must save the lfCharSet member of the LOGFONT structure between invocations. With Unicode, this doesn’t matter, but with ANSI, it does. More about this in Chapter&nbsp;18.
 
 All TextEdit must do to show the font selection dialog is call the selectFont function, passing a pointer to a LOGFONT structure. If the user uses OK to dismiss the dialog, any changes to the font will be reflected in the LOGFONT structure upon return.
 
@@ -118,4 +118,4 @@ PRIVATE void onViewSetFont( HWND hwnd ) { // Ctrl+Shift+F
 }
 ```
 
-[FontDlg.cpp](../FontDlg.cpp)
+[FontDlg.cpp](../src/FontDlg.cpp)
