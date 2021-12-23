@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- See https://docs.microsoft.com/en-us/windows/win32/controls/cookbook-overview -->
 <assembly
   xmlns="urn:schemas-microsoft-com:asm.v1"
   manifestVersion="1.0">
   <assemblyIdentity
     version="1.0.0.0"
     processorArchitecture="X86"
-    name="Accenture.TextEdit.TextEdit"
+    name="Hesselberg.TextEdit"
     type="win32" />
   <description>TextEdit.</description>
   <dependency>
