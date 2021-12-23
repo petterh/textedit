@@ -85,7 +85,7 @@ I do believe that C++ is the best general-purpose programming language in widesp
 
 Why write a native Windows application? Given that I’m programming in C++, why not use a ready-made class library such as Microsoft Foundation Classes (MFC)? Again, a question with no “right” answer. I’ve written MFC applications in the past, and been reasonably satisfied with the process and the results. Here are some of the reasons I chose another route for this book:
 
-* A book about native Windows programming holds interest for MFC programmers too, while a book about MFC programming is unlikely to interest those that write to the native Windows API.
+* A book about native Windows programming holds interest for MFC programmers too, while a book about MFC programming is unlikely to interest those who write to the native Windows API.
 * MFC is not a true black box; you cannot use it effectively unless you have extensive knowledge of the underlying API. If you’re an MFC programmer, I hope you will take the time to read this book – to learn more about native Windows programming, to start thinking about how to design class libraries for Windows programming, and to start thinking “out of the MFC box.”
 * MFC is (among other things) an application framework that makes certain assumptions about how applications should look and behave. This certainly has benefits; it allows you to create a standard MFC application very quickly, for example. It can be a straightjacket, though; things that are not provided for in the application framework are often hard to do. You can, of course, write MFC applications without taking advantage of CDocuments, CViews and CCmdTargets. If so, you give up the major benefits of MFC anyway.
 
