@@ -522,7 +522,6 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="Help\TextEdit.rtf" />
-    <None Include="build.xml" />
     <None Include="res\accessories-text-editor.xcf">
       <Filter>Resource Files</Filter>
     </None>

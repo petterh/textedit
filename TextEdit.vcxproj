@@ -151,7 +151,6 @@
     <None Include="Help\TEXTEDIT.HLP" />
     <None Include="Help\TextEdit.hpj" />
     <None Include="Help\TextEdit.rtf" />
-    <None Include="build.xml" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AboutDlg.h" />
