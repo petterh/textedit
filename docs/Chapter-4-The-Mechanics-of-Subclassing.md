@@ -272,8 +272,8 @@ It’s in the nature of global subclassing that there is only one old window fun
 
 Curiously, SetClassLong and GetClassLong are both prototyped as returning DWORDs, even though the dwNewLong argument to SetClassLong is prototyped as LONG, i.e., a signed value.
 
-[GlobalSubclasser.h](../GlobalSubclasser.h)\
-[GlobalSubclasser.cpp](../GlobalSubclasser.cpp)
+[GlobalSubclasser.h](../src/GlobalSubclasser.h)\
+[GlobalSubclasser.cpp](../src/GlobalSubclasser.cpp)
 
 ## General Mechanism for Instance Subclassing
 
@@ -337,8 +337,8 @@ The tool tip doesn’t unhook at all, as far as I can tell, and thus blocks ever
 
 Sadly, there is no way to create a subclassing scheme that’s guaranteed to work under all circumstances. InstanceSubclasser covers 99% of what you’ll ever need, though.
 
-[InstanceSubclasser.h](../InstanceSubclasser.h)\
-[InstanceSubclasser.cpp](../InstanceSubclasser.cpp)
+[InstanceSubclasser.h](../src/InstanceSubclasser.h)\
+[InstanceSubclasser.cpp](../src/InstanceSubclasser.cpp)
 
 ## The Window Class: Wrapping the HWND
 
@@ -368,5 +368,5 @@ The set of messages selected for the virtual function treatment is rather arbitr
 
 The Window class defines default handlers for all messages, either through the virtual methods or through the dispatch method. These invariably pass the messages on to the original window function.
 
-[Window.h](../Window.h)\
-[Window.cpp](../Window.cpp)
+[Window.h](../src/Window.h)\
+[Window.cpp](../src/Window.cpp)

@@ -78,8 +78,8 @@ The **Toolbar** module defines two instance subclassings:
 
 The final item of interest is the adjust method, which calculates the position of the child windows. Like all such calculations, it is rather hairy, and also rather boring. Note that the final item in the toolbar’s TBBUTTON array is a separator with the identifier `ID_TABPLACEHOLDER`; it exists only so that we can figure out where the buttons end.
 
-[Toolbar.h](../Toolbar.h)\
-[Toolbar.cpp](../Toolbar.cpp)
+[Toolbar.h](../src/Toolbar.h)\
+[Toolbar.cpp](../src/Toolbar.cpp)
 
 ## The Status Bar
 
@@ -104,5 +104,5 @@ The first pane is **`SBT_OWNERDRAW`**, because I want to display rich text in th
 
 The final item of interest is the recalcParts method, which (re-) calculates the sizes of the status bar panes in response to size changes in the main window. This is necessary because the first pane is the one that stretches.
 
-[Statusbar.h](../Statusbar.h)\
-[Statusbar.cpp](../Statusbar.cpp)
+[Statusbar.h](../src/Statusbar.h)\
+[Statusbar.cpp](../src/Statusbar.cpp)

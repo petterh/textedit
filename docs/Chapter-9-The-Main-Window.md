@@ -159,8 +159,8 @@ The Editor class has two helper functions that produce menu description strings.
 
 The menuUtils module defines utility functions for use with menus and menu items. For the most part, these are simple wrappers for Windows functions. The only exception is containsMenuItem, which checks whether a menu or any of its submenus contains a command with a given ID.
 
-[menuUtils.h](../menuUtils.h)\
-[menuUtils.cpp](../menuUtils.cpp)
+[menuUtils.h](../src/menuUtils.h)\
+[menuUtils.cpp](../src/menuUtils.cpp)
 
 [Sidebar: Messy Menus, Accelerator Alignment](Sidebar-Messy-Menus.md)
 
@@ -188,5 +188,5 @@ The main window’s reference to the Editor object is stored as a window long. T
 
 Given the handle to the main window, the getEditor function retrieves the corresponding Editor object.
 
-[mainwnd.h](../mainwnd.h)\
-[mainwnd.cpp](../mainwnd.cpp)
+[mainwnd.h](../src/mainwnd.h)\
+[mainwnd.cpp](../src/mainwnd.cpp)

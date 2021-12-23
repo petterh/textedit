@@ -47,7 +47,7 @@ bool isWriteProtectedDisk( LPCTSTR pszPath ) {
 
 The SetErrorMode function controls who handles certain types of serious errors – you or Windows. In some cases, such as in the isWriteProtectedDisk function, I don’t want Windows do display a dialog box if a critical error occurs, so I must call SetErrorMode. Since I also want to restore the normal state of affairs afterwards, I have, as usual, created an exception-safe wrapper class, so that a simple variable declaration is sufficient. This class is named SilentErrorMode.
 
-[SilentErrorMode.h](../SilentErrorMode.h)
+[SilentErrorMode.h](../src/SilentErrorMode.h)
 
 ## Opening Files
 
@@ -71,8 +71,8 @@ We never have to think about closing files explicitly; the AutoHandle wrapper cl
 
 TextEdit uses two different methods for reading and writing files. The copyFile function (fileUtils.cpp) uses the ReadFile and WriteFile functions, while everybody else use memory-mapped files. Memory-mapped files are handled by the FileMapping class, which takes care of all the tedious details.
 
-[FileMapping.h](../FileMapping.h)\
-[FileMapping.cpp](../FileMapping.cpp)
+[FileMapping.h](../src/FileMapping.h)\
+[FileMapping.cpp](../src/FileMapping.cpp)
 
 ## Copying the Original
 
@@ -163,4 +163,4 @@ There are two classes of read-only files: Those that have the read-only attribut
 
 In either case, though, a different process may pull the rug out from under us at any time, or, if the file resides on a floppy, the user might eject it without first consulting with TextEdit. TextEdit uses the KISS principle to deal with this: If someone has deleted the file behind our backs, we simply recreate it. If a different process has locked it down so that we can’t write to it, or if a floppy has been ejected, we ask the user for a new file name. This solution is not perfectly smooth, but it seems to work well enough in practice – the important thing is to ensure that we don’t lose user data. Alternative approaches include file locking and monitoring the disk for changes; a solution based on this kind of thing would be considerably more complex.
 
-[Document.cpp](../Document.cpp)
+[Document.cpp](../src/Document.cpp)

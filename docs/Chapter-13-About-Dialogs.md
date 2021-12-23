@@ -76,8 +76,8 @@ If the id parameter doesn’t appear in the map, the user is invoking the dialog
 
 Where, then, does this id parameter come from? The dialog certainly can’t tell you whence it came. Although most dialogs are created from dialog resources, and thus have IDs, you can’t get this information from the dialog’s hwnd. The purpose of getResourceID() virtual method is to retrieve the ID, which is hard-coded into the class definition. It is impossible to retain the position of dialogs not wrapped by the Dialog class.
 
-[Dialog.h](../Dialog.h)\
-[Dialog.cpp](../Dialog.cpp)
+[Dialog.h](../src/Dialog.h)\
+[Dialog.cpp](../src/Dialog.cpp)
 
 ## The About Box
 
@@ -93,9 +93,9 @@ If you look at the dialog box in Figure&nbsp;15, you’ll note several different
 
 More interesting is the boldfacing of individual words in the IDC_COMMENTS and IDC_COMMERCIAL controls. This is done by subclassing normal static controls. In onInitDialog, you’ll find a pair of calls to subclassHTML, which is all it takes to accomplish this. Except, of course, for writing the subclassHTML function itself, and accompanying paraphernalia. This is described in the sidebar entitled “[The HTML Static Control](Sidebar-The-HTML-Static-Control.md).”
 
-[AboutDlg.cpp](../AboutDlg.cpp)\
-[HTML.h](../HTML.h)\
-[HTML.cpp](../HTML.cpp)
+[AboutDlg.cpp](../src/AboutDlg.cpp)\
+[HTML.h](../src/HTML.h)\
+[HTML.cpp](../src/HTML.cpp)
 
 ## The Options Dialog
 

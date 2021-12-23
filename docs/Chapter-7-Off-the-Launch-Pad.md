@@ -338,6 +338,6 @@ The main func­tion of a console app­li­ca­tion gets its parameters in predig
 
 The ArgumentList class is in charge of command lines. In ad­di­tion to wrapping access to __argc and __argv, it handles the command line switches (options).
 
-[ArgumentList.h](../ArgumentList.h)\
-[ArgumentList.cpp](../ArgumentList.cpp)\
-[init.cpp](../init.cpp)
+[ArgumentList.h](../src/ArgumentList.h)\
+[ArgumentList.cpp](../src/ArgumentList.cpp)\
+[init.cpp](../src/init.cpp)

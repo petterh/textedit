@@ -29,8 +29,8 @@ typedef struct tagDEVNAMES {
 
 The documentation fails to mention whether the strings should be ANSI or Unicode; testing reveals them to be LPTSTRs.
 
-[devMode.cpp](../devMode.cpp)\
-[devNames.cpp](../devNames.cpp)
+[devMode.cpp](../src/devMode.cpp)\
+[devNames.cpp](../src/devNames.cpp)
 
 ## The Page Setup Dialog
 
@@ -44,7 +44,7 @@ You invoke the standard page setup dialog by calling PageSetupDlg with a pointer
 
 The common page setup dialog provides for no less than two hook functions: the PageSetupHook and the PagePaintHook. The code in setupPage.cpp uses both, though the PagePaintHook is a dummy included only to show how it’s done. The default page is good enough for TextEdit, but if I were writing a graphics editor, I might implement custom rendering of the sample page.
 
-[setupPage.cpp](../setupPage.cpp)
+[setupPage.cpp](../src/setupPage.cpp)
 
 ## The Print Dialog
 
@@ -64,7 +64,7 @@ The “Selection” radio button must be disabled if no text is selected. Obviou
 
 The printing switches give rise to another complication: What if the file in question is already open in another instance of TextEdit? This is handled in activateOldInstance, which activates the old instance, then sends it an ID_FILE_PRINT command. This approach is the reason why the parent window of the Print Common dialog is GetLastActivePopup( m_hwndMain ) rather than plain m_hwndMain. There’s always the chance that a dialog box is open in the running instance. Two modal dialog boxes parented to the same window is not merely asking for trouble, but insisting on trouble. Only one of them will have a keyboard interface, and as soon as one is killed, the parent is again enabled, with the remaining dialog displaying a distinctly modeless behavior. Better, then, to parent the print dialog to the existing dialog.
 
-[printFile.cpp](../printFile.cpp)
+[printFile.cpp](../src/printFile.cpp)
 
 ## Text Rendering and Pagination
 
@@ -76,4 +76,4 @@ The font used for printing is created by the createPrintFont method in the Docum
 
 The pageHeader method is responsible for rendering the page header.
 
-[print.cpp](../print.cpp)
+[print.cpp](../src/print.cpp)
