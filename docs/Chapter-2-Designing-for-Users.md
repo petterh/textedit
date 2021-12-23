@@ -2,7 +2,7 @@
 
 [« Previous: The Road Ahead](Chapter-1-The-Road-Ahead.md) — [Next: Designing for Programmers »](Chapter-3-Designing-for-Programmers.md)
 
-# Chapter 2: Designing for Users
+# Chapter&nbsp;2: Designing for Users
 
 From the Unix world comes a text editor named **vi**. It’s powerful and fast – provided you know how to use it. The problem with vi is that it is difficult to learn. A host of keyboard commands must be learned by heart – the user interface doesn’t give you a clue as to what you can and can’t do. The problem is compounded by vi’s several modes – it has different modes for text insertion and text manipulation, for example. The modes are in themselves no disaster, but their invisibility is. Nothing indicates whether your keystrokes will be interpreted as text to be inserted or commands to be executed.
 
@@ -26,7 +26,7 @@ The following is a helpful guiding principle on the way:
 
 The rationale behind this is that the novice, by definition ignorant of what can and cannot be done, must be able to browse his way to all the possibilities. This is what drop-down menus are for. The expert already knows what’s in those menus, and needs a faster access path. This is what keyboard shortcuts are for. As an essential part of this dualism, the keyboard shortcuts are displayed on the menus, giving the novice a chance of (a) realizing they exist and (b) learning them.
 
-To design excellent software, you must put yourself in the user’s shoes. Playing with your software is not the user’s goal. The user’s goal is to accomplish a task, such as changing the contents of a text file. Your job is to help the user reach this goal as painlessly as possible, not to show off your programming skills. (I know this sounds tautological, but it can really be difficult. In Chapter 20 I’ll tell you about one part of TextEdit where I goofed; I’m sure there are others.) The best user interfaces are invisible, in the sense that they don’t put up a barrier between the user and the task. Achieving this takes more design and programming skills than anything else I know; unfortunately, it’s also less obvious than all the “cool” stuff, and less likely to bring you rave reviews.
+To design excellent software, you must put yourself in the user’s shoes. Playing with your software is not the user’s goal. The user’s goal is to accomplish a task, such as changing the contents of a text file. Your job is to help the user reach this goal as painlessly as possible, not to show off your programming skills. (I know this sounds tautological, but it can really be difficult. In Chapter&nbsp;20 I’ll tell you about one part of TextEdit where I goofed; I’m sure there are others.) The best user interfaces are invisible, in the sense that they don’t put up a barrier between the user and the task. Achieving this takes more design and programming skills than anything else I know; unfortunately, it’s also less obvious than all the “cool” stuff, and less likely to bring you rave reviews.
 
 User-centered design is a subject worthy of its own book; in this chapter, I confine myself to a few highlights. If you wish to pursue the subject further, Laura Arlov’s GUI Design for Dummies or Alan Cooper’s About Face are good places to begin.
 
@@ -48,7 +48,7 @@ The status bar has one big problem in this role: Most people don’t pay it much
 
 **Figure&nbsp;1: Status bar with a message.** Highlighting makes the user pay attention.
 
-In [Chapter 15](Chapter-15-Search-and-Replace.md), I’ll show you how to do away with message boxes in connection with search and replace.
+In [Chapter&nbsp;15](Chapter-15-Search-and-Replace.md), I’ll show you how to do away with message boxes in connection with search and replace.
 
 ## Robustness
 

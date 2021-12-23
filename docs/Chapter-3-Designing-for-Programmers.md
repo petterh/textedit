@@ -2,7 +2,7 @@
 
 [« Previous: Designing for Users](Chapter-2-Designing-for-Users.md) — [Next: The Mechanics of Subclassing »](Chapter-4-The-Mechanics-of-Subclassing.md)
 
-# Chapter 3: Designing for Programmers
+# Chapter&nbsp;3: Designing for Programmers
 
 In the previous chapter, I discussed software usability from the user’s point of view. Programmers are users, too, albeit with a different worldview. Programmers, including yourself, are users of your source code.
 
@@ -169,7 +169,7 @@ Putting FindClose into the assert will work fine in a debug build. In a release 
 verify( FindClose( hFind ) );
 ```
 
-The assert macro is defined in the standard header file assert.h; the verify macro is defined in the TextEdit include file common.h. I’ll get back to this header file towards the end of Chapter 5.
+The assert macro is defined in the standard header file assert.h; the verify macro is defined in the TextEdit include file common.h. I’ll get back to this header file towards the end of Chapter&nbsp;5.
 
 ## Constantly on Guard
 
@@ -206,7 +206,7 @@ The destructor of a C++ object is called when the object goes out of scope (if i
 
 Java does not have destructors, relying instead on automatic garbage collection. This is fine as long as the only resource you deal with is memory; it’s less fine if an object allocates other resources, such as file handles, network connections and GDI objects. The lack of destructors is one of my two main gripes with the Java language definition, the other being the lack of a preprocessor.
 
-Destructors are intimately connected to C++ exception handling, a topic I’ll return to in Chapter 6. When an exception propagates through the stack frames, each frame cleans up after itself by calling the destructors of all automatic (that is, stack-based) objects. This is known as “stack unwinding.”
+Destructors are intimately connected to C++ exception handling, a topic I’ll return to in Chapter&nbsp;6. When an exception propagates through the stack frames, each frame cleans up after itself by calling the destructors of all automatic (that is, stack-based) objects. This is known as “stack unwinding.”
 
 What if a destructor throws an exception? If this happens during stack unwinding, as well it might, the program dies horribly. Accordingly, the following design principle is really an ironclad rule that you should never break if you can possibly help it:
 
@@ -216,7 +216,7 @@ What if a destructor throws an exception? If this happens during stack unwinding
 
 Objects allocated on the stack are destroyed automatically. Not so with objects allocated on the heap; in their case you must invoke the delete operator, or, in the case of arrays of objects, the delete[]() operator.
 
-Consider the **getWindowText** method from the **Window** class, which we’ll look at in Chapter 4:
+Consider the **getWindowText** method from the **Window** class, which we’ll look at in Chapter&nbsp;4:
 
 ```C++
 String Window::getWindowText( void ) const {
@@ -238,7 +238,7 @@ If the program follows the nominal execution path, this code works correctly. Pr
 
 In this example, the problem results in a “mere” memory leak. Sometimes it is much worse.
 
-(The example assumes that an allocation failure in operator new throws an exception rather than returning a null pointer. Notwithstanding the C++ standard, we’re getting into compiler-dependent territory here, and I’ll return to the subject in Chapter 6.)
+(The example assumes that an allocation failure in operator new throws an exception rather than returning a null pointer. Notwithstanding the C++ standard, we’re getting into compiler-dependent territory here, and I’ll return to the subject in Chapter&nbsp;6.)
 
 One way of handling such situations is to catch the exception, do whatever cleanup is necessary, and then rethrow the exception:
 
@@ -346,7 +346,7 @@ To sum up:
 * They help make the code more robust, since you cannot forget to free the resource in question.
 * Most importantly, they make the wrapped resource exception-safe.
 
-Other examples of self-destructing wrapper classes are FileMapping (defined in FileMapping.h, described in Chapter 12), TemporaryStatusIcon (Statusbar.h) and ClientDC (ClientDC.h). In TextEdit, you will find many more.
+Other examples of self-destructing wrapper classes are FileMapping (defined in FileMapping.h, described in Chapter&nbsp;12), TemporaryStatusIcon (Statusbar.h) and ClientDC (ClientDC.h). In TextEdit, you will find many more.
 
 [AutoHandle.h](../AutoHandle.h)\
 [PaintStruct.h](../PaintStruct.h)

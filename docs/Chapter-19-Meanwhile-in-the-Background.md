@@ -2,7 +2,7 @@
 
 [« Previous: Going Abroad](Chapter-18-Going-Abroad.md) — [Next: Setup, and Down Again »](Chapter-20-Setup-and-Down-Again.md)
 
-# Chapter 19: Meanwhile, in the Background
+# Chapter&nbsp;19: Meanwhile, in the Background
 
 Multi-threading is used for many different purposes. In a server application, a typical purpose is to service multiple requests in parallel, while in a client application, a typical purpose is to perform background processing while keeping the user interface responsive.
 

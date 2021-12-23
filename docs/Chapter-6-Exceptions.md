@@ -2,13 +2,13 @@
 
 [« Previous: The Bare Bones](Chapter-5-The-Bare-Bones.md) — [Next: Off the Launch Pad »](Chapter-7-Off-the-Launch-Pad.md)
 
-# Chapter 6: Exceptions
+# Chapter&nbsp;6: Exceptions
 
 When your application calls a function, there’s always a chance that the function fails to carry out its assigned duties. Possible causes are multifarious – a file was not found, a network file server crashed, the system could not allocate memory, a computation overflowed, the system is corrupt, your application is corrupt, the government is corrupt – the list is endless.
 
 The occasional failure is unavoidable. Failing gracefully is, however, infinitely preferable to falling flat on your face.
 
-Sometimes you don’t care if a function failed. Perhaps it wasn’t terribly important, perhaps the function has already reported the problem to the user, or perhaps no reasonable course of action exists. The WaitCursor class (see [Chapter 11](Chapter-11-Wait-a-Moment.md)) is an example of no-fail software. Its methods don’t need to communicate success or failure to the caller, because the caller doesn’t care one way or another.
+Sometimes you don’t care if a function failed. Perhaps it wasn’t terribly important, perhaps the function has already reported the problem to the user, or perhaps no reasonable course of action exists. The WaitCursor class (see [Chapter&nbsp;11](Chapter-11-Wait-a-Moment.md)) is an example of no-fail software. Its methods don’t need to communicate success or failure to the caller, because the caller doesn’t care one way or another.
 
 Other times, you do care, if for no other reason that you must tell the user that you failed to print his file. Failure can be reported through two basic mechanisms: return codes and exceptions. From modern computer literature, one often gets the impression that exceptions are in some way “better” than return codes, but that distinction is meaningless. The goal is to reduce total complexity to a minimum. Often enough, exceptions support that goal best, but by no means always.
 
@@ -111,15 +111,15 @@ inline LPCTSTR Exception::what( void ) const {
 
 class CancelException : public Exception {
 public:
-  virtual String getDescr( void ) const { 
-     return _T( "CancelException" ); 
+  virtual String getDescr( void ) const {
+     return _T( "CancelException" );
   }
 };
 
 class NullPointerException : public Exception {
 public:
-  virtual String getDescr( void ) const { 
-     return _T( "NullPointerException" ); 
+  virtual String getDescr( void ) const {
+     return _T( "NullPointerException" );
   }
 };
 
@@ -179,7 +179,7 @@ inline void WinException::resetLastError( void ) const {
   SetLastError( m_dwErr );
 }
 
-String getError( 
+String getError(
   const String& strDescr, DWORD dwErr = GetLastError() );
 
 inline String getError( DWORD dwErr = GetLastError() ) {
@@ -192,7 +192,7 @@ public:
   virtual String getDescr( void ) const;
 };
 
-inline ComException::ComException( HRESULT hres ) 
+inline ComException::ComException( HRESULT hres )
   : WinException( hres )
 {
 }
@@ -221,7 +221,7 @@ public:
   virtual String getDescr( void ) const;
 };
 
-void throwException( 
+void throwException(
   const String& strDescr, DWORD dwErr = GetLastError() );
 
 inline void throwException( DWORD dwErr = GetLastError() ) {
@@ -275,12 +275,12 @@ String getError( const String& strDescr, DWORD dwErr ) {
   LPTSTR pszMsgBuf = 0;
 
 #ifdef _DEBUG
-  const DWORD dwLen = 
+  const DWORD dwLen =
 #endif
 
-     FormatMessage ( 
-        FORMAT_MESSAGE_FROM_SYSTEM     | 
-        FORMAT_MESSAGE_ALLOCATE_BUFFER | 
+     FormatMessage (
+        FORMAT_MESSAGE_FROM_SYSTEM     |
+        FORMAT_MESSAGE_ALLOCATE_BUFFER |
         FORMAT_MESSAGE_IGNORE_INSERTS  ,
         0, dwErr,
         // LANGIDFROMLCID( GetThreadLocale() ),
@@ -324,7 +324,7 @@ String WinException::getDescr( void ) const {
 
 String ComException::getDescr( void ) const {
   switch ( m_dwErr ) {
-  case S_OK: 
+  case S_OK:
      return _T( "Success." );
 
   case S_FALSE:
@@ -339,7 +339,7 @@ String ComException::getDescr( void ) const {
         _T( "the server types in the registry are corrupt." );
 
   case CLASS_E_NOAGGREGATION:
-     return 
+     return
         _T( "This class can't be created as part of an aggregate." );
   }
 
@@ -363,7 +363,7 @@ String MemoryException::getDescr( void ) const {
   return _T( "Out of memory" );
 }
 
-CommonDialogException::CommonDialogException( DWORD dwErr ) 
+CommonDialogException::CommonDialogException( DWORD dwErr )
   : WinException( dwErr )
 {
 }
@@ -396,12 +396,12 @@ String CommonDialogException::getDescr( void ) const {
      }
   }
 
-  return formatMessage( 
+  return formatMessage(
      _T( "Unknown common dialog error %1!lu!" ), m_dwErr );
 }
 
 void throwException( const String& strDescr, DWORD dwErr ) {
-  if ( ERROR_NOT_ENOUGH_MEMORY == dwErr || ERROR_OUTOFMEMORY == dwErr ) 
+  if ( ERROR_NOT_ENOUGH_MEMORY == dwErr || ERROR_OUTOFMEMORY == dwErr )
   {
      throw MemoryException::getMemoryException();
   }
@@ -430,7 +430,7 @@ if ( 0 == pszMyString ) {
 }
 ```
 
-Luckily, you can make even Microsoft’s operator new throw an exception on failure. The _set_new_mode function lets you decide whether an allocation failure should return zero or call an application-defined function; the _set_new_handler allows you to specify the function to call if an allocation fails. In this callback, you can do just about anything you like, such as throwing an exception. Just keep in mind that you may not have a lot of memory to play with! 
+Luckily, you can make even Microsoft’s operator new throw an exception on failure. The _set_new_mode function lets you decide whether an allocation failure should return zero or call an application-defined function; the _set_new_handler allows you to specify the function to call if an allocation fails. In this callback, you can do just about anything you like, such as throwing an exception. Just keep in mind that you may not have a lot of memory to play with!
 
 ## Recovering from Errors
 
@@ -448,7 +448,7 @@ Going deeper into the onion, we find the main message loop, in the Editor::run m
 
 As we approach the core of the onion, we come to the handling of individual messages and commands. Some messages are relatively unimportant; it doesn’t really matter whether the onMenuSelect handler failed to set the text in the status bar. Others, such as the onCommandSave handler, are so critical that they handle all irregularities deep in their guts, and only let exceptions float to the surface under the most unusual circumstances.
 
-The onion has comparatively few layers. With exception-safe objects, it turns out that you don’t need to catch exceptions all over the place; most are allowed to propagate through many levels. 
+The onion has comparatively few layers. With exception-safe objects, it turns out that you don’t need to catch exceptions all over the place; most are allowed to propagate through many levels.
 
 Guiding principle for exception handling:
 
@@ -466,7 +466,7 @@ A down side of a completely integrated exception architecture is that it becomes
 
 Structured Exception Handling (SEH) is built into the Win32 operating systems. Windows throws system-level exceptions for a number of reasons, such as stack overflow, memory access violations and divisions by zero. (TextEdit, by the way, automatically multiplies by zero to compensate for accidentally dividing by zero.) (Joke!)
 
-To allow C and C++ programmers access to SEH, Microsoft defined language extensions in the form of __try, __catch and __finally keywords. Unfortunately, SEH is incompatible with C++ exception handling. It’s OK to have both in the same program, but not in the same function. 
+To allow C and C++ programmers access to SEH, Microsoft defined language extensions in the form of __try, __catch and __finally keywords. Unfortunately, SEH is incompatible with C++ exception handling. It’s OK to have both in the same program, but not in the same function.
 
 Luckily, there’s a solution: You can install a translator function to translate SEH exceptions into C++ exceptions. Windows calls the translator function with parameters describing the structured exception, enough to let you throw a C++ exception of your choice.
 
@@ -475,7 +475,7 @@ Luckily, there’s a solution: You can install a translator function to translat
 ```C++
 /*
 *
-* Defines translator for system-level exceptions 
+* Defines translator for system-level exceptions
 * (SEH, Structured Exception Handling)
 * to C++ exceptions and the C++ allocation_failure handler.
 *
@@ -497,31 +497,31 @@ Luckily, there’s a solution: You can install a translator function to translat
 
 /**
 * This function translates SEH exceptions to C++ exceptions.
-* It is installed using _set_se_translator in 
+* It is installed using _set_se_translator in
 * the initThreadErrorHandling function.
 */
-void __cdecl se_translator( 
-  unsigned int uiCode, EXCEPTION_POINTERS *pE ) 
+void __cdecl se_translator(
+  unsigned int uiCode, EXCEPTION_POINTERS *pE )
 {
   trace( _T( "se_translator( %#x, %#x )\n" ), uiCode, pE->ExceptionRecord->ExceptionFlags );
-  trace( _T( "             ( %#x, %#x )\n" ), 
-     pE->ExceptionRecord->ExceptionAddress, 
+  trace( _T( "             ( %#x, %#x )\n" ),
+     pE->ExceptionRecord->ExceptionAddress,
      pE->ExceptionRecord->ExceptionCode );
 
   switch ( uiCode ) {
-  case STATUS_INTEGER_DIVIDE_BY_ZERO: 
+  case STATUS_INTEGER_DIVIDE_BY_ZERO:
      throw DivideByZeroException();
 
-  case STATUS_STACK_OVERFLOW: 
+  case STATUS_STACK_OVERFLOW:
      throw StackOverflowException::getStackOverflowException();
 
-  case STATUS_INVALID_HANDLE: 
+  case STATUS_INVALID_HANDLE:
      throw InvalidHandleException();
 
-  case STATUS_ACCESS_VIOLATION: 
+  case STATUS_ACCESS_VIOLATION:
      throw AccessViolationException();
 
-  case STATUS_NO_MEMORY: 
+  case STATUS_NO_MEMORY:
      throwMemoryException();
   }
 
@@ -535,7 +535,7 @@ SE_Translator::SE_Translator( void ) {
 
 SE_Translator::~SE_Translator() {
   __try {
-     _set_se_translator( 
+     _set_se_translator(
         (_se_translator_function) saved_se_translator );
      trace( _T( "restored old SE translator\n" ) );
   }
@@ -551,7 +551,7 @@ SE_Translator::~SE_Translator() {
 PRIVATE int __cdecl allocation_failure( size_t size ) {
 
 #ifdef _DEBUG
-  // Calling trace here is not a good idea, 
+  // Calling trace here is not a good idea,
   // as we may be operating on limited resources.
   // Call OutputDebugString directly instead.
   static TCHAR szMsg[ 30 ] = { 0 };

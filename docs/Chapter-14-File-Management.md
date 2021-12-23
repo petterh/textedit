@@ -2,7 +2,7 @@
 
 [« Previous: File Management](Chapter-13-About-Dialogs.md) — [Next: Search and Replace »](Chapter-15-Search-and-Replace.md)
 
-# Chapter 14: File Management
+# Chapter&nbsp;14: File Management
 
 File management in the context of TextEdit is the management of a single file. It includes the ability to change file attributes such as the read-only flag, it includes renaming and repositioning of the file, and it includes deleting the file (and, incidentally, closing TextEdit).
 
@@ -24,7 +24,7 @@ The dialog lets you change some of the attributes displayed in the dialog. You c
 
 **Figure&nbsp;18: Move or Rename File Dialog.** This is really a Save As dialog, with extra information on the top.
 
-The Move/Rename dialog allows you to change the file name as well as the file location – it’s a “Save As…” dialog. The same dialog is available directly from the File menu (for improved visibility), and a variation is used in Document::save: if TextEdit is unable to write to the original file, it uses this dialog to get a new name and location (see Chapter 12).
+The Move/Rename dialog allows you to change the file name as well as the file location – it’s a “Save As…” dialog. The same dialog is available directly from the File menu (for improved visibility), and a variation is used in Document::save: if TextEdit is unable to write to the original file, it uses this dialog to get a new name and location (see Chapter&nbsp;12).
 
 You can change the file attributes Read Only, Hidden, Archive and Compressed; the System attribute is read-only. I followed Windows Explorer’s lead in this; presumably, Microsoft’s designers felt that the average user shouldn’t mess with such things. Maybe so.
 
@@ -67,7 +67,7 @@ setMenuItemText( hmenu, ID_FILE_DELETE, _T( "%1" ), strDeleteFile.c_str() );
 
 This code fragment checks to see if an ellipsis is present; if so, the ellipsis is removed. If the dialog is to be shown, the ellipsis is appended again. That way, it doesn’t matter whether the original menu string contained an ellipsis.
 
-Document::deleteFile physically deletes the file, and removes the file name from the MRU list as well (see Listing 52 in Chapter 12). It does not use the DeleteFile function, but relies instead on SHFileOperation. This lets us send the file to the trash can, if the user so desires, just by specifying the FOF_ALLOWUNDO flag. Furthermore, SHFileOperation takes care of the additional confirmation dialog, if any – it follows the user’s Explorer settings.
+Document::deleteFile physically deletes the file, and removes the file name from the MRU list as well (see Listing 52 in Chapter&nbsp;12). It does not use the DeleteFile function, but relies instead on SHFileOperation. This lets us send the file to the trash can, if the user so desires, just by specifying the FOF_ALLOWUNDO flag. Furthermore, SHFileOperation takes care of the additional confirmation dialog, if any – it follows the user’s Explorer settings.
 
 One of the parameters to SHFileOperation is a pointer to an SHFILEOPSTRUCT. The pFrom member of this structure is actually a list of null-terminated file names; the list itself must be doubly null-terminated. (This is an error-prone approach to an API – it did burn me, at least. QED.)
 

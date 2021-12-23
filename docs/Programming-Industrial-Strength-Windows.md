@@ -14,30 +14,30 @@ _I've uploaded all the chapters, adapting the  formatting as best I could. Forma
 
 ## Part I : Background
 
-[Chapter 1 — The Road Ahead](Chapter-1-The-Road-Ahead.md)\
-[Chapter 2 — Designing for Users](Chapter-2-Designing-for-Users.md)\
-[Chapter 3 — Designing for Programmers](Chapter-3-Designing-for-Programmers.md)\
-[Chapter 4 — The Mechanics of Subclassing](Chapter-4-The-Mechanics-of-Subclassing.md)
+[Chapter&nbsp;1 — The Road Ahead](Chapter-1-The-Road-Ahead.md)\
+[Chapter&nbsp;2 — Designing for Users](Chapter-2-Designing-for-Users.md)\
+[Chapter&nbsp;3 — Designing for Programmers](Chapter-3-Designing-for-Programmers.md)\
+[Chapter&nbsp;4 — The Mechanics of Subclassing](Chapter-4-The-Mechanics-of-Subclassing.md)
 
 ## Part II: Foreground
 
-[Chapter 5 — The Bare Bones](Chapter-5-The-Bare-Bones.md)\
-[Chapter 6 — Exceptions](Chapter-6-Exceptions.md)\
-[Chapter 7 — Off the Launch Pad](Chapter-7-Off-the-Launch-Pad.md)\
-[Chapter 8 — Child Windows](Chapter-8-Child-Windows.md)\
-[Chapter 9 — The Main Window](Chapter-9-The-Main-Window.md)\
-[Chapter 10 — Customization and Persistence](Chapter-10-Customization-and-Persistence.md)\
-[Chapter 11 — Wait a Moment](Chapter-11-Wait-a-Moment.md)\
-[Chapter 12 — File I/O](Chapter-12-File-I-O.md)\
-[Chapter 13 — About Dialogs](Chapter-13-About-Dialogs.md)\
-[Chapter 14 — File Management](Chapter-14-File-Management.md)\
-[Chapter 15 — Search and Replace](Chapter-15-Search-and-Replace.md)\
-[Chapter 16 — Printing](Chapter-16-Printing.md)\
-[Chapter 17 — Changing Fonts](Chapter-17-Changing-Fonts.md)\
-[Chapter 18 — Going Abroad](Chapter-18-Going-Abroad.md)\
-[Chapter 19 — Meanwhile, in the Background](Chapter-19-Meanwhile-in-the-Background.md)\
-[Chapter 20 — Setup, and Down Again](Chapter-20-Setup-and-Down-Again.md)\
-[Chapter 21 — The End of the Road](Chapter-21-The-End-of-the-Road.md)
+[Chapter&nbsp;5 — The Bare Bones](Chapter-5-The-Bare-Bones.md)\
+[Chapter&nbsp;6 — Exceptions](Chapter-6-Exceptions.md)\
+[Chapter&nbsp;7 — Off the Launch Pad](Chapter-7-Off-the-Launch-Pad.md)\
+[Chapter&nbsp;8 — Child Windows](Chapter-8-Child-Windows.md)\
+[Chapter&nbsp;9 — The Main Window](Chapter-9-The-Main-Window.md)\
+[Chapter&nbsp;10 — Customization and Persistence](Chapter-10-Customization-and-Persistence.md)\
+[Chapter&nbsp;11 — Wait a Moment](Chapter-11-Wait-a-Moment.md)\
+[Chapter&nbsp;12 — File I/O](Chapter-12-File-I-O.md)\
+[Chapter&nbsp;13 — About Dialogs](Chapter-13-About-Dialogs.md)\
+[Chapter&nbsp;14 — File Management](Chapter-14-File-Management.md)\
+[Chapter&nbsp;15 — Search and Replace](Chapter-15-Search-and-Replace.md)\
+[Chapter&nbsp;16 — Printing](Chapter-16-Printing.md)\
+[Chapter&nbsp;17 — Changing Fonts](Chapter-17-Changing-Fonts.md)\
+[Chapter&nbsp;18 — Going Abroad](Chapter-18-Going-Abroad.md)\
+[Chapter&nbsp;19 — Meanwhile, in the Background](Chapter-19-Meanwhile-in-the-Background.md)\
+[Chapter&nbsp;20 — Setup, and Down Again](Chapter-20-Setup-and-Down-Again.md)\
+[Chapter&nbsp;21 — The End of the Road](Chapter-21-The-End-of-the-Road.md)
 
 [Appendix A — TextEdit Command Index](Appendix-A-TextEdit-Command-Index.md)\
 [Appendix B — Bibliography and Recommended Reading](Appendix-B-Bibliography-and-Recommended-Reading.md)

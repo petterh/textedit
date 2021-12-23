@@ -2,7 +2,7 @@
 
 [« Previous: Search and Replace](Chapter-15-Search-and-Replace.md) — [Next: Changing Fonts »](Chapter-17-Changing-Fonts.md)
 
-# Chapter 16: Printing
+# Chapter&nbsp;16: Printing
 
 In one sense, printing under Windows is similar to displaying stuff on the screen: You use GDI commands to draw text and graphics in a display context. You don’t obtain (or release) a printer display context the same way you obtain a screen display context, but once you have that display context, you use the same familiar set of GDI functions.
 

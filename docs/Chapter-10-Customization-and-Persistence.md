@@ -2,7 +2,7 @@
 
 [« Previous: The Main Window](Chapter-9-The-Main-Window.md) — [Next: Wait a Moment »](Chapter-11-Wait-a-Moment.md)
 
-# Chapter 10: Customization and Persistence
+# Chapter&nbsp;10: Customization and Persistence
 
 Customization and persistence are closely linked. If J. Random Hacker’s customization settings aren’t preserved between sessions, she’ll lose interest very quickly.
 
@@ -26,7 +26,7 @@ Why? Among the standard schemes in Figure&nbsp;12 are some with high contrast an
 
 ## Noticing the Changes
 
-Clicking the OK button in Figure&nbsp;12 may result in two different messages being broadcast: WM_SETTINGCHANGE and WM_SYSCOLORCHANGE. TextEdit has message handlers for these in mainwnd.cpp (as shown in Chapter 9).
+Clicking the OK button in Figure&nbsp;12 may result in two different messages being broadcast: WM_SETTINGCHANGE and WM_SYSCOLORCHANGE. TextEdit has message handlers for these in mainwnd.cpp (as shown in Chapter&nbsp;9).
 
 The onSysColorChange function just passes the message on to all the child windows. They don’t all need it, but all the common controls do, including tool bars and status bars. Passing it to everybody is the simplest way of ensuring that those that need it get it.
 
@@ -68,7 +68,7 @@ If you click the OK button in Figure&nbsp;13, the Explorer broadcasts a WM_SETTI
 
 ## Regional Settings
 
-The ramifications of the Regional Settings Control Panel applet will be explored in more depth in Chapter 18; I’ll just mention them here: TextEdit formats numbers and displays dates in the File Properties dialog, and measurements make an appearance in the Page Setup dialog.
+The ramifications of the Regional Settings Control Panel applet will be explored in more depth in Chapter&nbsp;18; I’ll just mention them here: TextEdit formats numbers and displays dates in the File Properties dialog, and measurements make an appearance in the Page Setup dialog.
 
 ## Customizing TextEdit
 
@@ -305,7 +305,7 @@ To share or not to share, that is the question. Perhaps it would’ve been bette
 
 ## RunOnce
 
-So far, we’ve discussed TextEdit’s use of the registry for persistent storage of user information. TextEdit also uses the registry to store setup information; this is discussed in Chapter 20. In this section, we’ll look at how TextEdit instances are persistent across logoff and shutdown.
+So far, we’ve discussed TextEdit’s use of the registry for persistent storage of user information. TextEdit also uses the registry to store setup information; this is discussed in Chapter&nbsp;20. In this section, we’ll look at how TextEdit instances are persistent across logoff and shutdown.
 
 Windows knows about this registry key:
 {{
@@ -375,7 +375,7 @@ Persistence as such is a Good Thing. Whether the TextEdit approach to persistenc
 
 If you control the file format yourself, per-file information belongs in the file itself. The Microsoft Office products do this, and for any file format based on OLE structured storage, inserting additional streams would seem a reasonable option. Some standardized file formats also allows for this kind of thing – the Tagged Image File Format (TIFF), for example, is extensible, and allows you to store anything you like in the same file as the image(s). Other TIFF readers will simply ignore your private tags; unfortunately, other TIFF editors will most likely obliterate them.
 
-TextEdit deals with plain text files. This is the most general file format imaginable, with no internal structure at all except line breaks. Storing per-file information as part of the text stream is out of the question. There is another possibility, though, in file systems that support extended attributes or contents of some sort. The NTFS file system, for example, supports named streams in addition to the unnamed default stream (what you’d normally think of as the file’s contents). It’s an attractive option to use named streams to store window positions, older versions, change log, and so forth. Care must be taken to preserve such information when saving files; this is discussed briefly in the “Saving” section of Chapter 12.
+TextEdit deals with plain text files. This is the most general file format imaginable, with no internal structure at all except line breaks. Storing per-file information as part of the text stream is out of the question. There is another possibility, though, in file systems that support extended attributes or contents of some sort. The NTFS file system, for example, supports named streams in addition to the unnamed default stream (what you’d normally think of as the file’s contents). It’s an attractive option to use named streams to store window positions, older versions, change log, and so forth. Care must be taken to preserve such information when saving files; this is discussed briefly in the “Saving” section of Chapter&nbsp;12.
 
 TextEdit must work even with the FAT file system, which means that per-file information must be stored outside the document file. Again, the possibilities are many – flat files, INI files, databases – anything you like, really. The major advantage of using the registry is that we can easily store both common and per-user information. The major disadvantage is that we cannot store anything we like in the registry. Storing backup copies of a file’s contents would be a bad idea, for example; TextEdit handles files up to 2GB, and stuffing megabyte upon megabyte into the registry wouldn’t do it any good. The registry is not a database, and best suited to relatively small, controlled amounts of information.
 

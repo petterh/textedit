@@ -2,9 +2,9 @@
 
 [« Previous: File I/O](Chapter-12-File-I-O.md) — [Next: File Management »](Chapter-14-File-Management.md)
 
-# Chapter 13: About Dialogs
+# Chapter&nbsp;13: About Dialogs
 
-The logical continuation of the TextEdit story is really Chapter 13, File Management. That subject, however, involves dialog boxes. Let’s ease into the subject of dialog boxes through some easy ones, such as the About dialog and the Options dialog (and defer file management to [Chapter 14](Chapter-14-File-Management.md)).
+The logical continuation of the TextEdit story is really Chapter&nbsp;13, File Management. That subject, however, involves dialog boxes. Let’s ease into the subject of dialog boxes through some easy ones, such as the About dialog and the Options dialog (and defer file management to [Chapter&nbsp;14](Chapter-14-File-Management.md)).
 
 ## What is a Dialog Box, Anyway?
 
@@ -35,7 +35,7 @@ Controls – windows that are meant to be children of dialog windows – must fu
 
 ## The Dialog class
 
-The Dialog class is a dialog-wrapping subclass of the Window class described in Chapter 4. But a dialog function is not the same as a window function. DefDlgProc is the default window function for dialogs; DefDlgProc, in turn, calls the user-defined dialog function (if and when it feels like it). The dialog function returns a BOOL rather than an LRESULT; the DlgProc and dispatchDlgMsg virtual methods are in charge of this.
+The Dialog class is a dialog-wrapping subclass of the Window class described in Chapter&nbsp;4. But a dialog function is not the same as a window function. DefDlgProc is the default window function for dialogs; DefDlgProc, in turn, calls the user-defined dialog function (if and when it feels like it). The dialog function returns a BOOL rather than an LRESULT; the DlgProc and dispatchDlgMsg virtual methods are in charge of this.
 
 To handle dialog commands, you should override onDlgCommand rather than onCommand. The first is called from the dialog function, while the latter is called from the window function. Given that the Dialog class subclasses DefDlgProc by virtue of being a Window, you can override anything you like, of course, but do keep this difference in mind.
 
@@ -144,7 +144,7 @@ The BUTTON window class supports a style bit named BS_DEFPUSHBUTTON. This draws 
 
 The black border is just a visual clue; the functional aspects of the default button come from the dialog window class and the IsDialogMessage function. The dialog box has its own concept of a default button, which you can set using the DM_SETDEFID message. When a dialog receives this message, it may send WM_GETDLGCODE and BM_SETSTYLE to the indicated button as well as to the current default button.
 
-This is less straightforward than it sounds. In particular, problems abound whenever you dynamically enable and disable buttons, or when you change the default button. Consider this code fragment from the onDlgCommand method of PropertiesDlg (described in Chapter 14):
+This is less straightforward than it sounds. In particular, problems abound whenever you dynamically enable and disable buttons, or when you change the default button. Consider this code fragment from the onDlgCommand method of PropertiesDlg (described in Chapter&nbsp;14):
 
 ```C++
 switch ( id ) {
@@ -169,6 +169,6 @@ What happens if we disable the IDC_APPLY button, but omit the gotoDlgItem( IDOK 
 
 One of the possible flag parameters to the MessageBox function is MB_NOFOCUS, which ensures that no button has the initial focus. This is useful if you want to protect the MessageBox against accidental dismissal. To create a really obnoxious dialog box, let it respond to all WM_COMMAND messages with SetFocus( 0 ).
 
-The most complex examples of dialog interaction that TextEdit has to offer are the Find and Replace dialogs, described in [Chapter 15](Chapter-15-Search-and-Replace.md).
+The most complex examples of dialog interaction that TextEdit has to offer are the Find and Replace dialogs, described in [Chapter&nbsp;15](Chapter-15-Search-and-Replace.md).
 
 [Sidebar: Default Buttons and Multi-line Edit](Sidebar-Default-Buttons-and-Multi-line-Edit.md)

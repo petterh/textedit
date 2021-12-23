@@ -2,7 +2,7 @@
 
 [« Previous: Introduction](Introduction.md) — [Next: Designing for Users »](Chapter-2-Designing-for-Users.md)
 
-# Chapter 1: The Road Ahead
+# Chapter&nbsp;1: The Road Ahead
 
 This book is the story of a Windows application. I considered several alternatives for this application, and eventually landed on TextEdit, a Notepad replacement with a twist in the usability department. This chapter explains the how, the why and the wherefore.
 
@@ -16,7 +16,7 @@ I’ve seen Notepad described as “anemic,” and that is apt. For example:
 
 * Notepad has no toolbar and no status bar
 * Notepad remembers little from one moment to the next -- the only thing that comes to mind is your chosen font
-* Notepad has no integration with standard input (see Chapter 7)
+* Notepad has no integration with standard input (see Chapter&nbsp;7)
 * Notepad lacks standard accelerator keys. (This has been fixed in the Notepad version delivered with Windows 98 and Windows 2000, but it sure didn’t used to be)
 * Notepad uses the standard edit control, a widget that’s really beginning to show its age.
 
@@ -65,7 +65,7 @@ One project I was once involved in had a window with a list of items on the left
 
 The Windows Explorer is somewhat more clever about updating its right-hand pane. It doesn’t do this immediately after an item (folder) has been selected in the left-hand list, but (I think) starts a timer instead. The right-hand pane is updated when this timer fires. The timer is reset whenever the left-hand selection changes, and its interval is long enough that you can use the keyboard auto-repeat to arrow down the list without being held up by repeated updates.
 
-The TextEdit Open File dialog uses this technique to update the preview window, as we shall see in Chapter 14.
+The TextEdit Open File dialog uses this technique to update the preview window, as we shall see in Chapter&nbsp;14.
 
 * Visual Basic is easy to learn and to use.
 

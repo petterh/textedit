@@ -2,7 +2,7 @@
 
 [« Previous: Changing Fonts](Chapter-17-Changing-Fonts.md) — [Next: Meanwhile, in the Background »](Chapter-19-Meanwhile-in-the-Background.md)
 
-# Chapter 18: Going Abroad
+# Chapter&nbsp;18: Going Abroad
 
 Even though I’m running the US edition of Windows NT 4 Workstation, I can nevertheless create files with Greek names; my file system is NTFS, so file names are Unicode. The question is – can I display those file names? The answer is – it depends.
 

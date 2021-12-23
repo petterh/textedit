@@ -2,7 +2,7 @@
 
 [« Previous: The Mechanics of Subclassing](Chapter-4-The-Mechanics-of-Subclassing.md) — [Next: Exceptions »](Chapter-6-Exceptions.md)
 
-# Chapter 5: The Bare Bones
+# Chapter&nbsp;5: The Bare Bones
 
 This chapter gives you an overview of the TextEdit application architecture – the skeleton of the application, if you like. But first, this message from our sponsors:
 
@@ -40,7 +40,7 @@ Furthermore, the Toolbar class contains TextEdit-specific code that makes it non
 
 The core of TextEdit consists of one window function and three C++ classes. There is a large supporting cast as well, but these are the stars:
 
-* The main window function (mainWndProc in mainwnd.cpp), which is described in Chapter 9
+* The main window function (mainWndProc in mainwnd.cpp), which is described in Chapter&nbsp;9
 * The Editor class, which lives in symbiosis with MainWndProc and is the nearest thing TextEdit has to a global application object
 * The Document class, which handles disk files
 * The AbstractEditWnd class, which wraps the editing widget.
@@ -51,7 +51,7 @@ The relationships between these are shown in Figure&nbsp;5.
 
 **Figure&nbsp;5: Application Architecture Overview.**
 
-The main entry point is defined in **WinMain.cpp**. The **WinMain** function does a small amount of initialization, then sets up the outermost try/catch block of the exception handling onion (a vegetable I shall get back to in the next chapter). Next, it calls the init function, whose job it is to interpret any arguments, possibly produce a Document object and an Editor object, and possibly to create the main window. (The init function is discussed in detail in Chapter 7.) Once the main window is up and running, control is transferred to TextEdit’s main message loop, buried in the **Editor:run** method.
+The main entry point is defined in **WinMain.cpp**. The **WinMain** function does a small amount of initialization, then sets up the outermost try/catch block of the exception handling onion (a vegetable I shall get back to in the next chapter). Next, it calls the init function, whose job it is to interpret any arguments, possibly produce a Document object and an Editor object, and possibly to create the main window. (The init function is discussed in detail in Chapter&nbsp;7.) Once the main window is up and running, control is transferred to TextEdit’s main message loop, buried in the **Editor:run** method.
 
 [WinMain.cpp](../WinMain.cpp)
 
@@ -98,7 +98,7 @@ Mapping all the parts of TextEdit to corresponding parts of the human body in a 
 
 The Editor class lives in close symbiosis with the main window function, and implements much of what the user perceives as commands in the TextEdit user interface. There’s openFile and printFile, save, restoreOriginal and searchAndSelect, and many more. The searchAndSelect function is a front-end to the actual searching machinery, implemented in AbstractEditWnd and its descendants. Searching is a surprisingly complex business; the Editor::searchAndSelect method, for example, is mainly concerned with the not-as-trivial-as-you-would-have-thought task of figuring out whether or not the file was wrapped while searching.
 
-I’ll get back to search and replace in Chapter 15.
+I’ll get back to search and replace in Chapter&nbsp;15.
 
 The Editor class also implements the EditListener interface, mentioned at the start of this chapter. This means that it receives notifications from the edit control, and is thus responsible for updating the line/column indicator on the status bar, for example.
 
@@ -112,9 +112,9 @@ The Document class is in charge of disk files. It reads and writes files, it mov
 
 To facilitate the Abandon Changes command, we need to store the original contents of the file. This is also the responsibility of the Document class.
 
-Chapter 10 explains how to create persistent variables using the registry. The Document class allows you to create persistent variables on a per-document basis.
+Chapter&nbsp;10 explains how to create persistent variables using the registry. The Document class allows you to create persistent variables on a per-document basis.
 
-I’ll return to the implementation of the Document class in Chapter 12.
+I’ll return to the implementation of the Document class in Chapter&nbsp;12.
 
 [Document.h](../Document.h)
 

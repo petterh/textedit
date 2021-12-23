@@ -2,11 +2,11 @@
 
 [« Previous: Printing](Chapter-16-Printing.md) — [Next: Going Abroad »](Chapter-18-Going-Abroad.md)
 
-# Chapter 17: Changing Fonts
+# Chapter&nbsp;17: Changing Fonts
 
 TextEdit allows the user to select one proportional font and one fixed-width font. These selections are global across all instances of TextEdit, but it is quick to switch between proportional and fixed-width font, and the selected font is retained for individual files and for file types.
 
-The TextEdit Font Dialog is an example of implementation problems overpowering user requirements, a problem I talked about in Chapter 2. My original plan called for a single dialog for font customization, looking something like Figure&nbsp;35:
+The TextEdit Font Dialog is an example of implementation problems overpowering user requirements, a problem I talked about in Chapter&nbsp;2. My original plan called for a single dialog for font customization, looking something like Figure&nbsp;35:
 
 ![Font Dialog](Chapter-17-Changing-Fonts-Figure35.bmp)
 
@@ -81,7 +81,7 @@ BEGIN
 END
 ```
 
-Note the script selection combo box in the dialog. This means that we must save the lfCharSet member of the LOGFONT structure between invocations. With Unicode, this doesn’t matter, but with ANSI, it does. More about this in Chapter 18.
+Note the script selection combo box in the dialog. This means that we must save the lfCharSet member of the LOGFONT structure between invocations. With Unicode, this doesn’t matter, but with ANSI, it does. More about this in Chapter&nbsp;18.
 
 All TextEdit must do to show the font selection dialog is call the selectFont function, passing a pointer to a LOGFONT structure. If the user uses OK to dismiss the dialog, any changes to the font will be reflected in the LOGFONT structure upon return.
 

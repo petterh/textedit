@@ -2,7 +2,7 @@
 
 [« Previous: Meanwhile, in the Background](Chapter-19-Meanwhile-in-the-Background.md) — [Next: The End of the Road »](Chapter-21-The-End-of-the-Road.md)
 
-# Chapter 20: Setup, and Down Again
+# Chapter&nbsp;20: Setup, and Down Again
 
 Installation and setup of TextEdit is less of a chore than installation and setup of, say, Microsoft Office. TextEdit is distributed as a single file, rather than umpteen zillion. Still, a number of issues must be dealt with, including version control, registry entries, shortcuts to the application and how to uninstall cleanly.
 
@@ -142,7 +142,7 @@ While setup does check the versions of the executables involved, it does no such
 
 ## Mea Culpa…
 
-In Chapter 2, I told you that the best user interfaces are invisible. Anything that does not contribute towards the user’s goals is, therefore, suspect.
+In Chapter&nbsp;2, I told you that the best user interfaces are invisible. Anything that does not contribute towards the user’s goals is, therefore, suspect.
 
 In truth, SetupDlg violates that principle. I admit it; I dragged in those animations because they are cool, not because they serve any essential purpose. If these operations really were time-consuming, it would be a different matter, but they’re not – I had to put in extra Sleep statements to give the user time to see the animations!
 

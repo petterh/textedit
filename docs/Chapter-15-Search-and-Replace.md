@@ -2,7 +2,7 @@
 
 [« Previous: File Management](Chapter-14-File-Management.md) — [Next: Printing »](Chapter-16-Printing.md)
 
-# Chapter 15: Search and Replace
+# Chapter&nbsp;15: Search and Replace
 
 Windows offers a common dialog for straight searching and for search and replace. I have a strong dislike for this dialog. I dislike the modelessness of it, I dislike the simple edit field for the search string, and I dislike the dim-witted way it paints a default border on a disabled button (see Figure&nbsp;22). Above all, I dislike the API, which is an invitation to spread related functionality around all the dark corners of a program.
 
@@ -34,7 +34,7 @@ One solution to this user interface glitch would be to catch the Enter key and a
 
 Actually implementing this functionality was more of a puzzle than I had expected, chiefly because the combobox notifications are peculiar. The CBN_DROPDOWN notification is sent before the list opens, while its opposite number, the CBN_CLOSEUP notification, is sent after the list has closed. In other words, the list is always closed at notification time. This precludes an elegant, common solution for all cases, in which I wouldn’t care whether the message was CBN_DROPDOWN or CBN_CLOSEUP. Instead, I would just ask the combobox by sending it the CB_GETDROPPEDSTATE message (using the ComboBox_GetDroppedState macro from windowsx.h).
 
-At this point, it occurred to me that this problem is not specific to FindDlg, but completely general. I removed all this code from FindDlg, and instead used global subclassing (as described in [Chapter 4](Chapter-4-The-Mechanics-of-Subclassing.md)) to subclass the dialog window class. The result is in dlgSubclasser.cpp, and has a couple of interesting properties:
+At this point, it occurred to me that this problem is not specific to FindDlg, but completely general. I removed all this code from FindDlg, and instead used global subclassing (as described in [Chapter&nbsp;4](Chapter-4-The-Mechanics-of-Subclassing.md)) to subclass the dialog window class. The result is in dlgSubclasser.cpp, and has a couple of interesting properties:
 
 * No header file is associated with this file; it has, in a manner of speaking, no interface. The mere existence of the dlgSubclasser static variable is enough to initialize the subclassing.
 * The subclassing works on all dialogs within TextEdit, including “system” dialogs such as printer properties.
@@ -57,7 +57,7 @@ As for all other dialogs, Dialog::dispatchDlgMsg takes care of the initial place
 
 FindDlg has a memory. We’ve already seen how it remembers its position; it also remembers the ten most recently used search strings, the status of the “Match whole word only” and “Match case” checkboxes, and the search direction (up or down).
 
-The list of recently used search strings is read from the registry by the loadStrings method and saved to the registry by the saveStrings method. This “historical combobox” has a close kinship with the list of recently used files discussed in [Chapter 10](Chapter-10-Customization-and-Persistence.md), but is actually simpler in its implementation. How so? In addition to being a GUI component, a drop-down list box (or any list box, for that matter) can also be thought of as part of your data structure. Not only can you put strings into it; you can get them out again as well. Here’s another design principle:
+The list of recently used search strings is read from the registry by the loadStrings method and saved to the registry by the saveStrings method. This “historical combobox” has a close kinship with the list of recently used files discussed in [Chapter&nbsp;10](Chapter-10-Customization-and-Persistence.md), but is actually simpler in its implementation. How so? In addition to being a GUI component, a drop-down list box (or any list box, for that matter) can also be thought of as part of your data structure. Not only can you put strings into it; you can get them out again as well. Here’s another design principle:
 
 “**Don’t duplicate data storage.**”
 

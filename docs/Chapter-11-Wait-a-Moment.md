@@ -2,7 +2,7 @@
 
 [« Previous: Customization and Persistence](Chapter-10-Customization-and-Persistence.md) — [Next: File I/O »](Chapter-12-File-I-O.md)
 
-# Chapter 11: Wait a Moment
+# Chapter&nbsp;11: Wait a Moment
 
 Before I get into potentially time-consuming operations such as File I/O and printing, I’ll digress into the subject of the wait cursor. I’ll describe a problem with the typical implementation, and discuss enhancements to the standard hourglass.
 
@@ -16,7 +16,7 @@ const HCURSOR hcurSave = SetCursor( LoadCursor( 0, IDC_WAIT ) );
 SetCursor( hcurSave );
 ```
 
-SetCursor returns a handle to the previous cursor; this suggests such usage. Most Windows books I’ve seen do the above, and the MFC class CWaitCursor encapsulates the same functionality.  
+SetCursor returns a handle to the previous cursor; this suggests such usage. Most Windows books I’ve seen do the above, and the MFC class CWaitCursor encapsulates the same functionality.
 
 What’s wrong with this picture? Consider the following sequence of events:
 
@@ -24,7 +24,7 @@ What’s wrong with this picture? Consider the following sequence of events:
 * During the operation, the user moves the mouse, and the hourglass cursor comes to rest on a split bar.
 * The operation ends, and the cursor is changed back to an arrow.
 
-The problem is that the cursor isn't supposed to be an arrow when it’s on the split bar. As soon as the mouse pointer is moved, things will be dandy again, but in the meantime, there’s this tiny crack in the smooth surface of illusion we strive to create for our users.  
+The problem is that the cursor isn't supposed to be an arrow when it’s on the split bar. As soon as the mouse pointer is moved, things will be dandy again, but in the meantime, there’s this tiny crack in the smooth surface of illusion we strive to create for our users.
 
 This particular crack is easily mended, and the result is actually simpler to use than the standard example above. What we need is a function analogous to InvalidateRect that operates on the cursor. We no longer need to save the existing cursor, and the above example becomes:
 
@@ -114,7 +114,7 @@ PRIVATE inline HCURSOR loadCursor( LPCTSTR pszName ) {
 */
 inline void WaitCursor::_attachThreadInput( bool bAttach ) const {
 
-  verify( AttachThreadInput( 
+  verify( AttachThreadInput(
      GetCurrentThreadId(), _dwParentThreadId, bAttach ) );
 }
 
@@ -133,7 +133,7 @@ void WaitCursor::_threadFunc( void ) const {
 
 DWORD WINAPI WaitCursor::_threadFunc( void *pData ) {
 
-  const WaitCursor *pThis = 
+  const WaitCursor *pThis =
      reinterpret_cast< WaitCursor * >( pData );
   assert( isGoodConstPtr( pThis ) );
   pThis->_threadFunc();
@@ -177,13 +177,13 @@ HCURSOR WaitCursor::_loadCursor( LPCTSTR pszName ) {
      strCursor += pszName;
 
      PATHNAME szWindowsDirectory = { 0 };
-     const int nChars = GetWindowsDirectory( 
+     const int nChars = GetWindowsDirectory(
         szWindowsDirectory, dim( szWindowsDirectory ) );
      if ( 0 < nChars && nChars < dim( szWindowsDirectory ) ) {
-        // We now have something like C:\\WINNT or C:\\WINDOWS. 
+        // We now have something like C:\\WINNT or C:\\WINDOWS.
         // There's a terminating \\ if it is a root directory.
         PATHNAME szCursorPath = { 0 };
-        _tmakepath( szCursorPath, 0, szWindowsDirectory, 
+        _tmakepath( szCursorPath, 0, szWindowsDirectory,
            strCursor.c_str() , 0 );
 
         // Sample szCursorPath = "C:\\WINNT\\Cursors\\load.ani"
@@ -204,7 +204,7 @@ WaitCursor::WaitCursor( LPCTSTR pszName, int nTimeIn )
   , _hEvent( 0 )
   , _dwParentThreadId( GetCurrentThreadId() )
   , _hcur( _loadCursor( pszName ) )
-  , _isFromFile( 0 != _hcur ) 
+  , _isFromFile( 0 != _hcur )
 {
   if ( !_isFromFile ) {
      _hcur = LoadCursor( 0, IDC_WAIT ); // NOTE: LR_SHARED is undoc!

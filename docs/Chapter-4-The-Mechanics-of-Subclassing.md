@@ -2,7 +2,7 @@
 
 [« Previous: Designing for Programmers](Chapter-3-Designing-for-Programmers.md) — [Next: The Bare Bones »](Chapter-5-The-Bare-Bones.md)
 
-# Chapter 4: The Mechanics of Subclassing
+# Chapter&nbsp;4: The Mechanics of Subclassing
 
 In an ideal world, at least for C++ programmers, Windows would be C++ throughout. Subclassing a window would be a matter of subclassing a C++ class, creating a window would be a matter of invoking the window’s constructor, message handling would be a matter of overriding virtual functions.
 

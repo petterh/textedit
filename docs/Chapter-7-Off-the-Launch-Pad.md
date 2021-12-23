@@ -2,9 +2,9 @@
 
 [« Previous: Exceptions](Chapter-6-Exceptions.md) — [Next: Child Windows »](Chapter-8-Child-Windows.md)
 
-# Chapter 7: Off the Launch Pad
+# Chapter&nbsp;7: Off the Launch Pad
 
-As with skinning a cat, there is more than one way to start a Win32 app­li­ca­t­ion. There are GUI ways and there are console ways; some of them have to do with shell integration, a con­cept that is also touched in [Chapter 20, Setup](Chapter-20-Setup-and-Down-Again.md).
+As with skinning a cat, there is more than one way to start a Win32 app­li­ca­t­ion. There are GUI ways and there are console ways; some of them have to do with shell integration, a con­cept that is also touched in [Chapter&nbsp;20, Setup](Chapter-20-Setup-and-Down-Again.md).
 
 **Listing 24: Exploring the Command Line**
 
@@ -188,7 +188,7 @@ Neverthe­less, one par­ti­cu­lar kind of file does require spe­cial treat­
 
 This is all handled by the func­tion resolveName (see resolveName.cpp); its job is to figure out if the file is a link, and if so, to figure out which file the link references. All files pass through resolveName; the special handling is hidden on the inside. The in­side, by the way, uses the IShellLink COM in­ter­fa­ce to resolve the link.
 
-Resolving links is an issue with the Open common dia­log as well. This dia­log is dis­cus­sed in Chapter 14, [File Management](Chapter-14-File-Management.md).
+Resolving links is an issue with the Open common dia­log as well. This dia­log is dis­cus­sed in Chapter&nbsp;14, [File Management](Chapter-14-File-Management.md).
 
 Consider the following command line:
 
@@ -221,7 +221,7 @@ What if a file doesn’t exist? There are several ways to handle this, and Notep
 Since some users will be unfamiliar with wildcards, the mes­sage box explains the con­cept. The explanation is not so intrusive as to bother power users.
 From there, the choices are as above, except that creating the file as named is obviously out of the question.
 
-Even if a file does exist, there are potential problems. The user may have limited access rights, or per­haps the file has been locked by a dif­fe­rent app­li­ca­tion. [Chapter 12 (File I/O](Chapter-12-File-I-O.md)) deals with this.
+Even if a file does exist, there are potential problems. The user may have limited access rights, or per­haps the file has been locked by a dif­fe­rent app­li­ca­tion. [Chapter&nbsp;12 (File I/O](Chapter-12-File-I-O.md)) deals with this.
 
 ## Read Only
 

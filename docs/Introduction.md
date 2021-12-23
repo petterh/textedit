@@ -22,7 +22,7 @@ This kind of glitch is not necessarily dishonorable; we all make mistakes. But l
 
 Creating excellent software is difficult. No matter how hard you try, you will sometimes fail. The only sin is lack of trying; you owe it to yourself, as well as your users, to give it your best shot.
 
-Usability comes in chunks of different granularity. On a high level, you have issues such as the overall conceptual model – the Unified File Model versus the current standard model, for example, which I’ll cover in Chapter 2. On a lower level, you have issues such as where to place the widgets in a dialog box and how to label them. This level gets the most attention in Web design, for example. On the detail level, you have a huge number of issues concerning efficient “flow,” i.e., smooth interaction. This concept is virtually unknown in Web design. Using default buttons correctly is one aspect of this that I’ll return to several times throughout the book.
+Usability comes in chunks of different granularity. On a high level, you have issues such as the overall conceptual model – the Unified File Model versus the current standard model, for example, which I’ll cover in Chapter&nbsp;2. On a lower level, you have issues such as where to place the widgets in a dialog box and how to label them. This level gets the most attention in Web design, for example. On the detail level, you have a huge number of issues concerning efficient “flow,” i.e., smooth interaction. This concept is virtually unknown in Web design. Using default buttons correctly is one aspect of this that I’ll return to several times throughout the book.
 
 Efficient flow of information ought to receive much more consideration during software design, but the current state of the World Wide Web is proof that it rarely receives any consideration at all. Does the user really need that animated deodorant on his desk, or would your development effort be better spent ensuring that the user can get his work done efficiently and effectively, or that his data are never lost?
 
@@ -34,7 +34,7 @@ If you are a programmer with some knowledge of C++ and some Windows experience, 
 
 It does, however, cover many aspects of application design, target platform and implementation language selection, usability issues and a myriad implementation details, including error handling and recovery, installation, internationalization and registry handling. Along the way, I touch upon enough programming issues to make this book interesting for programmers at many levels of experience. Both neophytes and experienced Windows programmers will find things of interest here.
 
-The book also has something to offer MFC programmers and even Visual Basic programmers – in short, all programmers working with Windows. [Chapter 1](Chapter-1-The-Road-Ahead.md) discusses the relationship between several approaches to Windows programming.
+The book also has something to offer MFC programmers and even Visual Basic programmers – in short, all programmers working with Windows. [Chapter&nbsp;1](Chapter-1-The-Road-Ahead.md) discusses the relationship between several approaches to Windows programming.
 
 This is not a reference manual, but more of an exploratory trip into nooks and crannies of the Windows API. If I don’t exhaustively explain everything found along the way, you will at least learn something about what’s out there, and can find the reference material for yourself – in the material included with your compiler or on the Net.
 
